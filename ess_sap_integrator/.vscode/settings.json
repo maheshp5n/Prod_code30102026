@@ -1,0 +1,18 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "D:\\exicom_ess_crm_code\\supporting_files\\jars_sapintegrators\\activation.jar",
+        "D:\\exicom_ess_crm_code\\supporting_files\\jars_sapintegrators\\java-mail-1.4.4.jar",
+        "D:\\exicom_ess_crm_code\\supporting_files\\jars_sapintegrators\\mssql-jdbc-6.1.0.jre8.jar",
+        "D:\\exicom_ess_crm_code\\supporting_files\\jars_sapintegrators\\log4j-api-2.17.1.jar",
+        "D:\\exicom_ess_crm_code\\supporting_files\\jars_sapintegrators\\log4j-core-2.17.1.jar",
+        "D:\\exicom_ess_crm_code\\supporting_files\\jars_sapintegrators\\mysql-connector-java-8.0.16.jar"
+    ],
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-1.8",
+            "path": "C:\\Program Files\\Java\\jdk1.8.0_281",
+            "default": true
+        }
+    ]
+}

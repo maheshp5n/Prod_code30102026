@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-header">
+        Steps details
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Step Id</th>
+                        <th scope="col">Step name</th>
+                        <th scope="col">Step number</th>
+                        <th scope="col">Assigned To</th>
+                        <th scope="col">On Approved Action</th>
+                        <th scope="col">On Reject Action</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of stapesdata">
+                        <td>
+                            {{item.id}}
+                        </td>
+                        <td>
+                            {{item.stape_name}}
+                        </td>
+                        <td>
+                            {{item.stape_number}}
+                        </td>
+                        <td>
+                            {{item.assigned_to}}
+                        </td>
+                        <td>
+                           <code>{{item.on_approve}}</code> 
+                        </td>
+                        <td>
+                            <code>{{item.on_reject}}</code>
+                        </td>
+                        <td><button (click)="openEditModal(item)" class="btn btn-sm btn-outline-danger"><em class="fa fa-edit"></em> Edit</button> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+<div class="modal fade" bsModal #stapes="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" (onShow)="stapedata.nweapprovalstapes=true" (onHide)="stapedata.nweapprovalstapes=false" role="dialog">
+    <div class="mpanel" *ngIf="stapedata">
+        <div class="mpanel-header">
+            <label>Edit Approval Steps ({{stapedata.stape_name}})</label>
+            <button (click)="stapes.hide()" class="cls-btn"><em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bat-approval-stapecred (onCancel)="stapes.hide()" (onSave)="onModalSaev()" [approvaldetails]="aprdata" [stapedata]="stapedata"></app-bat-approval-stapecred>
+        </div>
+    </div>
+</div>
+

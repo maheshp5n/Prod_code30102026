@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>
+		4.0.0
+	</modelVersion>
+	<parent>
+		<groupId>
+			org.springframework.boot
+		</groupId>
+		<artifactId>
+			spring-boot-starter-parent
+		</artifactId>
+		<version>
+			2.1.6.RELEASE
+		</version>
+		<relativePath />
+		<!-- lookup parent from repository -->
+	</parent>
+	<groupId>
+		com.pratikshat
+	</groupId>
+	<artifactId>
+		Exicom-crm
+	</artifactId>
+	<version>
+		0.4.61.3
+	</version>
+	<name>
+		Exicom
+	</name>
+	<description>
+		Exicom Power Solution CRM
+	</description>
+	<properties>
+		<java.version>
+			1.8
+		</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+	<!-- 	 <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions> -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<!-- <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions> -->
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.9			</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.1.0.jre8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.9.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.9.2</version>
+</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.15 </version>
+		</dependency>
+		<dependency>
+			<groupId>
+				javax.mail
+			</groupId>
+			<artifactId>
+				mail
+			</artifactId>
+			<version>
+				1.4.5
+			</version>
+		</dependency>
+		<dependency>
+			<groupId>
+				com.google.firebase
+			</groupId>
+			<artifactId>
+				firebase-admin
+			</artifactId>
+			<version>
+				6.8.1
+			</version>
+		</dependency>
+		<dependency>
+			<groupId>
+				org.springframework.integration
+			</groupId>
+			<artifactId>
+				spring-integration-ftp
+			</artifactId>
+			<version>
+				5.5.7
+			</version>
+		</dependency>
+		<!-- Undertow dependency -->
+<!-- 		
+		<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>io.undertow</groupId>
+		<artifactId>undertow-core</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>io.undertow</groupId>
+		<artifactId>undertow-servlet</artifactId>
+		
+		</dependency> -->
+		
+	</dependencies>
+	<build>
+		<!-- <resources>
+			<resource>
+				<directory>
+					src/main/resources
+				</directory>
+				<filtering>
+					true
+				</filtering>
+				<excludes>
+					<exclude>
+						**/*.properties
+					</exclude>
+				</excludes>
+			</resource>
+		</resources> -->
+		<plugins>
+			<plugin>
+				<groupId>
+					org.springframework.boot
+				</groupId>
+				<artifactId>
+					spring-boot-maven-plugin
+				</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

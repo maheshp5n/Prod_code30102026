@@ -1,0 +1,208 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+              <table style="width: 100%;">
+                <tr>
+                  <td rowspan="2" style="width: 35px;">
+                    <img src="assets/images/Sites.png" alt="Site"
+                      style="height: auto;width:100%;background-color: rgb(248, 109, 90);" title="Site">
+                  </td>
+                  <td style="padding-left:5px;"> <span>Item To Be Approve</span></td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-4 text-center">
+            
+            </div>
+            <!-- Approve reject button -->
+            <div class="col-md-4 text-right">
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="MULTIPLEAPPROVAL.show()">
+                    <em class="tik-mark"></em>
+                    Approve/Reject
+                </button>
+            </div>
+     </div>
+    </div>
+
+     <div class="card-body">
+      <div class="row">
+          <div class="col-md-3">
+             
+              <input type="text" placeholder="Request number" [(ngModel)]="advanceSearch.request_number" class="form-control">
+          </div>
+          <div class="col-md-3">
+              <select class="form-control" [(ngModel)]="advanceSearch.type_name" >
+                  <option value="">Select Type</option>
+                  <option value="BtExpenseManagement">BT EXPENSE MANAGEMENT</option>
+                  <option value="BtServiceAppointment">BT SERVICE APPOINTMENT</option>
+                  <option value="BtVendorInvoiceDetails">BT VENDOR INVOICE DETAILS</option>
+                  <option value="BtWccDetails">BT WCC DETAILS</option>
+                  <option value="BtCustomerWcc">BT Customer WCC</option>
+                  
+              </select>
+          </div>
+          <div class="col-md-3">
+              <select class="form-control" [(ngModel)]="advanceSearch.action">
+                  <option value="">Select Action</option>
+                  <option value="Approve">Approve</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Reject">Reject</option>
+              </select>
+              
+          </div>
+      </div>
+      <br>
+      <div class="row">
+       
+          <div class="col-md-3">
+              <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+              placeholder="Date from"[(ngModel)]="advanceSearch.date_from" onkeydown="return false"
+              [maxDate]="today">
+            <span class="fa fa-calendar errspan"></span>
+          </div>
+          <div class="col-md-3">
+              <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+              placeholder="Date to" [(ngModel)]="advanceSearch.date_to" onkeydown="return false"
+              [maxDate]="today">
+            <span class="fa fa-calendar errspan"></span>
+          </div>
+          <div class="col-md-3">
+              <button type="button" (click)="getSearchResult()" class="btn btn-outline-info btn-md"><em class="fa fa-search"></em> Search</button>
+              <button type="button" (click)="resetSearchResult()" class="btn btn-outline-info btn-md">Reset</button>
+          </div>
+      </div>
+      <hr>
+  </div> 
+    <div class="card-body">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        <!-- checkbox -->
+                        <input type="checkbox" [(ngModel)]="globalcheckbox" [checked]="globalcheckbox"
+                            (change)="globalcheckboxchange()"> </th>
+                    <th scope="col"  title="S.No.">S.No</th>
+                    <th scope="col" *ngFor="let t of headers" (click)="changeOrder(t.id)">
+                        {{t.name}}
+                        <em *ngIf="t.sortby=='asc'" class="fa fa-arrow-down"></em>
+                        <em *ngIf="t.sortby=='desc'" class="fa fa-arrow-up"></em>
+                    </th>
+
+                </tr>
+
+            </thead>   
+              <!--checkbox multi  -->
+            <tbody >
+                <tr *ngFor="let item of pendingdata.content;let i=index;">
+                    <td>
+                        <input *ngIf="!item.status" type="checkbox" [(ngModel)]="item.selected" [checked]="item.selected">
+                    </td>
+                    <td>{{(pageoptions.page*pageoptions.size)+i+1}}
+                    </td>
+                    <td><a href="#{{item.object_url}}?_c=f">{{item.object_manual_id}}</a></td>
+                    <td>{{item.object_lable_name}}</td>
+                    <td>{{item.assigned_date|date:'dd-MMM-yy'}}</td>
+                    <td>{{item.initiator_email_id}}</td>
+                    <td>
+                        <button *ngIf="!item.status" class="btn btn-outline-primary btn-sm" (mouseenter)="mousegya(item)" (click)="openApprovalWindow()"> Approve/Reject</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4" style="text-align:left">
+          Showing Page {{pendingdata.number+1}} &nbsp;of&nbsp;{{pendingdata.totalPages}}&nbsp;Total Count={{pendingdata.totalElements}}
+        </div>
+      <div class="col-sm-4">
+        <div style="text-align: center" *ngIf="!(pendingdata.first && pendingdata.last) ">
+          <a [routerLink]="['/bat_itemtobeapproved']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!pendingdata.first"                                                                                    
+                        [queryParams]="{page:pendingdata.number-1,size:pendingdata.size,sort:pendingdata.sortname,orders:pageoptions.sortby}">
+                        &lt;
+                    </a>
+                    <a [routerLink]="['/bat_itemtobeapproved']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        [queryParams]="{page:pendingdata.number,size:pendingdata.size,sort:pendingdata.sortname,orders:pageoptions.sortorder}">
+                        {{pendingdata.number+1}}
+                    </a>
+                    <a [routerLink]="['/bat_itemtobeapproved']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!pendingdata.last"
+                        [queryParams]="{page:pendingdata.number+1,size:pendingdata.size,sort:pendingdata.sortname,orders:pageoptions.sortorder}">
+                        &gt;
+                    </a>
+        </div>
+      </div>
+
+      
+      <div class="col-sm-4" style="text-align: right;">
+        <div class="row">
+         <div class="col-md-6"></div>
+          <div  *ngIf="!(pendingdata.first && pendingdata.last) "  class="col-md-6">
+            <input type="text"[(ngModel)]="pagenumber" (keypress)="onlyNumbers($event)" placeholder="Enter Page"size="8" autocomplete="off">
+             <button (click)=jumpPage(pagenumber)>Go</button>
+           </div>
+        </div>
+     </div>
+      </div>
+</div>
+<div *ngIf="aprdata" class="modal fade" bsModal #approvalModule="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" (onShow)="aprdata.openwindow=true" (onHide)="aprdata.openwindow=false" role="dialog">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label>Approval For {{aprdata.menual_id}}</label>
+            <button (click)="approvalModule.hide()" class="cls-btn"><em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bat-tobeapproved-dr *ngIf="aprdata.openwindow" [approvaldata]="aprdata" (onSaveDetails)="onApprovalDone()" (onCancel)="approvalModule.hide()"></app-bat-tobeapproved-dr>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- multiapproval chng -->
+
+<div class="modal fade" bsModal #MULTIPLEAPPROVAL="bs-modal" (onHide)="cancelApproval()" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Multiple Approval
+                </h4>
+                <button type="button" (click)="MULTIPLEAPPROVAL.hide()" class="close pull-right">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="card card-body" style="padding:0px;">
+                    <textarea rows="5" cols="5" [(ngModel)]="approvalRequest.remark">
+
+                    </textarea>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="form-control" [(ngModel)]="approvalRequest.action">
+                            <option value="select" disabled>--Select--</option>
+                            <option value="Approved">Approve</option>
+                            <option value="Rejected">Reject</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button type="button" (click)="updateMultipleAction()" class="btn btn-info"><em
+                                class="fa fa-save"></em> Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

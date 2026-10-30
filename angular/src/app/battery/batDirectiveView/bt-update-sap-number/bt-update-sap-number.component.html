@@ -1,0 +1,60 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: visible;">
+    
+
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body" >
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required ">
+                <div class="control-label">
+                SAP Number
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="sapreq.sapNumber">&nbsp;
+              
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required ">
+                <div class="control-label">
+                     Date
+                </div>
+                <input class="form-control" onkeydown="return false"bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                   [(ngModel)]="sapreq.sapDate" [dateCustomClasses]="dateCustomClasses" placeholder="Pick Date" autocomplete="off">&nbsp;
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+          
+           
+          
+
+
+
+    </div>
+   
+
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelSAP()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="updateSAP()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">Update
+          &nbsp; successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+
+    </div>
+</div> -->

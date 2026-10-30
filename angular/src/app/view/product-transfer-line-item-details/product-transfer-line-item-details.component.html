@@ -1,0 +1,239 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header" style="background-color:rgb(240, 240, 240)">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img  src="assets/images/product_request_line_item_120.png" alt=""
+                            style="width: 100%;height: auto;background-color: #88C651" title="Product Request Line Items" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Product Transfer Line Item</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;">{{locationProductRequestResponse.productTransferLineItemManualId}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <!-- <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div class="btn-group" style="padding: 10px;">
+                    <button *ngIf="rights('PriceBook','edit')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="createpricebookModelshow(priceResponse)"> Edit </button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <!-- <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a>
+                    </li> -->
+                </ul>
+                <br>
+                <hr style="margin-top: 14px;">
+
+                <div *ngIf="vDetails" class="panel-body">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small>Product Transfer Item ID</small></td>
+                                        <td class="wrappable"> {{locationProductRequestResponse.productTransferItemId}}</td>
+                                    </tr>
+                                    <tr>
+                                            <td class="wrappable"> <small>Part Code</small> </td>
+                                            <td><a [routerLink]="['/products', locationProductRequestResponse.productPartCode]"
+                                                [routerLinkActive]="'active'">{{locationProductRequestResponse.productPartCode}}</a></td>
+                                        </tr>
+
+                                   <tr>
+                                       <td class="wrappable"> <small>Product Type</small></td>
+                                       <td class="wrappable">{{locationProductRequestResponse.productType}}</td>
+                                   </tr>
+                                 
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small> Recieved</small></td>
+                                        <td class="wrappable">{{locationProductRequestResponse.received}}</td>
+                                    </tr>
+                                    <tr>
+                                            <td class="wrappable"> <small>Product Line Item Serial Number</small></td>
+                                            <td class="wrappable">{{locationProductRequestResponse.productLineItemSerialNumber}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wrappable"> <small>Product Line Item Description</small></td>
+                                            <td class="wrappable">{{locationProductRequestResponse.productPartDescription}}</td>
+                                        </tr>
+                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                
+
+
+                    <button type="button" (click)="sysInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left">
+                        <i style="font-size: 18px;" [ngClass]="sysinfoDisplay.angleIcon"></i> System
+                        Information</button>
+                    <div *ngIf="sysinfoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                                            <td class="wrappable">
+                                                <a [routerLink]="['/createuser',locationProductRequestResponse.createdByEmailId]">{{locationProductRequestResponse.createdByFirstName}}&nbsp;{{locationProductRequestResponse.createdByMiddleName}}&nbsp;{{locationProductRequestResponse.createdByLastName}}</a>,{{locationProductRequestResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </td>
+                                        
+                                        <!-- <td class="text-right edit-inactive"> </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small>Last Modified</small></td>
+                                            <td class="wrappable">
+                                                <a  [routerLink]="['/createuser',locationProductRequestResponse.modifiedByEmailId]">{{locationProductRequestResponse.modifiedByFirstName}}&nbsp;{{locationProductRequestResponse.modifiedByMiddleName}}&nbsp;{{locationProductRequestResponse.modifiedByLastName}}</a>,{{locationProductRequestResponse.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!-- <div *ngIf="!vDetails">
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/pricebook_120.png"
+                                            style="width: 24px;height: 24px;background-color: #c273f6"></td>
+                                    <td>
+                                        <a>&nbsp;Price Book Entries({{totalEntries }})</a>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <button *ngIf="rights('PriceBook','edit')" class="btn btn-outline-info btn-sm " type="button"
+                                         (click)="addProductsModelshow()" style="text-align: right;">Add Products</button>
+                                    </td>
+                                </tr>
+
+
+                            </table>
+                        </div>
+
+                        <div class="card-body" *ngIf="entrieTable.length>0"style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                            <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                                <div class="table-responsive mobile" style="height: 100%;">
+                                    <table class="table table-sm table-condensed">
+                                        <thead style="background-color:rgb(248, 245, 245)">
+                                            <tr>
+                                                <th class="text-left">S.No.</th>
+                                                <th  title="Part Code">Part Code</th>
+                                                <th  title="List Price"> List Price</th>
+                                                <th>Product Type</th>
+                                                <th title="Discription">Description</th>
+                                                <th class="text-left" title="Active">Active</th>
+                                                <th style="width:50px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let ent of entrieTable; let i = index; ">
+                                                <td data-line="S.No" class="mhide wrappable">{{serialNumber+i+1}}</td>
+                                                <td data-line="Part Code" class="wrappable"><a href="#"routerLink="/pricebookproducts/{{ent.partCode}}">{{ent.partCode}}</a></td>
+                                                <td data-line="List Price" class="wrappable">{{ent.listPrice}}</td>
+                                                <td data-line="Product Type" class="wrappable">{{ent.productType}}</td>
+                                                <td data-line="Description" class="wrappable">{{ent.description}}</td>
+                                                <td data-line="Active" > <input type="checkbox"[(ngModel)]="ent.active" value="ent.active" disabled></td>
+                                                <td data-line="Action" class="mhide" style="width:50px;">
+                                                        <div class="btn-group" dropdown>
+                                                          <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                                        
+                                                          <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                                                            <li role="menuitem">
+                                                              <a class="dropdown-item" (click)="editpriceEntriesModelshow(ent)">Edit </a>
+                                                            </li>
+                                                          </ul>
+                                                        </div>
+                                                      </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div style="text-align: center" *ngIf="!(first && last)">
+                                        <a id="prbtn" class="previous round" href="" [class.disabled]="first"
+                                            *ngIf="!first" (click)="setPagePrevious($event)"
+                                            [ngClass]="{'active':page}">
+                                            &#8249;
+                                        </a>
+
+                                        <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                                            [ngClass]="{'active':i==page}">
+                                            {{page+1}}
+                                        </a>
+
+                                        <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                                            (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                                            &#8250;
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Product Added successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>
+
+

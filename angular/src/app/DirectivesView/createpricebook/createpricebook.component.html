@@ -1,0 +1,74 @@
+<div class="panel panel-default"  style="max-height: 75vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center"> Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 form-group required">
+        <div class="control-label">
+          Name
+        </div>
+       
+      </div>
+      <div class="col-md-8 col-sm-8 form-group ">
+        <input *ngIf="_isEditMode == false" class="form-control" type="text" [(ngModel)]="priceResp.name">
+         <input *ngIf="_isEditMode == true" type="text" class="form-control" [(ngModel)]="priceResp.name" disabled>
+
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <div class="control-label"> Description</div>
+      </div>
+      <div class="col-md-8 col-sm-8 form-group">
+        <textarea class="form-control" [(ngModel)]="priceResp.description"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <div class="control-label">
+          Active
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8 form-group">
+        <input type="checkbox" [(ngModel)]="priceResp.active">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <div class="control-label">
+          Is Stand Price Book
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8">
+        <input type="checkbox" [(ngModel)]="priceResp.standardPriceBook">
+      </div>
+    </div>
+  </div>
+<!-- system infromation panel from here ...shagufta -->
+
+</div>
+<div class="row">
+    <div class="col-md-12 text-right">
+      <button type="button" (click)="cancelPricebookData()" class="btn btn-default"> <i class="fa fa-remove"></i>
+        Cancel</button>&nbsp;
+      <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+      <button type="button" (click)="postPricebook()" class="btn btn-primary"><i class="fa fa-save"></i> save </button>
+    </div>
+  </div>
+
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Price book ( <a href="#" routerLink="/pricebook/{{IdTamp}}" activateRout="active">{{PricebookNameTamp}}</a>)
+      &nbsp;Created successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

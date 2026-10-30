@@ -1,0 +1,184 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Job Card
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                            class="fa fa-sort-down"></i>&nbsp;
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" *dropdownMenu role="menu"
+                                    aria-labelledby="button-disabled-item" style="width: 115%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                                        Views</li>
+                                    <li role="menuitem" *ngFor="let m of dropdownsList">
+                                        <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>&nbsp;
+                            <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                                (click)="pinFilter()">
+                                <em class="fa fa-thumb-tack"></em>
+                            </button>
+                            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                                <em class="fa fa-thumb-tack"></em>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-8 text-right">
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Job Card Number"
+                    [(ngModel)]="advancesearch.jobCardManualId">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Service Order Number"
+                    [(ngModel)]="advancesearch.serviceOrderManualId">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Customer Challan Number"
+                    [(ngModel)]="advancesearch.customerChallanNumber">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Assign To" [(ngModel)]="advancesearch.assignTo">
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Asset Serial Number" [(ngModel)]="advancesearch.serailNo">
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="searchJC()"><em
+                        class="fa fa-search"></em>
+                    Search</button>
+                <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()">
+                    Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="wrap">
+            <table class="head">
+                <thead>
+                    <tr>
+                        <th title="S.No.">S.No.</th>
+                        <th scope="col" *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+                            title="{{tb.name}}">
+                            <div class="row">
+                                <div class="col sm-10"> {{tb.name}}</div>
+                                <div class="col sm-2"> <i [ngClass]="tb.icon"></i></div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="inner_table" *ngIf="btJobCardList.content.length>0">
+                <table>
+                    <tbody>
+                        <tr *ngFor="let item of btJobCardList.content;let i=index;">
+                            <td>{{serialNumber+i+1}}.</td>
+                            <td>
+                                <a [routerLink]="['/bat_job_card',item.jobCardId]"
+                                    [routerLinkActive]="'active'">{{item.jobCardManualId}}</a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_serviceorder',item.serviceOrderId]"
+                                    [routerLinkActive]="'active'">
+                                    {{item.serviceOrderManualId}}
+                                </a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_brc_case',item.brcCaseId]" [routerLinkActive]="'active'">
+                                    {{item.brcCaseManualId}}
+                                </a>
+                            </td>
+                            <td>
+                                {{item.serviceOrderItemSerialNumber}}
+                            </td>
+                            <td>
+                                {{item.brcCaseStage}}
+                            </td>
+                            <td>
+                                {{item.brcCaseChallanNumber}}
+                            </td>
+                            <td>
+                                {{item.assignedToFirstName}} {{item.assignedToMiddleName}} {{item.assignedToLastName}}
+                            </td>
+                            <td>
+                                {{item.jobCardCreatedDate|date
+                                :'dd-MM-yyyy HH:mm:ss'}}
+                            </td>
+                            <td>{{item.jobCardLastModifiedDate |date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="btJobCardList.content.length==0">
+                <div class="row">
+                    <div class="col-md-4"> </div>
+                    <div class="col-md-4">
+                        <p>Data Not Found</p>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{btJobCardList.number+1}} &nbsp;of&nbsp;{{btJobCardList.totalPages}}&nbsp;Total
+                Count={{btJobCardList.totalElements}}
+            </div>
+            <div class="col-sm-4" style="text-align: center" *ngIf="!(btJobCardList.first && btJobCardList.last) ">
+                <a [routerLink]="['/bat_job_card']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                    *ngIf="!btJobCardList.first"
+                    [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:btJobCardList.number-1,size:dropdownSelected.size}">
+                    &lt;
+                </a>
+                <a [routerLink]="['/bat_job_card']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                    [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:btJobCardList.number,size:dropdownSelected.size}">
+                    {{btJobCardList.number+1}}
+                </a>
+                <a [routerLink]="['/bat_job_card']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                    *ngIf="!(btJobCardList.number+1== btJobCardList.totalPages)"
+                    [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:btJobCardList.number+1,size:dropdownSelected.size}">
+                    &gt;
+                </a>
+            </div>
+            <div class="col-sm-4" style="text-align: right;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6" *ngIf="!(btJobCardList.first && btJobCardList.last) ">
+                        <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8" autocomplete="off"
+                            (keypress)="onlyNumbers($event)">
+                        <button (click)=jumpPage(pagenumber)>Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

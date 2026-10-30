@@ -1,0 +1,224 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" >
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <img alt="Dashboard" src="assets/images/account_120.png"
+                style="height: auto;width:100%;background-color: rgb(198, 172, 240);" title="Accounts">
+            </td>
+            <td style="padding-left: 5px;"><span>Accounts</span></td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                    <span dropdownToggle type="button" style="background-color: white;">
+                        <span style="font: size 15px;padding-right: 5px;">
+                            &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                class="fa fa-sort-down"></i>&nbsp;
+                        </span>
+                    </span>
+                    <ul class="dropdown-menu" *dropdownMenu role="menu"
+                        aria-labelledby="button-disabled-item" style="width: 115%;">
+                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                            VIEWS</li>
+                        <li role="menuitem" *ngFor="let m of dropdownsList">
+                            <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                        </li>
+                    </ul>
+                </div>&nbsp;
+                <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+               
+            </td>
+        </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"  autocomplete="off"> -->
+          <!-- <button type="button" (click)="searchContent.boxstate=!searchContent.boxstate"><em class="fa fa-search"></em> Search</button> -->
+        </div>
+      <div class="col-sm-4 col-md-4 text-right">
+        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+          <button *ngIf="rights('Accounts','create')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="showCreateAccountView()"><i class="fa fa-plus"></i> New </button>
+        </div>
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Account Name" [(ngModel)]="searchContent.name">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Sap Customer Number" [(ngModel)]="searchContent.sap_number">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Zip Postal Code" [(ngModel)]="searchContent.pincode">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Address" [(ngModel)]="searchContent.address">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Email Id" [(ngModel)]="searchContent.email">
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="searchContent.type">
+          <option value="">Select Type</option>
+              <option value="Vendor">Vendor</option>
+              <option value="Customer">Customer</option>
+              <option value="Self">Self</option>
+      </select>
+        <!-- <input type="text" class="form-control" placeholder="Type" [(ngModel)]="searchContent.type"> -->
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="State" [(ngModel)]="searchContent.state">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Phone Number" [(ngModel)]="searchContent.phone">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-3">
+        <button type="button" class="btn btn-outline-info btn-md" (click)="advanceSearch()"><em class="fa fa-search"></em> Search</button>
+        <button type="button" class="btn btn-outline-info btn-md" (click)="resetSearch()">Reset</button>
+        <!-- <button type="button" class="btn btn-md btn-outline-info" (click)="exportToExcel()"><em class="fa fa-excel"></em>  Export To Excel</button> -->
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <!--  -->
+  <div class="card-body" style="padding: 0px;background-color: white;">
+    <div class="wrap">
+      <table #datatable class="head">
+        <thead style="background-color:rgb(248, 245, 245)">
+          <th  title="S.No">S.No</th>
+          <th scope="col" *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+          title="{{tb.name}}">
+          <div class="row">
+            <div class="col-10">{{tb.name}}</div>
+            <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+           </div>
+         </th>
+          <th>Action</th>
+        </thead>
+      </table>
+      <div class="inner_table" *ngIf="accountList.content.length>0">
+        <table #datatable >
+       
+          <tbody>
+            <tr *ngFor="let a of accountList.content  | searchfilt: searchitem; let i = index">
+              <td  data-line="S.No" >{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+              <td data-line="Account Name"><a href="#"
+                  routerLink="/accounts/{{a.sampAccountNumber}}">{{a.accountName}}</a></td>
+              <td data-line="SAP Customer Number" > {{a.sampAccountNumber}} </td>
+              <td data-line="Parent Customer" > {{a.parentCustomerName}} </td>
+              <td data-line=" Billing State/Province" > {{a.billingSteateName}} </td>
+              <td data-line="Phone" > {{a.phone}} </td>
+              <td data-line="Account Owner" > <a href="#" routerLink="/createuser/{{a.accountOwner}}">
+                  {{a.accountOwnerFirstName}} {{a.accountOwnerMiddleName}} {{a.accountOwnerLastName}}</a> </td>
+              <td data-line="Created Date"> {{a.createdDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+  
+              <td data-line="" >
+                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                  <!-- <button type="button" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-disabled-item"> -->
+                  <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                    <li role="menuitem" *ngIf="rights('Accounts','edit')">
+                      <a class="dropdown-item" (click)="createEditModelshow(a)">Edit </a>
+                    </li>
+                    <!-- <li role="menuitem" *ngIf="rights('Accounts','delete')">
+                      <a class="dropdown-item">Delete</a>
+                    </li> -->
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            <div style="height: 65px;"></div>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="accountList.content.length==0">
+        <div class="row">
+           <div class="col-md-4"> </div>
+           <div class="col-md-4"> <p>Data Not Found</p></div>
+        <div class="col-md-4"></div>
+        </div>
+      
+    </div>
+   
+    </div>
+    <div class="row">
+      <div class="col-sm-4" style="text-align:left">
+       
+        Showing Page {{accountList.number+1}} &nbsp;of&nbsp;{{accountList.totalPages}}&nbsp;Total Count={{accountList.totalElements}}
+       </div>
+       <div class="col-sm-4" style="text-align: center" *ngIf="!(accountList.first && accountList.last) ">
+        <a [routerLink]="['/accounts']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                      *ngIf="!accountList.first"
+                      [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:accountList.number-1,size:dropdownSelected.size}">
+                      &lt;
+                  </a>
+                  <a [routerLink]="['/accounts']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                      [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:accountList.number,size:dropdownSelected.size}">
+                      {{accountList.number+1}}
+                  </a>
+                  <a [routerLink]="['/accounts']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                      *ngIf="!(accountList.number+1== accountList.totalPages)"
+                      [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:accountList.number+1,size:dropdownSelected.size}">
+                      &gt;
+                  </a>
+      </div>
+      <div class="col-sm-4" style="text-align: right;">
+        <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+                <button (click)=jumpPage(pagenumber)>Go</button>
+        </div>
+        </div>
+               </div>
+    </div>
+   
+  </div>
+</div>
+<div class="modal fade" bsModal #createAcountModel="bs-modal" (onShow)="isModelShow=true" (onHide)="isModelShow=false"
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-createaccount *ngIf="isModelShow" [isEditMode]="isEditMode" [editAccountData]="createAccount"
+          (onAccountCreated)="onAccountCreated($event)" (onCancle)="cancelData()"></app-createaccount>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

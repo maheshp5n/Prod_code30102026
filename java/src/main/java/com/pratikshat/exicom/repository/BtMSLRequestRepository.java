@@ -1,0 +1,33 @@
+package com.pratikshat.exicom.repository;
+
+import java.util.Map;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.pratikshat.exicom.entity.BtMSLRequest;
+import com.pratikshat.exicom.entity.MSLRequest;
+import com.pratikshat.exicom.model.response.MSLRequestResponse;
+
+@Repository
+public interface BtMSLRequestRepository extends JpaRepository<BtMSLRequest, Long> {
+
+	
+	
+	@Query(value ="SELECT ra.id,ra.manual_id AS manualId,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `ownerByName`,ra.`owner_email_id` AS OwnerEmailId,loc.`location_name` AS locationName,loc.`location_id` AS locationId,st.`status_id` AS statusId,st.`status_name` AS statusName,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,'')) AS `createdBy`,ra.`created_by_email_id` AS createdByEmailId,ra.`created_date` AS createdDate,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `modifiedBy`,ra.`last_modified_by_email_id` AS modifiedByEmailId,ra.`last_modified_date` AS modifiedDate FROM btmslrequest ra LEFT JOIN employee_details onr ON ra.owner_email_id=onr.email_id LEFT JOIN location loc ON ra.warehouse_location_id=loc.location_id LEFT JOIN mslrequest_status st ON ra.msl_request_status_status_id=st.status_id where ra.id=:id",nativeQuery = true)
+	Map<String, Object> getById(@Param("id")long id);
+	Map<String, Object> findById(long id);
+	@Query(value ="select ra.id,ra.manual_id AS manualId,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `ownerByName`,ra.`owner_email_id` AS OwnerEmailId,loc.`location_name` AS locationName,loc.`location_id` AS locationId,st.`status_id` AS statusId,st.`status_name` AS statusName,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,'')) AS `createdBy`,ra.`created_by_email_id` AS createdByEmailId,ra.`created_date` AS createdDate,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `modifiedBy`,ra.`last_modified_by_email_id` AS modifiedByEmailId,ra.`last_modified_date` AS modifiedDate FROM btmslrequest ra LEFT JOIN employee_details onr ON ra.owner_email_id=onr.email_id LEFT JOIN location loc ON ra.warehouse_location_id=loc.location_id LEFT JOIN mslrequest_status st ON ra.msl_request_status_status_id=st.status_id join btmslrequest_recent_visit rvi on rvi.bt_msl_id=ra.id where rvi.visitor_id=:emailId",nativeQuery = true,countQuery ="select count(*) FROM btmslrequest ra LEFT JOIN employee_details onr ON ra.owner_email_id=onr.email_id LEFT JOIN location loc ON ra.warehouse_location_id=loc.location_id LEFT JOIN mslrequest_status st ON ra.msl_request_status_status_id=st.status_id join btmslrequest_recent_visit rvi on rvi.bt_msl_id=ra.id where rvi.visitor_id=:emailId")
+	Page<Map<String, Object>> getRecentVisit(@Param("emailId")String emailId,Pageable page);
+	@Query(value ="select ra.id,ra.manual_id AS manualId,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `ownerByName`,ra.`owner_email_id` AS OwnerEmailId,loc.`location_name` AS locationName,loc.`location_id` AS locationId,st.`status_id` AS statusId,st.`status_name` AS statusName,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,'')) AS `createdBy`,ra.`created_by_email_id` AS createdByEmailId,ra.`created_date` AS createdDate,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `modifiedBy`,ra.`last_modified_by_email_id` AS modifiedByEmailId,ra.`last_modified_date` AS modifiedDate FROM btmslrequest ra LEFT JOIN employee_details onr ON ra.owner_email_id=onr.email_id LEFT JOIN location loc ON ra.warehouse_location_id=loc.location_id LEFT JOIN mslrequest_status st ON ra.msl_request_status_status_id=st.status_id where onr.email_id=:emailId",nativeQuery = true,countQuery ="select count(*) FROM btmslrequest ra LEFT JOIN employee_details onr ON ra.owner_email_id=onr.email_id LEFT JOIN location loc ON ra.warehouse_location_id=loc.location_id LEFT JOIN mslrequest_status st ON ra.msl_request_status_status_id=st.status_id where onr.email_id=:emailId")
+	Page<Map<String, Object>> getByOwner(@Param("emailId")String emailId,Pageable page);
+	@Query(value ="select item.`id` as id,pr.`id` as btProductId,pr.`manual_id` as btProductManualId,pr.`product_description` as productDescription,item.`newmsl` as newMSL ,item.`newhsl` as newHSL,item.`oldhsl` as oldHSL,item.`oldmsl` as oldMSL,item.`remarks` as remarks from btmslrequest_item item join btmslrequest msl on item.bt_msl_request_id=msl.id join bt_products pr on item.bt_products_id=pr.id where msl.id=:mslid",nativeQuery = true,countQuery ="select count(*) from btmslrequest_item item join btmslrequest msl on item.bt_msl_request_id=msl.id join bt_products pr on item.bt_products_id=pr.id where msl.id=:mslid")
+	Page<Map<String, Object>> getReleatedItemByRequestId(@Param("mslid")long id,Pageable apge);
+	
+	@Query(value ="select ra.id,ra.manual_id AS manualId,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `ownerByName`,ra.`owner_email_id` AS OwnerEmailId,loc.`location_name` AS locationName,loc.`location_id` AS locationId,st.`status_id` AS statusId,st.`status_name` AS statusName,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,'')) AS `createdBy`,ra.`created_by_email_id` AS createdByEmailId,ra.`created_date` AS createdDate,CONCAT(IFNULL(onr.`first_name`,' '),IFNULL(onr.`middle_name`,' '),IFNULL(onr.`last_name`,''))AS `modifiedBy`,ra.`last_modified_by_email_id` AS modifiedByEmailId,ra.`last_modified_date` AS modifiedDate FROM btmslrequest ra LEFT JOIN employee_details onr ON ra.owner_email_id=onr.email_id LEFT JOIN location loc ON ra.warehouse_location_id=loc.location_id LEFT JOIN mslrequest_status st ON ra.msl_request_status_status_id=st.status_id where st.status_name=:status",nativeQuery = true,countQuery ="select count(*) FROM btmslrequest ra LEFT JOIN employee_details onr ON ra.owner_email_id=onr.email_id LEFT JOIN location loc ON ra.warehouse_location_id=loc.location_id LEFT JOIN mslrequest_status st ON ra.msl_request_status_status_id=st.status_id where st.status_name=:status")
+	Page<Map<String, Object>> getByStatus(@Param("status")String status,Pageable page);
+}

@@ -1,0 +1,196 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Name
+                </div>
+                <input *ngIf="_isEditMode==false" type="text" class="form-control">
+                <input *ngIf="_isEditMode==true" type="text" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Case
+                    <select class="form-control ">
+                        <option value='0' disabled>--Select--</option>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Equipment Part Code
+                </div>
+                <select class="form-control ">
+                    <option value='0' disabled>--Select--</option>
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Equipment Serial No
+                </div>
+                <select class="form-control ">
+                    <option value='0' disabled>--Select--</option>
+                    <option></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Date of Site Visit(From)
+                </div>
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" autocomplete="off">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Date of Site Visit(To)
+                </div>
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" autocomplete="off">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Fault Observed
+                </div>
+                <textarea type="text" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Corrective Actions
+                </div>
+                <textarea type="text" class="form-control" rows="2"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Punch Points(Customer)
+                </div>
+                <textarea type="text" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Punch Points(Exicom)
+                </div>
+                <textarea type="text" class="form-control" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Customer Rep Name
+                </div>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Customer Rep Mobile
+                </div>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Status
+                </div>
+                <select class="form-control ">
+                    <option value='0' >--None--</option>
+                    <option *ngFor="let o of status" value="o.statusId">{{o.statusName}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Remark
+                </div>
+                <textarea type="text" class="form-control" rows="2"></textarea>
+            </div>
+        </div> 
+    </div>
+
+    <div *ngIf="_isEditMode==true" class="panel-heading">
+            <span class="text-center" style="font-weight: bold">Signature Panel</span>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+            <div class="row">
+                    <div class="col-md-6 col-sm-6 form-group ">
+                        <div class="control-label">
+                            Exicom Rep Signature
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-6 col-sm-6 form-group ">
+                        <div class="control-label">
+                                Customer Rep Signature                            
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+    </div>
+
+    <div *ngIf="_isEditMode==true" class="panel-heading">
+            <span class="text-center" style="font-weight: bold">System Information</span>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+            <div class="row">
+                    <div class="col-md-6 col-sm-6 form-group ">
+                        <div class="control-label">
+                                Created By
+                        </div>
+                        <div></div>
+                        <!-- <input type="text" class="form-control"> -->
+                    </div>
+                    <div class="col-md-6 col-sm-6 form-group ">
+                        <div class="control-label">
+                                Last Modified By                            
+                        </div>
+                        <div></div>
+                        <!-- <input type="text" class="form-control"> -->
+                    </div>
+                </div>
+    </div>
+
+
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+                Cancel</button>&nbsp;
+            <button type="button" (click)="postCreateAccount()" class="btn btn-primary"><i class="fa fa-save"></i>
+                Save
+            </button>
+        </div>
+    </div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+</div>

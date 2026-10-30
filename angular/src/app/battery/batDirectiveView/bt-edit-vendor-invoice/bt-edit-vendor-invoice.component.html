@@ -1,0 +1,60 @@
+<div class="card">
+    <div class="card-header">
+        Information
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4  form-group required">
+                <div class="control-label">
+                    Vendor Invoice Number
+                </div>
+                <input type="text" class="form-control" placeholder="Vendor Invoice number"
+                    [(ngModel)]="_invoiceRequest.vendorInvoiceNumber">
+            </div>
+            <div class="col-md-4 form-group">
+                <div class="control-label">
+                    Vendor Invoice Date
+                </div>
+                <!-- <input type="text" class="form-control" placeholder="Vendor invoice date" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today"  
+                    [(ngModel)]="_invoiceRequest.vendorInvoiceDate" autocomplete="off"> -->
+
+                    <input  class="form-control"onkeydown="return false" [(ngModel)]="_invoiceRequest.vendorInvoiceDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                    name="venInvDate"  [maxDate]="today" [dateCustomClasses]="dateCustomClasses" placeholder="Pick Date" autocomplete="off" (change)="datepickss(_invoiceRequest.vendorInvoiceDate)">&nbsp;
+                  <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-4 form-group required">
+                <div class="control-label">
+                    Invoice Copy
+                </div>
+                <input type="file" class="form-control" (change)="fileChangeEvent($event)">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4 form-group ">
+                <div class="control-label">
+                    WCC
+                </div>
+                <select class="form-control" [(ngModel)]="_invoiceRequest.wccId" [disabled]="true">
+                    <option [value]="invoice.wccDetailsId">{{invoice.wccManualId}}</option>
+                    <option *ngFor="let w of pendingWcc" [value]="w.wccId">{{w.manuId}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <div class="control-label">
+                    Remarks
+                </div>
+                <textarea [(ngModel)]="_invoiceRequest.remarks" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" (click)="updateVendorInvoice()"><em class="fa fa-save"></em> Save
+        </button>
+        <button type="button" class="btn btn-default" (click)="onCancled()"><em class="fa fa-remvoe"></em> Cancel
+        </button>
+    </div>
+</div>

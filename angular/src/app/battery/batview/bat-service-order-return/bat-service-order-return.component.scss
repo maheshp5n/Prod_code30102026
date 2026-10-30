@@ -1,0 +1,48 @@
+
+.mpanel{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 5px;
+    background-color: white;
+  }
+  .mpanel-header{
+    padding: 3px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: large;
+    font-weight: 400;
+    color: rgba($color: #000000, $alpha: .8);
+    background-image: linear-gradient(white,gray);
+  }
+  .mpanel >.mpanel-header{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .mpanel-body{
+    padding: 3px 10px;
+    min-width: 400px;
+    min-height: 300px;
+  }
+  .mpanel-header > .cls-btn{
+    cursor: pointer;
+    border-style: none;
+    outline: none;
+    border-radius: 50%;
+    background-image: radial-gradient(gray,lightgray);
+    box-shadow: inset 1px 1px 1px 1px dimgray;
+  }
+  .cls-btn:hover{
+    color: #ff5c5c;
+    box-shadow: 1px 1px 1px 5px dimgray;
+    background-image: radial-gradient(gray);
+  }
+  .mpanel-header>label{
+    margin-bottom: 0px;
+  }
+  .msize{
+    width: 80vw;
+  }

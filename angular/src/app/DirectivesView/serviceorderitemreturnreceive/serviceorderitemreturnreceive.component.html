@@ -1,0 +1,79 @@
+<button (click)="getPendingRecord()" class="btn btn-outline-info btn-sm"> SO Receive</button>
+<div class="modal fade-in" bsModal #pendingitemlist="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Receive Return Service Order item</h4>
+                <button type="button" class="close pull-right" (click)="pendingitemlist.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="overflow: auto;max-height: 65vh;">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-left">
+                                    <input type="checkbox" [(ngModel)]="globalCheck" (change)="chengeCheckBox()">
+                                </th>
+                                <th>
+                                    Service order
+                                </th>
+                                <th>
+                                    Part code
+                                </th>
+                                <th>
+                                    Serial Number
+                                </th>
+                                <th>
+                                    Previous Status
+                                </th>
+                                <th>
+                                    Final Status
+                                </th>
+                                <th>
+                                    Customer Inventory
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pendingdata">
+                                <td class="text-left">
+                                    <input type="checkbox" [checked]="item.selected" [(ngModel)]="item.selected">
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/serviceorder',item.serviceOrderId]"
+                                        [routerLinkActive]="['active']">{{item.serviceOrderManualId}}</a>
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/products',item.productPartCode]"
+                                        [routerLinkActive]="['active']"> {{item.productPartCode}}</a>
+                                </td>
+                                <td>
+                                    {{item.itemSerialNumber}}
+                                </td>
+                                <td>
+                                    {{item.previousProductFinalStateName}}
+                                </td>
+                                <td>
+                                    {{item.finalProductStateName}}
+                                </td>
+                                <td>
+                                    <em *ngIf="item.isCustomerInventory" class="tik-mark"></em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" (click)="pendingitemlist.hide()"><em
+                                class="fa fa-remove"></em> Cancel</button>
+                        <button type="button" class="btn btn-dark" (click)="postData()"><em class="fa fa-save"></em>
+                            Receive</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

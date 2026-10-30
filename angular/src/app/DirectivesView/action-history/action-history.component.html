@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="card-header">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 30px;"><img src="assets/images/custom13_120.png"
+                        style="width: 24px;height: 24px;background-color: #df6184" title="Product Consumed"> </td>
+                <td style="font-weight: bold;color: black;">Action Log ({{pagedata.totalElements>5?'5+':pagedata.totalElements}})</td>
+                <td class="text-right"><a [routerLink]="['/objectactionhistory']" [queryParams]="{object:actionHistoryObjectAndId.objectName,id:actionHistoryObjectAndId.objectId}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="actionHistoryResponse.length>0" class="card-body"
+        style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+        <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+            <div class="table-responsive mobile">
+                <table class="table table-sm">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Label</th>
+                            <th>Old Value</th>
+                            <th>New Value</th>
+                            <th>Modified By</th>
+                            <th>Modified Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let history of actionHistoryResponse; let i=index">
+                            <td data-line="S.No" class="mhide" style="text-align: center;">{{i+1}}.</td>
+                            <td data-line="Label">{{history.fieldLabelName}}</td>
+                            <td data-line="Old Value">{{history.old_value}}</td>
+                            <td data-line="New Value">{{history.value}}</td>
+                            <td data-line="Modified By">
+                                <a [routerLink]="['/createuser',history.logged_by_email_id]">
+                                    {{history.first_name}}&nbsp;
+                                    {{history.middle_name}}&nbsp;
+                                    {{history.last_name }}</a>
+                            </td>
+                            <td data-line="Modified Date" style="text-align: center;">{{history.created_date | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

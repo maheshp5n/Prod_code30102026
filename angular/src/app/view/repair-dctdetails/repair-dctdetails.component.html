@@ -1,0 +1,269 @@
+
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="SSA" src="assets/images/Zone_120.png"
+                  style="height: auto;width:100%;background-color: rgb(198, 90, 207);" title="SSA" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>DCT Repair</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{jobCardData.jobCardManualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div class="btn-group" *ngIf="_cFlag!='f'&&!jobCardData.reparied" style="padding: 10px;">
+            <button class="btn btn-outline-info btn-sm" *ngIf="!jobCardData.returned" type="button" (click)="createDCTRepairModel()">Repair
+              DCT</button>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+          <!-- </div> -->
+          <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Part Code</small></td>
+                      <td><a href="#" routerLink="/products/{{jobCardData.partCode}}"
+                          activateRout="active">{{jobCardData.partCode}}</a></td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Product State Name</small></td>
+                      <td>{{jobCardData.state}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;">
+                        <small>Repaired</small>
+                      </td>
+                      <td>
+                        <span *ngIf="jobCardData.reparied" class="tik-mark"></span>
+                      </td>
+                    </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Returned</small>
+                    </td>
+                    <td>
+                      <span *ngIf="jobCardData.returned" class="tik-mark"></span>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Serial Number</small></td>
+                      <td>{{jobCardData.partCodeSerialNumber}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Part Code Description</small></td>
+                      <td>{{jobCardData.productDescription}}</td>
+                    </tr>
+                    <TR>
+                      <td>
+                        <small>Customer Inventory</small>
+                      </td>
+                      <td>
+                        <span *ngIf="jobCardData.customerInventory" class="tik-mark"></span>
+                      </td>
+                    </TR>
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="co-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!vDetails" class="card-body" style="padding: 0px;margin: 0px;">
+
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img src="assets/images/Sites.png" style="width: 24px;height: 24px;background-color: #f15050">
+                    </td>
+                    <td>
+                      <a>&nbsp; <strong>Repair({{RepairDCTres.length}})</strong> </a>
+                    </td>
+
+                  </tr>
+                </table>
+              </div>
+
+              <div class="card-body" *ngIf="RepairDCTres.length>0"
+                style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                <div class="table-responsive mobile" style=" background-color: white; height: 100%;">
+                  <table class="table table-sm table-condensed">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th class="text-left" title="S.No.">S.No.</th>
+                        <th class="text-left" title="JOB Card Id"> JOB Card Id</th>
+                        <th class="text-left" title="Current State"> Current State
+                        </th>
+                        <th class="text-left" title="DCT Repair ID">DCT Repair ID
+                        </th>
+                        <th class="text-left" title="Created By">Created By
+                        </th>
+                        <th class="text-left" title="Created Date">Created Date</th>
+                        <th class="text-left" title="Repair By">Repair By</th>
+                        <th class="text-left" title="Repair Date">Repair Date</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let ser of RepairDCTres;let i = index " (click)="ConsumeItmDesiplay(ser.dctRepairId)">
+                        <td data-line="S.No" class=" mhide wrappable">{{pageSerialNumbr+i+1}}.</td>
+                        <td data-line="JOB Card Id">{{ser.jobCardManualId}}</td>
+                        <td data-line="Current State Name" class="wrappable">
+                          {{ser.currentStateName}}</td>
+                        <td data-line="DCT Repair ID" class="wrappable"> {{ser.dctRepairId}}</td>
+                        <td data-line="Created By" class="wrappable">
+                          {{ser.createdByFirstName}}&nbsp;{{ser.createdByMiddleName}}&nbsp;{{ser.createdByLastName}}
+                        </td>
+                        <td data-line="Created Date" class="wrappable"> {{ser.createdDate | date:'dd-MM-yyyy'}}</td>
+                        <td data-line="Repair By" class="wrappable">
+                          {{ser.repairByFirstName}}&nbsp;{{ser.repairByMiddleName}}&nbsp;{{ser.repairByLastName}}
+                        </td>
+                        <td data-line="Repair Date" class="wrappable">{{ser.repariDate | date:'dd-MM-yyyy'}}</td>
+                        <td><a style="color: blue; text-decoration: underline;cursor: pointer;">View</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- consumed items -->
+                  <div class="panel " *ngIf="ConsumeItemDetaiDisplay.open"
+                    style="padding-left: 30px; padding-right: 30px;">
+                    <div class="panel panel-default ">
+                      <table class="table  table-sm table-condensed tablerview">
+                        <thead>
+                          <tr>
+                            <th>Part Code</th>
+                            <th>Product Description</th>
+                            <th>Location</th>
+                            <th>Quantity</th>
+                            <th>Repair Amount</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr *ngFor="let c of consumedItemList;">
+                            <td data-line="Part COde"><a href="#" routerLink="/products/{{c.id}}">{{c.partcode}}</a>
+                            </td>
+                            <td data-line="Product Description">{{c.productDescription}}</td>
+                            <td data-line="Location">{{c.location}}</td>
+                            <td data-line="Quantity" class="wrappable">{{c.quantity}}</td>
+                            <td data-line="Repair Amount" class="wrappable">{{c.repairAmount | currency:'INR'}}</td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- ends  -->
+
+                  <div style="text-align: center" *ngIf="!(first && last)">
+                    <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                      (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                      &#8249;
+                    </a>
+
+                    <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                      [ngClass]="{'active':i==page}">
+                      {{page+1}}
+                    </a>
+
+                    <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                      (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                      &#8250;
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Edit create dct repair -->
+  <div class="modal fade" bsModal #createRpairModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account" (onShow)="isModelOpen=true" (onHide)="isModelOpen=false">
+    <div class="modal-dialog modal-xl modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="onDCTRCancel()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-create-rpair-dct *ngIf="isModelOpen" [isEditMode]="isEditMode" [EditEntityDCTReq]="dctreq"
+            (onDCTRCreated)="onDCTRCreated($event)" (onDCTRCancel)="onDCTRCancel()" [prodescription]="Description"
+            [LocationItemID]="jobCardData.jobCardId">
+
+          </app-create-rpair-dct>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <!-- <strong *ngIf="message=='Updated Successfully'">Site &nbsp;Udated successfully !</strong> -->
+      <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+  </div>
+

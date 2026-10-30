@@ -1,0 +1,564 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4">
+          <table>
+            <tr>
+              <td rowspan="2" style="width: 35px;">
+                <img alt="Case" src="assets/images/caseImg.png"
+                  style="height: auto;width:100%;background-color: rgb(253, 234, 122);" title="Case">
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Pre-Registration Case</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;"> {{caseres.prcCaseManualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4">
+         
+        </div>
+        <div class="col-md-4 text-right">
+         <div class="btn-group " *ngIf="_cFlag!='f'"   role="group">
+          <button type="button" *ngIf="rights('BtPreRegistrationCases','create')" (click)="editCaseModelshow(res)"
+          class="btn btn-outline-info btn-sm">Edit</button>
+          <button *ngIf="rights('BtPreRegistrationCases','edit')"
+          class="btn btn-outline-info btn-sm" type="button" id="Generate Case" (click)="Generat('Generate Case')">Generate Case
+          </button>&nbsp;
+          <button *ngIf="rights('BtPreRegistrationCases','edit')"
+          class="btn btn-outline-info btn-sm" type="button" id="Ignore" (click)="Generat('Ignore')">Ignore
+          </button>&nbsp;
+         </div>
+         <app-itemapproval-button [objectName]="'BtVendorInvoiceDetails'" [_objectId]="caseres.preCaseId"></app-itemapproval-button>
+         
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="padding: 3px 5px;">
+      <div class="row">
+        <div class="col-md-2">
+          <label><small>Site Id</small></label>
+          <div><a [routerLink]="['/bat_site',caseres.siteId]" [routerLinkActive]="'active'">{{caseres.siteManualId}}</a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label><small>Type</small></label>
+          <div>{{caseres.caseTypeName}}</div>
+        </div>
+        <div class="col-md-3">
+          <label><small>Case Reason</small></label>
+          <div>{{caseres.caseReasonName}}</div>
+        </div>
+        <div class="col-md-2">
+          <label><small>Status</small></label>
+          <div>{{caseres.caseStatusName}}</div>
+        </div>
+        <div class="col-md-2">
+          <label><small>Customer</small></label>
+          <div>{{caseres.accountName}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- <div class="container"> -->
+  <div class="card">
+    <div class="card-body">
+      <ul class="menue">
+        <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+        <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+      </ul>
+      <br>
+      <hr style="margin-top: 14px;">
+      <div *ngIf="vDetails">
+        <button type="button" (click)="changeInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="infoDisplay.angleIcon"></i> Pre-Registration Case Information</button>
+        <div *ngIf="infoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small>Pre-Registration Case Number</small>
+                  </td>
+                  <td>
+                    {{caseres.prcCaseManualId}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small>Case Number</small>
+                  </td>
+                  <td class="wrappable"><a href="" routerLink="/bat_case/{{caseres.caseId}}">
+                    {{caseres.caseManualId}}
+                  </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><small>Type</small></td>
+                  <td class="wrappable">{{caseres.caseTypeName}} </td>
+                </tr>
+  
+                <tr>
+                  <td class="wrappable">
+                    <small>Caller Name</small>
+  
+                  </td>
+                  <td class="wrappable">
+                    <a href="#"
+                      routerLink="/bat_contacts/{{caseres.contactPersonId}}">{{caseres.contactPersonFirstName}}&nbsp;{{caseres.contactPersonMiddleName}}&nbsp;{{caseres.contactPersonLastName}}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Call Center Rep. Name</small></td>
+                  <td class="wrappable">
+                    {{caseres.callCenterRepFirstName}}&nbsp;{{caseres.callCenterRepMiddleName}}&nbsp;{{caseres.callCenterRepLastName}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Date Time Opened</small></td>
+                  <td class="wrappable">{{caseres.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                </tr>
+                
+                <tr>
+                  <td class="wrappable"><small>UFEMS Open Date</small></td>
+                   <td class="wrappable">{{caseres.openDate | date:'dd-MM-yyyy' }}</td>
+                 </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small> Case Owner</small></td>
+                  <td class="wrappable">
+                    {{caseres.caseOwnerFirstName}}&nbsp;{{caseres.caseOwnerMiddleName}}&nbsp;{{caseres.caseOwnerLastName}}
+                  </td>
+                </tr>
+                <tr class="wrappable">
+                  <td><small>Case Reason</small></td>
+                  <td class="wrappable">{{caseres.caseReasonName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Caller Mobile</small> </td>
+                  <td class="wrappable">{{caseres.contactPersonContactNo}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>RJIL_TT01_No</small></td>
+                  <td class="wrappable">{{caseres.rjil_TT01_No}} </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Last Action</small></td>
+                  <td class="wrappable">{{caseres.lastAction}} </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Last Action Comment</small></td>
+                   <td class="wrappable">{{caseres.lastActionComment}}</td>
+                 </tr>
+                 <tr>
+                  <td class="wrappable"><small>IUFEMS Ticket No.</small></td>
+                  <td class="wrappable">{{caseres.ticketNo}}</td>
+                </tr>
+                <!-- <tr>
+                  <td class="wrappable"><small>Date Of Visit</small></td>
+                  <td class="wrappable"> {{caseres.dateOfVisit |date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                </tr> -->
+                <!-- <tr>
+                  <td class="wrappable"><small>Date Time Closed</small></td>
+                  <td class="wrappable">{{caseres.closedDate |date:'dd-MM-yyyy HH:mm:ss'}} </td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button type="button" (click)="changeAdditionalDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="additionDisplay.angleIcon"></i> Additional Information</button>
+        <div *ngIf="additionDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class=" table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Status</small>
+                  </td>
+                  <td class="wrappable">{{caseres.caseStatusName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Case Origin</small>
+                  </td>
+                  <td class="wrappable">{{caseres.caseOriginName}} </td>
+                </tr>
+  
+                <tr>
+                  <td class="wrappable"> <small>Pending Responsiblity</small></td>
+                  <td class="wrappable">{{caseres.pendingResponsibility}} </td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 50%"><small>Stage</small> </td>
+                  <td class="wrappable">{{caseres.caseStageName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Priority</small></td>
+                  <td class="wrappable">{{caseres.casePriorityName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>SLA Time</small> </td>
+                  <td class="wrappable">{{caseres.slatime}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button type="button" (click)="changeSiteDetailDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="siteDetaiDisplay.angleIcon"></i> Site Detail</button>
+        <div *ngIf="siteDetaiDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Account Name</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_account/{{caseres.accountName}}"
+                      activateRout="'active'">{{caseres.accountSapNumber}}</a> </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Site ID</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_site/{{caseres.siteId}}"
+                      activateRout="'active'">{{caseres.siteManualId}}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"> <small>Asset Serial Number</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_asset/{{caseres.assetId}}"
+                      activateRout="active">{{caseres.assetsSerialNumber}}</a></td>
+                </tr>
+                <tr>
+                  <td class="wrappable"> <small>Missing Asset</small> </td>
+                  <td class="wrappable">{{caseres.missingAssets}}</td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Customer</small> </td>
+                  <td class="wrappable">{{caseres.siteCustomer}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Site Name</small></td>
+                  <td class="wrappable"> {{caseres.siteName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Asset Description</small> </td>
+                  <td class="wrappable">{{caseres.assetsName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Asset Type Choice</small></td>
+                  <td class="wrappable">{{caseres.assetstypeChoiceName}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+  
+        <button type="button" (click)="changeProblemDetailDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="problemDetaiDisplay.angleIcon"></i> Problem Description</button>
+        <div *ngIf="problemDetaiDisplay.open">
+          <div class="row">
+  
+            <div class="col-md-6 col-sm-6 table-responsive">
+              <table class="table table-sm">
+                <tbody>
+  
+                  <tr>
+                    <td class="wrappable"><small>Number of Battery Modules</small></td>
+                    <td class="wrappable"> {{caseres.noOfSmr}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Problem Master Type</small>
+                    </td>
+                    <td class="wrappable"> {{caseres. problemmasterType}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Remark</small></td>
+                    <td class="wrappable">{{caseres.remarks}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%"><small>Other Problems Reported</small> </td>
+                    <td class="wrappable">{{caseres.otherProblemReported}}</td>
+                  </tr>
+
+                  <!--  -->
+                  <tr>
+                    <td class="wrappable" style="width: 50%"><small>Problem(s) Reported</small></td>
+                    <td class="wrappable">
+                      <ol>
+                        <li *ngFor="let problems of problemReportedDetails">
+                          {{problems.problemName}}
+                        </li>
+                      </ol>
+                    </td>
+                  </tr>
+               
+                  <tr style="display: none;">
+                    <td class="wrappable" style="visibility: none;"><small>Input From SCH or Engineer</small>
+                    </td>
+                    <td class="wrappable"> {{caseres.inputFromEng}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <button type="button" (click)="assignmentDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="AssignmentDetaiDisplay.angleIcon"></i> Assignment Details </button>
+        <div *ngIf="AssignmentDetaiDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Service Center</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_legalentity/{{caseres.serviceCenterId}}"
+                      activateRout="active">{{caseres.serviceCenterName}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 50%"><small>Service Resource</small>
+                    <div></div>
+                  </td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_serviceResources/{{caseres.serviceResourceId}}"
+                    activateRout="active">{{caseres.serviceResourceName}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+        <!-- <button type="button" (click)="proofDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="proofDetaiDisplay.angleIcon"></i> Proof Of Delivery </button>
+        <div *ngIf="proofDetaiDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>POD Number</small>
+  
+                  </td>
+                  <td class="wrappable"> {{caseres.podnumber}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>POD Date</small>
+  
+                  </td>
+                  <td class="wrappable">{{caseres.poddate | date:'dd-MM-yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div> -->
+  
+  
+     
+        <!-- <button type="button" (click)="vendorInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="vendorDetaisDisplay.angleIcon"></i> Vendor Invoice Details</button>
+        <div *ngIf="vendorDetaisDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 50%"><small>Vendor Invoice Number</small> </td>
+                  <td class="wrappable">{{caseres.vendorInvoiceNumber}}</td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Vendor Invoice Date</small> </td>
+                  <td class="wrappable">{{caseres.vendorInvoiceDate | date:'dd-MM-yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div> -->
+        <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+        <div *ngIf="sysinfoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Created By</small></td>
+                  <td class="wrappable">
+                    <a
+                      [routerLink]="['/bat_user',caseres.createdByEmailId]">{{caseres.createdByFirstName}}&nbsp;{{caseres.createdByMiddleName}}&nbsp;{{caseres.createdByLastName}}</a>&nbsp;,&nbsp;{{caseres.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Last Modified By</small>
+  
+                  </td>
+                  <td class="wrappable"><a
+                      [routerLink]="['/bat_user',caseres.modifiedByEmailId]">{{caseres.modifiedByFirstName}}&nbsp;{{caseres.modifiedByMiddleName}}&nbsp;{{caseres.modifiedByLastName}}</a>&nbsp;,&nbsp;{{caseres.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+      </div>
+      <div *ngIf="!vDetails">
+        <div>
+          <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+        </div>
+  
+        <!--firstcard Battry FSR card -->
+        <!-- <div class="card">
+          <div class="card-header">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img src="assets/images/caseImg.png" style="height: 32px;width:32px;background-color: #f4ff61;"
+                    title="Case"></td>
+                <td><a>&nbsp;<strong>Case</strong> </a>
+                </td>
+              </tr>
+            </table>
+          </div>
+  
+          <div *ngIf="prcres!=null" class="card-body" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+            <div class="table-responsive mobile" style="background-color: white; height: 100%;">
+              <table class="table table-sm table-condensed">
+                <thead style="background-color:rgb(248, 245, 245)">
+                  <tr>
+                    <th class="text-left" title="Case">case</th>
+                    <th class="text-left" title="Status">status</th>
+                    <th class="text-left" title="Technician Name">Stage</th>
+  
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="#" routerLink="/cases/{{prcres.caseId}}"
+                      activateRout="active">
+                      {{prcres.caseManualId}}</a>
+                    </td>
+                    <td>{{prcres.caseStatusName}}</td>
+                    <td>{{prcres.caseStageName}}</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+              
+            </div>
+  
+          </div>
+        </div> -->
+  
+       
+              
+              
+      </div>
+  
+      <!-- =======edit Create Case=== -->
+      <div class="modal fade" bsModal #createpreregiCaseModel="bs-modal" (onShow)="isCaseModelOpen=true" (onHide)="isCaseModelOpen=false" 
+        (onHide)="modelsOpenState.caseEditModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-account">
+        <div class="modal-dialog modal-lg modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDatacase()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <app-bt-create-pre-registration-case *ngIf="isCaseModelOpen" [isEditMode]="isEditMode" [editEntityData]="res"
+                [SiteSeviceResourceID]="siteseviceResourceID"
+                [serviceCenterId]="serviceCenterId"
+                (onCaseCreated)="onCaseCreated($event)" (onCancle)="cancelDatacase()"></app-bt-create-pre-registration-case>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Ignor model -->
+<div class="modal fade" bsModal #IgnorModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content" style="text-align: center;">
+       <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeIgnor()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <app-bt-prc-action (onCancle)="closeIgnor()" [ActionReq]="actionreq"  (onGenerated)="OnGenerated($event)" [CaseId]="caseid" [Action]="ActionName" [ActionMsg]="actionMessage"></app-bt-prc-action>
+      
+      
+    </div>
+  </div>
+</div>
+<!-- Close Ignor -->
+  

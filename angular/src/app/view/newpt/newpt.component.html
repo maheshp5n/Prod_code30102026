@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header">
+        <strong>Product Transfer</strong>
+    </div>
+    <div class="card-body">
+        <small>Product Request</small>
+        <br>
+        {{locationProductRequestResponse.prManualId}}
+    </div>
+</div>
+
+<app-producttransferdirective *ngIf="show" [productRequest]="locationProductRequestResponse" (onCancel)="onCancel()"
+    (onTransferDone)="onSave($event)">
+</app-producttransferdirective>

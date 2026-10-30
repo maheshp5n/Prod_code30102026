@@ -1,0 +1,1607 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:33px;">
+              <img alt="Expenses Management" src="assets/images/expense_120.png"
+                style="height: auto;width:100%;background-color: rgb(175, 88, 156);" title="Expenses Management" />
+            </td>
+            <td style="padding-left: 5px;">
+              <span>Expenses Management</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;">{{expensesmanagement.expenseManagementManualId}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- <div class="col-sm-4 col-md-4"></div> -->
+      <div class="col-sm-8 col-md-8"  style="text-align: right; justify-content:end;">
+        <button *ngIf="rights('ExpenseManagement','edit')" class="btn btn-outline-info btn-sm" type="button"
+        (click)="onClickEdit()">Edit</button>&nbsp;
+        <div *ngIf="_cFlag!='f'" class="btn-group"  style="padding: 10px;padding-right: 0px;">
+         
+          <button *ngIf="rights('ExpenseManagement','create')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="addExpense()">Add Expense</button>&nbsp;
+          <button *ngIf="rights('ExpenseManagement','create') || rights('ExpenseManagement','edit')"
+            class="btn btn-outline-info btn-sm" type="button" (click)="confirmationPopup.show()">Create
+            PDF</button>&nbsp;
+          <button *ngIf="rights('ExpenseManagement','create')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="submitapprovalmodel.show()">Submit For
+            Approval</button>&nbsp;
+            
+        </div>
+        <button *ngIf="rights('ExpenseAccountsOnly','edit')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="onClickOnlyAccount()">Accounts Only</button>
+        <app-itemapproval-button [objectName]="'ExpenseManagement'" [_objectId]="expensesmanagement.expenseManagementId"></app-itemapproval-button>
+       
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <small>Expense Purpose</small>
+        <div>
+          <a>
+            {{expensesmanagement.expensePurposeName}}
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <small>Expense Type</small>
+        <div>
+          <a>
+            {{expensesmanagement.expenseTypeName}}
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <small>Total Expense</small>
+        <div>
+          <a>
+            <i class="fa fa-inr"></i>&nbsp;{{expensesmanagement.totalExpense | currency:'INR' }}
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <small>Status</small>
+        <div>
+          <a>
+            {{expensesmanagement.statusName}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top: 10px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+          <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 15px;">
+        <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Information
+          </button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Claim Number</small>
+                    </td>
+                    <td>{{expensesmanagement.expenseManagementManualId}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Employee Code</small>
+                    </td>
+                    <td>{{expensesmanagement.contactEmployeeCode}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Employee</small>
+                    </td>
+                    <td>
+                      <a href="#" routerLink="/contacts/{{expensesmanagement.contactId}}">
+                        {{expensesmanagement.contactFirstName}} {{expensesmanagement.contactMiddleName}}
+                        {{expensesmanagement.contactLastName}}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Expense Purpose</small>
+                    </td>
+                    <td>{{expensesmanagement.expensePurposeName}}
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <td>
+                      <small>Tour Start Date</small>
+                    </td>
+                    <td>{{expensesmanagement.tourStartDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>
+                      <small>Cost Center / WBS Element</small>
+                    </td>
+                    <td class="wrappable">{{expensesmanagement.costCenterName}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Status</small>
+                    </td>
+                    <td class="wrappable">{{expensesmanagement.statusName}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Grade</small>
+                    </td>
+                    <td class="wrappable"> <a  [routerLink]="[]" (click)="OpnGrade(expensesmanagement.gradeName)">{{expensesmanagement.gradeName}}</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Owner</small>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/createuser',expensesmanagement.ownerEmailId]" [routerLinkActive]="'active'">
+                        {{expensesmanagement.ownerFirstName}} {{expensesmanagement.ownerMiddleName}}
+                        {{expensesmanagement.ownerLastName}}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Employee Designation</small>
+                    </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Document Date</small>
+                    </td>
+                    <td>{{expensesmanagement.documentDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Expense Type</small>
+                    </td>
+                    <td>{{expensesmanagement.expenseTypeName}}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>
+                      <small>Tour End Date</small>
+                    </td>
+                    <td>{{expensesmanagement.tourEndDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>
+                      <small>Purpose</small>
+                    </td>
+                    <td>{{expensesmanagement.purposeOfVisit}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Remarks</small>
+                    </td>
+                    <td>{{expensesmanagement.remark}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changedepartmentOnlyInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="departmentOnlyInfoDisplay.angleIcon"></i> &nbsp;For the use of Accounts Department
+            Only</button>
+          <div *ngIf="departmentOnlyInfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Narration</small>
+                    </td>
+                    <td>{{expensesmanagement.narration}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Business Place</small>
+                    </td>
+                    <td>{{expensesmanagement.businessPlaceName}}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Business Area</small>
+                    </td>
+                    <td>{{expensesmanagement.businessAreaName}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Post</small>
+                    </td>
+                    <td> <input *ngIf="expensesmanagement.post==true" type="checkbox" checked disabled>
+                      <input *ngIf="expensesmanagement.post==false" type="checkbox" disabled></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changedaysInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="daysInfoDisplay.angleIcon"></i> &nbsp;Days Detail</button>
+          <div *ngIf="daysInfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Total Tour Days</small>
+                    </td>
+                    <td>{{expensesmanagement.totalTourDays}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Total Lodging Days</small>
+                    </td>
+                    <td>{{expensesmanagement.totalLodgingDays}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Total Boarding Days</small>
+                    </td>
+                    <td>{{expensesmanagement.totalBoardingDays}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeamountInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="amountInfoDisplay.angleIcon"></i> &nbsp;Amount Details</button>
+          <div *ngIf="amountInfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Total Tour Amount</small>
+                    </td>
+                    <td>{{expensesmanagement.totalTourAmount | currency:'INR'}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Total Lodging Amount</small>
+
+                    </td>
+                    <td>{{expensesmanagement.totalLodgingAmount | currency:'INR'}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Total Boarding Amount</small>
+
+                    </td>
+                    <td>{{expensesmanagement.totalBoardingAmount | currency:'INR'}}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td style="width: 50%;">
+                      <small>Total BP Amount</small>
+                    </td>
+                    <td><i class="fa fa-inr"></i>&nbsp;{{expensesmanagement.totalBpAmount}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>
+                      <small>Total Local Conveyance</small>
+
+                    </td>
+                    <td><i class="fa fa-inr"></i>&nbsp;{{expensesmanagement.totalLocalConveyanceAmount | currency:'INR'}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Total Other Charges</small>
+
+                    </td>
+                    <td><i class="fa fa-inr"></i>&nbsp;{{expensesmanagement.totalOtherChargesAmount | currency:'INR'}}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                 
+                  <tr>
+                    <td>
+                      <small>Total Expense</small>
+                    </td>
+                    <td>{{expensesmanagement.totalExpense | currency:'INR'}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Total Tour Amount Company Paid</small>
+                    </td>
+                    <td>{{expensesmanagement.totalTourAmountCompanyPaid | currency:'INR'}}</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Total Lodging Company Paid</small>
+                    </td>
+                    <td>{{expensesmanagement.totalLodgingCompanyPaid | currency:'INR'}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Total Company Paid</small>
+
+                    </td>
+                    <td>{{expensesmanagement.totalCompanyPaid | currency:'INR'}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Net Amount To Pay</small>
+
+                    </td>
+                    <td>{{expensesmanagement.netAmountToPay | currency:'INR'}}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="sysInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                    <td class="wrappable">
+                      <a [routerLink]="['/createuser',expensesmanagement.createdByEmailId]"
+                      [routerLinkActive]="'active'">{{expensesmanagement.createdByFirstName}}&nbsp;
+                      {{expensesmanagement.createdByMiddleName}}&nbsp;
+                      {{expensesmanagement.createdByLastName}}</a>&nbsp;,&nbsp;
+                    {{expensesmanagement.createdDate| date:'dd-MM-yyyy HH:mm:ss'}} 
+                  </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                    <td class="wrappable">
+                      <a [routerLink]="['/createuser',expensesmanagement.modifiedByEmailId]"
+                      [routerLinkActive]="'active'">{{expensesmanagement.modifiedByFirstName}}&nbsp;
+                      {{expensesmanagement.modifiedByMiddleName}}&nbsp;
+                      {{expensesmanagement.modifiedByLastName}}</a>&nbsp;,&nbsp;
+                    {{expensesmanagement.modifiedDate| date:'dd-MM-yyyy HH:mm:ss'}} </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!vDetails">
+          <!-- GL summry -->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                      title="Expenses Management"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;GL Code Summary ({{glcodeList.length}})</b>
+                  </td>
+                  <td class="text-right">
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body" style="padding: 0px;">
+              <div class="table-responsive">
+                <table class="mobile table table-sm table-condensed tablerview">
+                  <thead fix-head style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th>S.No.</th>
+                      <th class="table-header" title="Name">Name
+                      </th>
+                      <th class="table-header" title="Total Amount">Total Amount
+                      </th>
+                    
+                     
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of glcodeList; let i=index">
+                      <td data-line="S.No." class="mhide">{{i+1}}.</td>
+                      <td data-line="Name">{{c.name}}</td>
+                      <td data-line="Total Amount" class="mhide">{{c.totalAmount | currency:'INR'}}
+                      </td>
+                      
+                    </tr>
+                    <div style="height: 50px;">
+
+                    </div>
+                  </tbody>
+                </table>
+              </div>
+             
+            </div>
+          </div>
+          <!-- end GL summary -->
+          <!-- 1 Tour Expenses-->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                      title="Expenses Management"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;Tour Expenses ({{totalElementsTour}})</b>
+                  </td>
+                  <td class="text-right">
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body" style="padding: 0px;">
+              <div class="table-responsive">
+                <table class="mobile table table-sm table-condensed tablerview">
+                  <thead fix-head style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th>S.No.</th>
+                      <th class="table-header" title="Name">Name
+                      </th>
+                      <th class="table-header" title="Departure Date/Time">Departure Date/Time
+                      </th>
+                      <th class="table-header" title="From Place">From Place
+                      </th>
+                      <th class="table-header" title="Arrival Data/Time">Arrival Data/Time
+                      </th>
+                      <th class="table-header" title="To Place">To Place
+                      </th>
+                      <th class="table-header" title="No. of days">No. of Days</th>
+                      <th class="table-header" title="Mode Of Travel">Mode Of Travel
+                      </th>
+                      <th class="table-header" title="Company Paid">Company Paid
+                      </th>
+                      <th class="table-header" title="Own Conveyance">Own Conveyance
+                      </th>
+                      <th class="table-header" title="Fare">Fare
+                      </th>
+                      <th class="table-header" title="Amount to Disburse">Amount to Disburse</th>
+                      <th> Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of tourListByExpenseId; let i=index">
+                      <td data-line="S. No." class="mhide">{{serialNumberTour+i+1}}.</td>
+                      <td data-line="Name"><a href="" routerLink="tour/{{c.id}}">{{c.manualId}}</a></td>
+                      <td data-line="Departure Date/Time" class="mhide">{{c.departuredateTime}}
+                      </td>
+                      <td data-line="From Place">{{c.fromPlace}}</td>
+                      <td data-line="Arrival Data/Time" class="mhide">{{c.arrivalDateTime }}
+                      </td>
+                      <td data-line="To Place">{{c.toPlace}}</td>
+                      <td data-line="No. of days">{{c.noOfDays}}</td>
+                      <td data-line="Mode Of Travel" class="mhide">{{c.modeOfTravelName}}</td>
+                      <td data-line="Company Paid" class="mhide" *ngIf='c.companyPaid'>Yes</td>
+                      <td data-line="Company Paid" class="mhide" *ngIf='!c.companyPaid'>No</td>
+                      <td data-line="Own Conveyance" class="mhide">{{c.ownConveyanceName}}</td>
+                      <td data-line="Fare"><i class="fa fa-inr"></i>&nbsp;{{c.fare | currency:'INR'}}</td>
+                      <td data-line="Amount to Disburse">{{c.amountToDisbursed}}</td>
+                      <td data-line="Action" class="mhide" style="width: 50;">
+                        <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right" appedTo="body">
+                          <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                          <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                            aria-labelledby="button-disabled-item">
+                            <li *ngIf="rights('TourExpense','edit')" role="menuitem">
+                              <a class="dropdown-item" (click)="onClickEditTourExpense(c.id,c.amountToDisbursed)">Edit </a>
+                            </li>
+                            <li *ngIf="rights('TourExpense','edit')" role="menuitem">
+                              <a class="dropdown-item" (click)="onDeleteTourExpense(c.id)">Delete</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <div style="height: 50px;">
+
+                    </div>
+                  </tbody>
+                </table>
+              </div>
+              <div style="text-align: center" *ngIf="!(firstTour && lastTour)">
+                <a id="pag" class="previous round" href="" [class.disabled]="firstTour" *ngIf="!firstTour"
+                  (click)="setPagePreviousTour($event)">
+                  &#8249;
+                </a>
+                <a id="pag" class="nav-link active" href="" (click)="setPageTour($event)"
+                  [ngClass]="{'active':i==pageTour}">
+                  {{pageTour+1}}
+                </a>
+                <a id="pag" class="next round" href="" [class.disabled]="lastTour" *ngIf="!lastTour"
+                  (click)="setPageNextTour($event)">
+                  &#8250;
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- 1 Tour Expenses-->
+
+          <!-- 2 Lodging -->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                      title="Expenses Management"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;Lodging ({{totalElementsLodging}})</b>
+                  </td>
+                  <td class="text-right">
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body" style="padding: 0px;">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive">
+                  <table class="mobile table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S. No.</th>
+                        <th class="table-header" title="Name">Name
+                        </th>
+                        <th class="table-header" title="From Date">From Date/Time
+                        </th>
+                        <th class="table-header" title="To Date">To Date/Time
+                        </th>
+                        <th class="table-header" title="City">City
+                        </th>
+                        <th class="table-header" title="City Category">City Category
+                        </th>
+                        <th class="table-header" title="Other City">Other City
+                        </th>
+                         <th class="table-header" title="Number of day">No. of Days
+                        </th>
+                        <th class="table-header" title="Is Self Arrangement">Is Self Arrangement
+                        </th>
+                        <th class="table-header" title="Is Company Paid">Is Company Paid
+                        </th>
+                        <th class="table-header" title="Hotel Name">Hotel Name
+                        </th>
+                        <th class="table-header" title="Entitlement">Entitlement</th>
+                        <th class="table-header" title="Amount">Amount
+                        </th>
+                        <th class="table-header" title="Amount to Disburse">Amount to Disburse
+                        </th>
+                        <th class="table-header">Bill No.</th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of lodgingListByExpenseId ; let i=index">
+                        <td data-line="S. No." class="mhide">{{serialNumberLodging+i+1}}.</td>
+                        <td data-line="Name"><a href="" routerLink="lodging/{{c.id}}">{{c.manualId}}</a>
+                        <td data-line="From Date">{{c.arrivalDateTime}}</td>
+                        <td data-line="To Date">{{c.DepartureDateTime}}</td>
+                        <td data-line="City" class="mhide">{{c.cityName}}</td>
+                        <td data-line="City Category" class="mhide">{{c.cityCategoryName}}</td>
+                        <td data-line="Other City">{{c.otherCity}}</td>
+                        <td data-line="No. of days">{{c.noOfDays}}</td>
+                        <td data-line="Is Self Arrangement" class="mhide" *ngIf='c.selfArrangement==true'>Yes</td>
+                        <td data-line="Is Self Arrangement" class="mhide" *ngIf='c.selfArrangement==false'>No</td>
+                        <td data-line="Is Company Paid" class="mhide" *ngIf='c.comapnyPaid==true'>Yes</td>
+                        <td data-line="Is Company Paid" class="mhide" *ngIf='c.comapnyPaid==false'>No</td>
+                        <td data-line="Hotel Name">{{c.hotelName}}</td>
+                        <td data-line="Entitlement"><i  class="fa fa-inr"></i>&nbsp;{{c.entitlement | currency:'INR'}}</td>
+                        <td data-line="Amount">{{c.amount | currency:'INR'}}</td>
+                        <td data-line="Amount to Disburse" class="mhide">{{c.amountToDisbursed | currency:'INR'}}</td>
+                        <td data-line="Bill No.">{{c.billNo}}</td>
+                        <td data-line="Action" class="mhide" style="width: 50;">
+                          <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                            <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                              aria-labelledby="button-disabled-item">
+                              <li *ngIf="rights('LodgingExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onClickEditLodging(c.id,c.amountToDisbursed)">Edit
+                                </a>
+                              </li>
+                              <li *ngIf="rights('LodgingExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onDeleteLodginExpense(c.id)">Delete</a>
+                              </li>
+                             
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <div style="height: 50px;">
+
+                      </div>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="text-align: center" *ngIf="!(firstLodging && lastLodging)">
+                  <a id="pag" class="previous round" href="" [class.disabled]="firstLodging" *ngIf="!firstLodging"
+                    (click)="setPagePreviousLodging($event)">
+                    &#8249;
+                  </a>
+                  <a id="pag" class="nav-link active" href="" (click)="setPageLodging($event)"
+                    [ngClass]="{'active':i==pageLodging}">
+                    {{pageLodging+1}}
+                  </a>
+                  <a id="pag" class="next round" href="" [class.disabled]="lastLodging" *ngIf="!lastLodging"
+                    (click)="setPageNextLodging($event)">
+                    &#8250;
+                  </a></div>
+              </div>
+            </div>
+          </div>
+          <!-- 2 Lodging -->
+
+          <!-- 3 Boarding -->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                      title="Expenses Management"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;Boarding
+                      ({{totalElementsBoarding}})</b>
+                  </td>
+                  <td class="text-right">
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body" style="padding: 0px;">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive">
+                  <table class="mobile table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S. No.</th>
+                        <th class="table-header" title="Name">Name
+                        </th>
+                        <th class="table-header" title="From Date">From Date/Time
+                        </th>
+                        <th class="table-header" title="To Date">To Date/Time
+                        </th>
+                        <th class="table-header" title="City">City
+                        </th>
+                        <th class="table-header" title="Other City"> Other City
+                        </th>
+                        <th class="table-header" title="No. of Days">No. of Days
+                        </th>
+                        <th>Entitlement</th>
+                        <th class="table-header" title="Amount">Amount
+                        </th>
+                        <th class="table-header" title="Amount to Disburse">Amount to Disburse
+                        </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of boardingListByExpenseId; let i=index">
+                        <td data-line="S. No." class="mhide">{{serialNumberBoarding+i+1}}.</td>
+                        <td data-line="Name"><a href="" routerLink="boarding/{{c.id}}">{{c.manualId}}</a>
+                        <td data-line="From Date">{{c.arrivalDateTime}}</td>
+                        <td data-line="To Date">{{c.DepartureDateTime}}</td>
+                        <td data-line="City" class="mhide">{{c.cityName}}</td>
+                        <td data-line="Other City">{{c.otherCity}}</td>
+                        <td data-line="No. of Days">{{c.noOfDayes}}</td>
+                        <td data-line="Entitlement"><i class="fa fa-inr"></i>&nbsp;{{c.entitlement | currency:'INR'}}</td>
+                        <td data-line="Amount">{{c.amount | currency:'INR'}}</td>
+                        <td data-line="Amount to Disburse" class="mhide">{{c.amountToDisbursed | currency:'INR'}}</td>
+                        <td data-line="Action" class="mhide" style="width: 50;">
+                          <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                            <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                              aria-labelledby="button-disabled-item">
+                              <li *ngIf="rights('BoardingExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onClickEditBoarding(c.id,c.amountToDisbursed)">Edit
+                                </a>
+                              </li>
+                              <li *ngIf="rights('BoardingExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onDeleteBodingExpense(c.id)">Delete</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <div style="height: 50px;">
+
+                      </div>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="text-align: center" *ngIf="!(firstBoarding && lastBoarding)">
+                  <a id="pag" class="previous round" href="" [class.disabled]="firstBoarding" *ngIf="!firstBoarding"
+                    (click)="setPagePreviousBoarding($event)">
+                    &#8249;
+                  </a>
+                  <a id="pag" class="nav-link active" href="" (click)="setPageBoarding($event)"
+                    [ngClass]="{'active':i==pageBoarding}">
+                    {{pageBoarding+1}}
+                  </a>
+                  <a id="pag" class="next round" href="" [class.disabled]="lastBoarding" *ngIf="!lastBoarding"
+                    (click)="setPageNextBoarding($event)">
+                    &#8250;
+                  </a></div>
+              </div>
+            </div>
+          </div>
+          <!-- 3 Boarding -->
+
+          <!-- 4 Local Conveyance-->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                      title="Local Conveyance"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;Local Conveyance
+                      ({{totalElementsLocalConveyance}})</b>
+                  </td>
+                  <td class="text-right">
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body" style="padding: 0px;">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive">
+                  <table class="mobile table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S. No.</th>
+                        <th class="table-header" title="Name">Name
+                        </th>
+                        <th class="table-header" title="Date">Date
+                        </th>
+                        <th class="table-header" title="Mode of Travel">Mode of Travel
+                        </th>
+                        <th class="table-header" title="From">From
+                        </th>
+                        <th class="table-header" title="To">To
+                        </th>
+                        <th class="table-header" title="Amount">Amount
+                        </th>
+                        <th class="table-header" title="Amount Disburse">Amount Disburse
+                        </th>
+                        <th class="table-header" title="Own Conveyance">Own Conveyance</th>
+                        <th class="Distance">Distance</th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of localConveyanceListByExpenseId; let i=index">
+                        <td data-line="S. No." class="mhide">{{serialNumberLocalConveyance+i+1}}.</td>
+                        <td data-line="Name"><a href="" routerLink="localConveyance/{{c.id}}">{{c.manualId}}</a>
+                        <td data-line="Date" class="mhide">{{c.date | date:'dd-MM-yyyy'}}</td>
+                        <td data-line="Mode of Travel">{{c.modeOfTravelName}}</td>
+                        <td data-line="From">{{c.fromPlace}}</td>
+                        <td data-line="To">{{c.toPlace}}</td>
+                        <td data-line="Amount">{{c.amount | currency:'INR'}}</td>
+                        <td data-line="Amount to Disburse" class="mhide">{{c.amountToDisbursed | currency:'INR'}}</td>
+                        <td data-line="Own Conveyance" class="mhide">{{c.ownConveyanceName}}</td>
+                        <td data-line="Distance" class="mhide">{{c.distance}}</td>
+                        <td data-line="Action" class="mhide" style="width: 50;">
+                          <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                            <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                              aria-labelledby="button-disabled-item">
+                              <li *ngIf="rights('LocalConveyanceExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onClickEditLocalConveyance(c.id,c.amountToDisbursed)">Edit </a>
+                              </li>
+                              <li *ngIf="rights('LocalConveyanceExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onDeletelocaCovExpense(c.id)">Delete</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <div style="height: 50px;">
+
+                      </div>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="text-align: center" *ngIf="!(firstLocalConveyance && lastLocalConveyance)">
+                  <a id="pag" class="previous round" href="" [class.disabled]="firstLocalConveyance"
+                    *ngIf="!firstLocalConveyance" (click)="setPagePreviousLocalConveyance($event)">
+                    &#8249;
+                  </a>
+                  <a id="pag" class="nav-link active" href="" (click)="setPageLocalConveyance($event)"
+                    [ngClass]="{'active':i==pageLocalConveyance}">
+                    {{pageLocalConveyance+1}}
+                  </a>
+                  <a id="pag" class="next round" href="" [class.disabled]="lastLocalConveyance"
+                    *ngIf="!lastLocalConveyance" (click)="setPageNextLocalConveyance($event)">
+                    &#8250;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 4 Local Conveyance-->
+
+          <!-- 5 Other Charges-->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                      title="Other Charges"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;Other Charges ({{totalElementsOtherCharges}})</b>
+                  </td>
+                  <td class="text-right">
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body" style="padding: 0px;">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive">
+                  <table class="mobile table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S. No.</th>
+                        <th class="table-header" title="Name">Name
+                        </th>
+                        <th class="table-header" title="Bill No">Bill No
+                        </th>
+                        <th class="table-header" title="Date">Date
+                        </th>
+                       
+                        <th class="table-header" title="Type">Type
+                        </th>
+                       
+                        <th class="table-header" title="Remarks">Remarks
+                        </th>
+                        <th class="table-header" title="Amount">Amount
+                        </th>
+                        <th class="table-header" title="Amount to Disburse">Amount to Disburse
+                        </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of otherChargesListByExpenseId; let i=index">
+                        <td data-line="S. No." class="mhide">{{serialNumberOtherCharges+i+1}}.</td>
+                        <td data-line="Name"><a href="" routerLink="otherChargesdetails/{{c.id}}">{{c.manualId}}</a>
+                        <!-- <td data-line="Expenses Report">{{c.expenseManagementManualId}}</td> -->
+                        <td data-line="Date">{{c.billNo}}</td>
+                        <td data-line="">{{c.date | date:'dd-MM-yyyy'}}</td>
+                     
+                        <td data-line="Bill No.">{{c.otherChargesTypeName}}</td>
+                        <td data-line="Amount">{{c.remark}}</td>
+                        <td data-line="Type">{{c.amount | currency:'INR'}}</td>
+                        
+                        <td data-line="Amount to Disburse" class="mhide">{{c.amountToDisbursed | currency:'INR'}}</td>
+                        <td data-line="Action" style="width: 50;">
+                          <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                            <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                              aria-labelledby="button-disabled-item">
+                              <li *ngIf="rights('OtherChargesExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onClickEditOtherCharges(c.id,c.amountToDisbursed)">Edit
+                                </a>
+                              </li>
+                              <li *ngIf="rights('OtherChargesExpense','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onDeleteOtherExpense(c.id)">Delete</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <div style="height: 50px;">
+
+                      </div>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="text-align: center" *ngIf="!(firstOtherCharges && lastOtherCharges)">
+                  <a id="pag" class="previous round" href="" [class.disabled]="firstOtherCharges"
+                    *ngIf="!firstOtherCharges" (click)="setPagePreviousOtherCharges($event)">
+                    &#8249;
+                  </a>
+                  <a id="pag" class="nav-link active" href="" (click)="setPageOtherCharges($event)"
+                    [ngClass]="{'active':i==pageOtherCharges}">
+                    {{pageOtherCharges+1}}
+                  </a>
+                  <a id="pag" class="next round" href="" [class.disabled]="lastOtherCharges" *ngIf="!lastOtherCharges"
+                    (click)="setPageNextOtherCharges($event)">
+                    &#8250;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 5 Other Charges-->
+
+          <!-- 6 Approval History-->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/approval_history.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                      title="Other Charges"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;Approval History</b>
+                  </td>
+                  <td class="text-right">
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body" style="padding: 0px;">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive">
+                  <table class="mobile table table-sm table-condensed tablerview">
+                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S.No.</th>
+                        <th>Approval Step</th>
+                        <th>Assigned Date</th>
+                        <th>Assigned To</th>
+                        <th>Action</th>
+                        <th>Approved Date</th>
+                        <th>Previous Remarks</th>
+                        <th>Remark</th>
+                        <th>Approved By</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of approvalHistoryList; let i=index">
+                        <td data-line="S. No." class="mhide">{{serialNumberTour+i+1}}.</td>
+                        <td data-line="Approval Step"> {{c.stageName}} </td>
+                        <td data-line="Assigned Date">
+                          {{c.assignedDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+                        <td data-line="Assigned To">
+                          <a [routerLink]="['/createuser',c.assignedToEmailId]" [routerLinkActive]="'active'">
+                            {{c.assignedToFirstName}}
+                            {{c.assignedToMiddleName}}
+                            {{c.assignedToLastName}}
+                          </a>
+                        </td>
+                        <td data-line="Action"> {{c.action}} </td>
+                        <td data-line="Approved Date">
+                          {{c.approvedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        <td data-line="Previous Remarks"> {{c.previousRemarks}} </td>
+                        <td data-line="Remark"> {{c.remark}} </td>
+                        <td data-line="Approved By">{{c.actionByFirstName}} {{c.actionByMiddleName}} {{c.actionByLastName}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+             
+              </div>
+            </div>
+          </div>
+          <!-- 6 Approval History-->
+
+          <!-- 7 Files -->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                      accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);
+                  border-radius: 1mm;" title="Files"> </td>
+                  <td>
+                    <b>&nbsp;&nbsp;Files({{fileUploadList.length}})</b>
+                  </td>
+                  <td class="text-right">
+                    <!-- <form enctype='multipart/form-data' method='POST' action='uploadFiles($event.target.files)'>
+                  <input type='file' name='files[]' multiple id="getFile" style="display:none" />
+                  <button class="btn btn-sm btn-default" onclick="document.getElementById('getFile').click()"
+                    type='submit' (onSubmit)='uploadFiles($event.target.files)'><i
+                      class="fa fa-upload"></i>&nbsp;&nbsp;File
+                    Upload</button>
+                </form>
+               -->
+                    <!-- <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+                
+                </form> -->
+                    <input multiple type="file" name="profile"
+                      accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                      (change)="onFileSelect($event)" id="getFile" style="display:none" />
+                    <button *ngIf="_cFlag!='f'" class="btn btn-sm btn-default"
+                      onclick="document.getElementById('getFile').click()" type='submit'><i
+                        class="fa fa-upload"></i>&nbsp;&nbsp;File
+                      Upload</button>
+                    <!-- <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+                  <div>
+                    <input multiple type="file" name="profile" (change)="onFileSelect($event)" />
+                  </div>
+                  <div>
+                    <button type="submit">Upload</button>
+                  </div>
+                </form> -->
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div *ngIf="fileUploadList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+              <div class="table-responsive mobile" style="height: 100%;">
+                <table class="table table-sm table-condensed tablerview">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th title="S.No" style="width:50px;">S.No.</th>
+                      <th title="File Name" scope="col" class="text-left"> File Name
+                      </th>
+                      <th title="Content Type" scope="col" class="text-left"> Content Type
+                      </th>
+                      <th title="Created Date" scope="col" class="text-left"> Created Date
+                      </th>
+                      <th title="File Size" scope="col" class="text-left"> File Size
+                      </th>
+                      <th *ngIf="rights('ExpenseManagement','edit')">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ob of fileUploadList;let i=index">
+                      <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                      <td data-line="File Name" scope="col" class="text-left">
+                        <a style="color: blue;"
+                          (click)="showPreview(ob.fileDownloadUri, ob.fileName, ob.fileContentType)">
+                          {{ob.fileName}}
+                        </a>
+                      </td>
+                      <td data-line="Content Type" scope="col" class="text-left">
+                        {{ob.fileContentType}}</td>
+                      <td data-line="Created Date" scope="col" class="text-left">
+                        {{ob.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                      <td *ngIf="(ob.fileSize/1024/1024)<1" data-line="File Size" scope="col" class="text-left">
+                        {{(ob.fileSize/1024)| number : '1.0-3'}} KB</td>
+
+                      <td *ngIf="(ob.fileSize/1024/1024)>=1" data-line="File Size" scope="col" class="text-left">
+                        {{(ob.fileSize/1024/1024)| number : '1.0-3'}} MB</td>
+                        <td *ngIf="rights('ExpenseManagement','edit')">
+                          <button  (click)="DeletAttachment(ob.id)"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New -->
+<div class="modal fade" bsModal #createexpensesmanagementModel="bs-modal" (onShow)="isExpensesmanagementOpen=true"
+  (onHide)="isExpensesmanagementOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+          (click)="createexpensesmanagementModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-expensesmanagement *ngIf="isExpensesmanagementOpen" [isEditMode]="isEditMode"
+          [editexpensesmanagementData]="newexpensesmanagement"
+          (onexpensesmanagementCreated)="onexpensesmanagementCreated($event)" (onCancle)="cancelData()">
+        </app-create-new-expensesmanagement>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createTourExpenseModel="bs-modal" (onShow)="isTourOpen=true"
+  (onHide)="isTourOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{headingTourExpenses}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createTourExpenseModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-tourExpenses [BordingName]="grade" [TouramntToDisbursed]="touramountToDisbursed" *ngIf="isTourOpen" [isEditModeTourExpense]="isEditModeTourExpense"
+          [editTourExpenseData]="tourExpenseRequest" (onTourExpensesCreated)="onTourExpensesCreated($event)"
+          (onExpensesAdded)="onExpensesAdded()" (onCancleTourExpense)="cancelTourExpense()">
+        </app-create-new-tourExpenses>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createLodgingModel="bs-modal" (onShow)="isLodgingOpen=true"
+  (onHide)="isLodgingOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{headingLodging}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createLodgingModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-lodging [BordingName]="grade" [TouramntToDisbursed]="lodamountToDisbursed" *ngIf="isLodgingOpen" [isEditModeLodging]="isEditModeLodging"
+          [editLodgingData]="lodgingExpenseRequest" (onLodgingCreated)="onLodgingCreated($event)"
+          (onExpensesAdded)="onExpensesAdded()" (onCancleLodging)="cancelLodging()">
+        </app-create-new-lodging>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createBoardingModel="bs-modal" (onShow)="isBoardingOpen=true"
+  (onHide)="isBoardingOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{headingBoarding}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createBoardingModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-boarding [BordingName]="grade" [BodamntToDisbursed]="bodamountToDisbursed" *ngIf="isBoardingOpen" [isEditModeBoarding]="isEditModeBoarding"
+          [editBoardingData]="boardingExpenseRequest" (onBoardingCreated)="onBoardingCreated($event)"
+          (onExpensesAdded)="onExpensesAdded()" (onCancleBoarding)="cancelBoarding()">
+        </app-create-new-boarding>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createLocalConveyanceModel="bs-modal" (onShow)="isLocalConveyanceOpen=true"
+  (onHide)="isLocalConveyanceOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{headingLocalConveyance}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createLocalConveyanceModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-localConveyanceExpense   [LocalamntToDisbursed]="localamountToDisbursed" *ngIf="isLocalConveyanceOpen"
+          [isEditModeLocalConveyance]="isEditModeLocalConveyance"
+          [editLocalConveyanceData]="localConveyanceExpenseRequest"
+          (onLocalConveyanceCreated)="onLocalConveyanceCreated($event)" (onExpensesAdded)="onExpensesAdded()"
+          (onCancleLocalConveyance)="cancelLocalConveyance()">
+        </app-create-new-localConveyanceExpense>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createOtherChargesModel="bs-modal" (onShow)="isOtherChargesOpen=true"
+  (onHide)="isOtherChargesOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{headingOtherCharges}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createOtherChargesModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-otherCharges   [OtherChangeamntToDisbursed]="otherchangeamountToDisbursed" *ngIf="isOtherChargesOpen" [isEditModeOtherCharges]="isEditModeOtherCharges"
+          [editOtherChargesData]="otherChargesExpenseRequest" (onOtherChargesCreated)="onOtherChargesCreated($event)"
+          (onExpensesAdded)="onExpensesAdded()" (onCancleOtherCharges)="cancelOtherCharges()">
+        </app-create-new-otherCharges>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- bodingLodging_Details Model -->
+
+<div class="modal fade" bsModal #borloddtailModel="bs-modal" (onShow)="isOtherChargesOpen=true"
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="borloddtailModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-boding-lodging-da-detail [BordingRes]="response"></app-boding-lodging-da-detail>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Popup Modal -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>
+
+<!-- Expenses Mangement Related -->
+<div class="modal fade" bsModal #createexpensesMangementRelatedModel="bs-modal"
+  (onShow)="isExpensesmanagementRelatedOpen=true" (onHide)="isExpensesmanagementRelatedOpen=false"
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left" style="font-weight: bolder;">Add Expense</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelExpensesmanagementRelated()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <app-create-new-expensesmanagement-related *ngIf="isExpensesmanagementRelatedOpen"
+          (_onexpensesmanagementRelatedCreated)="onexpensesmanagementRelatedCreated($event)"
+          (_onCancle)="cancelExpensesmanagementRelated()">
+        </app-create-new-expensesmanagement-related> -->
+
+        <!-- <div class="card">
+          <div class="card-body" style="padding: 0px;"> -->
+        <!-- <accordion [isAnimated]="true" [closeOthers]="oneAtATime">
+              <accordion-group>
+                <button class="btn btn-link" accordion-heading type="button">
+                  <i class="fa fa-angle-right"></i>
+                  Tour Expense
+                </button>
+                <app-create-new-tourExpenses *ngIf="isExpensesmanagementRelatedOpen"
+                  [isEditModeTourExpense]="isEditModeTourExpense" [editTourExpenseData]="tourExpenseRequest"
+                  (onTourExpensesCreated)="onTourExpensesCreated($event)" (onExpensesAdded)="onExpensesAdded()"
+                  (onCancleTourExpense)="cancelTourExpense()">
+                </app-create-new-tourExpenses>
+
+              </accordion-group>
+
+              <accordion-group>
+                <button class="btn btn-link" accordion-heading type="button">
+                  <i class="fa fa-angle-right"></i>
+                  Lodging Expense
+                </button>
+                <app-create-new-lodging *ngIf="isExpensesmanagementRelatedOpen" [isEditModeLodging]="isEditModeLodging"
+                  [editLodgingData]="lodgingExpenseRequest" (onLodgingCreated)="onLodgingCreated($event)"
+                  (onExpensesAdded)="onExpensesAdded()" (onCancleLodging)="cancelLodging()">
+                </app-create-new-lodging>
+              </accordion-group>
+
+              <accordion-group>
+                <button class="btn btn-link" accordion-heading type="button">
+                  <i class="fa fa-angle-right"></i>
+                  Boarding Expense
+                </button>
+                <app-create-new-boarding *ngIf="isExpensesmanagementRelatedOpen"
+                  [isEditModeBoarding]="isEditModeBoarding" [editBoardingData]="boardingExpenseRequest"
+                  (onBoardingCreated)="onBoardingCreated($event)" (onExpensesAdded)="onExpensesAdded()"
+                  (onCancleBoarding)="cancelBoarding()">
+                </app-create-new-boarding>
+              </accordion-group>
+
+              <accordion-group>
+                <button class="btn btn-link" accordion-heading type="button">
+                  <i class="fa fa-angle-right"></i>
+                  Local Conveyance Expense
+                </button>
+                <app-create-new-localConveyanceExpense *ngIf="isExpensesmanagementRelatedOpen"
+                  [isEditModeLocalConveyance]="isEditModeLocalConveyance"
+                  [editLocalConveyanceData]="localConveyanceExpenseRequest"
+                  (onLocalConveyanceCreated)="onLocalConveyanceCreated($event)" (onExpensesAdded)="onExpensesAdded()"
+                  (onCancleLocalConveyance)="cancelLocalConveyance()">
+                </app-create-new-localConveyanceExpense>
+              </accordion-group>
+
+              <accordion-group>
+                <button class="btn btn-link" accordion-heading type="button"
+                  (click)="showOtherCharges(expensesmanagement.expenseManagementId)">
+                  <i class="fa fa-angle-right"></i>
+                  Other Charge Expense
+                </button>
+                <app-create-new-otherCharges *ngIf="isExpensesmanagementRelatedOpen"
+                  [isEditModeOtherCharges]="isEditModeOtherCharges" [editOtherChargesData]="otherChargesExpenseRequest"
+                  (onExpensesAdded)="onExpensesAdded()" (onOtherChargesCreated)="onOtherChargesCreated($event)"
+                  (onCancleOtherCharges)="cancelOtherCharges()">
+                </app-create-new-otherCharges>
+              </accordion-group>
+
+            </accordion> -->
+
+        <tabset style="border-radius: 0; font-weight: bold; ">
+          <tab heading="Tour Expense" style="font-weight: normal">
+            <app-create-new-tourExpenses [BordingName]="grade" *ngIf="isExpensesmanagementRelatedOpen"
+              [isEditModeTourExpense]="isEditModeTourExpense" [editTourExpenseData]="tourExpenseRequest"
+              (onTourExpensesCreated)="onTourExpensesCreated($event)" (onExpensesAdded)="onExpensesAdded()"
+              (onCancleTourExpense)="cancelTourExpense()">
+            </app-create-new-tourExpenses>
+          </tab>
+          <tab heading="Lodging Expense" style="font-weight: normal">
+            <app-create-new-lodging [BordingName]="grade" *ngIf="isExpensesmanagementRelatedOpen" [isEditModeLodging]="isEditModeLodging"
+              [editLodgingData]="lodgingExpenseRequest" (onLodgingCreated)="onLodgingCreated($event)"
+              (onExpensesAdded)="onExpensesAdded()" (onCancleLodging)="cancelLodging()">
+            </app-create-new-lodging>
+          </tab>
+          <tab heading="Boarding Expense" style="font-weight: normal">
+            <app-create-new-boarding [BordingName]="grade" *ngIf="isExpensesmanagementRelatedOpen" [isEditModeBoarding]="isEditModeBoarding"
+              [editBoardingData]="boardingExpenseRequest" (onBoardingCreated)="onBoardingCreated($event)"
+              (onExpensesAdded)="onExpensesAdded()" (onCancleBoarding)="cancelBoarding()">
+            </app-create-new-boarding>
+          </tab>
+          <tab heading="Local Conveyance Expense" style="font-weight: normal">
+            <app-create-new-localConveyanceExpense [BordingName]="grade" *ngIf="isExpensesmanagementRelatedOpen"
+              [isEditModeLocalConveyance]="isEditModeLocalConveyance"
+              [editLocalConveyanceData]="localConveyanceExpenseRequest"
+              (onLocalConveyanceCreated)="onLocalConveyanceCreated($event)" (onExpensesAdded)="onExpensesAdded()"
+              (onCancleLocalConveyance)="cancelLocalConveyance()">
+            </app-create-new-localConveyanceExpense>
+          </tab>
+          <tab heading="Other Charge Expense" style="font-weight: normal">
+            <app-create-new-otherCharges *ngIf="isExpensesmanagementRelatedOpen"
+              [isEditModeOtherCharges]="isEditModeOtherCharges" [editOtherChargesData]="otherChargesExpenseRequest"
+              (onExpensesAdded)="onExpensesAdded()" (onOtherChargesCreated)="onOtherChargesCreated($event)"
+              (onCancleOtherCharges)="cancelOtherCharges()">
+            </app-create-new-otherCharges>
+          </tab>
+        </tabset>
+        <!-- </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--File list-->
+<div class="modal fade" bsModal #searchResult='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h4>{{uploadFilesLength}} Files selected for Upload</h4> -->
+        <h4>File Upload</h4>
+      </div>
+      <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+        <!-- <div class="row">
+          <div class="col-6">File Name</div>
+          <div class="col-6">Action</div>
+        </div> -->
+        <div class="row" *ngFor="let s of fileList;let i=index">
+          <!-- <div class="col-2">
+            {{i+1}}
+          </div> -->
+          <div class="col-6">
+            {{s.name}}
+          </div>
+          <div class="col-6">
+            <a style="font-weight: bolder; text-align: center;color: red;" (click)="removeFile(s.name)"><i
+                class="fa fa-times"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-right">
+        <button class="btn btn-sm btn-primary" (click)="closeUploadFiles()"><i class="fa fa-remove"></i> Close</button>
+        <button class="btn btn-sm btn-primary" (click)="onSubmit()"><i class="fa fa-remove"></i> Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Show Preview-->
+<div class="modal fade" bsModal #showPreviewModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>{{fileName}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="showPreviewModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+          <div class="panel-body">
+            <img src="{{imageUrl}}" alt="">
+            <pdf-viewer [src]="imageUrl" [render-text]="true" style="height: auto;width: 100%;"></pdf-viewer>
+            <!--   (page-rendered)="pageRendered($event)"-->
+            <!-- <iframe src="{{imageUrl}} | mySafeHtml" style="height: auto;width: 100%;"></iframe> -->
+            <!-- <embed [src]="imageUrl" /> -->
+            <!-- <object src="imageUrl}}" style="height: auto;width: 100%;"></object> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 text-right">
+            <button class="btn btn-sm btn-primary" (click)="showPreviewModel.hide()">
+              <i class="fa fa-remove"></i>
+              &nbsp;Close
+            </button>
+            <button class="btn btn-sm btn-primary" (click)="saveFile()"><i class="fa fa-download"></i>
+              &nbsp;Download
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Confirmation Popup-->
+<div class="modal fade" bsModal #confirmationPopup='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content" style="text-align: center;">
+      <!-- <button type="button" style="color: red; size: 200%;text-align: right;" class="close pull-right"
+        aria-label="Close" (click)="confirmationPopup.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+      <div class="modal-body">
+        <div class="control-label">
+          Do you want to procees with PDf Creation?
+        </div>
+        <br>
+        <!-- <div class="col-md-1 col-sm-1"></div> -->
+        <div class="col-md-5 col-sm-5">
+          <button class="btn btn-md btn-success" style="border-radius: 2;" (click)="createPDF()">Yes
+          </button>
+        </div>
+        <div class="col-md-2 col-sm-2"></div>
+        <div class="col-md-5 col-sm-5">
+          <button class="btn btn-md btn-danger" style="border-radius: 2;" (click)="confirmationPopup.hide()">No
+          </button>
+        </div>
+        <!-- <div class="col-md-1 col-sm-1"></div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Only Account model -->
+<div class="modal fade" bsModal #onlyAccountModel="bs-modal" (onShow)="isOtherChargesOpen=true"
+  (onHide)="isOtherChargesOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onlyAccountModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-account-only  (onCancleAccountsOnly)="onCancleAccountsOnly()" (onAccountsOnlyCreated)="onAccountsOnlyCreated($event)"[editAccountsOnlyData]="accountOnlyReq"
+         [ExpanceManagementID]="expensesmanagement.expenseManagementId"></app-create-account-only>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- for delete -->
+<div class="modal fade" bsModal #deleteExpModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div  class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h4 id="popupRequestforSA" class="modal-title pull-left">Delete</h4> -->
+             
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                    <app-expense-confirm-delete [expensesmanagementID]="expensesmanagement.expenseManagementId" (noRequestFor)="noRequestFor()" [ApprovalMessage]="approvalmessage" 
+                    [tourID]="tourId" [URL]="baseUrl"
+                    (onSubmitted)="onSubmitted($event)"></app-expense-confirm-delete>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- submit for approval pop -->
+<!-- for delete -->
+<div class="modal fade" bsModal #submitapprovalmodel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div  class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4  class="modal-title pull-left">Submit for approval</h4>
+             
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                     <div class="control-label">
+                      Remark
+                     </div>
+                     <textarea [(ngModel)]="remarks" class="form-control" rows="2"></textarea>
+
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-right">
+                      <button type="button" (click)="submitapprovalmodel.hide()" class="btn btn-default"> <i class="fa fa-remove"></i>Cancel</button>&nbsp;
+                      <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+                      <button type="button" (click)="onClickSSumitApproval()" class="btn btn-primary"><i class="fa fa-save"></i>Submit</button>
+                    </div>
+                  </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

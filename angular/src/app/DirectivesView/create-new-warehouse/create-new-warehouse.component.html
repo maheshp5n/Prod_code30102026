@@ -1,0 +1,155 @@
+<!-- DEVELOPED BY ANKUR SAXENA -->
+
+<!-- <div class="modal-body" style="max-height: 500px;overflow: auto;padding: 0px;"> -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Information</strong>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Warehouse Name</div>
+        <input [(ngModel)]="newWarehouse.warehouseName" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Legal Entity</div>
+        <!-- <select [(ngModel)]="newWarehouse.legalEntityId" class="form-control">
+          <option value='null' disabled>--select--</option>
+          <option *ngFor="let o of legalEntityList;" [ngValue]="o.legalEntityId"> {{o.legalEntityName}}</option>
+        </select> -->
+        <div class="input-group">
+          <input [(ngModel)]="newWarehouse.legalEntityName" class="form-control" placeholder="Search Legal Entity..."
+            (keydown)="onKeydownLegalEntity($event)" (keyup)="noMatchLegalEntityCheck()" [typeahead]="legalEntityList"
+            typeaheadOptionField="legalEntityName" (typeaheadOnSelect)="legalEntitySelected($event)"
+            (typeaheadNoResults)="typeaheadNoResultsLegalEntity($event)" [isAnimated]="true">
+
+          <span class="input-group-append">
+            <div><i [ngClass]="newWarehouse.isLegalEntitySelected" (click)="legalEntityTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+          <span class="input-group-append">
+            <div><i [ngClass]="faPlus" class="border-left-0" (click)="addnewLegalEntity()"></i></div>
+          </span>
+        </div>
+        <div style="font:100; color: red;">{{noMatchLegalEntity}}</div>
+        <!-- <div class="input-group">
+          <input (change)="legalEntitySelected()" [(ngModel)]="newWarehouse.legalEntityId" class="form-control"
+            [typeahead]="legalEntityList" typeaheadBindTo="legalentityId" typeaheadOptionField="legalEntityName"
+            [isAnimated]="true" placeholder="Search Legal Entity...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isLegalEntitySelected" (click)="legalEntityTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+        </div> -->
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Warehouse Email</div>
+        <input [(ngModel)]="newWarehouse.warehouseEmail" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Warehouse Plant</div>
+        <input [(ngModel)]="newWarehouse.warehousePlant" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="_isEditMode==true" class="panel-heading">
+    <strong>System Information</strong>
+  </div>
+  <div *ngIf="_isEditMode==true" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label" style="font-weight: bold;">
+          Created By
+        </div>
+        <div class="label">
+          {{newWarehouse.createdByFirstName}} {{newWarehouse.createdByLastName}},
+          {{newWarehouse.createdDateTime | date:'yyyy-MM-dd HH:mm:ss'}}
+        </div>
+
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label" style="font-weight: bold;">
+          Last Modified By
+        </div>
+        <div class="label">
+          {{newWarehouse.modifiedByFirstName}} {{newWarehouse.modifiedByLastName}},
+          {{newWarehouse.modifiedDate| date:'yyyy-MM-dd HH:mm:ss'}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="modal-footer">
+        <div class="panel-footer"> -->
+  <div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+      <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+        Cancel</button>&nbsp;
+
+      <button type="button" (click)="createWarehouse()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+        Save</button>
+    </div>
+  </div>
+  <!-- </div>
+      </div> -->
+</div>
+<!-- </div> -->
+
+<!-- </div> -->
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+  <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+  <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+    class="alert alert-danger center center-block" style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+</div> -->
+
+
+<div class="modal fade" bsModal #createLegalEntityModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-legalEntity">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-legalEntity" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createLegalEntityModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-createlegalentity [isEditMode]="isEditMode" [editLegalEntityData]="createLegalEntity"
+          (onCancle)="cancelData2()" (onEntityCreated)="onlegalentityCreated($event)"></app-createlegalentity>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

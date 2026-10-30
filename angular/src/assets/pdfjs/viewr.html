@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PDF Viewer</title>
+
+  <link rel="stylesheet" href="./web/pdf_viewer.css">
+
+  <style>
+   @media print {
+  @page {
+    margin: 0;
+    size: A4 portrait;
+  }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    overflow: visible !important;
+  }
+
+  #customToolbar,
+  #viewerContainer {
+    display: none !important;
+  }
+
+  #print-container {
+    display: block !important;
+  }
+
+  canvas {
+    width: 210mm !important;
+    height: auto !important;
+    display: block !important;
+    page-break-after: always !important;
+    clip-path: none !important;
+  }
+
+  .textLayer,
+  .annotationLayer {
+    display: none !important;
+  }
+}
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #525252;
+    }
+
+    #customToolbar {
+      height: 42px;
+      background: #323232;
+      border-bottom: 1px solid #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 10px;
+    }
+
+    #customToolbar button {
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      background: #474747;
+      color: #fff;
+      border: 1px solid #5a5a5a;
+      border-radius: 3px;
+    }
+
+    #customToolbar button:hover {
+      background: #5a5a5a;
+    }
+
+    #viewerContainer {
+      position: absolute;
+      top: 42px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: auto;
+      background: #525252;
+    }
+
+    .pdfViewer {
+      padding: 10px;
+    }
+
+    .pdfViewer .page {
+      margin: 10px auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      background: white;
+      overflow: hidden;
+    }
+
+    .pdfViewer .page canvas {
+      clip-path: inset(0 0 60px 0);
+    }
+
+    .textLayer {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    body.readonly #printBtn,
+    body.readonly #downloadBtn {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="customToolbar">
+    <button id="zoomOutBtn">−</button>
+    <button id="zoomInBtn">+</button>
+    <button id="printBtn">Print</button>
+    <button id="downloadBtn">Download</button>
+  </div>
+
+  <div id="viewerContainer">
+    <div id="viewer" class="pdfViewer"></div>
+  </div>
+
+  <script src="./pdf.js"></script>
+  <script src="./pdf.worker.js"></script>
+  <script src="./web/pdf_viewer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file');
+    const mode = params.get('mode');
+    const invoice = params.get('invoice');
+
+    if (mode === 'readonly') {
+      document.body.classList.add('readonly');
+
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('keydown', e => {
+        if (
+          (e.ctrlKey && (e.key === 'p' || e.key === 's')) ||
+          e.key === 'PrintScreen'
+        ) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+    }
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.js';
+
+    const eventBus = new pdfjsViewer.EventBus();
+
+    const pdfViewer = new pdfjsViewer.PDFViewer({
+      container: document.getElementById('viewerContainer'),
+      viewer: document.getElementById('viewer'),
+      eventBus: eventBus,
+      textLayerMode: 0,
+      removePageBorders: true
+    });
+
+    eventBus.on('pagesinit', () => {
+      pdfViewer.currentScaleValue = 'page-width';
+    });
+
+    pdfjsLib.getDocument(file).promise.then(pdf => {
+      pdfViewer.setDocument(pdf);
+    });
+
+    let scale = 1;
+
+    document.getElementById('zoomInBtn').onclick = () => {
+      scale += 0.1;
+      pdfViewer.currentScale = scale;
+    };
+
+    document.getElementById('zoomOutBtn').onclick = () => {
+      if (scale > 0.3) {
+        scale -= 0.1;
+        pdfViewer.currentScale = scale;
+      }
+    };
+
+async function printPdfUsingCanvas() {
+
+  const printContainer = document.getElementById('print-container');
+  printContainer.innerHTML = '';
+  printContainer.style.display = 'block';
+
+  const pdfUrls = window.parent.pdfUrls && window.parent.pdfUrls.length
+    ? window.parent.pdfUrls
+    : [file];
+
+  for (const pdfUrl of pdfUrls) {
+
+    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+    const pdf = await loadingTask.promise;
+
+    for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
+
+      const page = await pdf.getPage(pageNo);
+      const viewport = page.getViewport({ scale: 1.4 });
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      await page.render({
+        canvasContext: ctx,
+        viewport
+      }).promise;
+
+      printContainer.appendChild(canvas);
+    }
+  }
+
+  setTimeout(() => {
+    window.print();
+
+    setTimeout(() => {
+      printContainer.innerHTML = '';
+      printContainer.style.display = 'none';
+    }, 500);
+
+  }, 300);
+}
+
+document.getElementById('printBtn').onclick = printPdfUsingCanvas;
+
+    document.getElementById('downloadBtn').onclick = async () => {
+      try {
+        const allPdfUrls = window.parent.pdfUrls || [];
+        const invoiceNo = invoice || 'document';
+
+        if (allPdfUrls.length === 0 || allPdfUrls.length === 1) {
+          const a = document.createElement('a');
+          a.href = allPdfUrls[0] || file;
+          a.download = `INVOICE NO ${invoiceNo}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          return;
+        }
+
+        const { PDFDocument } = PDFLib;
+        const mergedPdf = await PDFDocument.create();
+
+        for (let i = 0; i < allPdfUrls.length; i++) {
+          const response = await fetch(allPdfUrls[i]);
+          const pdfBytes = await response.arrayBuffer();
+          const pdf = await PDFDocument.load(pdfBytes);
+
+          const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+          copiedPages.forEach((page) => mergedPdf.addPage(page));
+        }
+
+        const mergedPdfBytes = await mergedPdf.save();
+        const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+        const blobUrl = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = `INVOICE NO ${invoiceNo}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(blobUrl);
+
+      } catch (error) {
+        alert('Error merging PDFs. Please try again.');
+      }
+    };
+  </script>
+
+<div id="print-container" style="display:none;"></div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-4">
+                <small class="reque">Destination Warehouse</small>
+                <ng-select *ngIf="locationList" [items]="locationList" bindLabel="locationName" bindValue="locationId"
+                    placeholder="Search Location" [(ngModel)]="_returnOrderRequest.destinationLocationId">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076;" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <accordion>
+            <accordion-group *ngFor="let item of falutyItems">
+                <div accordion-heading>
+                    <em class="fa fa-angle-right"></em> {{item.locationItemManualId}} {{item.partCode}}
+                    {{item.partDescription}}
+                    <small style="padding-left: 400px;">{{item.checkedlen}} of {{item.lineItems.length}}</small>
+                </div>
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width:25px"><input type="checkbox" [checked]="item.checked"
+                                [(ngModel)]="item.checked" (change)="manchecked(item)"> </td>
+                        <td>Serial Number <input type="text" [(ngModel)]="item.search" placeholder="Search Serial Number"></td>
+                    </tr>
+                    <tr *ngFor="let sl of item.lineItems|globalSearchPipe:item.search">
+                        <td style="width:25px">
+                            <input type="checkbox" [(ngModel)]="sl.isSelected" (change)="check()">
+                        </td>
+                        <td>
+                            {{sl.serialNumber}}
+                        </td>
+                    </tr>
+                </table>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <small class="reque">Shipping Mode</small>
+                <select class="form-control" [(ngModel)]="_returnOrderRequest.shippingMode">
+                    <option value="">Select</option>
+                    <option value="Courier">Courier</option>
+                    <option value="ByHand">ByHand</option>
+                    <option value="Transport">Transport</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <small class="reque">Ship To Name</small>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Company Name / Person Name"></em>
+                <input type="text" class="form-control" [(ngModel)]="_returnOrderRequest.shipToName">
+            </div>
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <small class="reque">
+                    Tracking Number
+                </small>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Tracking Number / Person Mobile Number"></em>
+                <input type="text" class="form-control" [(ngModel)]="_returnOrderRequest.trackingNumber">
+            </div>
+            <div class="col-md-6">
+                <small class="reque">
+                    Expected Arrival Date
+                </small>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" [minDate]="today"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',adaptivePosition:true}" class="form-control"
+                    [(ngModel)]="_returnOrderRequest.expectedArrivalDate" autocomplete="off">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="button" (click)="cancelReturnORder()" class="btn btn-default"><em class="fa fa-remove"></em>Cancel
+        </button>
+        <button type="button" (click)="returnItems()" class="btn btn-info"><em class="fa fa-save"></em> Return</button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #alertModel="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="text-center" style="margin-left: 20%;margin-right: 20%;">
+        <alert [type]="alertDeetails.type">
+            <span [innerHTML]="alertDeetails.message"></span>
+            <button type="button" (click)="alertModel.hide()" class="close pull-right">
+                <span>&times;</span>
+            </button>
+        </alert>
+
+    </div>
+</div>

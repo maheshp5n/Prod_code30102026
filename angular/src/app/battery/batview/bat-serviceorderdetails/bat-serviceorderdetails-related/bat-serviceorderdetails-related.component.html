@@ -1,0 +1,141 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card">
+        <div class="card-header">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 35px;">
+                        <img src="assets/images/inventory_120.png"
+                            style="width: 30px;height: auto;background-color: chocolate;" alt=""
+                            title="Service Order items">
+                    </td>
+                    <td>
+                        <strong> Service Order Items</strong>
+                    </td>
+                </tr>
+            </table> <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Serial Number"
+                        [(ngModel)]="advancesearchSOItem.serviceOrderItemSerialNumber">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Part Code"
+                        [(ngModel)]="advancesearchSOItem.productPartcode">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Product Description"
+                        [(ngModel)]="advancesearchSOItem.productDescription">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Assigned To"
+                        [(ngModel)]="advancesearchSOItem.assignedTo">
+                </div>
+
+            </div> <br>
+            <div class="row">
+            </div>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-outline-info btn-md" (click)="resetSOItems()"> Reset</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-outline-info btn-md" (click)="searchSOItems()">
+                        <em class="fa fa-search"></em> Search</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th class="text-left">
+                            S.No
+                        </th>
+                        <th>
+                            Item Serial Number
+                        </th>
+                        <th>
+                            Part code
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Customer Inventory
+                        </th>
+                        <th class="text-left">
+                            Received
+                        </th>
+                        <th class="text-left">Assigned To</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of items;let i=index;">
+                        <td>
+                            {{i+1}}
+                        </td>
+                        <td>
+                            {{item.serviceOrderItemSerialNumber}}
+                        </td>
+                        <td>
+                            {{item.productPartcode}}
+                        </td>
+                        <td>
+                            {{item.productDescription}}
+                        </td>
+                        <td>
+                            <input type="checkbox" [checked]="item.isCustomerInventory" disabled>
+                        </td>
+                        <td>
+                            <input type="checkbox" [checked]="item.isReceived" disabled>
+                        </td>
+                        <td class="text-left">
+                            {{item.assignedToFirstName}} {{item.assignedToMiddleName}} {{item.assignedToLastName}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<div>
+    <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+</div>
+<div class="modal fade" bsModal #assignToEng="bs-modal" (onShow)="openModal.assign=true"
+    (onHide)="openModal.assign=false" tabindex="-" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Assign To Eng</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="assignToEng.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="openModal.assign">
+                <ng-select [items]="serviceEngs" [(ngModel)]="_serviceEng" bindLabel="serviceResourceName"
+                    bindValue="resourceId" placeholder="Search Repair Engineer">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(49,121,146);" /> {{item.serviceResourceName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(49,121,146);" /> {{item.serviceResourceName}}
+                    </ng-template>
+                </ng-select>
+                <br>
+                <button type="button" class="btn btn-dark" (click)="assign()"><em class="fa fa-save"></em>
+                    Assign</button>
+            </div>
+
+        </div>
+    </div>
+</div>

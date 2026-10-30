@@ -1,0 +1,121 @@
+<div class="card">
+  <div class="card-header">
+    <span class="text-center"> Information</span>
+  </div>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-6 col-sm-6 form-group" style="display: none;">
+        <div class="control-label">
+          Owner
+        </div>
+        <input class="form-control" [ngModel]="loginData.firstName" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Warehouse
+        </div>
+        <select class="form-control" [(ngModel)]="_mslRequest.locationId" disabled>
+          <option [ngValue]="loc.locationId">{{loc.locationName}}</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Status
+        </div>
+        <select name="type" class="form-control" [(ngModel)]="_mslRequest.statusId" disabled>
+          <option value='0' disabled>--Select status--</option>
+          <option *ngFor="let res of mslStatus " [ngValue]="res.statusId">{{res.statusName}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-4 form-group required">
+        <div class="control-label">
+          Product
+        </div>
+        <ng-select *ngIf="products" [items]="products" [(ngModel)]="_mslItemRequest.productPartCode"
+          bindLabel="productPartCode" bindValue="productPartCode" placeholder="Serch Products">
+          <ng-template ng-label-tmp let-item="item">
+            <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+              style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+              style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="col-md-2 col-sm-2 form-group required">
+        <div class="control-label">
+          MSL
+        </div>
+        <input type="number" class="form-control" [(ngModel)]="_mslItemRequest.mslQty">
+      </div>
+      <div class="col-md-2 col-sm-2 form-group required">
+        <div class="control-label">
+          HSL
+        </div>
+        <input type="number" class="form-control" [(ngModel)]="_mslItemRequest.hslQty">
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <button type="button" style="margin-top: 20px;" (click)="addProductList()" class="btn btn-success "><i
+            class="fa fa-plus"></i>
+          Add</button>&nbsp;
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Part Code</th>
+                <th scope="col">MSL Quantity</th>
+                <th scope="col">HSL Quantity</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of _mslRequest.itemRequest;let i=index">
+                <td style="text-align: center;">{{i+1}}</td>
+                <td>{{item.productPartCode}}</td>
+                <td>{{item.mslQty}}</td>
+                <td>{{item.hslQty}}</td>
+                <td style="text-align: center;"><button type="button" (click)="removeItems(i)"
+                    class="btn btn-sm btn-danger"><i class="fa fa-remove"></i> </button> </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    <button type=" button" (click)="cancelData()" class="btn btn-default"> <i
+        class="fa fa-remove"></i>Cancel</button>&nbsp;
+    <button type="button" (click)="saveMSLData()" class="btn btn-primary"> <i class="fa fa-save"></i>&nbsp;
+      Save </button>
+  </div>
+  <!-- ===system Info=== -->
+
+
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="alertmessage.class" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>
+        <span [innerHTML]="alertmessage.message"></span>
+      </strong>
+    </div>
+  </div>

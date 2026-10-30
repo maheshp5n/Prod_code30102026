@@ -1,0 +1,189 @@
+<div class="panel panel-default" style="max-height: 70vh; overflow: auto;">
+
+  <div class="panel-body">
+    <div *ngIf="_isEditModeTourExpense" class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Name</div>
+        <input [(ngModel)]="tourExpenseRequest.manualId" type="text" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Expenses Report</div>
+        <input [(ngModel)]="tourExpenseRequest.expenseManagementManualId" type="text" class="form-control" disabled>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div style="font: bolder;"> Departure Date/Time</div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div style="font: bolder;">Arrival Date/Time</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label">Date</div>
+        <input [(ngModel)]="tourExpenseRequest.departureDate" type="text" class="form-control"onkeydown="return false" bsDatepicker
+          placeholder="Pick date..." [dateCustomClasses]="dateCustomClasses"
+          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" [maxDate]="today" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label">Time</div>
+        <select [(ngModel)]="tourExpenseRequest.departureTime" class="form-control">
+          <option value="select" disabled>--select--</option>
+          <option *ngFor="let t of timeList" [value]="t.time">{{t.time}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label">Date</div>
+        <input [(ngModel)]="tourExpenseRequest.arrivalDate" type="text" class="form-control"onkeydown="return false" bsDatepicker
+          placeholder="Pick date..." [dateCustomClasses]="dateCustomClasses"
+          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" [maxDate]="today" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label">Time</div>
+        <select [(ngModel)]="tourExpenseRequest.arrivalTime" class="form-control">
+          <option value="select" disabled>--select--</option>
+          <option *ngFor="let t of timeList" [value]="t.time">{{t.time}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">From Place</div>
+        <input [(ngModel)]="tourExpenseRequest.fromPlace" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">To Place</div>
+        <input [(ngModel)]="tourExpenseRequest.toPlace" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Mode of Travel</div>
+        <select [(ngModel)]="tourExpenseRequest.modeOfTravelId" class="form-control"
+          (change)="getOwnConveyance(tourExpenseRequest.modeOfTravelId)">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of modeOfTravel;" [ngValue]="o.id">
+            {{o.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="tourExpenseRequest.modeOfTravelId==8" class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Own Conveyance</div>
+        <select [(ngModel)]="tourExpenseRequest.ownConveyanceId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of ownConveyance;" [ngValue]="o.id">
+            {{o.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="tourExpenseRequest.modeOfTravelId!=8" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Own Conveyance</div>
+        <select [(ngModel)]="tourExpenseRequest.ownConveyanceId" class="form-control" disabled>
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of ownConveyance;" [ngValue]="o.id">
+            {{o.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label form-group">Company Paid
+          <em class="fa fa-info-circle" style="padding-left: 10px;" tooltip="Select if amount paid by the company"></em>
+        </div>
+        <input [(ngModel)]="tourExpenseRequest.companyPaid" type="checkbox" class="largerCheckbox" (change)="companyPaid($event)">
+      </div>
+      <div *ngIf="tourExpenseRequest.modeOfTravelId==8" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Fare
+          <em class="fa fa-info-circle" style="padding-left: 10px;"
+            tooltip="Automatically calculated by system when Mode of Travel is Own Conveyance"></em>
+        </div><input [(ngModel)]="tourExpenseRequest.fare" type="text" class="form-control" disabled>
+      </div>
+      <div *ngIf="tourExpenseRequest.modeOfTravelId!=8" [ngClass]="farerequired">
+        <div class="control-label">Fare
+          <em class="fa fa-info-circle" style="padding-left: 10px;"
+            tooltip="Automatically calculated by system when Mode of Travel is Own Conveyance"></em>
+        </div><input [(ngModel)]="tourExpenseRequest.fare" type="text" class="form-control" (keypress)="onlyNumbersForRs($event)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div *ngIf="tourExpenseRequest.modeOfTravelId==8"  class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Distance (Km)
+        </div>
+        <input [(ngModel)]="tourExpenseRequest.distance" type="text" class="form-control" (keypress)="onlyNumbersForRs($event)" >
+      </div>
+      <!--  -->
+      <div *ngIf="tourExpenseRequest.modeOfTravelId!=8"  class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Distance (Km)
+        </div>
+        <input [(ngModel)]="tourExpenseRequest.distance" type="text" class="form-control" disabled>
+      </div>
+      <!-- <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Approved Amount</div>
+        <input [(ngModel)]="tourExpenseRequest.approvedAmount" type="text" class="form-control">
+      </div> -->
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Grade</div>
+      <a  [routerLink]="[]" (click)="OpnGrade(boardingName)"> {{boardingName}}</a>
+    
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Remarks</div>
+        <textarea [(ngModel)]="tourExpenseRequest.remark" class="form-control" maxlength="1000" cols="30"
+          rows="2"></textarea>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group" *ngIf="_isEditModeTourExpense">
+        <div class="control-label"> Amount to Disbures </div>
+        <input type="text"[(ngModel)]="tourExpenseRequest.amountToDisbursed" class="form-control">
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-right">
+    <button type="button" class="btn btn-default" (click)="cancelTourExpense()"><i class="fa fa-remove"></i>&nbsp;
+      Cancel</button>&nbsp;
+    <button type="button" class="btn btn-primary" (click)="createTourExpense()"><i class="fa fa-save"></i>&nbsp;
+      Save</button>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>
+<!-- bodingLodging_Details Model    by shagufta-->
+
+<div class="modal fade" bsModal #borloddtailModel="bs-modal" 
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="borloddtailModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-boding-lodging-da-detail [BordingRes]="response"></app-boding-lodging-da-detail>
+      </div>
+    </div>
+  </div>
+</div>

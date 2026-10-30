@@ -1,0 +1,131 @@
+
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Service Order
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px;">
+                            <strong>{{serviceOrderDetails.manualId}}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4 text-right">
+                <button type="button" class="btn btn-sm btn-outline-info"
+                    *ngIf="rights('ServiceOrderItemReceive','create')" (click)="receiveModal.show()"><em
+                        class="fa fa-check"></em> Receive</button>
+                        <app-sapdocdisplay [crmDocNumber]="serviceOrderDetails.manualId"></app-sapdocdisplay>
+                        <button  class="btn btn-outline-info btn-sm" type="button" 
+                        (click)="confirmationPopup.show()">Packaging PDF</button>&nbsp;
+                    </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 text-left">
+                <small>
+                    Status
+                </small>
+                <br>
+                {{serviceOrderDetails.orderStatusName}}
+            </div>
+            <div class="col-md-4 text-center">
+                <small>
+                    Total Item
+                </small>
+                <br>
+                {{serviceOrderDetails.totalNumberOfItem}}
+            </div>
+            <div class="col-md-4 text-right">
+                <small>
+                    Total Received
+                </small>
+                <br>
+                {{serviceOrderDetails.totalReceived}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="menue">
+
+                    <li><a [ngClass]="navigationMenue.details.ngclass" [routerLink]="['/serviceorder',serviceOrderId]"
+                            [queryParams]="{view:'details'}">Details</a>
+                    </li>
+                    <li><a [ngClass]="navigationMenue.releted.ngclass" [routerLink]="['/serviceorder',serviceOrderId]"
+                            [queryParams]="{view:'related'}">Related</a>
+                    </li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+            </div>
+        </div>
+        <app-serviceorderdetailsview [serviceOrderDetails]="serviceOrderDetails" *ngIf="navigationMenue.details.view">
+        </app-serviceorderdetailsview>
+        <app-serviceorderreleatedview [serviceOrderId]="serviceOrderId" *ngIf="navigationMenue.releted.view">
+        </app-serviceorderreleatedview>
+
+    </div>
+</div>
+
+<div class="modal fade" bsModal #receiveModal="bs-modal" (onShow)="openModal.receive=true"
+    (onHide)="openModal.receive=false" tabindex="-" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Service Order Receive # {{serviceOrderDetails.manualId}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="receiveModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-serviceorderreceivedirec *ngIf="openModal.receive" [orderId]="serviceOrderId"
+                    (cancled)="receiveModal.hide()" (received)="onReceived()"></app-serviceorderreceivedirec>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- confirmation pop -->
+<div class="modal fade" bsModal #confirmationPopup='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content" style="text-align: center;">
+        <div class="modal-body">
+          <div class="control-label">
+            Do you want to procees with PDf Creation?
+          </div>
+          <br>
+          <div class="col-md-5 col-sm-5">
+            <button class="btn btn-md btn-success" style="border-radius: 2;" (click)="createPDF()">Yes
+            </button>
+          </div>
+          <div class="col-md-2 col-sm-2"></div>
+          <div class="col-md-5 col-sm-5">
+            <button class="btn btn-md btn-danger" style="border-radius: 2;" (click)="confirmationPopup.hide()">No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,296 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <img alt="" src="assets/images/Sites.png"
+                style="height: auto;width:100%;background-color: rgb(248, 109, 90);" title="Site">
+            </td>
+            <td style="padding-left: 5px;">Product Tranfer Item</td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;">{{resp.locationProductTransferItemManualId}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4">
+        <!-- <div class="btn-group " *ngIf="_cFlag!='f'"   role="group" style="float:right;">
+          <button  *ngIf="rights('CaseDetails','create')"class="btn btn-sm btn-outline-info" (click)="createCaseModelshow()" type="button"><i
+              class="fa fa-plus"></i>&nbsp; New Case</button>&nbsp;
+           <button *ngIf="rights('SiteDetails','edit')" class="btn btn-sm btn-outline-info" (click)="editSiteModelshow(resp)" type="button"> Edit</button>
+       </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="margin-top: 10px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+          <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 15px;">
+        <div *ngIf="vDetails">
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable"><small>Product Transfer Item</small></td>
+                    <td class="wrappable">{{resp.locationProductTransferItemManualId}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Location Product Request Line Item</small></td>
+                    <td class="wrappable">{{resp.locationProductRequestLineItemManualId}}
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Product Request</small><br>
+                    </td>
+                    <td class="wrappable">
+                      <a  [routerLink]="['/productrequest',resp.locationProductRequestId]"
+                      [routerLinkActive]="'active'"> {{resp.locationProductRequestManualId}}</a>
+                     </td>
+                  </tr>
+
+                 
+                  <tr>
+                    <td class="wrappable"><small>Product Part Code</small></td>
+                    <td class="wrappable"> <a [routerLink]="['/products', resp.productPartCode]"
+                      [routerLinkActive]="'active'"> {{resp.productPartCode}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Expected Date</small></td>
+                    <td class="wrappable">{{resp.expectedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small> Owner</small></td>
+                    <td class="wrappable"> <a [routerLink]="['/createuser',resp.ownerEmailId]">{{resp.ownerFirstName}}&nbsp;{{resp.ownerMiddleName}}&nbsp; {{resp.ownerLastName}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Quantity Received</small> </td>
+                    <td class="wrappable">{{resp.quantityReceived}} </td>
+                  </tr>
+                
+                  <tr>
+                    <td class="wrappable"><small>Quantity Sent</small>
+                    </td>
+                    <td class="wrappable">{{resp.quantitySent}}</td>
+                  </tr>
+                  <tr>
+                    <td><small>Part Description</small></td>
+                    <td>{{resp.partDescription}}</td>
+                  </tr>
+                 
+  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeAddressDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="addressDisplay.angleIcon"></i> Shipping Information</button>
+          <div *ngIf="addressDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Ship To Name</small></td>
+                    <td class="wrappable">{{resp.shipToName}} </td>
+                  </tr>
+                  <tr >
+                    <td class="wrappable"><small>Shipping Mode</small> </td>
+                    <td class="wrappable">{{resp.shippingMode}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Tracking Number</small></td>
+                    <td class="wrappable">{{resp.trackingNumber}} </td>
+                  </tr>
+              </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>sourceLocationName</small></td>
+                    <td class="wrappable"><a href="#" routerLink="/location/{{resp.sourceLocationId}}" activateRout="active">{{resp.sourceLocationName}}</a> </td>
+                  </tr>
+                  <tr >
+                    <td class="wrappable"><small>Destination LocationName</small></td>
+                    <td class="wrappable">
+                      <a href="#" routerLink="/location/{{resp.destinationLocationId}}" activateRout="active">{{resp.destinationLocationName}} </a></td>
+                  </tr>
+                 </tbody>
+              </table>
+            </div>
+
+          </div>
+          <button type="button" (click)="sysInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                    <td class="wrappable">
+                      <a [routerLink]="['/createuser',resp.createdByEmailId]">{{resp.createdByFirstName}}&nbsp;{{resp.createdByMiddleName}}&nbsp;{{resp.createdByLastName}}</a>&nbsp;,&nbsp;{{resp.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                    <td class="wrappable">
+                      <a [routerLink]="['/createuser',resp.modifiedByEmailId]">{{resp.modifiedByFirstName}}&nbsp;{{resp.modifiedByMiddleName}}&nbsp;{{resp.modifiedByLastName}}</a>&nbsp;,&nbsp;{{resp.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails" class="panel-body">
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/relationship_120.png"
+                      style="width: 24px;height: 24px;background-color: #ecd762"></td>
+                  <td>
+                    <a>&nbsp;<strong>Line Items({{lineItemResp.length}})</strong> </a>
+                  </td>
+                  <!-- *ngIf="lineItemResp.length>5" -->
+                 <td  class="text-right"><a [routerLink]="['/details',objectId,'cmponent','proTranferLI']" [queryParams]="{cmponent:proRoCol,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+                </tr>
+              </table> <br>
+              <!-- adv search -->
+              <div class="row">
+                <div class="col-md-3">
+                
+                  <input type="text" class="form-control" [(ngModel)]="advancesearchPT.serialNumber" placeholder="Product Line Item Serial number">
+                </div>
+                <div class="col-md-3">
+                  <!-- <input type="text" class="form-control" [(ngModel)]="advancesearchPT.productType" placeholder="Product Type"> -->
+                  <select  class="form-control" [(ngModel)]="advancesearchPT.productType">
+                    <option value="">Select Product Type</option>
+                    <option *ngFor="let typ of proType" [ngValue]="typ.typeName">{{typ.typeName}}</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+            
+                  <input type="text" class="form-control" [(ngModel)]="advancesearchPT.partcode" placeholder=" Part Code">
+                </div>
+                <div class="col-md-3">
+                  <input type="text"class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPT.productDescription">
+                  
+                </div>
+        
+              </div><br>
+              <div class="row">
+                
+                <div class="col-md-3">
+                   <button type="button" class="btn btn-outline-info btn-md" (click)="searchPTitems()"><em
+                        class="fa fa-search"></em>
+                      Search</button>
+                      <button type="button" class="btn btn-outline-info btn-md" (click)="resetPTItems()">
+                      Reset</button>
+                  </div>
+              </div>
+              <!--  close adv search -->
+            </div>
+
+            <div class="card-body"style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div class="table-responsive mobile" style="background-color: white">
+                <table class="table table-sm table-condensed">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th class="text-left">S.No.</th>
+                      <th class="text-left" title="Case ID">Product Transfer Line Item
+                      </th>
+                      <th class="text-left" title="Type">Product Line Item Serial Number
+                      </th>
+                      <th class="text-left" title="Case Reason">Product Part Code
+                      </th>
+                      <th class="text-left" title="Status">Product Description
+                      </th>
+                      <th  class="text-left">Product Type</th>
+
+                    </tr>
+                  </thead>
+                  <tbody  *ngIf="lineItemResp.length>0" >
+                    <tr *ngFor="let itm of lineItemResp ;let i=index">
+                      <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+                      <td class="wrappable" data-line="Product Transfer Line Item">{{itm.productTransferLineItemManualId}}</td>
+                      <td class="wrappable" data-line="Serial Number">{{itm.productLineItemSerialNumber}}</td>
+                      <td class="wrappable" data-line="Part Code"> 
+                        <a [routerLink]="['/productrequest',resp.locationProductRequestId]"
+                        [routerLinkActive]="'active'">{{itm.productPartCode}}</a></td>
+                      <td class="wrappable" data-line="Product Description">{{itm.productPartDescription}}</td>
+                      <td class="wrappable" data-line="Product Type">{{itm.productType}}</td>
+
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="lineItemResp.length==0">
+                    <tr> 
+                        <td></td>
+                        <td></td>
+                        <td>
+                              
+                              <div class="col-md-4" style="text-align: center; float: center;"> <p>Data Not Found</p></div>
+                        
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                       </tr>
+                </tbody>
+                </table>
+          <!-- <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+

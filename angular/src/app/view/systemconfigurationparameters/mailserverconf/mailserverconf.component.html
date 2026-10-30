@@ -1,0 +1,204 @@
+<div class="container-fluid">
+    <div class="text-right">
+        <button type="button" (click)="newmailServerModal.show()" class="btn btn-sm btn-primary">
+            <em class="fa fa-plus"></em> New
+        </button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="m-table table table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        SMTP
+                    </th>
+                    <TH>
+                        User EmailId
+                    </TH>
+                    <th>
+                        Required Auth
+                    </th>
+                    <th>
+                        Required SSL
+                    </th>
+                    <th>
+                        TSL Start
+                    </th>
+                    <th>
+                        SMTP Port
+                    </th>
+                    <th>
+                        SSL Port
+                    </th>
+                    <th>
+                        Active
+                    </th>
+                    <th>
+                        Last Modified  Date
+                    </th>
+                    <th>
+                        Last Modified By
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of allMailServers">
+                    <td>
+                        {{m.smtp_server}}
+                    </td>
+                    <td>{{m.default_user_name}}</td>
+                    <td><em *ngIf="m.required_authentication" class="tik-mark"></em></td>
+                    <td><em *ngIf="m.required_ssl" class="tik-mark"></em></td>
+                    <td><em *ngIf="m.required_tls_start" class="tik-mark"></em></td>
+                    <td>{{m.smtp_port}}</td>
+                    <td>{{m.ssl_port}}</td>
+                    <td>
+                        <em *ngIf="m.active" class="tik-mark"></em>
+                    </td>
+                    <td>{{m.last_modified_date|date:'dd-MMM-yy hh:mm aa'}}</td>
+                    <td>{{m.mr_first_name}} {{m.mr_middle_name}} {{m.mr_last_name}}</td>
+                    <td>
+                        <button (click)="enableDisable(m.id,!m.active)" *ngIf="m.active" type="button" class="btn btn-sm btn-outline-danger">
+                            <em class="fa fa-remove"></em> Disable
+                        </button>
+                        <button (click)="enableDisable(m.id,!m.active)" *ngIf="!m.active" type="button" class="btn btn-sm btn-outline-primary">
+                            <em class="fa fa-check"></em> Enable
+                        </button>
+                        <button type="button" (click)="onClickEdit(m.id)" class="btn btn-sm btn-outline-dark">
+                            <em class="fa fa-edit"></em> Edit
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #newmailServerModal="bs-modal" (onHide)="onHide()" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">New Mail Server</h4>
+                <button type="button" (click)="newmailServerModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>SMTP</label>
+                                <input type="text" class="form-control" [(ngModel)]="nServerDetails.smtp">
+                            </div>
+                            <div class="col-md-4">
+                                <label>EMail Id</label>
+                                <input type="text" class="form-control" [(ngModel)]="nServerDetails.emailId">
+                            </div>
+                           
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Password</label>
+                                <input type="password" class="form-control" [(ngModel)]="nServerDetails.password">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" [(ngModel)]="nServerDetails.confirmPassword">
+                            </div>
+                            <div class="col-md-3">
+                                <label>SMTP Port</label>
+                                <input type="number" class="form-control" [(ngModel)]="nServerDetails.smtpPort">
+                            </div>
+                            <div class="col-md-3">
+                                <label>SSL Port</label>
+                                <input type="number" class="form-control" [(ngModel)]="nServerDetails.sslPort">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="m-table table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Property Name
+                                            </th>
+                                            <th>
+                                                Value
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let p of nServerDetails.otherPropertyes">
+                                            <td>
+                                                {{p.propertyName}}
+                                            </td>
+                                            <td>
+                                                {{p.propertyValue}}
+                                            </td>
+                                            <td>
+                                                <button type="button" (click)="removeProperty(p.propertyName)" class="btn btn-sm btn-danger"><em class="fa fa-remove"></em></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" [(ngModel)]="property.propertyName">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm" [(ngModel)]="property.propertyValue">
+                                            </td>
+                                            <td>
+                                                <button type="button" (click)="addProperty()" class="btn btn-sm btn-dark"><em class="fa fa-plus"></em> Add</button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-9">
+                                Required Auth
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" [checked]="nServerDetails.requiredAuth" [(ngModel)]="nServerDetails.requiredAuth">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                Reuired SSL
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" [checked]="nServerDetails.requiredSSL" [(ngModel)]="nServerDetails.requiredSSL">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                TSL Start
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" [checked]="nServerDetails.tslStart" [(ngModel)]="nServerDetails.tslStart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="text-right">
+                    <button type="button" (click)="saveServerSetting()" class="btn btn-dark"><em class="fa fa-save"></em> Save</button>
+                    <button type="button" (click)="newmailServerModal.hide()" class="btn btn-default"><em class="fa fa-remove"></em> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

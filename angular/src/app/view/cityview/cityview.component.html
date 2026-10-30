@@ -1,0 +1,190 @@
+
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="City" src="assets/images/city_120.png"
+                  style="height: auto;width:100%;background-color: rgb(245, 181, 79);" title="City" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>City</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{cityres.cityName}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div class="btn-group" *ngIf="_cFlag!='f'" style="padding: 10px;">
+             <button *ngIf="rights('CityDetails','edit')" class="btn btn-outline-info btn-sm" type="button" (click)="editLegalENtityModelshow(res)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+        <!-- </div> -->
+        <div *ngIf="vDetails"class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()" style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;" [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Name</small></td>
+                    <td>{{cityres.cityName}}</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Category Name</small></td>
+                    <td class="wrappable">{{cityres.cityCatagoryName}}</td>
+                  </tr>
+                 
+                 </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                      <td class="wrappable"><a
+                        [routerLink]="['/createuser',cityres.createdById]">{{cityres.createdByFirstName}}&nbsp;{{cityres.createdByMiddleName}}&nbsp;{{cityres.createdByLastName}}</a>&nbsp;,&nbsp;{{cityres.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Last Modified</small></td>
+                      <td class="wrappable"><a [routerLink]="['/createuser',cityres.modifiedById]">{{cityres.modifiedByFirstName}}&nbsp;{{cityres.modifiedByMiddleName}}&nbsp;{{cityres.modifiedByLastName}}</a>&nbsp;,&nbsp;{{cityres.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails"class="card-body" style="padding: 0px;margin: 0px;">
+          <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <!-- =======edit legaentityModel=== -->
+  <div class="modal fade" bsModal #createCityyModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelData()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           <app-createcity [isEditMode]="isEditMode" [editEntityData]="res" (onCityCreated)="onCityCreated($event)"
+            (onCancle)="cancelData()"></app-createcity>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============delete legalEntity=================== -->
+  <div class="modal fade" bsModal #deleteLegalENtityModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title text-center">DELETE City</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="deleteLegalENtityModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;">
+
+          <div class="panel-body">
+            <div class="row">
+              <div class="text-center"> Are You Sure You Want Delet City</div>
+
+            </div>
+          </div>
+          <div class=" panel panel-footer text-right">
+
+            <button type="button" (click)="deleteLegalENtityModel.hide()" class="btn btn-default"> Cancel</button>&nbsp;
+            <!-- <button type="button" (click)="deleteEntity()" class="btn btn-primary">DELETE</button>&nbsp; -->
+
+          </div>
+
+
+          <!--close -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+      style="width:80%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  </div>

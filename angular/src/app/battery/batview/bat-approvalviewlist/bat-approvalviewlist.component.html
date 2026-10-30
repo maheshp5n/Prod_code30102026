@@ -1,0 +1,175 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <img alt="Dashboard" src="assets/images/account_120.png"
+                style="height: auto;width:100%;background-color: rgb(198, 172, 240);" title="Battery Approval Flow">
+            </td>
+            <td style="padding-left: 5px;">
+              <span>
+                Battery Approval Flow
+              </span>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+        </table>
+      </div>
+      <div class="col-8 text-right">
+        <button (click)="newapprovalflow.show()" type="button" class="btn btn-outline-primary btn-sm"><em
+            class="fa fa-plus"></em> New</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="advancesearch.name">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Applied Object Name" [(ngModel)]="advancesearch.objectName">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Description" [(ngModel)]="advancesearch.description">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Initiator" [(ngModel)]="advancesearch.initiator">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-3">
+        <button type="button" class="btn btn-outline-info btn-md" (click)="searchAdvance()"><em
+            class="fa fa-search"></em>
+          Search</button>
+        <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()">
+          Reset</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body" style="padding: 0px;background-color: white;">
+
+    <div class="wrap">
+      <table #datatable class="head">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col" *ngFor="let t of headerdetails;" (click)="changeOrderBy(t.id)">{{t.name}}
+              <em *ngIf="t.currentsortby=='asc'" class="fa fa-arrow-down"></em>
+              <em *ngIf="t.currentsortby=='desc'" class="fa fa-arrow-up"></em>
+            </th>
+            <!-- <th scope="col">Name</th>
+                            <th scope="col">Applied Object Name</th>
+                            <th scope="col">Initiator</th>
+                            <th scope="col">Steps</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Active</th> -->
+            <th scope="col">Enable/Disable</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="inner_table" *ngIf="approvalpage.content.length>0">
+        <table>
+          <tbody>
+            <tr *ngFor="let item of approvalpage.content;let i=index;">
+              <td>
+                {{(activepagedetails.page*activepagedetails.size)+i+1}}
+              </td>
+              <td>
+                <a [routerLink]="['/batapprovalflow',item.id]" [routerLinkActive]="['active']"> {{item.object_name}}</a>
+              </td>
+              <td>
+                {{getObjectLabelName(item.object_class_name)}}
+              </td>
+              <td>
+                {{item.initial_submitters}}
+              </td>
+              <td>
+                {{item.total_stapes}}
+              </td>
+              <td>
+                {{item.description}}
+              </td>
+              <td>
+                <em *ngIf="item.active" class="tik-mark"></em>
+                <em *ngIf="!item.active" class="cross-mark"></em>
+              </td>
+              <td>
+                <button type="button" (click)="enalbleDisableApprovalFlow(item)" *ngIf="item.active"
+                  class="btn btn-outline-danger btn-sm"> Disable</button>
+                <button type="button" (click)="enalbleDisableApprovalFlow(item)" *ngIf="!item.active"
+                  class="btn btn-outline-primary btn-sm"> Enable</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="approvalpage.content.length==0">
+        <div class="row">
+          <div class="col-md-4"> </div>
+          <div class="col-md-4">
+            <p>Data Not Found</p>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+
+      </div>
+    </div>
+    <!-- pagination work ..............shagufta -->
+    <div class="row">
+      <div class="col-sm-4" style="text-align:left">
+
+        Showing Page {{approvalpage.number+1}} &nbsp;of&nbsp;{{approvalpage.totalPages}}&nbsp;Total
+        Count={{approvalpage.totalElements}}
+      </div>
+      <div class="col-sm-4" style="text-align: center" *ngIf="!(approvalpage.first && approvalpage.last) ">
+        <a [routerLink]="['/batapprovalflow']" [routerLinkActive]="['active']" class="previous round btn-sm"
+          *ngIf="!approvalpage.first" [queryParams]="{page:approvalpage.number-1,size:activepagedetails.size}">
+          &lt;
+        </a>
+        <a [routerLink]="['/batapprovalflow']" [routerLinkActive]="['active']" class="previous round btn-sm"
+          [queryParams]="{page:approvalpage.number,size:activepagedetails.size}">
+          {{approvalpage.number+1}}
+        </a>
+        <a [routerLink]="['/batapprovalflow']" [routerLinkActive]="['active']" class="previous round btn-sm"
+          *ngIf="!approvalpage.last" [queryParams]="{page:approvalpage.number+1,size:activepagedetails.size}">
+          &gt;
+        </a>
+      </div>
+      <div class="col-sm-4" style="text-align: right;">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8" autocomplete="off"
+              (keypress)="onlyNumbers($event)">
+            <button (click)=jumpPage(pagenumber)>Go</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<div class="modal fade" bsModal #newapprovalflow="bs-modal" [config]="{backdrop:'static'}" tabindex="-1"
+  (onShow)="openWindow.newapprovalflow=true" (onHide)="openWindow.newapprovalflow=false" role="dialog">
+  <div class="mpanel">
+    <div class="mpanel-header">
+      <label>Approval Flow</label>
+      <button (click)="newapprovalflow.hide()" class="cls-btn"> <em class="fa fa-remove"></em> </button>
+    </div>
+    <div class="mpanel-body msize">
+      <app-bat-approval-credit *ngIf="openWindow.newapprovalflow" (onCancel)="newapprovalflow.hide()"
+        (onSave)="onNewApprovalSave()"></app-bat-approval-credit>
+    </div>
+  </div>
+</div>

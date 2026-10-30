@@ -1,0 +1,220 @@
+
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="SSA" src="assets/images/Zone_120.png"
+                  style="height: auto;width:100%;background-color: rgb(198, 90, 207);" title="SSA" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>SSA</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{res.name}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div class="btn-group"  *ngIf="_cFlag!='f'" style="padding: 10px;">
+             <button *ngIf="rights('SSA','edit')"class="btn btn-outline-info btn-sm" type="button" (click)="editSSAModel(res)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+        <!-- </div> -->
+        <div *ngIf="vDetails"class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()" style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;" [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Name</small></td>
+                    <td>{{res.name}}</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Circle Name</small></td>
+                    <td  *ngIf="domainId!=1" class="wrappable"> <a href="#" routerLink="/circles/{{res.circleName}}" activateRout="active">{{res.circleName}}</a></td>
+                    <td  *ngIf="domainId==1" class="wrappable"> <a href="#" routerLink="/bat_circle/{{res.circleName}}" activateRout="active">{{res.circleName}}</a></td>
+                  </tr>
+                 
+                 </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                      <td class="wrappable"><a
+                        [routerLink]="['/createuser',res.createdByEmailId]">{{res.createdByFirstName}}&nbsp;{{res.createdByLastName}}&nbsp;{{res.createdByMiddleName}}</a>&nbsp;,&nbsp;{{res.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/createuser',res.modifiedByEmailId]">{{res.modifiedByFirstName}}&nbsp;{{res.modifiedByLastName}}&nbsp;{{res.modifiedByMiddleName}}</a>&nbsp;,&nbsp;{{res.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails"class="card-body" style="padding: 0px;margin: 0px;">
+
+            <div class="card">
+                <div class="card-header">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="width: 30px;">
+                        <img src="assets/images/Sites.png"
+                          style="width: 24px;height: 24px;background-color: #f15050"></td>
+                      <td>
+                        <a>&nbsp; <strong>Sites({{totalSite}})</strong> </a>
+                      </td>
+    
+                    </tr>
+                  </table>
+                </div>
+    
+                <div class="card-body"*ngIf="siteList.length>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                  <div class="table-responsive mobile" style=" background-color: white; height: 100%;">
+                    <table class="table table-sm table-condensed">
+                      <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                          <th class="text-left" title="S.No.">S.No.</th>
+                          <th class="text-left" title="Site ID">Site ID
+                          </th>
+                          <th class="text-left" title="District">District
+                          </th>
+                          <th class="text-left" title="Circle">Circle
+                          </th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ser of siteList;let i = index ">
+                          <td data-line="S.No" class=" mhide wrappable">{{serialNumber+i+1}}.</td>
+                          <td  data-line="Site ID" class="wrappable"><a [routerLink]="['/sites',ser.siteId]">
+                              {{ser.siteManualId}}</a></td>
+                          <!-- <td  *ngIf="domainId==1" data-line="Site ID" class="wrappable"><a [routerLink]="['/bat_site',ser.siteId]">
+                              {{ser.siteManualId}}</a></td> -->
+                          <td data-line="District" class="wrappable"> {{ser.clusterDistrict}}</td>
+                          <td  *ngIf="domainId!=1" data-line="Circle" class="wrappable"><a href="#" routerLink="/circles/{{ser.circleName}}"
+                            activateRout="active">{{ser.circleName}}</a>
+                          </td>
+                          <td  *ngIf="domainId==1" data-line="Circle" class="wrappable"><a href="#" routerLink="/bat_circle/{{ser.circleName}}"
+                            activateRout="active">{{ser.circleName}}</a>
+                          </td>
+    
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: center" *ngIf="!(first && last)">
+                      <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                        (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                        &#8249;
+                      </a>
+    
+                      <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                        [ngClass]="{'active':i==page}">
+                        {{page+1}}
+                      </a>
+    
+                      <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                        (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                        &#8250;
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+              </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Edit SSA -->
+<div class="modal fade" bsModal #createSSAModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="cancelSSAData()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- new ssa create model form-->
+      <app-create-ssa [isEditMode]="isEditMode" [editSSAEntityData]="ssares" (onSSACreated)="onSSACreated($event)"
+        (onSSACancle)="cancelSSAData()"></app-create-ssa>
+
+    </div>
+  </div>
+</div>
+</div>
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>  <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+  </div>
+

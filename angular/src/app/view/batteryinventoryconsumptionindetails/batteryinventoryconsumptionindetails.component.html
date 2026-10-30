@@ -1,0 +1,236 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="panel " style="margin-left: 15px;margin-top: 15px;margin-right: 15px">
+  <div class="panel-heading" style="background-color: rgb(240, 240, 240)">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <table>
+          <tr>
+            <td><img src="assets/images/custom25_120.png" style="height: 32px;width:32px;background-color: lightcoral;"
+                alt="Battery Inventory Consumptions" title="Battery Inventory Consumptions"></td>
+            <td style="padding: 3px;">
+              <small>Battery Inventory Consumption</small>
+              <h4 style="margin: 0px;">{{asset.serialNumber}}</h4>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6 col-sm-6 text-right" style="color: rgb(89, 89, 245);">
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-default" (click)="createEditModelshow(asset)">
+            Edit</button>
+          <!--  <button type="button" class="btn btn-sm btn-default">
+                    Delete</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" style="margin-left: 15px;margin-right: 15px">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <!-- <div class="panel panel-default"> -->
+      <div class="panel-body">
+        <ul class="menue">
+          <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 14px;">
+
+        <div *ngIf="vDetails" class="panel-body">
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> Information
+          </button>
+          <!--  <div *ngIf="addressDisplay.open" class="row"> -->
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Battery Inventory Consumption Name</small>
+                      <div>{{asset.serialNumber}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Case</small>
+                      <div><a href="#" routerLink="/accounts/{{asset.accountSapNumber}}">{{asset.accountName}}</a>
+                      </div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Faulty Serial No</small>
+                      <div>{{asset.productFamailyName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Product</small>
+                      <!-- <td>{{assetResponse.siteCode}}</td> -->
+                      <div><a href="#" routerLink="/sites/{{asset.siteId}}">{{asset.siteManualId}}</a> </div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Product Value</small>
+                      <div>{{asset.primaryAccountName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Serial No</small>
+                      <div>{{asset.warranty}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Battery FSR CBMS & Li-lon Battery</small>
+                      <div>{{asset.Customer}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Site</small>
+                      <div>{{asset.Customer}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Owner</small>
+                      <div>{{assetResponse.productPartCode}} </div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Service Appointment</small>
+                      <div>{{asset.productDescription}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Quantity</small>
+                      <div>{{asset.productSubProductName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Product Description</small>
+                      <div>{{asset.siteName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Corrective Action</small>
+                      <div>{{asset.plantName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Spare Part Replaced</small>
+                      <div>{{asset.status}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Power Plant Field Service Report</small>
+                      <div>{{asset.remarks}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeSystemDisplay()"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="systemDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="systemDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Created By</small>
+                      <div>{{asset.createdByFirstName}} {{asset.createdByLastName }}
+                        {{asset.createdDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Last Modified By</small>
+                      <div>{{asset.modifyedByFirstName}} {{asset.modifyedByLastName}}
+                        {{asset.modifyedDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!vDetails" class="panel-body">
+          <span class="text-center"> No related lists to display </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createAcountModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-create-batteryinventory-consumption [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+          (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()">
+        </app-create-batteryinventory-consumption>
+        <!--  <app-create-batteryinventory-consumption [isEditMode]="isEditMode" [editServiceData]="assetResponse"
+                (onServiceCreated)="onServiceCreated($event)" (onCancle)="cancelData()"></app-create-batteryinventory-consumption>
+       -->
+      </div>
+    </div>
+  </div>
+</div>

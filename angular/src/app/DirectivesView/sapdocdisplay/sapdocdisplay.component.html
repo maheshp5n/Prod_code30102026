@@ -1,0 +1,39 @@
+<div class="btn-group" dropdown *ngIf="stk.length>0">
+    <button dropdownToggle type="button" class="btn btn-sm btn-outline-info dropdown-toggle"
+        aria-controls="dropdown-animated">
+        STK DOC <span class="caret"></span>
+    </button>
+    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-animated">
+        <li role="menuitem" *ngFor="let item of stk"><a class="dropdown-item" href="#"
+                (click)="stkdisplay(item)">{{item.INVOICE_NO}}</a></li>
+    </ul>
+</div>
+<div class="btn-group" dropdown *ngIf="sto.length>0">
+    <button dropdownToggle type="button" class="btn btn-sm btn-outline-info dropdown-toggle"
+        aria-controls="dropdown-animated">
+        STO DOC <span class="caret"></span>
+    </button>
+    <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-animated">
+        <li role="menuitem" *ngFor="let item of sto"><a class="dropdown-item" href="#"
+                (click)="stodisplay(item)">{{item.INVOICE}}</a></li>
+    </ul>
+</div>
+<div class="modal fade" bsModal #objectPdfView="bs-modal" (onShow)="isModelShow=true" (onHide)="isModelShow=false"
+    tabindex="-1" role="dialog">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label><em class="fa fa-check"></em> {{it.title}}</label>
+            <button type="button" (click)="objectPdfView.hide()" class="cls-btn"> <em class="fa fa-remove"></em>
+            </button>
+        </div>
+        <div class="mpanel-body msize">
+            <div style="width: 100%;height: 100%;overflow: scroll;">
+                <div *ngFor="let dc of it.doc">
+                    <iframe style="width: 100%;height: 100vh;" [frameBorder]="0" [src]="dc.data|sanitize">
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

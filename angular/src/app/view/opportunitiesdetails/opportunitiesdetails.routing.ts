@@ -1,0 +1,15 @@
+import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from "@angular/core";
+import { OpportunitiesdetailsComponent } from './opportunitiesdetails.component';
+
+const routes:Routes=[
+    {
+        path:'',
+        component:OpportunitiesdetailsComponent
+    }
+]
+@NgModule({
+    imports:[RouterModule.forChild(routes)],
+    exports:[RouterModule]
+})
+export class OpportunitiesDetailsRouting{}

@@ -1,0 +1,224 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="warehouselabel"> Warehouse</span>
+        <br>
+        <input type="text" class="form-control search" style="background-color: #2f353a;font-family: RobotoCondensed;
+        color: #9e9e9e;
+        font-size: 14px;
+        font-weight: 300;" [(ngModel)]="searchWarehouseKey" placeholder="Search from current list">
+        <div>
+            <table class="table table-sm">
+                <tr *ngFor="let l of warehouseList|globalSearchPipe:searchWarehouseKey">
+                    <td>
+                        <a [routerLink]="['/inventorymonitoringandplanning','stocks',l.locationId]"
+                            [routerLinkActive]="'active'"> {{l.locationName}} </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <br>
+        <div>
+
+            <span [ngClass]="getPillsClass('all')" (click)="changeWarehouse('all')">
+                All Warehouse
+            </span>
+            <span [ngClass]="getPillsClass('war')">
+                {{indiname}}
+            </span>
+
+            <span class="text-right" style="width: 399px;
+            height: 32px;margin-left: 15px;
+            background-color: rgba(243, 243, 243, 0.57);padding: 5px 5px;border-style: solid;border-width: .5px;border-color: #4d5f76;
+            ">
+                <span>
+                    INVENTORY TYPE :
+                </span>
+                <input type="radio" class="checkbox" name="itemtype" [checked]="config.allItem"
+                    (change)="changeInventoryType('all')">
+                <span>All</span>
+                <input type="radio" class="checkbox" name="itemtype" [checked]="config.serial"
+                    (change)="changeInventoryType('serialized')">
+                <span>Serialized </span>
+                <input type="radio" class="checkbox" name="itemtype" [checked]="config.nonserial"
+                    (change)="changeInventoryType('nonserialized')">
+                <span>Non Serialized </span>
+            </span>
+
+        </div>
+        <div style="background-color: #f7f7f7;">
+            <div style="margin: 15px 15px;padding-top: 15px;">
+                <input type="text" class="form-control search pull-left" style="height:29px;margin-bottom: 5px;width: 50%;background-color: #2f353a;font-family: RobotoCondensed;
+                color: #9e9e9e;
+                font-size: 14px;
+                font-weight: 300;" [(ngModel)]="searchproductkey" placeholder="Search from current list">
+                <button type="button" (click)="onReorderclick()" class="mmbutton pull-right">RE-ORDER</button>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr style="background-color: #4d5f76;font-family: RobotoCondensed;
+                            color: #ffffff;
+                            font-size: 12px;
+                            font-weight: 400;">
+                                <th class="text-left">
+                                    Warehouse
+                                </th>
+                                <th>
+                                    Part Code
+                                </th>
+                                <th>
+                                    Product Description
+                                </th>
+                                <th>
+                                    Available Qty
+                                </th>
+                                <th>
+                                    MSL
+                                </th>
+                                <th>
+                                    HSL
+                                </th>
+                                <th>
+                                    Threshold Level
+                                </th>
+                                <th class="text-left">
+                                    <input type="checkbox" class="checkbod-s" [checked]="allselection"
+                                        [(ngModel)]="allselection" (click)=selectAllDeslect()>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let l of locationProductItems.content|globalSearchPipe:searchproductkey">
+                                <td>
+                                    <a [routerLink]="['/location',l.locationId]"> {{l.locationName}} </a>
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/products',l.productPartCode]"> {{l.productPartCode}} </a>
+                                </td>
+                                <td>
+                                    {{l.productDescription}}
+                                </td>
+                                <td>
+                                    {{l.okQuantity}}
+                                </td>
+                                <td>
+                                    {{l.mslQuantity}}
+                                </td>
+                                <td>
+                                    {{l.hslQuantity}}
+                                </td>
+                                <td>
+                                    <div *ngIf="l.mslQuantity>5">
+                                        <div *ngIf="getMslPercent(l.okQuantity,l.mslQuantity)<=75"
+                                            style="background-color: red;height: 25px;width: 100px;"></div>
+                                        <div *ngIf="getMslPercent(l.okQuantity,l.mslQuantity)>=100"
+                                            style="background-color:green;height: 25px;width: 100px;"></div>
+                                        <div *ngIf="getMslPercent(l.okQuantity,l.mslQuantity)>75&&getMslPercent(l.okQuantity,l.mslQuantity)<100"
+                                            style="background-color: yellow;height: 25px;width: 100px;"></div>
+                                    </div>
+                                    <div *ngIf="l.mslQuantity<=5">
+                                        <div style="background-color:green;height: 25px;width: 100px;"></div>
+                                    </div>
+                                    <!--
+                                         <div *ngIf="l.okQuantity<=l.mslQuantity" style="background-color: red;height: 25px;width: 100px;"></div>
+                                    <div *ngIf="l.okQuantity>l.mslQuantity&&l.okQuantity<=l.hslQuantity" style="background-color:green;height: 25px;width: 100px;"></div>
+                                    <div *ngIf="l.okQuantity>l.hslQuantity" style="background-color: yellow;height: 25px;width: 100px;"></div>
+                                    -->
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="checkbod-sd" [checked]="l.selected"
+                                        [(ngModel)]="l.selected">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="text-right" *ngIf="locationProductItems.totalPages&&locationProductItems.totalPages>1">
+                <pagination [totalItems]="locationProductItems.totalElements" [itemsPerPage]="locationProductItems.size"
+                    (pageChanged)="onPageChanged($event)"></pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #reorderModal="bs-modal" (onHide)="onReorderHide()" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Re-Order</h4>
+                <button type="button" (click)="reorderModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive"
+                    style="max-height: 70vh;overflow: auto;background-color: #f7f7f7;padding: 15px 10px;">
+                    <table class="table table-sm">
+                        <thead style="background-color: #4d5f76;font-family: RobotoCondensed;
+                        color: #ffffff;
+                        font-size: 12px;
+                        font-weight: 400;">
+                            <tr>
+                                <th class="text-left">
+                                    Warehouse
+                                </th>
+                                <th>
+                                    Product Part Code
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th class="text-left">
+                                    Re-Order Qty
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let t of tempReorderDetails">
+                                <td>
+                                    {{t.locationName}}
+                                </td>
+                                <td>
+                                    {{t.productPartCode}}
+                                </td>
+                                <td>
+                                    {{t.productDescription}}
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" style="width: 100px;"
+                                        [(ngModel)]="t.reorderQuantity">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="text-right">
+                    <button type="button" class="btn btn-dark" (click)="submitReorder()"><em class="fa fa-save"></em>
+                        Re-Order</button>
+                    <button type="button" class="btn btn-defalut" (click)="reorderModal.hide()"><em
+                            class="fa fa-remove"></em> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Poup alert-->
+<div class="modal fade" bsModal #alertWindow="bs-modal" role="dialog" tabindex="-1">
+    <div style="margin: 20%;">
+        <strong>
+            <alert [type]="alertDetails.type">
+                <button type="button" (click)="alertWindow.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span [innerHTML]="alertDetails.message"></span>
+            </alert>
+        </strong>
+    </div>
+</div>
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>

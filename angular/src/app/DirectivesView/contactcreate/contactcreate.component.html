@@ -1,0 +1,587 @@
+<!-- DEVELOPED BY ANKUR SAXENA -->
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+  <div id="back2Top" class="panel-heading">
+    <strong>Contact Information</strong>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Account
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="accountForList" [items]="accountForList" [(ngModel)]="newcontact.accountSAPNumber"
+              bindLabel="accountName" bindValue="sapAccountNumber" placeholder="Search Accounts...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAccount()"></i></div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group" style="visibility: hidden;">
+        <div class="control-label">
+          Owner
+        </div>
+        <input type="text" class="form-control"
+          value="{{loginData.firstName}} {{loginData.middleName}} {{loginData.lastName}}" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Contact Type
+        </div>
+        <select [(ngModel)]="newcontact.contactTypeId" class="form-control" (change)="changeNgRequired()">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of typeForlist;" [ngValue]="o.typeId">
+            {{o.typeName}}</option>
+        </select>
+      </div>
+      <div [ngClass]="classRequiredCode">
+        <div class="control-label">
+          {{CodeName}}
+        </div>
+        <!-- <input type="text" *ngIf="_isEditMode && newcontact.contactTypeId == 1 && newcontact.contactTypeId == 3"   [(ngModel)]="newcontact.employeeCode" type="text" class="form-control"> -->
+        <input  *ngIf="requiredField" [(ngModel)]="newcontact.employeeCode" type="text" class="form-control">
+        <input *ngIf="!requiredField"  [(ngModel)]="newcontact.employeeCode" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Salutation
+        </div>
+        <select [(ngModel)]="newcontact.salutation" class="form-control">
+          <option value='' disabled>--select--</option>
+          <option value="Mr.">Mr.</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Mrs.">Mrs.</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          First Name
+        </div>
+        <input [(ngModel)]="newcontact.contactFirstName" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off type="text" class="form-control" (keypress)="onlyLetters($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Middle Name
+        </div>
+        <input [(ngModel)]="newcontact.contactMiddleName" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off type="text" class="form-control" (keypress)="onlyLetters($event)">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Last Name
+        </div>
+        <input [(ngModel)]="newcontact.contactLastName" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete=off type="text" class="form-control" (keypress)="onlyLetters($event)" >
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Mobile Number
+        </div>
+        <input [(ngModel)]="newcontact.contactMobileNumber" type="text" class="form-control" (keypress)="onlyNumbers($event)" (keyup)="onKey($event)" >
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Phone Number
+        </div>
+        <input [(ngModel)]="newcontact.contactPhoneNumber" (keypress)="onlyNumbers($event)" type="text" class="form-control" (keyup)="onKey($event)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group" style="display: none;">
+        <div class="control-label">
+          Fax
+        </div>
+        <input [(ngModel)]="newcontact.contactFaxNumber" type="text" class="form-control" >
+      </div>
+      <div [ngClass]="emailReq">
+        <div class="control-label">
+          Email
+        </div>
+        <input [(ngModel)]="newcontact.contactEmailId" [disabled]="isEditMode" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div [ngClass]="classRequiredDept">
+        <div class="control-label">
+          Department
+        </div>
+        <select class="form-control" *ngIf="newcontact.contactTypeId == 1" [(ngModel)]="newcontact.contactDepartment">
+          <option disabled value="">--Select--</option>
+          <option *ngFor="let d of departments" [ngValue]="d.departmentName">{{d.departmentName}}</option>
+        </select>
+        <select class="form-control" *ngIf="newcontact.contactTypeId != 1" [(ngModel)]="newcontact.contactDepartment" disabled>
+          <option *ngFor="let d of departments" [ngValue]="d.departmentName">{{d.departmentName}}</option>
+        </select>
+        <!--
+        <input *ngIf="newcontact.contactTypeId == 1" [(ngModel)]="newcontact.contactDepartment" type="text" class="form-control">
+        <input *ngIf="newcontact.contactTypeId != 1" [(ngModel)]="newcontact.contactDepartment" type="text" class="form-control" disabled>
+        -->
+      </div>
+      <div [ngClass]="classRequiredDesig">
+        <div class="control-label">
+          Designation
+        </div>
+        <select [(ngModel)]="newcontact.contactDesignationId" class="form-control" *ngIf="newcontact.contactTypeId != 1" disabled>
+          <option *ngIf="newcontact.contactTypeId != 1" value='0' disabled>--none--</option>
+          <!-- <option *ngIf="newcontact.contactTypeId == 1" value='0' disabled>--select--</option>
+          <option *ngFor="let o of designationForlist;" [ngValue]="o.designationId">
+            {{o.designationName}}</option> -->
+        </select>
+        <!--  -->
+        <select *ngIf="newcontact.contactTypeId == 1" [(ngModel)]="newcontact.contactDesignationId" class="form-control">
+          <!-- <option *ngIf="newcontact.contactTypeId != 1" value='0' disabled>--none--</option> -->
+          <option *ngIf="newcontact.contactTypeId == 1" value='0' disabled>--select--</option>
+          <option *ngFor="let o of designationForlist;" [ngValue]="o.designationId">
+            {{o.designationName}}</option>
+        </select>
+      
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Grade
+        </div>
+        <div  *ngIf="newcontact.contactTypeId == 1"class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="boardingList" [items]="boardingList" [(ngModel)]="newcontact.gradeName"
+              bindLabel="boardigName" bindValue="boardigName" placeholder="Search Grade...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.boardigName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.boardigName}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div ><i [ngClass]="faPlus" class="border-left-0" (click)="addNewGrade()"></i></div>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="newcontact.contactTypeId != 1" class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="boardingList" [items]="boardingList" [(ngModel)]="newcontact.gradeName"
+              bindLabel="boardigName" bindValue="boardigName" placeholder="Search Grade..." disabled>
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.boardigName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.boardigName}}
+              </ng-template>
+            </ng-select>
+          </div>
+  
+          <div *ngIf="newcontact.contactTypeId != 1"class="col-md-2 col-sm-2"  disabled="disabled" >
+            <span class="input-group-append" disabled >
+              <div disabled ><i [ngClass]="faPlus" class="border-left-0 disabled"  disabled></i></div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Legal Entity
+        </div>
+        <div class="row" *ngIf="newcontact.contactTypeId == 1 || newcontact.contactTypeId == 3">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="legalEntityList" [items]="legalEntityList" [(ngModel)]="newcontact.legalEntityId"
+              bindLabel="legalEntityName" bindValue="legalEntityId" placeholder="Search Legal Entity...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/LigalEntity.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.legalEntityName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/LigalEntity.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.legalEntityName}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" (click)="addNewLegaEntity()" class="border-left-0"></i></div>
+            </span>
+          </div>
+        </div>
+        <div class="row" *ngIf="newcontact.contactTypeId != 1 && newcontact.contactTypeId != 3">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="legalEntityList" [items]="legalEntityList" [(ngModel)]="newcontact.legalEntityId"
+              bindLabel="legalEntityName" bindValue="legalEntityId" placeholder="Search Legal Entity..."disabled>
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/LigalEntity.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.legalEntityName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/LigalEntity.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.legalEntityName}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div disabled><i [ngClass]="faPlus"class="border-left-0 disabled" disabled></i></div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div [ngClass]="classRequiredBusPlace" >
+        <div class="control-label">&nbsp; Business Place</div>
+        <select [(ngModel)]="newcontact.businessPlaceId" class="form-control" *ngIf="this.newcontact.contactTypeId != 1 && newcontact.contactTypeId != 3" disabled>
+          <option *ngIf="this.newcontact.contactTypeId == 2" value='0'>--none--</option>
+          <!-- <option *ngIf="this.newcontact.contactTypeId != 2" value='0' disabled>--select--</option>
+          <option *ngFor="let o of businessPlaceForList;" [ngValue]="o.businessPlaceId"> {{o.businessPlaceName}} -->
+          <!-- </option> -->
+        </select>
+        <select [(ngModel)]="newcontact.businessPlaceId" class="form-control" *ngIf="this.newcontact.contactTypeId == 1 || newcontact.contactTypeId == 3">
+          <option *ngIf="this.newcontact.contactTypeId == 2" value='0'>--none--</option>
+          <option *ngIf="this.newcontact.contactTypeId != 2" value='0' disabled>--select--</option>
+          <option *ngFor="let o of businessPlaceForList;" [ngValue]="o.businessPlaceId"> {{o.businessPlaceName}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-heading">
+    <strong>Address Information</strong>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div [ngClass]="addrReq">
+        <div class="control-label">
+          Address
+        </div>
+        <input *ngIf="this.newcontact.contactTypeId == 1"[(ngModel)]="newcontact.contactMallingAddress" type="text" class="form-control">
+        <input *ngIf="this.newcontact.contactTypeId != 1" [(ngModel)]="newcontact.contactMallingAddress" type="text" class="form-control" disabled>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Street
+        </div>
+        <input *ngIf="this.newcontact.contactTypeId != 1" [(ngModel)]="newcontact.contactMallingStreet" class="form-control" rows="3" disabled>
+        <input *ngIf="this.newcontact.contactTypeId == 1" [(ngModel)]="newcontact.contactMallingStreet" class="form-control" rows="3" >
+
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          City
+        </div>
+        <input *ngIf="this.newcontact.contactTypeId == 1" [(ngModel)]="newcontact.contactMallingCity" type="text" class="form-control" >
+        <input  *ngIf="this.newcontact.contactTypeId != 1" [(ngModel)]="newcontact.contactMallingCity" type="text" class="form-control" disabled>
+      </div>
+      <div  [ngClass]="countryReq">
+        <div class="control-label">
+          Country
+        </div>
+        <select [(ngModel)]="newcontact.contactMallingCountryId" (change)="billingCountry()" class="form-control" *ngIf="this.newcontact.contactTypeId != 1" disabled>
+          <option value='' disabled>--select--</option>
+          <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">{{o.countryName}}
+          </option>
+        </select>
+        <select [(ngModel)]="newcontact.contactMallingCountryId" (change)="billingCountry()" class="form-control" *ngIf="this.newcontact.contactTypeId == 1">
+          <option value='' disabled>--select--</option>
+          <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">{{o.countryName}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div [ngClass]="statRq">
+        <div class="control-label">
+          State
+        </div>
+        <select [(ngModel)]="newcontact.contactMallingStateId" class="form-control"  *ngIf="this.newcontact.contactTypeId != 1" disabled>
+
+          <option value='' disabled>--select--</option>
+          <option *ngFor="let o of _billingState;" [ngValue]="o.stateId">{{o.stateName}}
+          </option>
+        </select>
+        <select [(ngModel)]="newcontact.contactMallingStateId" class="form-control"  *ngIf="this.newcontact.contactTypeId == 1">
+
+          <option value='' disabled>--select--</option>
+          <option *ngFor="let o of _billingState;" [ngValue]="o.stateId">{{o.stateName}}
+          </option>
+        </select>
+      </div>
+      <div [ngClass]="pinRq">
+        <div class="control-label">
+          Pin Code
+        </div>
+        <input *ngIf="this.newcontact.contactTypeId == 1" [(ngModel)]="newcontact.contactMallingPincode" type="text" class="form-control">
+        <input  *ngIf="this.newcontact.contactTypeId != 1"[(ngModel)]="newcontact.contactMallingPincode" type="text" class="form-control" disabled>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div *ngIf="_isEditMode==true" class="panel-heading">
+      <strong>System Information</strong>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 label">
+          <div class="control-label" style="font-weight: bold;">
+            Created By
+          </div>
+          {{newcontact.contactCreatedByFirstName}} {{newcontact.contactCreatedByFirstName}},
+          {{newcontact.contactCreatedDate | date:'YYYY-MM-DD HH:mm:ss'}}
+        </div>
+        <div class="col-md-6 col-sm-6 label">
+          <div class="control-label" style="font-weight: bold;">
+            Last Modified By
+          </div>
+          {{newcontact.contactModifyedByFirstName}} {{newcontact.contactModifyedByLastName}},
+          {{newcontact.contactModifyedDate| date:'YYYY-MM-DD HH:mm:ss'}}
+        </div>
+      </div>
+    </div> -->
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-right">
+    <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+      Cancel</button>&nbsp;
+
+    <button type="button" (click)="createContacts()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+      Save</button>
+  </div>
+</div>
+
+<!-- Legal Entity -->
+<div class="modal fade" bsModal #createLegalEntityModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataLegalEntity()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="min-height: 500px;overflow: auto;padding-left: 2mm">
+        <app-createlegalentity [isEditMode]="isEditModeLegaEntity" [editEntityData]="req"
+          (onCancle)="cancelDataLegalEntity()" (onEntityCreated)="onLegalEntityCreated($event)">
+        </app-createlegalentity>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Grade -->
+<div class="modal fade" bsModal #GradeModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">New Boarding/Lodging & DA</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="GradeModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- <div class="modal-body" style="min-height: 500px;overflow: auto;padding-left: 2mm">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="text-center" style="font-weight: bold">Information</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+
+                <div class="col-md-6 col-sm-6">
+                  <div class="control-label">
+                    Owner
+                  </div>
+                  <label style="font-weight: bold">{{loginData.firstName}} {{loginData.middleName}} {{loginData.lastName}}</label>
+              
+                </div>
+                <div class="col-md-6 col-sm-6 form-group required">
+                  <div class="control-label">
+                    Name
+                  </div>
+                  <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingName">
+                </div>
+              </div>
+            </div>
+            <div class="panel-heading">
+              <span class="text-center" style="font-weight: bold">Lodging</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-4 col-sm-4 form-group">
+                  <div class="control-label">
+                    Class A city
+                  </div>
+                  <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingClassACity">
+
+                </div>
+                <div class="col-md-4 col-sm-4 form-group ">
+                  <div class="control-label">
+                    Class B city
+                  </div>
+                  <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingClassBCity">
+
+                </div>
+                <div class="col-md-4 col-sm-4 form-group ">
+                  <div class="control-label">
+                    Class C city
+                  </div>
+                  <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingClassCCity">
+                </div>
+
+
+              </div>
+            </div>
+            <div class="panel-heading">
+              <span class="text-center" style="font-weight: bold">Boarding</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-4 col-sm-4 form-group ">
+                  <div class="control-label">
+                    Boarding Ammount A city
+                  </div>
+                  <input type="number" onkeydown="return event.keyCode !== 69" class="form-control"
+                    [(ngModel)]="postBoardingLoading.boardingAmountCityA">
+                </div>
+                <div class="col-md-4 col-sm-4 form-group ">
+                  <div class="control-label">
+                    Boarding Ammount B city
+                  </div>
+                  <input type="number" onkeydown="return event.keyCode !== 69" class="form-control"
+                    [(ngModel)]="postBoardingLoading.boardingAmountCityB">
+
+                </div>
+                <div class="col-md-4 col-sm-4 form-group ">
+                  <div class="control-label">
+                    Boarding Ammount C city
+                  </div>
+                  <input type="number" onkeydown="return event.keyCode !== 69" class="form-control"
+                    [(ngModel)]="postBoardingLoading.boardingAmountCityC">
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="panel-heading">
+              <span class="text-center" style="font-weight: bold">Travelling Charges</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <div class="control-label">
+                    Two Wheeler charge(km)
+                  </div>
+                  <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.twoWheelerChargesParKilo">
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="control-label">
+                    Four wheeler charge(km)
+                  </div>
+                  <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.fourWheelChargesParkilo">
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <button type=" button" class="btn btn-default" (click)="cancelGrade()">
+                Cancel</button>&nbsp;
+              <button type="button" class="btn btn-primary" (click)="postBoarding()">
+                Save
+              </button>
+            </div>
+          </div>
+
+        </div> -->
+      <app-createboarding [isEditMode]="isEditModeBoarding" [editEntityData]="createBoarding"
+        (onCancle)="cancelBoarding()" (onBoadingCreated)="onBoardingCreated($event)">
+      </app-createboarding>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- Account Starts-->
+<div class="modal fade" bsModal #createAcountModel="bs-modal" (onShow)="isAccountOpen=true"
+  (onHide)="isAccountOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataAccount()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-createaccount *ngIf="isAccountOpen" [isEditMode]="isEditModeAcount" [editAccountData]="createAccount"
+          (onCancle)="cancelDataAccount()" (onAccountCreated)="onAccountCreated($event)">
+        </app-createaccount>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Accounts Ends -->
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully !'">Created Contact ( <a href="#"
+        routerLink="/contacts/{{idd}}">{{name}}</a>
+      )
+      successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully !'">{{message}}</strong>
+  </div>
+</div>

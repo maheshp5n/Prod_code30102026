@@ -1,0 +1,80 @@
+
+<div style="background-color: #f7f7f7;">
+    <div style="margin: 15px 15px;padding-top: 15px;">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr style="background-color: #4d5f76;font-family: RobotoCondensed;
+                    color: #ffffff;
+                    font-size: 12px;
+                    font-weight: 400;">
+                      
+                        <th class="text-left">
+                            Part Code
+                        </th>
+                        <th>
+                            Product Description
+                        </th>
+                        <th>
+                            Product Type
+                        </th>
+                        <th>
+                            Product Family
+                        </th>
+                        <th>
+                            Product Sub Family
+                        </th>
+                        <th>
+                             Qty On Hand
+                        </th>
+                        <th>
+                            Qty Ok
+                        </th>
+                        <th class="text-left">
+                            Qty Faulty
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let l of summary.content">
+                        <td>
+                            <a [routerLink]="['/products',l.productPartCode]"> {{l.productPartCode}} </a>
+                        </td>
+                        <td>
+                            {{l.pdoductDescription}}
+                        </td>
+                        <td>
+                            {{l.productType}}
+                        </td>
+                        <td>
+                            {{l.productFamilyName}}
+                        </td>
+                        <td>
+                            {{l.productFailySubProductName}}
+                        </td>
+                        <td>
+                            {{l.qtyOnHand|number:'3.0'}}
+                        </td>
+                        <td>
+                            {{l.qtyOk|number:'3.0'}}
+                        </td>
+                        <td class="text-left">
+                            {{l.qtyFaulty|number:'3.0'}}
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       
+    </div>
+    <div class="text-right" *ngIf="summary.totalPages&&summary.totalPages>1">
+        <pagination [totalItems]="summary.totalElements" [itemsPerPage]="summary.size" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+</div>
+
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+

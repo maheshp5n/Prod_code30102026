@@ -1,0 +1,163 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div classs="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:32px;">
+              <img alt="Battery Inventory Consumptions" src="assets/images/custom25_120.png"
+                style="height: 32px;width:32px;background-color: rgb(285, 171, 89);"
+                title="Battery Inventory Consumptions">
+            </td>
+            <td style="padding-left:5px;">Battery Inventory Consumption</td>
+          </tr>
+          <tr>
+            <td style="padding-left:5px;">
+              <div class="btn-group" dropdown>
+                <span dropdownToggle type="button" style="background-color: white;">
+                  <span *ngIf="allView" style="font: size 15px;padding-right: 5px;">
+                    &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                  <!-- <span *ngIf="recentlyView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; Recently Viewed &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span> -->
+                </span>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item" style="width: 115%;">
+                  <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST VIEWS</li>
+                  <li role="menuitem" (click)="dropdownChange('all')"><a class="dropdown-item"
+                      [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a></li>
+
+                  <!-- <li role="menuitem" (click)="dropdownChange('related')"><a class="dropdown-item"
+                        [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently Viewed</a>
+                    </li> -->
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-4 col-md-4">
+        <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">
+      </div>
+      <div class="col-sm-4 col-md-4 text-right">
+        <!-- <div class="btn-group" style="padding: 10px;">
+            <button class="btn btn-outline-info btn-sm" type="button" (click)="showCreateAccountView()">New Battery
+              Inventory Consumptions</button>
+          </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" style="padding: 0px; background-color: white;min-height: 500px;">
+    <div class="table-responsive mobile" style="height: 100%;">
+      <table class="table  table-sm table-condensed tablerview">
+        <thead fix-head style="background-color:rgb(248, 245, 245)">
+          <tr>
+            <th title="S.No" style="width:50px;">S.No.</th>
+            <th title="Name" class="table-header" (click)="setOrder('receiveDetails.receivingName',1)"
+              (mouseover)="columnVisibility[1]=true" (mouseout)="columnVisibility[1]=false">
+              Name
+              <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]" style="float: right;">▲</span>
+            </th>
+            <th title="Part Code" class="table-header" (click)="setOrder('product.productPartCode',2)"
+              (mouseover)="columnVisibility[2]=true" (mouseout)="columnVisibility[2]=false">
+              Part Code
+              <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]" style="float: right;">▲</span>
+            </th>
+            <th title="Case Number" class="table-header" (click)="setOrder('receiveDetails.caseDetails.manualId',7)"
+              (mouseover)="columnVisibility[7]=true" (mouseout)="columnVisibility[7]=false">
+              Case Number
+              <span [hidden]="!columnVisibility[7]" *ngIf="!columnSort[7]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[7]" *ngIf="columnSort[7]" style="float: right;">▲</span>
+            </th>
+            <th title="Quantity" class="table-header" (click)="setOrder('quantity',3)"
+              (mouseover)="columnVisibility[3]=true" (mouseout)="columnVisibility[3]=false">
+              Quantity
+              <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]" style="float: right;">▲</span>
+            </th>
+            <!-- <th title="Faulty Submission Date" class="table-header" (click)="setOrder('faultySubmissionDate',4)"
+              (mouseover)="columnVisibility[4]=true" (mouseout)="columnVisibility[4]=false">
+              Faulty Submission Date
+              <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]" style="float: right;">▲</span>
+            </th>
+            <th title="Material Issue Date" class="table-header" (click)="setOrder('materialIssueDate',5)"
+              (mouseover)="columnVisibility[5]=true" (mouseout)="columnVisibility[5]=false">
+              Material Issue Date
+              <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]" style="float: right;">▲</span>
+            </th> -->
+            <th title="Consumed Date" class="table-header" (click)="setOrder('consumeddate',6)"
+              (mouseover)="columnVisibility[6]=true" (mouseout)="columnVisibility[6]=false">
+              Consumed Date
+              <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]" style="float: right;">▲</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of consumedList | searchfilt: searchitem; let i = index ">
+            <td data-line="S.No" class="mhide">{{serialNumber+i+1}}.</td>
+            <td data-line="Name"><a href="#" routerLink="/manageInventory/{{a.miCode}}"> {{a.miManualId}} </a></td>
+            <td data-line="Part Code"><a href="#" routerLink="/products/{{a.productPartCode}}">{{a.productPartCode}}</a> </td>
+            <td data-line="Case Number"><a href="#" routerLink="/cases/{{a.caseId}}">{{a.caseDetailsManualId}}</a> </td>
+            <td data-line="Quantity">{{a.quantity}} </td>
+            <!-- <td>{{a.faultySubmissionDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+            <td>{{a.materialIssueDate | date:'dd-MM-yyyy HH:mm:ss'}}</td> -->
+            <td data-line="Consumed Date" class="mhide">{{a.consumedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align: center" *ngIf="!(first && last)">
+      <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+        (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+        &#8249;
+      </a>
+
+      <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+        {{page+1}}
+      </a>
+
+      <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last" (click)="setPageNext($event)"
+        [ngClass]="{'active':page}">
+        &#8250;
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="modal fade" bsModal #createAcountModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;">
+          <app-create-batteryinventory-consumption [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+            (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()">
+          </app-create-batteryinventory-consumption>          
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-asset">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

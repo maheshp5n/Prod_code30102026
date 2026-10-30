@@ -1,0 +1,13 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<ul class="inner-nav">
+    <li>
+        <a [routerLink]="['reporte']" [routerLinkActive]="['active-link']">Execute Report</a>
+    </li>
+    <li>
+        <a [routerLink]="['reportp']" [routerLinkActive]="['active-link']">Download Report</a>
+    </li>
+</ul>
+
+<router-outlet></router-outlet>

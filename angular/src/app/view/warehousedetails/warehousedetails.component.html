@@ -1,0 +1,379 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="panel" style="margin-left: 15px;margin-top: 15px;margin-right: 15px">
+  <!-- <div class="panel panel-default"> -->
+  <div class="panel-heading" style="background-color:rgb(240, 240, 240)">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-1" style="padding-top: 13px;margin-right: 0px">
+            <img _ngcontent-c5="" alt="Dashboard" src="assets/images/warehouse_120.png"
+              style="height: 32px;width:32px;background-color: rgb(39, 207, 109);border-radius: 1mm;" title="Dashboard">
+          </div>
+
+          <div class="col-lg-10" style="margin-left: 0px;">
+            <div class="row" style="padding-top: 10px;">
+              <span>Warehouse</span>
+
+            </div>
+            <div class="row">
+              <span style="font-size:18px;font-weight: bold;">{{warehouse.warehouseName}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 text-right">
+        <div class="btn-group">
+          <button type="button" (click)="onClickEdit(warehouse, warehouse.warehouseId)"
+            class="btn btn-default">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>
+
+
+<div class="panel" style="margin-left: 15px;margin-right: 15px;">
+  <!-- <div class="panel panel-default">
+    <div class="container-fluid"> -->
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <!-- <div class="panel panel-default"> -->
+      <div class="panel-body">
+        <ul class="menue">
+          <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 14px;">
+      </div>
+      <div *ngIf="vDetails" class="panel-body">
+        <button type="button" (click)="changeInfoDisplay()"
+          style="text-align: left;background-color: lightgray;font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="infoDisplay.angleIcon"></i>Warehouse Information</button>
+        <div *ngIf="infoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr class="fixedHeader">
+                  <td>
+                    <small>NAME</small>
+                    <div>{{warehouse.warehouseName}}</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+
+                <tr class="fixedHeader">
+                  <td> <small>Legal Entity</small>
+                    <div>
+                      <a href="#"
+                        routerLink="/legalentity/{{warehouse.legalEntityId}}">{{warehouse.legalEntityName}}</a>
+                    </div>
+                  </td>
+                  <td class="text-right edit-inactive"></td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+
+                <tr class="fixedHeader">
+                  <td> <small>Email</small>
+                    <div>
+                      <a> {{warehouse.warehouseEmail}}</a>
+                    </div>
+                  </td>
+                  <td class="text-right edit-inactive"></td>
+                </tr>
+                <tr class="fixedHeader">
+                  <td> <small>Plant</small>
+                    <div>
+                      {{warehouse.warehousePlant}}
+                    </div>
+                  </td>
+                  <td class="text-right edit-inactive"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: lightgray;font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="sysinfoDisplay.angleIcon"></i>System Information</button>
+        <div *ngIf="sysinfoDisplay.open" class="row">
+
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <small>Created By</small>
+                    <div><a>{{warehouse.createdByFirstName}} {{warehouse.createdBLastName}}</a>,
+                      {{warehouse.createdDateTime| date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td> <small>Last Modified By</small>
+                    <div><a>{{warehouse.modifiedByFirstName}} {{warehouse.modifiedByLastName}}</a>,
+                      {{warehouse.modifiedDate| date:'yyyy-MM-dd HH:mm:ss'}}
+                    </div>
+                  </td>
+                  <td class="text-right edit-inactive"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!vDetails" class="panel-body">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white;">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img _ngcontent-c5="" alt="Dashboard" src="assets/images/SubProductInventory_120.png"
+                    style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);border-radius: 1mm;"
+                    title="Expenses Management"> </td>
+                <td>
+                  <a>&nbsp;Sub Product Inventory
+                    (0)</a>
+                </td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-sm btn-default">
+                    <i class="fa fa-plus"></i> New</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white;">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img _ngcontent-c5="" alt="Dashboard" src="assets/images/ComponentInventory_120.png"
+                    style="height: 30px;widows: 30px;background-color: rgb(105, 79, 250);border-radius: 1mm;"
+                    title="Expenses Management"> </td>
+                <td>
+                  <a>&nbsp;Component Inventory
+                    (0)</a>
+                </td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-sm btn-default">
+                    <i class="fa fa-plus"></i> New</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white;">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img _ngcontent-c5="" alt="Dashboard" src="assets/images/SentRequisition_120.png"
+                    style="height: 30px;widows: 30px;background-color: rgb(204, 168, 69);border-radius: 1mm;"
+                    title="Expenses Management"> </td>
+                <td>
+                  <a>&nbsp;Sent-Requisition
+                    (0)</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- starts -->
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white;">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img _ngcontent-c5="" alt="Dashboard" src="assets/images/ReceivedRequisition_120.png"
+                    style="height: 30px;widows: 30px;background-color: rgb(204, 168, 69);border-radius: 1mm;"
+                    title="Expenses Management"> </td>
+                <td>
+                  <a>&nbsp;Received-Requisition
+                    (6+)</a>
+                </td>
+                <td class="text-right">
+                  <button type="button" class="btn btn-sm btn-default">
+                    <i class="fa fa-plus"></i> New</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="panel-body" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+            <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+              <div class="table-responsive">
+                <table class="table table-sm table-condensed tablerview">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th class="table-header" title="NAME">NAME
+                      </th>
+                      <th class="table-header" title="FROM WAREHOUSE">FROM WAREHOUSE
+                      </th>
+                      <th class="table-header" title="PRODUCT TYPE">PRODUCT TYPE
+                      </th>
+                      <th class="table-header" title="REQUESTING ENTITY">REQUESTING ENTITY
+                      </th>
+                      <th> Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr *ngFor="let c of productList; let i=index">
+                      <td><a href="#" routerLink="/products/{{c.partCode}}">{{c.partCode}}</a>
+                      </td> -->
+                    <tr>
+                      <td>REQ-0006906</td>
+                      <td>NRC-Stock Warehouse</td>
+                      <td>Sub Product </td>
+                      <td>NRC-Gurgaon</td>
+
+                      <td style="width: 50;">
+                        <div class="btn-group" dropdown placement="bottom right">
+                          <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                          <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                            aria-labelledby="button-disabled-item">
+                            <li role="menuitem">
+                              <!-- (click)="onClickEdit(c,c.partCode)" -->
+                              <a class="dropdown-item">Edit </a>
+                            </li>
+                            <!-- <li role="menuitem">
+                              <a class="dropdown-item">Delete</a>
+                            </li> -->
+                          </ul>
+                        </div>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <hr>
+
+                <div style="text-align: center">
+                  <a id="pag" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                    (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                    &#8249;
+                  </a>
+
+                  <a id="pag" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+                    {{page+1}}
+                  </a>
+
+                  <a id="pag" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                    (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                    &#8250;
+                  </a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ends -->
+
+        <div class="panel panel-default">
+          <div class="panel-heading" style="background-color: white;">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img _ngcontent-c5="" alt="Dashboard" src="assets/images/warehouse_120.png"
+                    style="height: 30px;widows: 30px;background-color: rgb(39, 207, 109);border-radius: 1mm;"
+                    title="Expenses Management"> </td>
+                <td>
+                  <a>&nbsp;Warehouse History
+                    (0)</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<!-- </div>
+  </div>
+</div> -->
+<!-- New -->
+<div class="modal fade" bsModal #createWarehouseModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createWarehouseModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-warehouse [isEditMode]="isEditMode" [editWarehouseData]="newWarehouse"
+          (onWarehouseCreated)="onWarehouseCreated($event)" (onCancle)="cancelData()"></app-create-new-warehouse>
+        <!-- <app-create-new-warehouse></app-create-new-warehouse> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- popupSuccessModel -->
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="alert alert-success center center-block" style="width:40%; text-align: center">
+    <strong>Successfully Submitted!</strong>
+  </div>
+</div>
+ -->
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+
+  <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+  <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+    class="alert alert-danger center center-block" style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+</div>

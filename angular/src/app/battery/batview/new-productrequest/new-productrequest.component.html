@@ -1,0 +1,127 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner><div class="card">
+    <div class="card-header">
+        <strong>Product Request</strong>
+    </div>
+    <div class="card-body">
+        <small>Destination Warehouse</small><br>
+        {{destinationLocation}}
+    </div>
+</div>
+<div class="card" style="padding:0px;">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <label class="reque">Source Warehouse</label>
+                <ng-select *ngIf="locationForList" [items]="locationForList" bindLabel="locationName"
+                    bindValue="locationId" placeholder="Search Location" [(ngModel)]="createPrReq.sourceLocationId"
+                    (change)="getSourceLocationId($event)">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076;" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-6">
+                <label>Destination Warehouse</label>    
+                <span class="form-control">
+                    {{destinationLocation}}
+                </span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <label class="reque">Expected Date</label>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control"
+                    [(ngModel)]="createPrReq.needByTime" [minDate]="today" autocomplete="off">
+                    <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-6">
+                <label>Description</label>
+                <textarea type="text" class="form-control" [(ngModel)]="createPrReq.description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="reque">Part Code</label>
+                <ng-select *ngIf="btProductList" [items]="btProductList" bindLabel="bothvalues" bindValue="id" (search)="searchBtProductList($event)"
+                    [(ngModel)]="prItemReq.btProductId" (change) ="getProductPartCode(prItemReq.btProductId)"
+                    placeholder="Search Products Item">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}<small>({{item.productType}})</small>
+                    </ng-template>
+                </ng-select>  
+                <small *ngIf="partcodeDescription!=null">Description: {{partcodeDescription}}</small>
+            </div>
+            <div class="col-md-2">
+                <label class="reque">Quantity</label>
+                <input type="text" class="form-control" (keypress)="numberOnly($event)" [(ngModel)]="prItemReq.requiredQty">
+            </div>
+            <div class="col-md-2">
+                <label>Av. Source </label>
+                <input type="text" class="form-control" [(ngModel)]="avilableStockAtSource.exicomTotalOkQuantity" disabled>
+            </div>
+            <div class="col-md-2">
+                <label>Av. Destination</label>
+                <input type="text" class="form-control" [(ngModel)]="avilabStockAtDestination.exicomTotalOkQuantity" disabled>
+            </div>
+            <div class="col-md-2 text-right">
+                <button type="button" style="margin-top: 28px;" (click)="addItemInList()" class="btn btn-info"><i
+                        class="fa fa-plus"></i>
+                    Add</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Part Code</th>
+                            <th>Quantity</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of createPrReq.items;let i=index;">
+                            <td style="text-align: center;">{{i+1}}</td>
+                            <td>{{item.partCode}}</td>
+                            <td>{{item.requiredQty}}</td>
+                            <td style="text-align: center;"><button type="button" class="btn btn-sm btn-danger"
+                                    (click)="removeItem(i)"><i class="fa fa-remove"></i> </button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <!-- <button type="button" class="btn btn-default" (click)="cancled()"><i class="fa fa-remove"></i>&nbsp;Cancel
+        </button> -->
+        <button type="button" class="btn btn-primary" (click)="saveProductRequest()"><i
+                class="fa fa-save"></i>&nbsp;Save </button>
+    </div>
+</div>
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div [ngClass]="alertMessage.alertClass" style="width:40%; text-align: center">
+        <strong>{{alertMessage.alertMessage}}!</strong>
+        <button class="close pull-right" (click)="popupSuccessModel.hide()"> <span>&times;</span> </button>
+    </div>
+</div>

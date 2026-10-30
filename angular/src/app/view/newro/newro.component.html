@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-header">
+        <strong>Return Order</strong>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <small>Source Warehouse</small><br>
+                {{locationResponse.locationName}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-productreturnorderdirective *ngIf="show" [location]="locationResponse" (onCanled)="onCancel()"
+    (onProductReturnSaved)="onSave($event)"></app-productreturnorderdirective>

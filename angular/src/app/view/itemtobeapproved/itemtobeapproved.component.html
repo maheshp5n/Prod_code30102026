@@ -1,0 +1,287 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 35px;">
+                            <img src="assets/images/product_transfer_120.png" alt="" style="width: 100%;height:auto;"
+                                class="bg-success">
+                        </td>
+                        <td style="padding-left:5px;">
+                            <strong>Items to Approve</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4 text-center">
+                <!-- <button type="button" class="btn btn-primary" (click)="advanceSearch.box=!advanceSearch.box"><em class="fa fa-search"></em> Advance search</button> -->
+            </div>
+            <div class="col-md-4 text-right">
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="MULTIPLEAPPROVAL.show()">
+                    <em class="tik-mark"></em>
+                    Approve/Reject
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+               
+                <input type="text" placeholder="Request number" [(ngModel)]="advanceSearch.request_number" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" [(ngModel)]="advanceSearch.type_name" >
+                    <option value="">Select Type</option>
+                    <option value="CASE DETAILS">CASE DETAILS</option>
+                    <option value="EXPENSE MANAGEMENT">EXPENSE MANAGEMENT</option>
+                    <option value="QUOTE">QUOTE</option>
+                    <option value="SERVICE APPOINTMENT">SERVICE APPOINTMENT</option>
+                    <option value="VENDOR INVOICE DETAILS">VENDOR INVOICE DETAILS</option>
+                    <option value="WCC DETAILS">WCC DETAILS</option>
+                </select>
+                <!-- <input type="text" placeholder="Type" [(ngModel)]="advanceSearch.type_name" class="form-control"> -->
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" [(ngModel)]="advanceSearch.action">
+                    <option value="">Select Action</option>
+                    <option value="Approve">Approve</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Reject">Reject</option>
+                </select>
+                
+            </div>
+        </div>
+        <br>
+        <div class="row">
+         
+            <div class="col-md-3">
+                <!-- <input  class="form-control" placeholder="Date From (YYYY-MM-DD)"  [(ngModel)]="advanceSearch.date_from"> -->
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+                placeholder="Date from"[(ngModel)]="advanceSearch.date_from" onkeydown="return false"
+                [maxDate]="today">
+              <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-3">
+                <!-- <input class="form-control" placeholder="Date To(YYYY-MM-DD)" [(ngModel)]="advanceSearch.date_to"> -->
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+                placeholder="Date to" [(ngModel)]="advanceSearch.date_to" onkeydown="return false"
+                [maxDate]="today">
+              <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-3">
+                <button type="button" (click)="getSearchResult()" class="btn btn-outline-info btn-md"><em class="fa fa-search"></em> Search</button>
+                <button type="button" (click)="resetSearchResult()" class="btn btn-outline-info btn-md">Reset</button>
+            </div>
+        </div>
+        <hr>
+        <!-- <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" (click)="getSearchResult()" class="btn btn-dark"><em class="fa fa-search"></em> Search</button>
+            </div>
+        </div> -->
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="table-responsive">
+            <table class="table table-sm" aria-describedby="">
+                <thead>
+                    <th>
+                        <input type="checkbox" [(ngModel)]="globalcheckbox" [checked]="globalcheckbox"
+                            (change)="globalcheckboxchange()"> </th>
+                    <th scope="col" title="S.No.">S.No.</th>
+
+                    <!--  -->
+                    <th class="table-header" (click)="setOrder('objectManualId',1)"
+                        (mouseover)="columnVisibility[1]=true" (mouseout)="columnVisibility[1]=false"
+                        title="Related To">Request Number
+                        <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]" style="float:right">▼</span>
+                        <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]" style="float:right">▲</span></th>
+                    <!--  -->
+                    <th class="table-header" (mouseover)="columnVisibility[2]=true"
+                        (mouseout)="columnVisibility[2]=false" title="Type">Type
+                        <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]" style="float:right">▼</span>
+                        <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]" style="float:right">▲</span></th>
+
+                    <th class="table-header" (click)="setOrder('assignedDate',3)" (mouseover)="columnVisibility[3]=true"
+                        (mouseout)="columnVisibility[3]=false" title=" Submitted Date"> Submitted Date
+                        <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]" style="float:right">▼</span>
+                        <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]" style="float:right">▲</span></th>
+                    <th>
+                        Initiator
+                    </th>
+                    <th scope="col" title="Action">Action</th>
+                </thead>
+                <tbody *ngIf="pageItemsToBeApproved.content.length>0">
+                    <tr *ngFor="let item of pageItemsToBeApproved.content; let i=index;">
+                        <td>
+                            <input *ngIf="!item.status" type="checkbox" [(ngModel)]="item.selected" [checked]="item.selected">
+                        </td>
+                        <td style="text-align: center;">{{serialNumber+i+1}}.</td>
+                        <td>
+                            <a href="#{{item.objectUrl}}?_c=f">{{item.objectManualId}}</a>
+                        </td>
+                        <td>
+                            {{findName(item.objectName)}}
+                        </td>
+                        <td>
+                            {{item.assignedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                        <td>
+                            {{item.initiator.firstName}} {{item.initiator.middleName}} {{item.initiator.lastName}}
+                        </td>
+                        <td style="text-align: center;">
+                           
+                            <button *ngIf="!item.status"  class="btn btn-sm btn-info" (click)="onShow(item.id)">Approve/Reject</button>
+                        </td>
+                    </tr>
+                </tbody>
+               
+            </table>
+                <div class="row" *ngIf="pageItemsToBeApproved.content.length==0">
+                            <div class="col-md-12" style="text-align: center;" > <p>Data Not Found</p></div>
+                </div>
+        </div>
+        <div class="row">
+     <div class="col sm-4" style="text-align:left">
+        Showing Page {{pageItemsToBeApproved.number+1}} &nbsp;of&nbsp;{{pageItemsToBeApproved.totalPages}}&nbsp;Total Count={{pageItemsToBeApproved.totalElements}}
+     </div>
+
+<div class="col sm-4">
+    <div class="text-center" *ngIf="!(pageItemsToBeApproved.first && pageItemsToBeApproved.last)">
+        <button class="btn btn-success btn-sm" [disabled]="pageItemsToBeApproved.first" style="border-radius: 100%;"
+            (click)="gotOpage(pageItemsToBeApproved.number-1)" type="button">&lt;</button>&nbsp;
+        <span class="btn btn-success btn-sm"
+            style="border-radius: 100%;">{{pageItemsToBeApproved.number+1}}</span>&nbsp;
+        <button class="btn btn-success btn-sm" [disabled]="pageItemsToBeApproved.last" style="border-radius: 100%;"
+            (click)="gotOpage(pageItemsToBeApproved.number+1)" type="button">&gt;</button>
+    </div>
+</div>
+    <div class="col-sm-4" style="text-align: right;"  *ngIf="pageItemsToBeApproved.content.length>0">
+        <div class="row">
+         <div class="col-md-6"></div>
+          <div  *ngIf="!(pageItemsToBeApproved.first && pageItemsToBeApproved.last) "  class="col-md-6">
+            <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+             <button (click)=jumpPage(pagenumber)>Go</button>
+           </div>
+        </div>
+     </div>
+        </div>
+     
+
+    </div>
+</div>
+<div class="modal fade" bsModal #approvalModule="bs-modal" (onHide)="cancelApproval();" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Approval Of {{toBeApprovedSelected.objectManualId}}
+                </h4>
+                <button type="button" (click)="approvalModule.hide()" class="close pull-right">
+                    <span>&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="card card-body" style="padding:0px;">
+                    <textarea rows="5" cols="5" [(ngModel)]="approvalRequest.remark">
+
+                    </textarea>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="form-control" [(ngModel)]="approvalRequest.action">
+                            <option value="select">--Select--</option>
+                            <option value="Approved">Approve</option>
+                            <option value="Rejected">Reject</option>
+                            <!-- <option value="Re-Assign">Re-Assign</option> -->
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div *ngIf="approvalRequest.action=='Re-Assign'">
+                            <ng-select [items]="users" [(ngModel)]="approvalRequest.reAssigned" bindLabel="fullName"
+                                bindValue="userEmailId" placeholder="Search user for re assign">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <em class="fa fa-user"></em>&nbsp; {{item.fullName}}
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item">
+                                    <em class="fa fa-user"></em>&nbsp; {{item.fullName}}
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button type="button" (click)="doApproveOrReject()" class="btn btn-info"><em
+                                class="fa fa-save"></em> Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #MULTIPLEAPPROVAL="bs-modal" (onHide)="cancelApproval()" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Multiple Approval
+                </h4>
+                <button type="button" (click)="MULTIPLEAPPROVAL.hide()" class="close pull-right">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="card card-body" style="padding:0px;">
+                    <textarea rows="5" cols="5" [(ngModel)]="approvalRequest.remark">
+
+                    </textarea>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="form-control" [(ngModel)]="approvalRequest.action">
+                            <option value="select" disabled>--Select--</option>
+                            <option value="Approved">Approve</option>
+                            <option value="Rejected">Reject</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button type="button" (click)="doMultipleApproval()" class="btn btn-info"><em
+                                class="fa fa-save"></em> Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--Alert Module Starts-->
+<div class="modal fade" bsModal #alertModule="bs-modal" role="dialog" tabindex="-1">
+    <div class="text-center" style="margin-left: 20%;margin-right: 20%;">
+        <strong>
+            <alert [type]="alerttypes.type">
+                <span [innerHTML]="alerttypes.message"></span>
+                <button type="button" (click)="alertModule.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </alert>
+        </strong>
+
+    </div>
+</div>
+<!--Spinner on loading-->
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>

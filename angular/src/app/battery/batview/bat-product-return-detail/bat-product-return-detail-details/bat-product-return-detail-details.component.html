@@ -1,0 +1,174 @@
+<div *ngIf="data.btProductReturnRes">
+    <button type="button" (click)="changeButtonDisplay('info')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><em style="font-size: 18px;"
+        [ngClass]="displayButtons.info.icon"></em> &nbsp;Information
+</button>
+<div class="row" *ngIf="displayButtons.info.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>Return Order Number</small>
+                </td>
+                <td>{{data.btProductReturnRes.returnOrderManualId}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Source Warehouse</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/bat_warehouse',data.btProductReturnRes.returnOrderSourceLocationId]" [routerLinkActive]="'active'">{{data.btProductReturnRes.returnOrderSourceLocationName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Total Quantity Returned
+                    </small>
+                </td>
+                <td>
+                    {{data.btProductReturnRes.returnOrderTotalQuantityReturned}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Status
+                    </small>
+                </td>
+                <td>
+                    {{data.btProductReturnRes.returnOrderStatus}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Owner
+                    </small>
+                </td>
+                <td>
+                    <a>{{data.btProductReturnRes.returnOrderCreatedByFirstName}}&nbsp;{{data.btProductReturnRes.returnOrderCreatedByMiddleName }}&nbsp;{{data.btProductReturnRes.returnOrderCreatedByLastName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Destination Warehouse
+                    </small>
+                </td>
+                <td>
+                    <a [routerLink]="['/bat_warehouse',data.btProductReturnRes.returnOrderDestinationLocationId ]">{{data.btProductReturnRes.returnOrderDestinationalLocationName}}</a>
+                    
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Total Quantity Received
+                    </small>
+                </td>
+                <td>
+                    {{data.btProductReturnRes.returnOrderTotalQuantityReceived}}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<button type="button" (click)="changeButtonDisplay('shippingInfo')" style="text-align: left;background-color: lightgray;font-weight: bold;" class="btn btn-sm btn-default btn-block text-left">
+    <em [ngClass]="displayButtons.shippingInfo.icon" style="font-size: 18px;"></em>
+    &nbsp;Shipping Information
+</button>
+<div class="row" *ngIf="displayButtons.shippingInfo.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping Mode
+                    </small>
+                </td>
+                <td>
+                    {{data.btProductReturnRes.returnOrderShippingName}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Tracking Number
+                    </small>
+                </td>
+                <td>
+                    {{data.btProductReturnRes.returnOrderTrackingNumber}}
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping To Name
+                    </small>
+                </td>
+                <td>
+                    {{data.btProductReturnRes.returnOrderShippingName}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Expected date of Arrival</small>
+                </td>
+                <td>
+                    {{data.btProductReturnRes.returnOrderActualSendDate|date:'dd-MM-yyyy'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+<button type="button" (click)="changeButtonDisplay('sysinfo')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><em style="font-size: 18px;"
+        [ngClass]="displayButtons.sysInfo.icon"></em> &nbsp;System Information
+</button>
+<div class="row" *ngIf="displayButtons.sysInfo.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Created By
+                    </small>
+                </td>
+                <td>
+                    <!-- <a [routerLink]="['/createuser',data.btProductReturnRes.createdByEmailId]" [routerLinkActive]="'active'">{{data.btProductReturnRes.returnOrderCreatedByFirstName}}&nbsp;{{data.btProductReturnRes.returnOrderCreatedByMiddleName}}&nbsp;{{data.btProductReturnRes.returnOrderCreatedByLastName}}&nbsp;,&nbsp;</a>{{data.btProductReturnRes.createdDate|date:'dd-MM-yyyy HH:mm:ss'}} -->
+                    <a  [routerLink]="['/bat_user',data.btProductReturnRes.returnOrdercreatedByEmailId]"  [routerLinkActive]="'active'">{{data.btProductReturnRes.returnOrderCreatedByFirstName}}&nbsp;{{data.btProductReturnRes.returnOrderCreatedByMiddleName}}&nbsp;{{data.btProductReturnRes.returnOrderCreatedByLastName}}&nbsp;,&nbsp;</a>{{data.btProductReturnRes.createdDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                       Last Modified By
+                    </small>
+                </td>
+                <td>
+                    <a  [routerLink]="['/bat_user',data.btProductReturnRes.returnOrderLastModfiedByEmailId]" [routerLinkActive]="'active'">{{data.btProductReturnRes.returnOrderLastModifiedByFirstName}}&nbsp;{{data.btProductReturnRes.returnOrderLastModifiedMiddleName}}&nbsp;{{data.btProductReturnRes.returnOrderLastModifiedByLastName}}&nbsp;,&nbsp;</a>{{data.btProductReturnRes.returnOrderLastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>

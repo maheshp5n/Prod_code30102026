@@ -1,0 +1,67 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <label>From Partcode</label>
+                <ng-select *ngIf="produsts" [items]="produsts" [(ngModel)]="changeRequest.productId"
+                    bindLabel="partCode" bindValue="id" placeholder="Serch Products"
+                    (search)="getValueOfPartCodeFrom($event)">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label>
+                    From Status
+                </label>
+                <select class="form-control" [(ngModel)]="changeRequest.fromState">
+                    <option value="0">--Select--</option>
+                    <option value="1">OK</option>
+                    <option value="2">Faulty</option>
+                    <option value="3">Scrap</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label>
+                    To Status
+                </label>
+                <select class="form-control" [(ngModel)]="changeRequest.toState">
+                    <option value="0">--Select--</option>
+                    <option value="1" [disabled]="changeRequest.fromState==1">OK</option>
+                    <option value="2" [disabled]="changeRequest.fromState==2">Faulty</option>
+                    <option value="3" [disabled]="changeRequest.fromState==3" >Scrap</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label>
+                    Quantity
+                </label>
+                <input type="number" class="form-control" [(ngModel)]="changeRequest.quantity" >
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>
+                    Remarks
+                </label>
+                <textarea class="form-control" [(ngModel)]="changeRequest.remarks" ></textarea>
+            </div>
+            <div class="col-6 text-right">
+                <button class="btn btn-primary" style="margin-top: 28px;" (click)="saveDetails()"> <em class="fa fa-save"></em> Save</button>&nbsp;
+                <button class="btn btn-default" style="margin-top: 28px;" (click)="cancleDetails()"> <em class="fa fa-remove"></em> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

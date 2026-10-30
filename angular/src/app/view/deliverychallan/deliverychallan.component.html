@@ -1,0 +1,145 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:32px;">
+                            <img alt="Delivery Challan" src="assets/images/delivery_120.png"
+                                style="height: 32px;width:32px;background-color: rgb(49,121,146);"
+                                title="Delivery Challan">
+                        </td>
+                        <td style="padding-left:5px;">Delivery Challan</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span *ngIf="!recentlyView" style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                                    <span *ngIf="recentlyView" style="font-size:15px;padding-right: 5px;">
+                                        &nbsp; Recently Viewed &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                                </span>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item"
+                                    style="width: 110%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">
+                                        &nbsp;&nbsp;LIST
+                                        VIEWS</li>
+                                    <li role="menuitem" (click)="dropdownChange('All')"><a class="dropdown-item"
+                                            [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a></li>
+                                    <li role="menuitem" (click)="dropdownChange('related')"><a class="dropdown-item"
+                                            [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently
+                                            Viewed</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+                    style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">
+            </div>
+            <div class="col-sm-4 col-md-4 text-right">
+                <div class="btn-group" style="padding: 10px;">
+                    <button class="btn btn-outline-info btn-sm" type="button"
+                        (click)="showCreatedeliverychallanView()">New</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body" style="padding: 0px;min-height: 500px">
+        <div class="table-responsive">
+            <table class="table  table-sm table-condensed tablerview">
+                <thead fix-head style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                        <th style="width:50px;">S.No</th>
+                        <th class="table-header" (mouseover)="columnVisibility[1]=true"
+                            (mouseout)="columnVisibility[1]=false" title="Name">Name
+                            <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]">▼</span>
+                            <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]">▲</span></th>
+
+                        <th> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr *ngFor="let a of assetList | searchfilt: searchitem; let i = index "> -->
+                    <tr>
+                        <td>{{serialNumber+i+1}}</td>
+                        <td><a href="# " routerLink="/deliverychallan/1">9626</a>
+                        </td>
+                        <td style="width:50px;">
+                            <div class="btn-group" dropdown placement="bottom right">
+                                <!-- <button type="button" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-disabled-item"> -->
+                                <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                    aria-labelledby="button-disabled-item">
+                                    <li role="menuitem">
+                                        <a class="dropdown-item" (click)="onClickEdit()">Edit </a>
+                                    </li>
+                                    <!-- <li role="menuitem">
+                                        <a class="dropdown-item">Delete</a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align: center">
+            <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                &#8249;
+            </a>
+
+            <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+                {{page+1}}
+            </a>
+
+            <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last" (click)="setPageNext($event)"
+                [ngClass]="{'active':page}">
+                &#8250;
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- New -->
+<div class="modal fade " bsModal #createNewdeliverychallan="bs-modal" [config]="{backdrop: 'static'} " tabindex="-1 "
+    role="dialog " aria-labelledby="create-new-deliverychallan ">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h4 id="create-account " class="modal-title pull-left ">{{heading}}</h4>
+                <button type="button " class="close pull-right " aria-label="Close "
+                    (click)="createNewdeliverychallan.hide() ">
+                    <span aria-hidden="true ">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <app-create-new-deliverychallan [isEditMode]="isEditMode "
+                    [editdeliverychallanData]="newdeliverychallan "
+                    (ondeliverychallanCreated)="ondeliverychallanCreated($event) " (onCancle)="cancelData() ">
+                </app-create-new-deliverychallan>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

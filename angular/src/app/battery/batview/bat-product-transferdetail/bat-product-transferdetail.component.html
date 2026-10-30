@@ -1,0 +1,120 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px">
+                            <img alt=""
+                                 style="width:100%;height:auto;background-color:#F88962;"
+                                 src="assets/images/product_transfer_120.png">
+                        </td>
+
+                        <td style="padding-left: 5px;">Product Transfer</td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size: 15px; font-weight: bold;">
+                                {{btProductTransferDetails.productTransferManualId}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-8 text-right">
+
+                <!-- E-WAY BILL BUTTON -->
+                <button type="button"
+                        class="btn btn-sm btn-outline-info"
+                        (click)="openEwayBillPopup()">
+                    <em class="fa fa-file-text-o"></em>&nbsp;E-Way Bill
+                </button>
+
+                <app-bat-sap-document-directive
+                  *ngIf="btProductTransferDetails?.productTransferManualId"
+                  [crmDocNumber]="btProductTransferDetails.productTransferManualId"
+                  [isStoDocEnabled]="isStoDocEnabled">
+                </app-bat-sap-document-directive>
+
+                <a type="button"
+                   class="btn btn-sm btn-outline-info"
+                   href="/bt/api/packinglist/{{btProductTransferDetails.productTrnsferId}}?type=PT"
+                   target="_blank">
+                   <em class="fa fa-download"></em>&nbsp;Packaging PDF
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <span>Transfer Status</span>
+                <div>{{btProductTransferDetails.productTransferStatus}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body" style="padding-bottom: 0px;">
+
+        <ul class="menue">
+            <li><a [routerLink]="['details']" [routerLinkActive]="'active'">Details</a></li>
+            <li><a [routerLink]="['related']" [routerLinkActive]="'active'">Related</a></li>
+        </ul>
+
+        <br>
+        <hr style="margin-top:15px;">
+    </div>
+
+    <div class="card-body">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<div class="modal fade"
+     bsModal
+     #ewayBillModal="bs-modal"
+     (onShow)="modalView = true"
+     (onHide)="modalView = false"
+     [config]="{ backdrop: 'static' }"
+     tabindex="-1"
+     role="dialog">
+
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{heading}}</h4>
+                <button type="button"
+                        class="close pull-right"
+                        (click)="closeEwayBillPopup()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <app-bt-ewaybill
+                    *ngIf="modalView"
+                    [ptId]="btProductTransferDetails.productTrnsferId"
+                    [ptNumber]="btProductTransferDetails.productTransferManualId"
+                    (onSaved)="onEwayBillSaved($event)"
+                    (onCancel)="closeEwayBillPopup()">
+                </app-bt-ewaybill>
+
+            </div>
+
+        </div>
+    </div>
+</div>

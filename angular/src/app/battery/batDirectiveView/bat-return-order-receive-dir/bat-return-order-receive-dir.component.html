@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col"  style="text-align: left;">
+                            <input type="checkbox" (change)="onGlobalChange($event)" [(ngModel)]="globalcheck" [checked]="globalcheck" > Sl.No.
+                        </th>
+                        <th scope="col">
+                            SO Return Number
+                        </th>
+                        <th scope="col">
+                            Serial Number
+                        </th>
+                        <th scope="col">
+                            Product Partcode
+                        </th>
+                        <th scope="col">
+                            Type
+                        </th>
+                        <th scope="col">
+                            Description
+                        </th>
+                        <th scope="col">
+                            Tracking Number
+                        </th>
+                        <th scope="col"  style="text-align: left;">
+                            Ship To
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of pendingdata;let i=index;">
+                        <td style="text-align: left;">
+                            <input type="checkbox" [(ngModel)]="item.checked" [checked] = "item.checked">  {{i+1}}
+                        </td>
+                        <td>
+                            {{item.serviceOrderReturnManualId}}
+                        </td>
+                        <td>
+                            {{item.itemSerialNumber}}
+                        </td>
+                        <td>
+                            {{item.productPartcode}}
+                        </td>
+                        <td>
+                            {{item.productType}}
+                        </td>
+                        <td>
+                            {{item.productDescription}}
+                        </td>
+                        <td>
+                            {{item.trackingNumber}}
+                        </td>
+                        <td  style="text-align: left;">
+                            {{item.shippTo}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+   
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 text-right">
+                <button class="btn btn-default btn-sm" (click)="cancelDetails()"><em class="fa fa-remove"></em> Cancel</button>
+                <button class="btn btn-primary btn-sm" (click)="saveDetails()" ><em class="fa fa-save"></em> Save</button>
+            </div>
+        </div>
+    </div>
+</div>

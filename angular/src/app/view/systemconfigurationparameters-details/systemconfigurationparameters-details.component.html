@@ -1,0 +1,180 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+              <table style="width: 100%;">
+                <tr>
+                  <td rowspan="2" style="width: 35px;">
+                    <img alt="" src="assets/images/custom73_120.png"
+                    style="height: 32px;width:32px;background-color: blue;"
+     alt="System Configuration Parameter" title="System Configuration Parameter">
+                  </td>
+                  <td style="padding-left: 5px;">System Configuration Parameter</td>
+                </tr>
+                <tr>
+                  <td style="padding-left: 5px;">
+                    <span style="font-size:15px;font-weight: bold;">{{asset.serialNumber}}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-4">
+      
+            </div>
+            <div class="col-md-4">
+              <div class="btn-group" role="group">
+               <button class="btn btn-sm btn-outline-info" (click)="createEditModelshow(asset)" type="button"> Edit</button>
+              </div>
+            </div>
+          </div>
+    </div>
+
+</div>
+
+<div class="card">
+            <div class="card-body">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 14px;">
+                <div *ngIf="vDetails" class="panel-body">
+                    <button type="button" (click)="changeInfoDisplay()"
+                    style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> Information
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table  class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>System Configuration Parameter Name</small>
+                                           
+                                        </td>
+                                        <td>{{asset.serialNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><small>Case Sms Body</small> </td>
+                                        <td>
+                                            <a href="#" routerLink="/accounts/{{asset.accountSapNumber}}">
+                                                {{asset.accountName}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Sms End Point URL</small>
+                                        </td>
+                                        <td>{{asset.productFamailyName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> <small>Sms Password</small> </td>
+                                        <td>
+                                             <a href="#" routerLink="/sites/{{asset.siteCode}}">{{asset.siteCode}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>SMS User Name</small>
+                                        </td>
+                                        <td>{{asset.primaryAccountName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Owner</small>
+                                        </td>
+                                        <td>{{assetResponse.productPartCode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><small>Nilesh Satwara Id</small></td>
+                                        <td>{{asset.productDescription}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Site Guest User ID</small>
+                                        </td>
+                                        <td>{{asset.productSubProductName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> <small>Travel Policy Id</small> </td>
+                                        <td>{{asset.plantName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                    style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Created By</small>
+                                            <div>{{asset.createdByFirstName}} {{asset.createdByLastName }}
+                                                {{asset.createdDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Last Modified By</small>
+                                            <div>{{asset.modifyedByFirstName}} {{asset.modifyedByLastName}}
+                                                {{asset.modifyedDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!vDetails" class="panel-body">
+                    <div class="text-center"> <span> No related lists to display </span></div>
+                </div>
+            </div>
+       
+</div>
+
+
+<div class="modal fade" bsModal #createAcountModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <app-create-systemconfigurationparameter [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+                    (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()">
+                </app-create-systemconfigurationparameter>
+            </div>
+        </div>
+    </div>
+</div>

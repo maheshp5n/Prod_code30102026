@@ -1,0 +1,110 @@
+<div class="card">
+    <div class="card">
+        <div class="card-header">
+          
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="padding-left:5px;"><strong>Product Transfer Items ({{LPTItems.totalElements}})</strong></td>
+                        <td *ngIf="LPTItems.totalElements>5" class="text-right">
+                            <a [routerLink]="['/details',_dataservice.dataServiceLocationTResponse.id,'cmponent','proTranferItem']" [queryParams]="{cmponent:prTCol,sortArr:sortCaseColumnsBlnk,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+                       
+                    </tr>
+            </table> <br>
+            <div class="row">
+                <div class="col-md-3">
+                
+                  <input type="text" class="form-control" [(ngModel)]="advancesearch.manualId" placeholder="Product Transfer Item">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" [(ngModel)]="advancesearch.sourceLocation" placeholder="Source Warehouse">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" [(ngModel)]="advancesearch.destinationLocation" placeholder="Destination Warehouse.">
+                </div>
+                <div class="col-md-3">
+            
+                  <input type="text" class="form-control" [(ngModel)]="advancesearch.partcode" placeholder=" Part Code">
+                </div>
+        
+              </div><br>
+              <div class="row">
+                  <div class="col-md-3">
+                    <input type="text"class="form-control" placeholder="Product Description" [(ngModel)]="advancesearch.productDescription">
+                    
+                  </div>
+                <div class="col-md-3">
+                   <button type="button" class="btn btn-outline-info btn-md" (click)="searchPT()"><em
+                        class="fa fa-search"></em>
+                      Search</button>
+                      <button type="button" class="btn btn-outline-info btn-md" (click)="resetPT()">
+                      Reset</button>
+                  </div>
+              </div>
+            
+        </div>
+        <div class="card-body" style="padding: 0px;">
+            <div class="table-responsive">
+                <table class="table table-sm" aria-describedby="">
+                    <thead>
+                        <tr>
+                            <th title="S.No.">S.No.</th>
+                            <th scope="col" title="Product Serial Number">Product Transfer Item</th>
+                            <th scope="col" title="Product Part code">Product Request Line Item</th>
+                            <th>Part Code</th>
+                            <th scope="col" title="Product Description">Source Warehouse</th>
+                            <th scope="col" title="Product Type">Destination Warehouse</th>
+                            <th scope="col" title="Received">Tracking</th>
+                            <th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="LPTItems.content.length>0">
+                        <tr *ngFor="let item of LPTItems.content;let i=index;">
+                            <td style="text-align: center;">{{i+1}}.</td>
+                                <td>
+                                <a [routerLink]="['/producttransfer/ptitemdetails',item.locationProductTransferItemId]">{{item.locationProductTransferItemManualId}}</a>
+                            </td>
+                            <td>
+                                <a href=""></a>
+                                {{item.locationProductRequestLineItemManualId}}</td>
+                                <td>{{item.productPartCode}}</td>
+                            <td>
+                                
+                                <a [routerLink]="['/location',item.sourceLocationId]"> {{item.sourceLocationName}}</a>
+                               
+                            </td>
+                            <td>
+                                <a [routerLink]="['/location',item.destinationLocationId]">{{item.destinationLocationName}}</a>
+                            </td>
+                            <td>{{item.trackingNumber}}
+                            </td>
+                            <td> <a [routerLink]="['/createuser',item.ownerEmailId]">
+                                {{item.ownerFirstName}}&nbsp;{{item.ownerMiddleName}}&nbsp;{{item.ownerLastName}}
+                            </a>
+                         </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="LPTItems.content.length==0">
+                        <tr> 
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                  
+                                  <div class="col-md-4" style="text-align: center; float: center;"> <p>Data Not Found</p></div>
+                            
+                              </td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                           </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+        </div>
+    </div>
+</div>

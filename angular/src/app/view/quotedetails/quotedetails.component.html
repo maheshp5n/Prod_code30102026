@@ -1,0 +1,1182 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Quote" src="assets/images/quotes_120.png"
+                                style="height: auto;width:100%;background-color: rgb(24, 175, 74);" title="Quote" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Quote</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-2 col-md-2"></div>
+            <div class="col-sm-6 col-md-6" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+                    <button *ngIf="rights('Quote','edit')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="onClickEdit()">Edit</button>&nbsp;
+                    <button *ngIf="rights('Quote','edit')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="confirmationPopup.show()">Create PDF</button>&nbsp;
+                    <button *ngIf="quoteResponse.syncing==false && rights('Quote','create')"
+                        class="btn btn-outline-info btn-sm" type="button" (click)="sync()">Start Sync</button>&nbsp;
+                    <button *ngIf="quoteResponse.syncing==true && rights('Quote','create')"
+                        class="btn btn-outline-info btn-sm" type="button" (click)="sync()">Stop Sync</button>&nbsp;
+                        <button  class="btn btn-outline-info btn-sm" type="button"
+                        *ngIf="rights('Quote','create')"  (click)="onClickSSumitApproval()">Submit For Approval</button>&nbsp;
+                        <button *ngIf="rights('Quote','edit')"  class="btn btn-outline-info btn-sm" type="button"
+                        (click)="addWorkOrder()">Add Work Order</button>
+                </div>
+                        <app-itemapproval-button [objectName]="'Quote'" [_objectId]="quoteResponse.id"></app-itemapproval-button>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2 col-sm-2">
+                <small>Quote Number</small>
+                <div>
+                    <a>
+                        {{quoteResponse.quoteNumber}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <small>Expiry Date</small>
+                <div>
+                    {{quoteResponse.expiryDate | date:'dd-MM-yyyy'}}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <small>Opportunity Name</small>
+                <div>
+                    <a href="#" routerLink="/Opportunities/{{quoteResponse.oppertunityId}}">
+                        {{quoteResponse.oppertunityManualId}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <small>Total Amount</small>
+                <div>
+                    {{quoteResponse.totalAmountWithTax  | currency:'INR'}}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <small>Account Name</small>
+                <div>
+                    <a href="#" routerLink="/accounts/{{quoteResponse.sapCustomerNumber}}">
+                        {{quoteResponse.accountName}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <small>Syncing</small>
+                <div *ngIf="syncing==true"><input type="checkbox" checked disabled></div>
+                <div *ngIf="syncing==false"><input type="checkbox" disabled></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- <div class="breadcrumb flat">
+    <div class="row">
+        <a [ngClass]="classFlags[1]" (click)="setBreadcrumb(1)" title="Draft" style="border-top-left-radius: 20px
+        ;border-bottom-left-radius: 20px;">Draft</a>
+        <a [ngClass]="classFlags[2]" (click)="setBreadcrumb(2)" title="Work Order">Work Order</a>
+        <a [ngClass]="classFlags[3]" (click)="setBreadcrumb(3)" title="Rejected">Rejected</a>
+        <a [ngClass]="classFlags[4]" (click)="setBreadcrumb(4)" title="Quote Sent">Quote Sent</a>
+        <a [ngClass]="classFlags[5]" (click)="setBreadcrumb(5)" title="Work Order Not Received">
+            Work Order Not Recieved
+        </a>
+        <a [ngClass]="classFlags[6]" (click)="setBreadcrumb(6)" title="Submitted For Approvel">Submitted For
+            APPROVEL</a>
+        <a [ngClass]="classFlags[7]" (click)="setBreadcrumb(7)" title="Approved">Approved</a>
+        <a [ngClass]="classFlags[8]" (click)="setBreadcrumb(8)" title="Invoiced">Invoiced</a>
+        <a [ngClass]="classFlags[9]" (click)="setBreadcrumb(9)" title="Withdrawn">Withdrawn</a>
+        <a [ngClass]="classFlags[10]" (click)="setBreadcrumb(10)" title="Approved by Store">Approved by Store</a>
+        <a [ngClass]="classFlags[11]" (click)="setBreadcrumb(11)" title="Rejected by Store" style="border-top-right-radius: 20px
+        ;border-bottom-right-radius: 20px;">Rejected by Store</a>
+    </div>
+</div>
+<div class="card-footer text-center" style="background: white;border-top: none;">
+    <button style="width: 20%;" type="button" class="btn btn-primary" (click)="changeBreadcrumb()">
+        Mark Status as complete
+    </button>
+</div> -->
+
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Quote Information
+
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Quote Number</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.quoteNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Quote Name</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.quoteName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Opportunity Name</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <a href="#" routerLink="/Opportunities/{{quoteResponse.oppertunityId}}">
+                                                {{quoteResponse.oppertunityManualId}}
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Account Name</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <a href="#" routerLink="/accounts/{{quoteResponse.sapCustomerNumber}}">
+                                                {{quoteResponse.accountName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Syncing</small>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="quoteResponse.syncing==true"><input type="checkbox" checked
+                                                    disabled></div>
+                                            <div *ngIf="quoteResponse.syncing==false"><input type="checkbox" disabled>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Submitted Date</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            {{quoteResponse.submittedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Owner Name</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <a [routerLink]="['/createuser',quoteResponse.ownerEmailId]"
+                                                [routerLinkActive]="'active'">
+                                                {{quoteResponse.ownerFirstName}} {{quoteResponse.ownerMiddleName}}
+                                                {{quoteResponse.ownerLastName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Quote Validity days</small>
+                                        </td>
+                                        <td>{{quoteResponse.validityDays}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Status</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.quoteStatusName}}</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>
+                                            <small>Approved by Store</small>
+                                        </td>
+                                        <td>{{quoteResponse.approvedByStoreDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Approved by Commercial</small>
+                                        </td>
+                                        <td>{{quoteResponse.approvedByCommercialDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td>
+                                            <small>Remarks</small>
+                                        </td>
+                                        <td>{{quoteResponse.remark}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Quote Approved</small>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="quoteResponse.approved"><input type="checkbox" checked disabled>
+                                            </div>
+                                            <div *ngIf="!quoteResponse.approved"><input type="checkbox" disabled>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" (click)="changeTotalDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="totalDisplay.angleIcon"></i> &nbsp;Totals</button>
+                    <div *ngIf="totalDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>SGST@9% on 100% Value</small>
+                                        </td>
+                                        <td>{{quoteResponse.sgstAmount | currency:'INR'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>IGST@18% on 100% Value</small>
+                                        </td>
+                                        <td>{{quoteResponse.igstAmount | currency:'INR'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Total Amount(With Taxes)</small>
+                                        </td>
+                                        <td>{{quoteResponse.totalAmountWithTax | currency:'INR'}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>CGST@9% on 100% Value</small>
+                                        </td>
+                                        <td>{{quoteResponse.cgstAmount | currency:'INR'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Subtotal</small>
+                                        </td>
+                                        <td>{{quoteResponse.subTotal | currency:'INR'}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" (click)="changeAddressDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="addressDisplay.angleIcon"></i> &nbsp;Address Information</button>
+                    <div *ngIf="addressDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Bill To Name</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.billingName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Billing Address</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.billingStreet}}
+                                            {{quoteResponse.billingCity}}
+                                            {{quoteResponse.billingStateName}} {{quoteResponse.billingCountryName}}
+                                            {{quoteResponse.billingPostalCode}}
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Ship To Name</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.shippingName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Shipping Address</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.shippingStreet}}
+                                            <!-- <i *ngIf="quoteResponse.shippingStreet!=null">, </i> -->
+                                            {{quoteResponse.shippingCity}}
+                                            <!-- <i *ngIf="quoteResponse.shippingStreet!=null">, </i> -->
+                                            {{quoteResponse.shippingStateName}}
+                                            <!-- <i *ngIf="quoteResponse.shippingStreet!=null">, </i> -->
+                                            {{quoteResponse.shippingCountryName}}
+                                            <!-- <i *ngIf="quoteResponse.shippingStreet!=null">, </i> -->
+                                            {{quoteResponse.shippingPostalCode}}
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" (click)="useInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="useDisplay.angleIcon"></i> &nbsp;Use in Quotation Purpose</button>
+                    <div *ngIf="useDisplay.open" class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 25%;">
+                                            <small>Others Terms & Conditions</small>
+
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.otherTermsAndConditions}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>To Email Ids</small>
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.toEmailIds}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Cc Email Ids</small>
+
+                                        </td>
+                                        <td class="wrappable">{{quoteResponse.ccEmailIds}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Work Order       by shagufta -->
+                    <button type="button" (click)="changeWorkOrderDisplay()"
+                    style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                        [ngClass]="workOrderDisplay.angleIcon"></i> &nbsp;Work Order Information</button>
+                <div *ngIf="workOrderDisplay.open" class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <small>Work Order Number</small>
+                                    </td>
+                                    <td class="wrappable">{{quoteResponse.workOrderNumber}}</td>
+                                </tr>
+                                
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <small>Work Order Date</small>
+                                    </td>
+                                    <td class="wrappable">{{quoteResponse.workOrderDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                    <!-- end workk order panel -->
+                    <button type="button" (click)="sysInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+                    <div *ngIf="sysinfoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                                        <td class="wrappable"><a [routerLink]="['/createuser',quoteResponse.createdByEmailId]"
+                                            [routerLinkActive]="'active'">
+                                            {{quoteResponse.createdByFirstName}}&nbsp;
+                                            {{quoteResponse.createdByMiddleName}}&nbsp;
+                                            {{quoteResponse.createdByLastName}}</a>&nbsp;,&nbsp;
+                                        {{quoteResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                    </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                                        <td class="wrappable"><a [routerLink]="['/createuser',quoteResponse.modifiedByEmailId]"
+                                            [routerLinkActive]="'active'">
+                                            {{quoteResponse.modifiedByFirstName}}&nbsp;
+                                            {{quoteResponse.modifiedByMiddleName}}&nbsp;
+                                            {{quoteResponse.modifiedByLastName}}</a>&nbsp;,&nbsp;
+                                        {{quoteResponse.modifiedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                                    </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="vReleated" class="card-body">
+                    <!-- 0 Emails-->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/quotes_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);border-radius: 1mm;"
+                                            title="Emails"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;
+                                            Emails({{emailList.length}})
+                                        </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                                            <!-- <button *ngIf="rights('Quote','create')" class="btn btn-outline-info btn-sm"
+                                                type="button" (click)="sendMail.show()">&nbsp;<i
+                                                    class="fa fa-envelope"></i>&nbsp;Send Mail</button> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No. </th>
+                                            <th>Subject</th>
+                                            <th>Send To</th>
+                                            <th>Send From</th>
+                                            <th>Send CC</th>
+                                            <th>Attachment</th>
+                                            <!-- <th>Action</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        <tr *ngFor="let c of emailList; let i=index" >
+                                            <td data-line="S.No. " class="mhide">
+                                                {{i+1}}.
+                                            </td>
+                                            <td data-line="Subject">
+                                              {{c.subject}}
+                                            </td>
+                                            <td data-line="To">
+                                                {{c.sendTo}}
+                                            </td>
+                                            <td data-line="From">
+                                                {{c.sendFrom}}
+                                            </td>
+                                            <td data-line="Send CC">{{c.sendCc}}</td>
+                                            <td data-line="Attachment">
+                                                {{emailFileName}}
+                                            </td>
+
+                                            <!-- <td data-line="Action" class="mhide" style="width: 50;">
+                                                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                    placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li *ngIf="rights('Quote','edit')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="openEditQuoteLineItem(c.id)">Edit
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="rights('Quote','delete')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteQuoteLineItem(c.id)">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- <div style="text-align: center" *ngIf="!(firstQuoteLineItems && lastQuoteLineItems)">
+                                <a id="pag" class="previous round" href="" [class.disabled]="firstQuoteLineItems"
+                                    *ngIf="!firstQuoteLineItems" (click)="setPagePreviousQuoteLineItems($event)">
+                                    &#8249;
+                                </a>
+                                <a id="pag" class="nav-link active" href="" (click)="setPageQuoteLineItems($event)"
+                                    [ngClass]="{'active':i==pageQuoteLineItems}">
+                                    {{pageQuoteLineItems+1}}
+                                </a>
+                                <a id="pag" class="next round" href="" [class.disabled]="lastQuoteLineItems"
+                                    *ngIf="!lastQuoteLineItems" (click)="setPageNextQuoteLineItems($event)">
+                                    &#8250;
+                                </a></div> -->
+                        </div>
+                    </div>
+                    <!--  0 Emails-->
+
+
+                    <!-- 1 Product-->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/quotes_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);border-radius: 1mm;"
+                                            title="Quote Line Items"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;
+                                            Quote Line Items ({{totalQuote}})
+                                        </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                                            <button *ngIf="rights('QuoteLineItem','create')" class="btn btn-outline-info btn-sm"
+                                                type="button" (click)="addProduct()">Add Product</button>
+                                            <button *ngIf="rights('QuoteLineItem','edit')" class="btn btn-outline-info btn-sm"
+                                                type="button" (click)="openEditAll()">Edit All</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Part Code</th>
+                                            <th>Product Description</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total Price</th>
+                                            <th>Price Book</th>
+                                            <th>List Price</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of getQuoteLineItemRequestArray; let i=index">
+                                            <td data-line="S.No" class="mhide">{{serialNumberQuoteLineItems+i+1}}.</td>
+                                            <td data-line="Part Code"><a href="#"
+                                                    routerLink="/products/{{c.productPartCode}}">{{c.productPartCode}}</a>
+                                            </td>
+                                            <td data-line="Product Description">{{c.pdoductDescription}}</td>
+                                            <td data-line="Quantity">{{c.quantity}}</td>
+                                            <td data-line="Price">{{c.price | currency:'INR'}}</td>
+                                            <td data-line="Total Price">{{c.totalPrice | currency:'INR'}}</td>
+                                            <td data-line="Price Book Name">{{c.priceBookName}}</td>
+                                            <td data-line="List Price">{{c.listPrice | currency:'INR'}}</td>
+                                            <td data-line="Created Date" class="mhide">
+                                                {{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </td>
+
+                                            <td data-line="Action" class="mhide" style="width: 50;">
+                                                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                    placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li *ngIf="rights('QuoteLineItem','edit')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="openEditQuoteLineItem(c.id)">Edit
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="rights('QuoteLineItem','delete')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteQuoteLineItem(c.id)">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <div style="height: 50px;">
+
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="text-align: center" *ngIf="!(firstQuoteLineItems && lastQuoteLineItems)">
+                                <a id="pag" class="previous round" href="" [class.disabled]="firstQuoteLineItems"
+                                    *ngIf="!firstQuoteLineItems" (click)="setPagePreviousQuoteLineItems($event)">
+                                    <!--  [ngClass]="{'active':pageQuoteLineItems}" -->
+                                    &#8249;
+                                </a>
+                                <a id="pag" class="nav-link active" href="" (click)="setPageQuoteLineItems($event)"
+                                    [ngClass]="{'active':i==pageQuoteLineItems}">
+                                    {{pageQuoteLineItems+1}}
+                                </a>
+                                <a id="pag" class="next round" href="" [class.disabled]="lastQuoteLineItems"
+                                    *ngIf="!lastQuoteLineItems" (click)="setPageNextQuoteLineItems($event)">
+                                    <!-- [ngClass]="{'active':pageQuoteLineItems}" -->
+                                    &#8250;
+                                </a></div>
+                        </div>
+                    </div>
+                    <!-- 1 Product-->
+
+
+                    <!-- 2 App Hist-->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/approval_history.png"
+                                            style="height: 30px;widows: 30px;background-color: lightskyblue;border-radius: 1mm;"
+                                            title="Annexure Line Items"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Approval History({{approvalHistoryList.length}})</b>
+                                    </td>
+                                    <!-- <td class="text-right">
+    
+                                            <div class="btn-group" style="padding: 1px;">
+                                                <button class="btn btn-outline-info btn-sm" type="button"
+                                                    (click)="newAnnexureLineItem()">
+                                                    <i class="fa fa-plus"></i>New</button>
+                                                <button *ngIf="rights('Annexure','edit')"
+                                                    class="btn btn-outline-info btn-sm" type="button"
+                                                    (click)="submitForApproval()">
+                                                    Submit for Approval</button>
+                                            </div>
+                                        </td> -->
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Approval Step</th>
+                                            <th>Assigned Date</th>
+                                            <th>Assigned To</th>
+                                            <th>Action</th>
+                                            <th>Approved Date</th>
+                                            <th>Previous Remarks</th>
+                                            <th>Remark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of approvalHistoryList; let i=index">
+                                            <td data-line="S. No." class="mhide">{{serialNumberQuoteLineItems+i+1}}.
+                                            </td>
+                                            <td data-line="Approval Step"> {{c.stageName}} </td>
+                                            <td data-line="Assigned Date">
+                                                {{c.assignedDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+                                            <td data-line="Assigned To">
+                                                <a [routerLink]="['/createuser',c.assignedToEmailId]"
+                                                    [routerLinkActive]="'active'"> {{c.assignedToFirstName}}
+                                                    {{c.assignedToMiddleName}}
+                                                    {{c.assignedToLastName}}
+                                                </a>
+                                            </td>
+                                            <td data-line="Action"> {{c.action}} </td>
+                                            <td data-line="Approved Date">
+                                                {{c.approvedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                            <td data-line="Previous Remarks"> {{c.previousRemarks}} </td>
+                                            <td data-line="Remark"> {{c.remark}} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2 ends -->
+
+                    <!-- 3 Quote PDFs-->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/quotes_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);border-radius: 1mm;"
+                                            title="Quote PDFs"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Quote PDFs </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group" style="padding: 1px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div *ngIf="fileUploadList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+                            <div class="table-responsive mobile" style="height: 100%;">
+                                <table class="table table-sm table-condensed tablerview">
+                                    <thead style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th title="S.No" style="width:50px;">S.No.</th>
+                                            <th title="File Name" scope="col" class="text-left"> File Name
+                                            </th>
+                                            <th title="Content Type" scope="col" class="text-left"> Content Type
+                                            </th>
+                                            <th title="Created Date" scope="col" class="text-left"> Created Date
+                                            </th>
+                                            <th title="File Size" scope="col" class="text-left"> File Size
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let ob of fileUploadList;let i=index">
+                                            <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                                            <td data-line="File Name"><a style="color: blue;"
+                                                    (click)="showPreview(ob.fileDownloadUri, ob.fileName)">{{ob.fileName}}</a>
+                                                <!-- saveFile()-->
+                                            </td>
+                                            <td data-line="Content Type" scope="col" class="text-left">
+                                                {{ob.fileContentType}}</td>
+                                            <td data-line="Created Date" scope="col" class="text-left">
+                                                {{ob.createdDate | date:'dd-MM-yyyy'}}</td>
+
+                                            <td *ngIf="(ob.fileSize/1024/1024)<1" data-line="File Size" scope="col"
+                                                class="text-left">
+                                                {{(ob.fileSize/1024)| number : '1.0-3'}} KB</td>
+
+                                            <td *ngIf="(ob.fileSize/1024/1024)>=1" data-line="File Size" scope="col"
+                                                class="text-left">
+                                                {{(ob.fileSize/1024/1024)| number : '1.0-3'}} MB</td>
+                                        </tr>
+                                        <div style="height: 50px;">
+
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--3 Quote PDFs-->
+
+                    <div>
+                        <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New -->
+<div class="modal fade" bsModal #createNewQuote="bs-modal" (onShow)="isQuote=true" (onHide)="isQuote=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-new-Quote">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createNewQuote.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="isQuote">
+                <app-create-new-quote [isEditModeQuote]="isEditMode" [editQuoteData]="quoteRequest" [caseId]="caseManualId"
+                [opportunityId]="oppoId"   (_onQuoteCreated)="_onQuoteCreated($event)" (onCancle)="cancelData()">
+                </app-create-new-quote>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popup for Status change-->
+<!-- <div class="modal fade" bsModal #changeStatus="bs-modal" (onShow)="isChangeStatus=true" (onHide)="isChangeStatus=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-weight: bolder; text-align: center">Close this quote</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="changeStatus.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-md" *ngIf="isChangeStatus">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Status
+                        </div>
+
+                        <select class="form-control">
+                            <option value='' disabled>--select--</option>
+                            <option>Closed Won</option>
+                            <option>Closed Lost</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-right">
+                        <button type="button" class="btn btn-sm btn-default" (click)="changeStatus.hide()"><i
+                                class="fa fa-remove"></i>&nbsp;
+                            Cancel</button>&nbsp;
+
+                        <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+                            Change Status</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- Add Product -->
+<div class="modal fade" bsModal #createaddProductModel="bs-modal" (onShow)="isaddProductOpen=true"
+    (onHide)="isaddProductOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{headingaddPro}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataaddProduct()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-quote-add-product *ngIf="isaddProductOpen" [viewAddPriceBook]="viewAddPriceBook"
+                    (_onAddProductCreated)="onaddProductCreated($event)" (_onAddProCancle)="cancelDataaddProduct()"
+                    (headingPrice)="headingadd($event)" [quoteId]="quoteId">
+                </app-quote-add-product>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Product -->
+<div class="modal fade" bsModal #editQuoteLineItemModel="bs-modal" (onShow)="iseditProductOpen=true"
+    (onHide)="iseditProductOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{headingeditPro}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataEditProduct()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--  (headingEditPrice)="headingedit($event)" -->
+            <div class="modal-body">
+                <app-quote-edit-product *ngIf="iseditProductOpen" [isEditAll]="isEditAll"
+                    (_onEditProductCreated)="oneditProductCreated($event)"
+                    (_onEditAllProductCreated)="oneditAllProductCreated($event)"
+                    (_onEditProCancle)="cancelDataEditProduct()" [quoteId]="quoteId"
+                    [editQuoteLineItem]="quoteLineItemRequest" [editAllQuoteLineItems]="getQuoteLineItemRequestArray"
+                    [editBusinessDomainId]="businessDomainId">
+                </app-quote-edit-product>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- popup -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>
+
+<!--Confirmation Popup-->
+<div class="modal fade" bsModal #confirmationPopup='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="text-align: center;">
+            <!-- <button type="button" style="color: red; size: 200%;text-align: right;" class="close pull-right"
+                aria-label="Close" (click)="confirmationPopup.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button> -->
+            <div class="modal-body">
+                <div class="control-label">
+                    Do you want to proceed with PDF Creation?
+                </div>
+                <br>
+                <!-- <div class="col-md-1 col-sm-1"></div> -->
+                <div class="col-md-5 col-sm-5">
+                    <button class="btn btn-md btn-success" (click)="createPDF()">Yes
+                    </button>
+                </div>
+                <div class="col-md-2 col-sm-2"></div>
+                <div class="col-md-5 col-sm-5">
+                    <button class="btn btn-md btn-danger" (click)="confirmationPopup.hide()">No
+                    </button>
+                </div>
+                <!-- <div class="col-md-1 col-sm-1"></div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Show Preview-->
+<div class="modal fade" bsModal #showPreviewModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>{{fileName}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="showPreviewModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default" style="max-height: 75vh; overflow: auto;">
+                    <div class="panel-body">
+                        <img src="{{imageUrl}}" alt="" style="height: auto;width: 100%;">
+                        <pdf-viewer [src]="imageUrl" [render-text]="true" style="height: auto;width: 100%;">
+                        </pdf-viewer>
+                        <!--   (page-rendered)="pageRendered($event)"-->
+                        <!-- <iframe src="{{imageUrl}} | mySafeHtml" style="height: auto;width: 100%;"></iframe> -->
+                        <!-- <embed [src]="imageUrl" /> -->
+                        <!-- <object src="imageUrl}}" style="height: auto;width: 100%;"></object> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 text-right">
+                        <button class="btn btn-sm btn-primary" (click)="showPreviewModel.hide()"><i
+                                class="fa fa-remove">&nbsp;
+                                Close
+                            </i>
+                        </button>
+                        <button class="btn btn-sm btn-primary" (click)="saveFile()">
+                            <i class="fa fa-download">&nbsp;
+                                Download
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+<div class="modal fade" bsModal #sendMail="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-Quote">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Send Mail</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="sendMail.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default" style="max-height: 90vh; overflow: auto;">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <table style="border: none; font-weight: bold;">
+                                    <tr>
+                                        <td>From :</td>
+                                    </tr>
+                                    <tr>
+                                        <td>To :</td>
+                                    </tr>
+                                    <tr>
+                                        <td>cc :</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subject :</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top: 0.5cm;">Attachments :</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top: 1cm;">Content :</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <table style="border: none;">
+                                    <tr>
+                                        <td>
+                                            <input type="text" style="outline: 0;width: 100%;
+                                                        border-width: 0 0 0.5px;
+                                                        border-color: blue">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" style="outline: 0;width: 100%;
+                                                        border-width: 0 0 0.5px;
+                                                        border-color: blue">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" style="outline: 0;width: 100%;
+                                                        border-width: 0 0 0.5px;
+                                                        border-color: blue">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" style="outline: 0;width: 100%;
+                                                        border-width: 0 0 0.5px;
+                                                        border-color: blue">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top: 0.5cm;">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 ">
+                                                <input multiple type="file" name="profile"
+                                                    accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                                    (change)="onFileSelect($event)" id="getFile" style="display:none" />
+                                                <button *ngIf="_cFlag!='f'" class="btn btn-sm btn-default"
+                                                    onclick="document.getElementById('getFile').click()"
+                                                    type='submit'><i class="fa fa-upload"></i>&nbsp;&nbsp;Select
+                                                    files</button>
+                                            </div>
+                                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                                <div class="row" *ngFor="let s of fileList;let i=index">
+                                                    <div class="col-sm-2 col-md-2 col-lg-2">
+                                                        {{i+1}}
+                                                    </div>
+                                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                                        {{s.name}}
+                                                    </div>
+                                                    <div class="col-sm-2 col-md-2 col-lg-2">
+                                                        <a style="font-weight: bolder; text-align: center;color: red;"
+                                                            (click)="removeFile(s.name)"><i class="fa fa-times"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top: 1cm;">
+                                            <angular-editor [config]="config"></angular-editor>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-right">
+                        <button type="button" class="btn btn-sm btn-default" (click)="sendMail.hide()"><i
+                                class="fa fa-remove"></i>&nbsp;
+                            Cancel</button>&nbsp;
+                        <button type="button" class="btn btn-sm btn-primary">&nbsp;<i
+                                class="fa fa-paper-plane"></i>&nbsp;
+                            Send Mail</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #submitApprovelModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div  class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="popupRequestforSA" class="modal-title pull-left"> Submit for approval</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="submitApprovelModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                    <app-are-you-sure [YesQuote]="yesQuote" (noRequestFor)="noRequestFor()" [ApprovalMessage]="approvalmessage" [QuoteID]="quoteId" (onSubmitted)="onSubmitted($event)"></app-are-you-sure>
+                  </div>
+                <!-- <div style="text-align: center">
+                    <strong> Are you sure  Submit for Approval ? </strong>
+                </div> -->
+            </div>
+            <!-- <div class="modal-footer">
+                <button class="btn btn-primary" type="button" (click)="noRequestForSA()"> No
+                </button>
+                <button class="btn btn-danger" type="button" (click)="yesRequestForSA()">
+                    Yes </button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- Request for work order -->
+<div class="modal fade" bsModal #workOrderForQuoteModel="bs-modal"  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="workOrderForQuoteModel">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="quotePDFMOdel" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="workOrderForQuoteModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-work-order-for-quete (onworkOrderCreated)="onworkOrderCreated($event)" [QueteID]="QuteId" [isEditMode]="isEditMode"  (onworkOrderCreated)="onworkOrderCreated($event)"
+                (onCancle)="workOrdercancelData()" [editworkOrder]="quoteResponse"></app-work-order-for-quete>
+            </div>
+        </div>
+    </div>
+</div>

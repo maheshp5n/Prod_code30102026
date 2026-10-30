@@ -1,0 +1,171 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:32px;">
+                            <img alt="Zone" src="assets/images/Zone_120.png"
+                                style="height: 32px;width:32px;background-color: rgb(198, 90, 207);" title="Zone">
+                        </td>
+                        <td style="padding-left:5px;">Zone</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                            class="fa fa-sort-down"></i>&nbsp;
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" *dropdownMenu role="menu"
+                                    aria-labelledby="button-disabled-item" style="width: 115%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                                        VIEWS</li>
+                                    <li role="menuitem" *ngFor="let m of dropdownsList">
+                                        <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>&nbsp;
+                            <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                            (click)="pinFilter()">
+                            <em class="fa fa-thumb-tack"></em>
+                        </button>
+                        <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                            <em class="fa fa-thumb-tack"></em>
+                        </button>
+                           
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+                autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+            </div>
+            <div class="col-sm-4 col-md-4 text-right">
+                <div class="btn-group" style="padding: 10px;">
+                    <button *ngIf="rights('ZoneDetails','create')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="showCreateZoneView()"><i class="fa fa-plus"></i>&nbsp;New</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body" style="padding: 0px;">
+        <div class="wrap">
+            <table class="head">
+                <thead style="background-color:rgb(248, 245, 245)">
+                    <th  title="S.No">S.No</th>
+                    <th *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+                    title="{{tb.name}}">
+                    <div class="row">
+                        <div class="col sm-10"> {{tb.name}}</div>
+                        <div class="col sm-2"> <i [ngClass]="tb.icon"></i></div>
+                    </div>
+                     </th>
+                    <!-- <th>Action</th> -->
+                  </thead>
+            </table>
+          <div class="inner_table">
+            <table>
+              
+                <tbody>
+                    <tr *ngFor="let c of zoneList.content |searchfilt: searchitem; let i=index">
+                        <td data-line="S.No" >{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+                        <td data-line="Zone">{{c.zoneName}} </td>
+                        <td data-line="Created By">
+                            <a [routerLink]="['/bat_user',c.createdBy.emailId]" [routerLinkActive]="'active'" *ngIf="domainId==1">
+                                {{c.createdBy.firstName}} {{c.createdBy.middleName}} {{c.createdBy.lastName}}
+                            </a>
+                            <a [routerLink]="['/createuser',c.createdBy.emailId]" [routerLinkActive]="'active'" *ngIf="domainId==2 || domainId==3">
+                                {{c.createdBy.firstName}} {{c.createdBy.middleName}} {{c.createdBy.lastName}}
+                            </a>
+                        </td>
+                        <td data-line="Created Date">
+                            {{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{zoneList.number+1}} &nbsp;of&nbsp;{{zoneList.totalPages}}&nbsp;Total Count={{zoneList.totalElements}}
+              </div>
+            <div class="col-sm-4">
+                <div style="text-align: center" *ngIf="!(zoneList.first && zoneList.last) ">
+                    <a [routerLink]="['/zone']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  *ngIf="!zoneList.first"
+                                  [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:zoneList.number-1,size:dropdownSelected.size}">
+                                  &lt;
+                              </a>
+                              <a [routerLink]="['/zone']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:zoneList.number,size:dropdownSelected.size}">
+                                  {{zoneList.number+1}}
+                              </a>
+                              <a [routerLink]="['/zone']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  *ngIf="!zoneList.last"
+                                  [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:zoneList.number+1,size:dropdownSelected.size}">
+                                  &gt;
+                              </a>
+                  </div>
+            </div>
+            <div class="col-sm-4" style="text-align: right;">
+                <div class="row">
+                 <div class="col-md-6"></div>
+                  <div  *ngIf="!(zoneList.first && zoneList.last) "  class="col-md-6">
+                    <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+                     <button (click)=jumpPage(pagenumber)>Go</button>
+                   </div>
+                </div>
+             </div>
+        </div>
+      
+    </div>
+</div>
+
+<!-- New -->
+<div class="modal fade" bsModal #createZoneModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-zone">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Create Zone</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createZoneModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-zonecreate (onZoneCreated)="onZoneCreated($event)" [isEditMode]="isEditMode"
+                    (onCancle)="cancelData()">
+                </app-zonecreate>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+        class="alert alert-danger center center-block" style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+</div>

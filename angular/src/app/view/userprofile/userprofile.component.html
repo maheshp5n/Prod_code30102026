@@ -1,0 +1,138 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <img src="assets/images/user_profile.png" alt="" style="width: 100%;height: auto;">
+            </td>
+            <td style="padding-left: 5px;">
+              <strong> User profile</strong>
+            </td>
+          </tr>
+          <tr>
+
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+
+
+      </div>
+      <div class="col-md-4 text-right">
+        <button type="button" (click)="createprofile.show()" class="btn btn-sm btn-outline-info"><em
+            class="fa fa-plus"></em> New Profile</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card" *ngFor="let p of userProfiles;let i =index;">
+      <div class="card-header">
+        <div style="display: inline-block;cursor: pointer;" (click)="getObjectAccessByProfileId(p.id)">
+          <strong><em class="fa fa-user-circle-o"></em> {{p.profileName}} </strong><br />
+          <small><i>{{p.profileDescription}}</i> </small>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-primary pull-right" (click)="editOpen(i)"><em
+            class="fa fa-edit"></em></button>
+      </div>
+      <div *ngIf="p.expended" class="card-body">
+        <div class="card">
+          <div class="card-header">
+            <strong>Object Access</strong>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <th class="text-left" style="width: 20%;">Object</th>
+                    <th class="text-left" style="width: 20%;">Create Rights</th>
+                    <th class="text-left" style="width: 20%;">Edit Rights</th>
+                    <th class="text-left" style="width: 20%;">View Rights</th>
+                    <th class="text-left" style="width: 20%;">View All Rights</th>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr *ngFor="let a of p.objectAccessResponse">
+                    <td>
+                      {{a.objectLableName}}
+                    </td>
+                    <td>
+                      <em *ngIf="a.createRights" class="tik-mark"></em>
+                      <em *ngIf="!a.createRights" class="cross-mark"></em>
+                    </td>
+                    <td>
+                      <em *ngIf="a.editRights" class="tik-mark"></em>
+                      <em *ngIf="!a.editRights" class="cross-mark"></em>
+                    </td>
+                    <td>
+                      <em *ngIf="a.viewRights" class="tik-mark"></em>
+                      <em *ngIf="!a.viewRights" class="cross-mark"></em>
+                    </td>
+                    <td>
+                      <em *ngIf="a.viewAllRights" class="tik-mark"></em>
+                      <em *ngIf="!a.viewAllRights" class="cross-mark"></em>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <strong>Navigation Access</strong>
+          </div>
+          <div class="card-body">
+            <ul *ngIf="p.uiNav" style="list-style: none;">
+              <li *ngFor="let n of p.uiNav"
+                style="float: left;padding-left: 5px;padding-right: 5px;padding-top: 3px;padding-top: 3px;">
+                <button type="button" class="btn btn-outline-secondary btn-sm"><em [ngClass]="n.icon"></em>
+                  {{n.name}}</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Create Edit User Profile-->
+<div class="modal fade" bsModal #createprofile="bs-modal" (onShow)="openModalDetails.profile=true"
+  (onHide)="createProfileOnHide()" role="dialog" tabindex="-1">
+  <div class="modal-dialog  modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Create/Update Profile</h4>
+        <button type="button" (click)="createprofile.hide()" class="close pull-right">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding:0px">
+        <app-userprofiledirective *ngIf="openModalDetails.profile" [mode]="operationMode"
+          [profileDetails]="_uerProfileForEdit" (onProfileCreated)="onProfileCreated($event)"
+          (onCanled)="onProfileCanled($event)"></app-userprofiledirective>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Alert Modal-->
+<div class="modal fade" bsModal #alertModal="bs-modal" role="dialog" tabindex="-1">
+  <div style="margin-left: 20%;margin-right: 20%;" class="text-center">
+    <strong>
+      <alert [type]="alertDetails.type">
+        <span [innerHTML]="alertDetails.message"></span>
+        <button type="button" (click)='alertModal.hide()' class="close pull-right">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </alert>
+    </strong>
+  </div>
+</div>

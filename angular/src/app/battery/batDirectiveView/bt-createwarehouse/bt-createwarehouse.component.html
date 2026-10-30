@@ -1,0 +1,186 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <span class="text-center"> Information</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Warehouse Name
+          </div>
+          <input type="text" class="form-control" [(ngModel)]="localres.locationName">
+        </div>
+  
+        <div class="col-md-6 form-group required ">
+          <div class="control-label">
+            Warehouse Type
+          </div>
+          <select name="type" [(ngModel)]="localres.locationTypeId" class="form-control">
+            <option value="0">--Select--</option>
+            <option *ngFor="let res of locationType " [ngValue]="res.locationTypeId">{{res.locationTypeName}}
+            </option>
+          </select>
+          <!-- <input type="text" rows="3" class="form-control" [(ngModel)]="localres.locationType"> -->
+  
+        </div>
+        <!-- <div class="row"> -->
+  
+        <!-- <div class="col-md-6 form-group required">
+          <div class="control-label">
+            Owner
+          </div>
+          <input *ngIf="_isEditMode == false" type="text" class="form-control"
+            value="{{loginData.firstName}} {{loginData.lastName}}" disabled>
+  
+          <input *ngIf="_isEditMode == true" type="text" class="form-control"
+            value="{{localres.createdByFirstName}} {{localres.createdByLastName}}" disabled>
+          </div> -->
+  
+        <!-- <div class="control-label">
+                      Type
+                    </div>
+                    <select name="type"  class="form-control">
+                        <option  value='0' disabled>--Select--</option>
+                      <option *ngFor="let req of rowData "  [ngValue]="req.legalEntityType">{{req.legalEntityType}}
+                      </option>
+                  </select> -->
+  
+      </div>
+      <div class="row">
+  
+  
+        <div class="col-md-6 form-group ">
+          <div class="control-label">
+            Parent Warehouse
+          </div>
+  
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <ng-select [items]="locationList" [(ngModel)]="localres.parentLocationId"
+                bindLabel="locationName" bindValue="locationId" placeholder="Search Parent Location...">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                    style="background-color: rgb(40, 165, 56);" /> {{item.locationName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                    style="background-color: rgb(40, 165, 56);" /> {{item.locationName}}
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="col-md-6 form-group required">
+          <div class="control-label">
+            Legal Entity
+          </div>
+  
+          <div class="row">
+            <div class="col-md-10 col-sm-10">
+              <ng-select *ngIf="serviceCenterList" [items]="serviceCenterList" [(ngModel)]="localres.legalEntityId"
+                appendTo="body" bindLabel="legalEntityName" bindValue="legalEntityId"
+                placeholder="Search Service Center...">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                    style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                    style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewServiceCenter()"></i></div>
+              </span>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+      <div class="row">
+  
+        <div class="col-md-6 form-group ">
+          <div class="control-label">
+            Plant
+          </div>
+          <input type="text" rows="3" class="form-control" [(ngModel)]="localres.plant">
+        </div>
+  
+        <div class="col-md-6 form-group " style="visibility: hidden;">
+          <div class="control-label">
+            Warehouse Level
+          </div>
+          <input type="text" rows="3" class="form-control">
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6 form-group ">
+          <div class="control-label">
+            Inventory Warehouse
+          </div>
+          <input type="checkbox" [(ngModel)]="localres.inventoryLocation" [checked]="localres.inventoryLocation">
+        </div>
+        <div class="col-md-6 form-group ">
+          <div class="control-label">
+            Mobile Warehouse
+          </div>
+          <input type="checkbox" [(ngModel)]="localres.mobileLocation" [checked]="localres.mobileLocation">
+        </div>
+      </div>
+    </div>
+    <!-- remove system information panel .....shagufta -->
+  
+  </div>
+  
+  
+  
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button type="button" (click)="cancelLocationData()" class="btn btn-default"> <i
+          class="fa fa-remove"></i>Cancel</button>&nbsp;
+      <!-- <button type="button" (click)="postCreateAccountAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+      <button type="button" (click)="saveMslItemLocation()" class="btn btn-primary"> <i class="fa fa-save"></i>
+        Save </button>
+    </div>
+  </div>
+  
+  
+  <!-- popupSuccessModel -->
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong *ngIf="message=='Submitted Successfully'">Warehouse ( <a href="#" routerLink="/location/{{locationIdTamp}}"
+          activateRout="active">{{locationNameTamp}}</a>)
+        &nbsp;Created successfully !</strong>
+      <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+  </div> -->
+  
+  <!-- =======add legaentityModel=== -->
+  <div class="modal fade" bsModal #createLegalENtityModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelData()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;">
+          <app-bt-create-legalentity [isEditMode]="isEditMode" [editEntityData]="req"
+            (onEntityCreated)="onEntityCreated($event)" (onCancle)="cancelData()"></app-bt-create-legalentity>
+        </div>
+      </div>
+    </div>
+  </div>

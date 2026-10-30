@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" (click)="newtemplatewindow.show()"><em class="fa fa-plus"></em>
+            New</button>
+    </div>
+</div>
+<br>
+<div class="card" *ngFor="let t of templates">
+    <div class="row">
+        <div class="col-md-3 text-right"> Code</div>
+        <div class="col-md-3">{{t.templateCode}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right">Type</div>
+        <div class="col-md-3">{{t.templateType}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right">Active</div>
+        <div class="col-md-3"><em *ngIf="t.active" class="tik-mark"></em></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right">Last Modified</div>
+        <div class="col-md-3">{{t.modifiedDate |date:'dd-MM-yyyy hh:mm aa'}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right">Last Modified By</div>
+        <div class="col-md-3">{{t.modifiedByFirstName}} {{t.modifiedByMiddleName}} {{t.modifiedByLastName}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right">Template</div>
+        <div class="col-md-9">
+            <angular-editor id="temp{{t.id}}" [(ngModel)]="t.templateBody"></angular-editor>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="updateTemplate(t.id)" class="btn btn-primary">
+            <em class="fa fa-save"></em> Update
+        </button>
+    </div>
+    <br>
+</div>
+<br>
+
+
+<div class="modal fade" bsModal #newtemplatewindow="bs-modal" (onHide)="onCreateNewHide()" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    New Template
+                </h4>
+                <button type="button" (click)="newtemplatewindow.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>Template Code</span>
+                        <input type="text" class="form-control" [(ngModel)]="newtemplate.templateCode">
+                    </div>
+                    <div class="col-md-6">
+                        <span>Type</span>
+                        <select class="form-control" [(ngModel)]="newtemplate.templateType">
+                            <option value="MAIL">
+                                Mail
+                            </option>
+                            <option value="SMS">SMS</option>
+                        </select>
+                    </div>
+
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-12" style="max-height: 65vh;overflow: auto;">
+                        <span>
+                            Body
+                        </span>
+                        <br>
+                        <angular-editor id="createnew" [(ngModel)]="newtemplate.body" style="min-height: 400px;"></angular-editor>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" (click)="saveTemplate()" class="btn btn-dark"><em class="fa fa-save"></em> Save Template</button>
+                        <button type="button" (click)="newtemplatewindow.hide()" class="btn btn-default"><em class="fa fa-remove"></em> Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>

@@ -1,0 +1,557 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <img alt="" src="assets/images/Sites.png"
+                style="height: auto;width:100%;background-color: rgb(248, 109, 90);" title="Site">
+            </td>
+            <td style="padding-left: 5px;">Site</td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;">{{resp.siteManualId}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4">
+        <div class="btn-group " *ngIf="_cFlag!='f'"   role="group" style="float:right;">
+          <button  *ngIf="rights('CaseDetails','create')"class="btn btn-sm btn-outline-info" (click)="createCaseModelshow()" type="button"><i
+              class="fa fa-plus"></i>&nbsp; New Case</button>&nbsp;
+          <!-- <button *ngIf="rights('CaseDetails','edit')"class="btn btn-sm btn-outline-info" (click)="createCaseModelshow('DCT',2)" type="button"><i
+              class="fa fa-plus"></i>&nbsp; New Case DCT</button> -->
+          <button *ngIf="rights('SiteDetails','edit')" class="btn btn-sm btn-outline-info" (click)="editSiteModelshow(resp)" type="button"> Edit</button>
+          <!-- <button  class="btn btn-sm btn-outline-info" (click)="createPRCModelshow(resp)" type="button"> Create Pre-Registration</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="margin-top: 10px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+          <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 15px;">
+        <div *ngIf="vDetails">
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Customer</small></td>
+                    <td class="wrappable">{{resp.customer}}
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Site-ID</small><br>
+                    </td>
+                    <td class="wrappable">{{resp.siteManualId}}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="wrappable"><small>Account</small></td>
+                    <td class="wrappable"><a href="#" routerLink="/accounts/{{resp.accountSapNumber}}"
+                        activateRout="active">{{resp.accountName}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Infra-ID</small></td>
+                    <td class="wrappable"> {{resp.infraId}} </td>
+                  </tr>
+                  
+                  <tr>
+                    <td class="wrappable"><small>Indus-ID</small></td>
+                    <td class="wrappable"> {{resp.indusId}} </td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small> Owner</small></td>
+                    <td class="wrappable"> <a [routerLink]="['/createuser',resp.ownerEmailId]">{{resp.ownerFirstName}}&nbsp;{{resp.ownerMiddleName}}&nbsp; {{resp.ownerLastName}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Exchange/Site Name</small> </td>
+                    <td class="wrappable">{{resp.siteName}} </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Service Center</small></td>
+                    <td class="wrappable"><a href="#" routerLink="/legalentity/{{resp.serviceCenterId}}"
+                        activateRout="active">{{resp.serviceCenterName}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Service Resources</small>
+                    </td>
+                    <td class="wrappable"><a href="#" routerLink="/serviceResource/{{resp.serviceResourceId}}"
+                      activateRout="active">{{resp.serviceResourceName}}</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeAddressDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="addressDisplay.angleIcon"></i> Geographical Information</button>
+          <div *ngIf="addressDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Circle</small></td>
+                    <td class="wrappable"><a href="#" routerLink="/circles/{{resp.circleId}}"
+                      activateRout="active">{{resp.circleName}}</a> </td>
+                  </tr>
+                  <tr >
+                    <td class="wrappable"><small>Cluster/District</small> </td>
+                    <td class="wrappable">{{resp.clusterDistrict}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Site Address</small></td>
+                    <td class="wrappable">{{resp.siteAddress}} </td>
+                  </tr>
+              </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>SSA</small></td>
+                    <td class="wrappable"><a href="#" routerLink="/ssa/{{resp.ssaId}}" activateRout="active">{{resp.ssaName}}</a> </td>
+                  </tr>
+                  <tr >
+                    <td class="wrappable"><small> Site Description</small></td>
+                    <td class="wrappable">{{resp.siteDescription}} </td>
+                  </tr>
+                 </tbody>
+              </table>
+            </div>
+
+          </div>
+          <button type="button" (click)="sysInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                    <td class="wrappable">
+                      <a [routerLink]="['/createuser',resp.createByEmailId]">{{resp.createByFirstName}}&nbsp;{{resp.createdByMiddleName}}&nbsp;{{resp.createByLastName}}</a>&nbsp;,&nbsp;{{resp.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                    <td class="wrappable">
+                      <a [routerLink]="['/createuser',resp.modifiedByEmailId]">{{resp.modifiedByFirstName}}&nbsp;{{resp.modifiedByMiddleName}}&nbsp;{{resp.modifiedByLastName}}</a>&nbsp;,&nbsp;{{resp.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails" class="panel-body">
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/relationship_120.png"
+                      style="width: 24px;height: 24px;background-color: #ecd762"></td>
+                  <td>
+                    <a>&nbsp;<strong>Cases({{totalCase}})</strong> </a>
+                  </td>
+                  <td *ngIf="totalCase>5" class="text-right"><a [routerLink]="['/details',siteId,'cmponent','case']" [queryParams]="{cmponent:caseCoulms,page:page,sortArr:sortCaseColumnsBlnk}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+           
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body" *ngIf="casedetails.length>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div class="table-responsive mobile" style="background-color: white">
+                <table class="table table-sm table-condensed">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th class="text-left">S.No.</th>
+                      <th class="text-left" title="Case ID">Case ID
+                      </th>
+                      <th class="text-left" title="Type">Type
+                      </th>
+                      <th class="text-left" title="Case Reason">Case Reason
+                      </th>
+                      <th class="text-left" title="Status">Status
+                      </th>
+                      <th  class="text-left">Pre-Registration Case</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let case of casedetails ;let i=index">
+                      <td class="wrappable mhide" data-line="S.No.">{{serialNumber+i+1}}.</td>
+                      <td class="wrappable" data-line="Case ID"><a [routerLink]="['/cases',case.caseId]">{{case.caseManualId}}</a></td>
+                      <td class="wrappable" data-line="Type">{{case.caseTypeName}}</td>
+                      <td class="wrappable" data-line="Case Reason">{{case.caseReasonName}}</td>
+                      <td class="wrappable" data-line="Status">{{case.caseStatusName}}</td>
+                      <td class="wrappable" data-line="PRC"> <a href="" routerLink="/prc/{{case.prcId}}"> {{case.prcManualId}}</a></td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <div style="text-align: center">
+                  <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                    (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                    &#8249;
+                  </a>
+
+                  <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                    [ngClass]="{'active':i==page}">
+                    {{page+1}}
+                  </a>
+
+                  <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                    (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                    &#8250;
+                  </a>
+                </div> -->
+              </div>
+
+              <!-- view all link -->
+              <!-- *ngIf="casedetails.length>5" -->
+              <!-- <div *ngIf="totalCase>5"  class="text-right"><a [routerLink]="['/details',siteId,'cmponent','case']" [queryParams]="{cmponent:caseCoulms,page:page}" target="_blank"
+                [routerLinkActive]="['active']">View All</a></div> -->
+            </div>
+          </div>
+          <!-- second panel service Apointment -->
+          <!-- <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/service_appointment_120.png"
+                      style="width: 24px;height: 24px;background-color: #934cf1"></td>
+                  <td>
+                    <a>&nbsp; <strong>Service Appointments({{total_service}})</strong> </a>
+                  </td>
+
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body"*ngIf="serviceappoint.length>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div class="table-responsive" style=" background-color: white;">
+                <table class="table table-sm table-condensed">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th>S.No.</th>
+                      <th class="text-left">Service Appointment ID
+                      </th>
+                      <th class="text-left">Case
+                      </th>
+                      <th class="text-left">Case Type
+                      </th>
+                      <th class="text-left">Case Reason
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ser of serviceappoint;let i = index ">
+                      <td class="wrappable">{{serialNumberserv+i+1}}.</td>
+                      <td class="wrappable"><a [routerLink]="['/serviceappointment',ser.serviceAppointmentId]">
+                          {{ser.serviceAppointmentManulaId}}</a></td>
+                      <td class="wrappable"><a [routerLink]="['/cases',ser.caseId]"> {{ser.caseIdManual}}</a></td>
+                      <td class="wrappable">{{ser.caseType}}</td>
+                      <td class="wrappable">{{ser.caseReason}}</td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="text-align: center">
+                  <a id="prbtn" class="previous round" href="" [class.disabled]="firstserv" *ngIf="!firstserv"
+                    (click)="setPagePreviousserv($event)" [ngClass]="{'active':pageserv}">
+                    &#8249;
+                  </a>
+
+                  <a id="prbtn" class="nav-link active" href="" (click)="setPageserv($event)"
+                    [ngClass]="{'active':i==pageserv}">
+                    {{pageserv+1}}
+                  </a>
+
+                  <a id="prbtn" class="next round" href="" [class.disabled]="lastserv" *ngIf="!lastserv"
+                    (click)="setPageNextserv($event)" [ngClass]="{'active':pageserv}">
+                    &#8250;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- prc record -->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/relationship_120.png"
+                      style="width: 24px;height: 24px;background-color: #ecd762"></td>
+                  <td>
+                    <a>&nbsp;<strong>Pre-Registration Cases({{prcdata.totalElements}})</strong> </a>
+                  </td>
+                  <td *ngIf="prcdata.totalElements>5" class="text-right"><a [routerLink]="['/details',siteId,'cmponentprc','prc']" [queryParams]="{cmponentprc:siteColumnsprc,page:page,sortArr:prcSortArrBlank}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+           
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body" *ngIf="prcdata.content.length>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div class="table-responsive mobile" style="background-color: white">
+                <table class="table table-sm table-condensed">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th class="text-left">S.No.</th>
+                      <th class="text-left" title="Case ID">Pre-Registration Case
+                      </th>
+                      <th class="text-left" title="Type">Type
+                      </th>
+                      <th class="text-left" title="Case Reason">Case Reason
+                      </th>
+                      <th class="text-left" title="Status">Action
+                      </th>
+                      <th  class="text-left">Case Number</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let pr of prcdata.content ;let i=index">
+                      <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+                      <td class="wrappable" data-line="Prc ID"><a [routerLink]="['/prc',pr.prcCaseId]">{{pr.prcCaseManualId}}</a></td>
+                      <td class="wrappable" data-line="Type">{{pr.caseTypeName}}</td>
+                      <td class="wrappable" data-line="Case Reason">{{pr.caseReasonName}}</td>
+                      <td class="wrappable" data-line="Action">{{pr.lastAction}}</td>
+                      <td class="wrappable" data-line="case"> <a href="" routerLink="/case/{{pr.caseId}}"> {{pr.caseManualId}}</a></td>
+
+                    </tr>
+                  </tbody>
+                </table>
+               
+              </div>
+              </div>
+          </div>
+          <!-- close prc -->
+          <!-- Asset records -->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/product_120.png" alt=""
+                      style="width: 24px;height: 24px;background-color: #934cf1">
+                  </td>
+                  <td>
+                    <a>&nbsp;<strong>Assets({{totalasset}})</strong> </a>
+                  </td>
+                  <!-- <td *ngIf="totalasset>5" class="text-right"><a [routerLink]="['/details',siteId,'cmponentsiteast','asset']" [queryParams]="{cmponentsiteast:siteAssetColmnBlank,page:page,sortArr:assetArraySort}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td> -->
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body" *ngIf="asset.length>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div class="table-responsive mobile" style=" background-color: white;">
+                <table class="table table-sm table-condensed">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th class="text-left">S.No.</th>
+                      <th class="text-left">Serial number
+                      </th>
+                      <th class="text-left">Account Name
+                      </th>
+                      <th class="text-left">Part code
+                      </th>
+                      <th>Product Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ast of asset; let i = index">
+                      <td class="wrappable mhide" data-line=" S.No.">{{serialNumberAst+i+1}}.</td>
+                      <td class="wrappable" data-line="Serial number"><a [routerLink]="['/assets',urlencode(ast.serialNumber)]"> {{ast.serialNumber}}</a></td>
+                      <td class="wrappable" data-line="Account Name"><a [routerLink]="['/accounts',ast.accountSapNumber]"> {{ast.accountName}}</a></td>
+                      <td class="wrappable" data-line="Part Code"><a [routerLink]="['/products',ast.productPartCode]"> {{ast.productPartCode}}</a></td>
+                      <td class="wrappable" data-line="Product Description">{{ast.productDescription}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="text-align: center">
+                  <a id="prbtn" class="previous round" href="" [class.disabled]="firstserv" *ngIf="!firstserv"
+                    (click)="setPagePreviousAst($event)" [ngClass]="{'active':pageAsset}">
+                    &#8249;
+                  </a>
+
+                  <a id="prbtn" class="nav-link active" href="" (click)="setPageAst($event)"
+                    [ngClass]="{'active':i==pageAsset}">
+                    {{pageAsset+1}}
+                  </a>
+
+                  <a id="prbtn" class="next round" href="" [class.disabled]="lastserv" *ngIf="!lastserv"
+                    (click)="setPageNextAst($event)" [ngClass]="{'active':pageAsset}">
+                    &#8250;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+     
+          <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- edit site -->
+<div class="modal fade" bsModal #editSiteModel="bs-modal" (onShow)="isEditMode=true" (onHide)="isEditMode=false"
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelData()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-site [isEditMode]="isEditMode" [editEntityData]="siteres" (onSiteCreated)="onSiteCreated($event)"
+          (onCancle)="cancelData()"></app-create-site>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====create case on site=== -->
+<div class="modal fade" bsModal #createCaseModel="bs-modal" (onShow)="isCaseModelShow=true"
+  (onHide)="isCaseModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDatacase()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-createcase *ngIf="isCaseModelShow" [isEditMode]="isEditMode" [SiteSeviceResourceID]="siteseviceResourceID"
+        [serviceCenterId]="serviceCenterId"  [siteId]="siteId" (onCaseCreated)="onCaseCreated($event)" (onCancle)="cancelDatacase()"></app-createcase>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="modal fade" bsModal #createServiceAppointmentModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+          (click)="createServiceAppointmentModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-create-new-service-appointments [isEditMode]="isEditMode"
+          [editServiceAppointmentData]="serviceAppointmentResponse"
+          (onServiceAppointmentCreated)="onServiceAppointmentCreated($event)" (onCancle)="cancelDataservice()">
+        </app-create-new-service-appointments>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- edit assets -->
+<!-- <div class="modal fade" bsModal #createAssetModel="bs-modal" (onShow)="isSiteModelShow=true"
+(onHide)="isSiteModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createAssetModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-createasset *ngIf="isSiteModelShow" [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+          (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelDataasset()"></app-createasset>
+      </div>
+    </div>
+  </div>
+</div>
+ popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+    style="width:80%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+</div>
+<!-- Create PRC -->
+<div class="modal fade" bsModal #createPRCModel="bs-modal" (onShow)="isDCTCaseModelShow=true"
+  (onHide)="isDCTCaseModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> {{heading}} </h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="prcModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <app-case-create-pre-regis *ngIf="isDCTCaseModelShow" [isEditMode]="isEditMode" [SiteSeviceResourceID]="siteseviceResourceID"
+        [serviceCenterId]="serviceCenterId"  [siteId]="siteId"   (onCaseCreated)="onPRCCreated($event)" (onCancle)="prcModelhide()"></app-case-create-pre-regis> -->
+      </div>
+    </div>
+  </div>
+</div>

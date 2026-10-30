@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+                <strong>Search Requested Report</strong>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="params.report_name" placeholder="Report Name">
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="params.report_date" placeholder="Request Date (dd-MM-yy)">
+            </div>
+            <div class="col-3"><button class="btn btn-sm btn-primary" (click)="getSerachResult()" ><em class="fa fa-search"></em> Search</button></div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body p0">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-left">S.No.</th>
+                        <th scope="col">
+                            Report Name
+                        </th>
+                        <th scope="col">
+                            Request Date
+                        </th>
+                        <th scope="col">
+                            Status
+                        </th>
+                        <th scope="col">
+                            File Size
+                        </th>
+                        <th scope="col" class="text-right">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of pageData.content;let i=index;">
+                        <td>
+                            {{i+1}}
+                        </td>
+                        <td>
+                            {{item.report_name}}
+                        </td>
+                        <td>
+                            {{item.request_date|date:'dd-MM-yy HH:mm:ss'}}
+                        </td>
+                        <td *ngIf="item.report_status=='Error'" style="color: red;">
+                            {{item.report_status}}
+                        </td>
+                        <td *ngIf="item.report_status=='Completed'" style="color: green;">
+                            {{item.report_status}}
+                        </td>
+                        <td *ngIf="item.report_status=='Running'" style="color: blue;">
+                            {{item.report_status}}
+                        </td>
+                        <td *ngIf="item.report_status=='Pending'" style="color: rgb(241, 179, 9);">
+                            Pending Report
+                        </td>
+                      
+                        <td>
+                            {{(item.file_size/1024)|number}} KB
+                        </td>
+                        <td class="text-right" style="color: rgb(14, 172, 235); cursor: pointer;">
+                            <a *ngIf="item.report_status=='Completed'&&item.file_size>0" (click)="openReportLink(item)" class="btn btn-link"><em class="fa fa-download"></em> Download</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

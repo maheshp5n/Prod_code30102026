@@ -1,0 +1,37 @@
+PAGE NAVIGATION SUMMARY PAGE
+<select [(ngModel)]="selectedddl.pagetId" (change)="getFilters()">
+    <option value="0" disabled>--select--</option>
+    <option *ngFor="let p of pages" [ngValue]="p.ui_modules_id"> {{p.name}}</option>
+</select>
+
+USER PROFILE
+<select [(ngModel)]="selectedddl.profileId" (change)="getFilters()">
+    <option value="0" disabled>--select--</option>
+    <option *ngFor="let p of profiles" [ngValue]="p.id">
+        {{p.profile_name}}
+    </option>
+</select>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" [checked]="globalcheck" [(ngModel)]="globalcheck"
+                    (change)="chagneGlobalCheckBod()">
+            </th>
+            <th class="text-left">
+                Filter Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of filters">
+            <td><input type="checkbox" [checked]="o.selected" [(ngModel)]="o.selected"> </td>
+            <td class="text-left">{{o.fileter_name}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button *ngIf="filters.length>0" (click)="saveProfile()"> Save Details</button>
+
+<app-rolegroupmap></app-rolegroupmap>

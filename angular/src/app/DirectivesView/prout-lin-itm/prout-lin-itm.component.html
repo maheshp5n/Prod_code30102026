@@ -1,0 +1,112 @@
+
+        <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+            <div class="panel-heading">
+              <span class="text-center"> Information</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 form-group required">
+                  <div class="control-label">
+                    Part Code
+                  </div>
+                  <div class="row">
+                    <div class="col-md-10 col-sm-10">
+                      <ng-select *ngIf="_productList" [items]="_productList" [(ngModel)]="billReq.productPartCode" appendTo="body"
+                        bindLabel="productPartCode" bindValue="productPartCode" placeholder="Search Products..." >
+                        <ng-template ng-label-tmp let-item="item">
+                          <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(49,121,146);" /> {{item.productPartCode}}
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                          <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(49,121,146);" /> {{item.productPartCode}}
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                      <!-- <span class="input-group-append">
+                        <div><i [ngClass]="faPlus" *ngIf="rights('Products','create')" class="border-left-0" (click)="addNewProduct()"></i></div>
+                      </span> -->
+                    </div>
+                  </div>
+                  <!-- <small *ngIf="billReq.productPartCode!=null">
+                    Product Description: {{productdiscription}}</small> -->
+                </div>
+                 
+                <div class="col-md-6 col-sm-6 form-group required ">
+                      <div class="control-label">
+                        Required Quantity
+                      </div>
+                      <input type="text" class="form-control"  [(ngModel)]="billReq.requiredQuantity" >                         
+                 
+                 </div>
+              </div>
+              <div class="row">
+                    <div class="col-md-4 col-sm-4 form-group ">
+                        <div class="control-label">
+                            Drawing Refrence
+                          </div>
+                          <input type="text" class="form-control"  [(ngModel)]="drawaingRefString" >
+                         
+                     </div>
+                       <div class="col-md-4 col-sm-4 form-group required">
+                        <div class="control-label">
+                          Required Location
+                        </div>
+                        <input type="text" class="form-control"  [(ngModel)]="loationString" >  </div>
+                     <div class="col-md-4 col-sm-4">
+                        <button type="button" (click)="AddList()" class="btn btn-primary"><i class="fa fa-save"></i> Add </button>
+                     </div>
+              </div>
+              <div class="row" *ngIf="billReq.drawaingRef">
+                <div class="col-md-12 col-sm-12">
+                  <!--  -->
+                  <div class="card-body" style="padding: 0px;">
+                    <div class="table-responsive">
+                      <table class="mobile table table-sm table-condensed tablerview">
+                        <thead fix-head style="background-color:rgb(248, 245, 245)">
+                          <tr>
+                            <th>S.No</th>
+                            <th>Drawing Refrence</th>
+                            <th>Required Location</th>
+                           
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let c of combinList; let i=index">
+                            <td data-line="S.No." class="mhide">{{i+1}}.</td>
+                            <td data-line="Price Book Name">{{c.drawingRef}}</td>
+                            <td data-line="Product Family">{{c.location}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <div class="row">
+              <div class="col-md-12 text-right">
+                <button type="button" (click)="cancelPTLineData()" class="btn btn-default"> <i class="fa fa-remove"></i> Cancel</button>&nbsp;
+                <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+                <button type="button" (click)="postPTLineItm()" class="btn btn-primary"><i class="fa fa-save"></i> save </button>
+              </div>
+            </div>
+  
+  
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">
+      &nbsp;Created Successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+  </div>

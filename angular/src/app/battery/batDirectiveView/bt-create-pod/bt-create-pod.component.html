@@ -1,0 +1,165 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+       <span class="text-center" style="font-weight: bold"> Proof Of Delivery </span>
+   </div>
+   <div class="panel-body">
+       <div class="row">
+           <div [ngClass]="brcCaseMandatory">
+               <div class="control-label">
+                   POD Number
+               </div>
+               <input type="text" class="form-control"[(ngModel)]="casePDRequest.podNumber">
+           </div>
+           <div [ngClass]="brcCaseMandatory">
+               <div class="control-label">
+                   POD Date
+               </div>
+               <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+               [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+               [minDate]="previous90days" [(ngModel)]="casePDRequest.podDate" onkeydown="return false"  autocomplete="off">&nbsp;
+               <span class="fa fa-calendar errspan"></span>
+           </div>
+       </div>
+       <div class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+            <div class="control-label">
+               JMS Number
+            </div>
+            <input type="text" (keypress)="allowAlphaNumric($event)" class="form-control"[(ngModel)]="casePDRequest.jmsNo">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+            <div class="control-label">
+               Customer
+            </div>
+            <input type="text" class="form-control" (keypress)="letterOnly($event)" [(ngModel)]="casePDRequest.customer">
+        </div>
+      
+       </div>
+       <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+               Customer PO Number
+            </div>
+            <input type="text" class="form-control"[(ngModel)]="casePDRequest.customerPoNumber">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+               Customer PO Date
+            </div>
+            <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+            [(ngModel)]="casePDRequest.customerPoDate" onkeydown="return false"  autocomplete="off">&nbsp;
+            <span class="fa fa-calendar errspan"></span>
+        </div>
+      
+       </div>
+       <div class="row">
+        <div [ngClass]="brcCaseMandatory">
+            <div class="control-label ">
+              GRN Number
+            </div>
+            <input type="text" class="form-control"[(ngModel)]="casePDRequest.grnNumber">
+        </div>
+        <div [ngClass]="brcCaseMandatory">
+            <div class="control-label">
+               GRN Date
+            </div>
+            <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+            [(ngModel)]="casePDRequest.grnDate" onkeydown="return false"  autocomplete="off">&nbsp;
+            <span class="fa fa-calendar errspan"></span>
+        </div>
+      
+       </div>
+
+       <div class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+            <div class="control-label">
+               Service Period From
+            </div>
+            <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+            [maxDate]="today" [(ngModel)]="casePDRequest.servicePeriodFrom" onkeydown="return false"  autocomplete="off">&nbsp;
+            <span class="fa fa-calendar errspan"></span>
+                </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+            <div class="control-label">
+               Service Period To
+            </div>
+            <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+            [maxDate]="today" [(ngModel)]="casePDRequest.servicePeriodTo" onkeydown="return false"  autocomplete="off">&nbsp;
+            <span class="fa fa-calendar errspan"></span>
+        </div>
+      
+       </div>
+       <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required" [formGroup]="uploadForm">
+            <div class="control-label">
+              Upload File
+          </div>
+          <input multiple type="file"  (change)="onFileSelect($event)" name="profile" id="getFile" />
+           </div>
+       </div>
+   </div>
+   <!--Shiping  -->
+   <div class="panel-heading">
+       <span class="text-center" style="font-weight: bold"> Shipment Details </span>
+   </div>
+   <div class="panel-body">
+       <div class="row">
+           <div class="col-md-6 form-group ">
+               <label class="control-label">
+                   Shipping Mode
+               </label>
+               <select class="form-control" [(ngModel)]="casePDRequest.podShippingMode">
+                   <option value="select">Select</option>
+                   <option value="Courier">Courier</option>
+                   <option value="ByHand">ByHand</option>
+                   <option value="Transport">Transport</option>
+                   <option value="ByMail">By Mail</option>
+               </select>
+           </div>
+
+           <div class="col-md-6 form-group">
+               <label class="control-label">Ship To Name </label>
+               <em class="fa fa-info-circle" style="padding-left: 10px;"
+                   tooltip="Courier Company Name / Person Name"></em>
+               <input type="text" class="form-control" [(ngModel)]="casePDRequest.podShippingToName">
+           </div>
+
+       </div>
+       <div class="row">
+           <div class="col-md-6 form-group">
+               <label class="control-label">Tracking Number</label>
+               <em class="fa fa-info-circle" style="padding-left: 10px;"
+                   tooltip="Courier Tracking Number / Person Mobile Number"></em>
+               <input type="text" class="form-control" [(ngModel)]="casePDRequest.podShippingTrackingNumber">
+           </div>
+           <div class="col-md-6 form-group">
+               <label class="control-label">Expected Delivery Date</label>
+               <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+                   [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+                   [minDate]="today" [(ngModel)]="casePDRequest.podShippingExpectedDate" onkeydown="return false"  autocomplete="off">
+                   <!-- <input class="form-control" [bsValue]="(expectDate)" value="{{expectedShippingdate|date:'dd-MM-yyyy'}}"
+                   [bsConfig]="{adaptivePosition: true}"             
+                    onkeydown="return false" bsDatepicker
+                    [dateCustomClasses]="dateCustomClasses" autocomplete="off" (bsValueChange)="onexpectchange($event)">&nbsp; -->
+               <span class="fa fa-calendar errspan"></span>
+           </div>
+       </div>
+   </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+   <div class="col-sm-12 col-md-12 text-right">
+    <button type="button" (click)="backclik(caseid)" class="btn btn-default">
+        Back</button>&nbsp;
+       <button type="button" (click)="cancelPDData()" class="btn btn-default"><i class="fa fa-remove"></i>
+           Cancel</button>&nbsp;
+       <button type="button" (click)="postPD()" class="btn btn-primary"><i class="fa fa-save"></i>
+           Save
+       </button>
+   </div>
+</div>

@@ -1,0 +1,316 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Information</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <!-- <small><strong>Name</strong></small> -->
+                <div class="control-label">
+                    Serial Number
+                </div>
+                <input [(ngModel)]="newProductLineItems.serialNumber" type="text" class="form-control">
+                <!-- <input *ngIf="_isEditMode==true" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"> -->
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Product Item
+                </div>
+
+                <input type="text" class="form-control" [(ngModel)]="newProductLineItems.productItem">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Part Code
+                </div>
+                <select [(ngModel)]="newProductLineItems.partCode" class="form-control">
+                    <option value='' selected disabled>--Select--</option>
+                    <!-- <option *ngFor="let o of _zoneDetails">
+                        {{o.zoneName}}</option> -->
+                </select>
+
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Product State
+                </div>
+                <select [(ngModel)]="newProductLineItems.productState" class="form-control">
+                    <option value='' disabled>--Select--</option>
+                    <option *ngFor="let o of stateForList;" [ngValue]="o.productStateName"> {{o.productStateName}}
+                    </option>
+                </select>
+                <!-- <div class="input-group">
+                    <input (keydown)="onKeydownProductState($event)" [(ngModel)]="newProductLineItems.productState"
+                        class="form-control" [typeahead]="stateForList" typeaheadOptionField="productStateName"
+                        (typeaheadOnSelect)="productStateFieldSelected($event)" [isAnimated]="true"
+                        placeholder="Search Product State...">
+                    <span class="input-group-append">
+                        <div><i [ngClass]="isProductStateSelected" (click)="productStateTimes()"
+                                class="input-group-text bg-transparent border-left-0"></i></div>
+                    </span>
+                </div> -->
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group" disabled>
+                <div class="control-label">
+                    Product Description
+                </div>
+                <input [(ngModel)]="newProductLineItems.productDescription" class="form-control" rows="3">
+            </div>
+
+            <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group" disabled>
+                <div class="control-label">
+                    Product Type
+                </div>
+                <input [(ngModel)]="newProductLineItems.productType" class="form-control" rows="3">
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Location
+                </div>
+                <select [(ngModel)]="newProductLineItems.location" class="form-control">
+                    <option value='' disabled>--Select--</option>
+                    <!-- <option [ngValue]="null">
+                        None</option>
+                    <option *ngFor="let u of userforlist;" [ngValue]="u.userEmailId">
+                        {{u.userEmailId}}</option> -->
+                </select>
+            </div>
+
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Return Order Line Item
+                </div>
+                <select [(ngModel)]="newProductLineItems.returnOrderLineItem" class="form-control">
+                    <option value='' disabled>--Select--</option>
+                    <!-- <option [ngValue]="null">
+                        None</option>
+                    <option *ngFor="let u of userforlist;" [ngValue]="u.userEmailId">
+                        {{u.userEmailId}}</option> -->
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Status
+                </div>
+                <select [(ngModel)]="newProductLineItems.status" class="form-control">
+                    <option value='' disabled>--Select--</option>
+                    <option *ngFor="let o of statusForList;" [ngValue]="o.statusName"> {{o.statusName}}
+                    </option>
+                </select>
+                <!-- 
+                <div class="input-group">
+                    <input (keydown)="onKeydownStatus($event)" [(ngModel)]="newProductLineItems.status"
+                        class="form-control" [typeahead]="statusForList" typeaheadOptionField="statusName"
+                        (typeaheadOnSelect)="statusFieldSelected($event)" [isAnimated]="true"
+                        placeholder="Search status...">
+                    <span class="input-group-append">
+                        <div><i [ngClass]="isStatusSelected" (click)="statusTimes()"
+                                class="input-group-text bg-transparent border-left-0"></i></div>
+                    </span>
+                </div> -->
+
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Case Number
+                </div>
+
+                <input type="text" class="form-control" [(ngModel)]="newProductLineItems.caseNumber">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <!-- <small><strong>Name</strong></small> -->
+                <div class="control-label">
+                    Product Request Line Item
+                </div>
+                <input [(ngModel)]="newProductLineItems.productRequestLineItem" type="text" class="form-control">
+                <!-- <input *ngIf="_isEditMode==true" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"> -->
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Repair Remarks
+                </div>
+
+                <input type="text" class="form-control" [(ngModel)]="newProductLineItems.repairRemarks">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <!-- <small><strong>Name</strong></small> -->
+                <div class="control-label">
+                    Product Transfer
+                </div>
+                <input [(ngModel)]="newProductLineItems.productTransfer" type="text" class="form-control">
+                <!-- <input *ngIf="_isEditMode==true" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"> -->
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Scrap Date
+                </div>
+
+                <input type="text" class="form-control" [(ngModel)]="newProductLineItems.scrapDate">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <!-- <small><strong>Name</strong></small> -->
+                <div class="control-label">
+                    Remark
+                </div>
+                <input [(ngModel)]="newProductLineItems.remarks" type="text" class="form-control">
+                <!-- <input *ngIf="_isEditMode==true" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"> -->
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Customer Inventory
+                </div>
+
+                <input type="text" class="form-control" [(ngModel)]="newProductLineItems.customerInventory">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <!-- <small><strong>Name</strong></small> -->
+                <div class="control-label">
+                    Reason for Rejection, BER or Scrap
+                </div>
+                <input [(ngModel)]="newProductLineItems.reason" type="text" class="form-control">
+                <!-- <input *ngIf="_isEditMode==true" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"> -->
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Unique
+                </div>
+
+                <input type="text" class="form-control" [(ngModel)]="newProductLineItems.unique">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <!-- <small><strong>Name</strong></small> -->
+                <div class="control-label">
+                    Mark For Transfer
+                </div>
+                <input [(ngModel)]="newProductLineItems.markForTransfer" type="text" class="form-control">
+                <!-- <input *ngIf="_isEditMode==true" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newProductLineItems.productlineitemsName" type="text" class="form-control"> -->
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Received Date
+                </div>
+
+                <input type="text" class="form-control" [(ngModel)]="newProductLineItems.receivedDate">
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <div *ngIf="_isEditMode==true" class="panel-heading">
+        <strong>System Information</strong>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bold;">
+                    Created By
+                </div>
+                <div class="label">
+                    <!-- {{newCircles.createByFirstName}} {{newCircles.createdByLastName}},
+              {{newCircles.createdDate | date:'dd-MM-yyyy HH:mm:ss'}} -->
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bolder;">
+                    Last Modified By
+                </div>
+                <div class="label">
+                    <!-- {{newCircles.modifiedByFirstName}} {{newCircles.modifiedByLastName}},
+              {{newCircles.lastModifiedDate| date:'dd-MM-yyyy HH:mm:ss'}} -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="panel-footer"> -->
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+        <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+            Cancel</button>&nbsp;
+
+        <button type="button" (click)="createProductLineItems()" class="btn btn-sm btn-primary"><i
+                class="fa fa-save"></i>&nbsp;
+            Save</button>
+    </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+
+
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+
+
+    <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+
+    <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+        class="alert alert-danger center center-block" style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+
+</div> -->
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

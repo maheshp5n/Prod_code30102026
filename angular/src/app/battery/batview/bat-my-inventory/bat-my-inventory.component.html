@@ -1,0 +1,127 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <h4>My Inventory</h4>
+            </div>
+            <div class="col-6 text-right">
+                <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="rights('BtPartcodeChange','create')"
+                    (click)="partcodechangeModal.show()">
+                    Partcode Change</button>
+                <button type="button" class="btn btn-outline-primary btn-sm"
+                    *ngIf="rights('BtProductStatusChange','create')" (click)="partstatuschange.show()">
+                    Product Status Change</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Product Part Code"
+                    [(ngModel)]="advancesearch.productPartcode">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Product Description"
+                    [(ngModel)]="advancesearch.productDescription">
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="searchMyInventory()"><em
+                        class="fa fa-search"></em>
+                    Search</button>
+                <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()">
+                    Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            S.No.
+                        </th>
+                        <th *ngFor="let item of tableHeader;" (click)="changeOrder(item)" style="text-align: center;">
+                            {{item.titleName}} <em [ngClass]="item.icon"></em>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of btInventoryList.content;let i=index">
+                        <td data-line="S.No" style="text-align: center;">
+                            {{(currentpage.page*currentpage.size)+ (i+1)}}
+                        </td>
+                        <td style="text-align: center;" *ngFor="let ite of tableHeader">
+                            {{item[ite.propertiesBinding]}}
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+        <div *ngIf="btInventoryList.content.length==0">
+            <div class="row">
+                <div class="col-md-4"> </div>
+                <div class="col-md-4">
+                    <p>Data Not Found</p>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{btInventoryList.number+1}} &nbsp;of&nbsp;{{btInventoryList.totalPages}}&nbsp;Total
+                Count={{btInventoryList.totalElements}}
+            </div>
+            <div class="col-12 text-center" *ngIf="!(btInventoryList.first && btInventoryList.last) ">
+                <a class="btn btn-sm btn-success" [routerLink]="['/bat_myinventory']"
+                    [queryParams]="{page:((currentpage.page-1)),size:currentpage.size,order:currentpage.order,sort:currentpage.sort}"><em
+                        class="fa fa-arrow-left"></em> </a>
+                <a class="btn btn-sm btn-success" [routerLink]="['/bat_myinventory']"
+                    [queryParams]="{page:(currentpage.page+1),size:currentpage.size,order:currentpage.order,sort:currentpage.sort}"><em
+                        class="fa fa-arrow-right"></em> </a>
+                <!-- <input type="number" [(ngModel)]="currentpage.page" placeholder="Go To"><button class="btn btn-sm btn-default" [routerLink]="['/bat_myinventory']" [queryParams]="{page:(currentpage.page),size:currentpage.size,order:currentpage.order,sort:currentpage.sort}" >
+                    <em class="fa fa-right-left"></em> GO</button> -->
+                <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8"
+                    (keypress)="onlyNumbers($event)" autocomplete="off">
+                <button (click)="jumpPage(pagenumber)">Go</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #partcodechangeModal="bs-modal" (onShow)="openModal.partcodechangeModal=true"
+    (onHide)="openModal.partcodechangeModal=false" tabindex="-" role="dialog" [config]="{backdrop: 'static'}">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label><em class="fa fa-check"></em> Product Partcode change</label>
+            <button type="button" (click)="partcodechangeModal.hide()" class="cls-btn"> <em class="fa fa-remove"></em>
+            </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bat-partcode-change-dir *ngIf="openModal.partcodechangeModal" (onCancel)="partcodechangeModal.hide()"
+                (onSave)="onPartcodeChange($event)"></app-bat-partcode-change-dir>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #partstatuschange="bs-modal" (onShow)="openModal.partstatuschange=true"
+    (onHide)="openModal.partstatuschange=false" tabindex="-" role="dialog" [config]="{backdrop: 'static'}">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label><em class="fa fa-check"></em> Product Status change</label>
+            <button type="button" (click)="partstatuschange.hide()" class="cls-btn"> <em class="fa fa-remove"></em>
+            </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bat-partcode-status-change-dir *ngIf="openModal.partstatuschange" (cancel)="partstatuschange.hide()"
+                (save)="onPartcodeStatusChange($event)"></app-bat-partcode-status-change-dir>
+        </div>
+    </div>
+</div>

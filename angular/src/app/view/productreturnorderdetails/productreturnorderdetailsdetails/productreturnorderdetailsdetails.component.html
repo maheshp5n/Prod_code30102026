@@ -1,0 +1,173 @@
+<div *ngIf="data.productReturnOrderResponse">
+    <button type="button" (click)="changeButtonDisplay('info')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><em style="font-size: 18px;"
+        [ngClass]="displayButtons.info.icon"></em> &nbsp;Information
+</button>
+<div class="row" *ngIf="displayButtons.info.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>Return Order Number</small>
+                </td>
+                <td>{{data.productReturnOrderResponse.returnOrderManualId}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Source Warehouse</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/location',data.productReturnOrderResponse.sourceLocationId]" [routerLinkActive]="'active'">{{data.productReturnOrderResponse.sourceLocationName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Total Quantity Returned
+                    </small>
+                </td>
+                <td>
+                    {{data.productReturnOrderResponse.totalQuantityReturned}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Status
+                    </small>
+                </td>
+                <td>
+                    {{data.productReturnOrderResponse.status}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Owner
+                    </small>
+                </td>
+                <td>
+                    <a [routerLink]="['/createuser',data.productReturnOrderResponse.ownerEmailId]" [routerLinkActive]="'active'">{{data.productReturnOrderResponse.ownerFirstName}}&nbsp;{{data.productReturnOrderResponse.ownerMiddleName}}&nbsp;{{data.productReturnOrderResponse.ownerLastName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Destination Warehouse
+                    </small>
+                </td>
+                <td>
+                    <a [routerLink]="['/location',data.productReturnOrderResponse.destinationLocationId]">{{data.productReturnOrderResponse.destinationLocationName}}</a>
+                    
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Total Quantity Received
+                    </small>
+                </td>
+                <td>
+                    {{data.productReturnOrderResponse.totalQuantityReceived}}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<button type="button" (click)="changeButtonDisplay('shippingInfo')" style="text-align: left;background-color: lightgray;font-weight: bold;" class="btn btn-sm btn-default btn-block text-left">
+    <em [ngClass]="displayButtons.shippingInfo.icon" style="font-size: 18px;"></em>
+    &nbsp;Shipping Information
+</button>
+<div class="row" *ngIf="displayButtons.shippingInfo.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping Mode
+                    </small>
+                </td>
+                <td>
+                    {{data.productReturnOrderResponse.shippingModel}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Tracking Number
+                    </small>
+                </td>
+                <td>
+                    {{data.productReturnOrderResponse.trackingNumber}}
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping To Name
+                    </small>
+                </td>
+                <td>
+                    {{data.productReturnOrderResponse.shippingToName}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Expected date of Arrival</small>
+                </td>
+                <td>
+                    {{data.productReturnOrderResponse.expectedDateOf|date:'dd-MM-yyyy'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+<button type="button" (click)="changeButtonDisplay('sysinfo')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><em style="font-size: 18px;"
+        [ngClass]="displayButtons.sysInfo.icon"></em> &nbsp;System Information
+</button>
+<div class="row" *ngIf="displayButtons.sysInfo.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Created By
+                    </small>
+                </td>
+                <td>
+                    <a [routerLink]="['/createuser',data.productReturnOrderResponse.createdByEmailId]" [routerLinkActive]="'active'">{{data.productReturnOrderResponse.createdByFirstName}}&nbsp;{{data.productReturnOrderResponse.createdByMiddleName}}&nbsp;{{data.productReturnOrderResponse.createdByLastName}}&nbsp;,&nbsp;</a>{{data.productReturnOrderResponse.createdDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                       Last Modified By
+                    </small>
+                </td>
+                <td>
+                    <a [routerLink]="['/createuser',data.productReturnOrderResponse.modifiedByEmailId]" [routerLinkActive]="'active'">{{data.productReturnOrderResponse.modifiedByFirstName}}&nbsp;{{data.productReturnOrderResponse.modifiedByMiddleName}}&nbsp;{{data.productReturnOrderResponse.modifiedByLastName}}&nbsp;,&nbsp;</a>{{data.productReturnOrderResponse.modifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>

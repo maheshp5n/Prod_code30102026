@@ -1,0 +1,57 @@
+<div class="card">
+    <div class="card-header">
+        <strong *ngIf="bulkOptions">{{bulkOptions.upload_name}}</strong>
+    </div>
+    <div class="card-body">
+        <small *ngIf="bulkOptions">
+            {{bulkOptions.upload_description}}
+        </small>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body p-0 m-0">
+        <div class="table table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th class="text-left">
+                            Sl.No.
+                        </th>
+                        <th>
+                            Upload File
+                        </th>
+                        <th>
+                            Result File
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th class="text-left">
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="actions">
+                    <tr  *ngFor="let a of actions.content;let i=index;">
+                        <td>
+                            {{i+1}}
+                        </td>
+                        
+                        <td>
+                            <a target="_blank" href="{{bslocation}}/api/bulkutil/document/{{a.request_document_id}}"><em class="fa fa-download"></em> {{a.raw_file_name}}  </a>
+                        </td>
+                        <td>
+                            <a target="_blank" href="{{bslocation}}/api/bulkutil/document/{{a.result_document_id}}"><em class="fa fa-download"></em> {{a.result_file_name}}</a>
+                        </td>
+                        <td>
+                            {{a.created_date|date:'dd-MMM-yy'}}
+                        </td>
+                        <td>
+                            {{a.upload_status}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

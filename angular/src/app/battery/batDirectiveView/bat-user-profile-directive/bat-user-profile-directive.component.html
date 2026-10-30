@@ -1,0 +1,185 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+    <div class="card-body" style="padding:0px;max-height: 70vh;overflow: auto;">
+      <div class="card">
+        <div class="card-header">
+          <strong>Object Access</strong>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <input type="text" class="form-control" placeholder="Search Existing Object Access" [(ngModel)]="searchObjectAccess">
+            </div>
+            <div class="col-4"></div>
+          </div>
+          <hr>
+          <div class="table-responsive" style="min-height: 300px;">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>
+                    S.No.
+                  </th>
+                  <th>
+                    Object Name
+                  </th>
+                  <th>
+                    View
+                  </th>
+                  <th>
+                    View All
+                  </th>
+                  <th>
+                    Create
+                  </th>
+                  <th>
+                    Edit
+                  </th>
+                 
+                  <th>
+                    Action
+                  </th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>
+                    <ng-select [items]="objectDetails" bindLabel="objectLableName" bindValue="objectName"
+                    placeholder="Search for Object" [(ngModel)]="_objectAccessRe.objectName">
+                    <ng-template ng-label-tmp let-item="item">
+                      <em class="fa fa-object-group"></em> {{item.objectLableName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <em class="fa fa-object-group"></em> {{item.objectLableName}}
+                    </ng-template>
+                  </ng-select>
+                  </th>
+                  <th>
+                    <input type="checkbox" [(ngModel)]="_objectAccessRe.viewRights">
+                  </th>
+                  <th>
+                    <input type="checkbox" [(ngModel)]="_objectAccessRe.viewAllRights">
+                  </th>
+                  <th>
+                    <input type="checkbox" [(ngModel)]="_objectAccessRe.createRights"> 
+                  </th>
+                  <th>
+                    <input type="checkbox" [(ngModel)]="_objectAccessRe.editRights">
+                  </th>
+                 
+                  <th class="text-right">
+                    <button type="button" (click)="addObject()" class="btn btn-primary"><em class="fa fa-plus"></em> Add</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let m of objectAccess|globalSearchPipe:searchObjectAccess;let i=index;">
+                  <td style="padding-left: 5rem;">{{i+1}}.</td>
+                  <td>
+                    {{m.objectLableName}}
+                  </td>
+                  <td>
+                    <input type="checkbox" [(ngModel)]="m.viewRights">
+                    
+                  </td>
+                  <td>
+                    <input type="checkbox" [(ngModel)]="m.viewAllRights">
+                    
+                  </td>
+                  <td>
+                    <input type="checkbox" [(ngModel)]="m.createRights">
+                  </td>
+                  <td>
+                    <input type="checkbox" [(ngModel)]="m.editRights">
+                  </td>
+                 
+                  <td class="text-right">
+                    <button type="button" *ngIf="!operationMode" (click)="removeObjectFromList(i)" class="btn btn-sm btn-outline-danger"><em class="fa fa-remove"></em> </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <strong>Navigation Access</strong> 
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="searchKey">
+            </div>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="uinav">
+            <table class="table table-sm">
+              <tbody>
+                <tr *ngFor="let n of uinav|globalSearchPipe:searchKey">
+                  <td>
+                    <input type="checkbox" [(ngModel)]="n.hasPrevilage">
+                  </td>
+                  <td>
+                    <em [ngClass]="n.icon"></em>
+                    {{n.name}}
+                  </td>
+                  <td>
+                    <a>{{n.url}}</a>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+      
+    </div>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-3">
+          <label>
+            Profile Name 
+          </label>
+          <input type="text" class="form-control" placeholder="Profile Name" [(ngModel)]="_profileRequest.profileName">
+          </div>
+        <div class="col-md-3">
+          <label>Description</label>
+          <input type="text" class="form-control" placeholder="Description" [(ngModel)]="_profileRequest.profileDescription">
+        </div>
+        <div class="col-md-3">
+          <label>Default Page</label>
+          <ng-select [items]="uinav" bindLabel="name" bindValue="uiModulesId" [(ngModel)]="_profileRequest.defaultpage">
+            <ng-template ng-label-tmp let-item="item">
+              <em [ngClass]="item.icon"></em> {{item.name}}
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              <em [ngClass]="item.icon"></em> {{item.name}}
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="col-md-3" style="padding-top: 28px;">
+          <button class="btn btn-default" (click)="cancle()"><em class="fa fa-remove"></em> Cancel</button>
+          <button type="button" (click)="saveProfile()" class="btn btn-primary"><em class="fa fa-save"></em> Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!--Alert Modal-->
+  <div class="modal fade" bsModal #alertModal="bs-modal" role="dialog" tabindex="-1">
+    <div style="margin-left: 20%;margin-right: 20%;" class="text-center">
+      <strong>
+        <alert [type]="alertDetails.type">
+          <span [innerHTML]="alertDetails.message"></span>
+          <button type="button" (click)='alertModal.hide()' class="close pull-right">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </alert>
+      </strong>
+    </div>
+  </div>

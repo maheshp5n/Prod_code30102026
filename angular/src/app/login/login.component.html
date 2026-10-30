@@ -1,0 +1,59 @@
+<div class="modal fade" bsModal #fail="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body" style="text-align: center">
+        {{message}}
+        <br>
+        <div class="text-right">
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" (click)="fail.hide()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<br>
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div style="margin: 12%;
+                  padding: 20px 20px;
+                  background-color: rgba(255, 255, 255, .8);
+                  border-radius: 13px;">
+        <div class="image text-center">
+          <img src="assets/images/logo.png" alt="">
+        </div>
+        <br>
+        <div class="panel">
+          <div class="panel-body">
+            <span>
+              User ID
+            </span>
+            <input [(ngModel)]="_login.userEmailId" (keydown.enter)="doLogin()" type="text" class="form-control" autocomplete="off" placeholder="Enter your User ID" />
+            <br>
+            <span>
+              Password
+            </span>
+            <input type="password" [(ngModel)]="_login.userPassword" (keydown.enter)="doLogin()" class="form-control" autocomplete="off" placeholder="Enter your Password" />
+            <br>
+            <button type="button" (click)="doLogin()" class="btn btn-block btn-primary">Login</button>
+            <br>
+            <div>
+              <a [routerLink]="['/forgetpass']">Forgot Password ?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+    <div class="col-md-6 logo">
+      <img src="assets/images/pulse.png" style="width: 100%;height: auto;" alt="">
+    </div>
+  </div>
+</div>

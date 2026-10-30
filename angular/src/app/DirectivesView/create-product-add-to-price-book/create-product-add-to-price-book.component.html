@@ -1,0 +1,130 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <div class="control-label">
+          Select a Price Book to add products.
+        </div>
+        <br>
+        <div class="control-label">
+          Price Book
+        </div>
+        <select [(ngModel)]="priceBookRequest.id" class="form-control" (change)="getPriceBookById()">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let a of priceBookForList" [ngValue]="a.id">{{a.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type=" button" class="btn btn-default" (click)="cancelAddPriceBook()">
+          Cancel</button>&nbsp;
+        <button type="button" class="btn btn-primary" (click)="postPriceBook()">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Product -->
+<div class="modal fade" bsModal #createaddProductModel="bs-modal" (onShow)="isaddProductOpen=true"
+  (onHide)="isaddProductOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">New Price Book Entry</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="canceladdProduct()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong>New Price Book Entry</strong>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                  Part Code
+                </div>
+                <input type="text" [(ngModel)]="priceBookEntriesRequestInProducts.partCode" class="form-control"
+                  disabled>
+              </div>
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                  Price Book
+                </div>
+                <input type="text" [(ngModel)]="priceBookEntriesRequestInProducts.priceBookName" class="form-control"
+                  disabled>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                  List Price
+                </div>
+                <input type="text" [(ngModel)]="priceBookEntriesRequestInProducts.listPrice" class="form-control"
+                  type="number" onkeydown="return event.keyCode !== 69">
+              </div>
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                  Active
+                </div>
+                <!-- <input *ngIf="active" [(ngModel)]="priceBookEntriesRequestInProducts.active" type="checkbox"
+                  class="largerCheckbox" checked>
+                <input *ngIf="!active" [(ngModel)]="priceBookEntriesRequestInProducts.active" type="checkbox"
+                  class="largerCheckbox"> -->
+                <input [(ngModel)]="priceBookEntriesRequestInProducts.active" type="checkbox" class="largerCheckbox">
+              </div>
+            </div>
+
+            <!-- <div class="row">
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                  Use Standard Price
+                </div>
+                <input type="text" [(ngModel)]="priceBookEntriesRequestInProducts.standardPriceBook"
+                  class="form-control" disabled>
+              </div>
+              <div class="col-md-6 col-sm-6 form-group required">
+              </div>
+            </div> -->
+
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 text-right">
+              <button type="button" class="btn btn-sm btn-default" (click)="canceladdProduct()"><i
+                  class="fa fa-remove"></i>&nbsp;
+                Cancel</button>&nbsp;
+              <button type="button" (click)="createProduct()" class="btn btn-sm btn-primary"><i
+                  class="fa fa-save"></i>&nbsp;
+                Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <strong *ngIf="message=='Submitted Successfully'">Price Book Entry ( <a href="#"
+        routerLink="/products/{{this.priceBookRequest.partCode}}">{{this.priceBookRequest.partCode}}</a>
+      )
+      created successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong> -->
+    <strong *ngIf="message=='Submitted Successfully'">Added product to Price Book successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

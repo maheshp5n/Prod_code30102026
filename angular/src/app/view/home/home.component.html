@@ -1,0 +1,363 @@
+<!--<div style="padding: 15px 15px;background-color: #ffffff;min-height: 100vh;">
+  <div class="row">
+    <div class="col-md-5 col-sm-5 col-lg-5">
+      <span style="font-family: RobotoCondensed;
+      color: #2f353a;
+      font-size: 18px;
+      font-weight: 400;">
+        Case Type Summary
+      </span>
+      <div style="height: 294px;
+      background-color: #f7f7f7;padding: 10px;
+      " class="table-responsive">
+        <table class="table table-sm">
+          <thead style="background-color: #4d5f76;font-family: RobotoCondensed;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 400;
+        ">
+            <tr>
+              <th class="text-left">
+                CASE REGISTRED
+              </th>
+              <TH>
+                CASE SUB-TYPE
+              </TH>
+              <th>
+                {{currentMonth}}
+              </th>
+              <TH>
+                YTD
+              </TH>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of sigmentOnedata" style="font-family: RobotoCondensed;
+          color: #2f353a;
+          font-size: 12px;
+          font-weight: 400;
+          ">
+              <td>
+                {{s.case_registred}}
+              </td>
+              <td>
+                {{s.case_sub_type}}
+              </td>
+              <td>
+                {{s.curretn_month}}
+              </td>
+              <td>
+                {{s.current_year}}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot style="font-family: RobotoCondensed;
+        color: #000000;
+        font-size: 14px;
+        font-weight: 700;
+        ">
+            <tr>
+              <td>Total Case Registred</td>
+              <td></td>
+              <td>
+                <span *ngIf="sigmentOnetotal&&sigmentOnetotal.current">
+                  {{sigmentOnetotal.current}}</span>
+              </td>
+              <td>
+                <span *ngIf="sigmentOnetotal&&sigmentOnetotal.ytd">
+                  {{sigmentOnetotal.ytd}}
+                </span>
+
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-7 col-lg-7">
+      <span class="table-card-title">
+        Paid Repair
+      </span>
+      <div class="table-responsive table-card" style="height: 294px;">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th class="text-left">
+                CASE REGISTRED
+              </th>
+              <TH>
+                CASE SUB-TYPE
+              </TH>
+              <TH>
+                {{currentMonth}}
+              </TH>
+              <TH>
+                {{currentMonth}} Revenue(Rs)
+              </TH>
+              <th>
+                YTD
+              </th>
+              <th class="text-left">
+                YTD Revenue(Rs)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of paidRepairData">
+              <td>
+                {{m.case_types_name}}
+              </td>
+              <td>
+                {{m.activity_name}}
+              </td>
+              <td>
+                {{m.count_case_current_month}}
+              </td>
+              <td>
+                {{m.current_month_revenue}}
+              </td>
+              <td>
+                {{m.count_case_current_year}}
+              </td>
+              <td>
+                {{m.current_year_revenue}}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                Total
+              </td>
+              <td>
+
+              </td>
+              <td>
+                {{totalPaidre.totalMonthlyCount}}
+              </td>
+              <td>
+                {{totalPaidre.totalMonthlyRevenue}}
+              </td>
+              <td>
+                {{totalPaidre.totalYearlyCount}}
+              </td>
+              <td>
+                {{totalPaidre.totalYearlyRevenue}}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-5 col-sm-5 col-lg-5">
+
+      <span class="table-card-title">
+        QRC for Active Customers
+      </span>
+      <div class="table-responsive table-card">
+
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th class="text-left">
+                QRC
+              </th>
+              <th>
+                STAGE
+              </th>
+              <TH>
+                {{currentMonth}}
+              </TH>
+              <TH class="text-left">
+                YTD
+              </TH>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of qrcforactive">
+              <td>
+                {{m.case_status_name}}
+              </td>
+              <td>
+                {{m.case_stage_name}}
+              </td>
+              <td>
+                {{m.monthly}}
+              </td>
+              <td>
+                {{m.yearly}}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                Total Case Registred
+              </td>
+              <td>
+
+              </td>
+              <td>
+                {{totalforQrc.mtd}}
+              </td>
+              <td>
+                {{totalforQrc.ytd}}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
+    <div class="col-md-7 col-sm-7 col-lg-7">
+
+      <span class="table-card-title">
+        QRC for Active Customers
+      </span>
+      <div class="" *ngIf="qrcforactive.length>0">
+        <google-chart style="width: 100%;min-height: 308px;" [dynamicResize]="true" [type]="'PieChart'"
+          [options]="{is3D:true}" [data]="qrcforactiveChart"></google-chart>
+      </div>
+
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-5 col-sm-5 col-lg-5">
+      <span class="table-card-title">
+        Top 10 Causes of Complaints
+      </span>
+      <div class="table-responsive table-card">
+
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th class="text-left">
+                CATAGORIES
+              </th>
+              <th>
+                {{currentMonth}}
+              </th>
+              <TH>
+                %AGE
+              </TH>
+              <TH class="text-left">
+                YTD
+              </TH>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of top5Complaintdata">
+              <td class="text-left">
+                {{m.problem_name}}
+              </td>
+              <td>
+                {{m.monthly}}
+              </td>
+              <td>
+                {{m.page|number:'2.1-2'}}%
+              </td>
+              <td>
+                {{m.ytd}}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                Total Case Registred
+              </td>
+              <td>
+                {{totalforcomp.mtd}}
+              </td>
+              <td></td>
+              <td>
+                {{totalforcomp.ytd}}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-7 col-lg-7">
+      <span class="table-card-title">
+        Top 10 Causes of Complaints Analysis
+      </span>
+      <div class="" *ngIf="top5ComplantGraphData.length>0">
+        <google-chart style="width: 100%;min-height: 308px;" [dynamicResize]="true" [type]="'ColumnChart'"
+          [options]="columnChartOption" [data]="top5ComplantGraphData"></google-chart>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-5 col-sm-5 col-lg-5">
+      <span class="table-card-title">
+        Aging for Closer of Complaints
+      </span>
+      <div class="table-responsive table-card">
+
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th class="text-left">
+                CATAGORIES
+              </th>
+              <th>
+                {{currentMonth}}
+              </th>
+              <TH class="text-left">
+                %AGE
+              </TH>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of agingOfCloserData">
+              <td class="text-left">
+                {{m.catagory}}
+              </td>
+              <td>
+                {{m.mtd}}
+              </td>
+              <td>
+                {{m.age|number:'2.1-2'}}%
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                Total Case Registred
+              </td>
+              <td>
+                {{totalAgingOfCloser}}
+              </td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-7 col-lg-7">
+      <span class="table-card-title">
+        Aging Analysis of QRC Closure
+      </span>
+      <div class="" *ngIf="agingOfCloserGraphData.length>0">
+        <google-chart style="width: 100%;min-height: 308px;" [dynamicResize]="true" [type]="'ColumnChart'"
+          [options]="columnChartOption" [data]="agingOfCloserGraphData"></google-chart>
+      </div>
+    </div>
+  </div>
+
+</div>-->
+<div class="row">
+  <div class="col-md-6" *ngFor="let r of dashboardReport">
+    <div class="card card-body">
+      <app-dashboardreport [report]="r"></app-dashboardreport>
+    </div>
+  </div>
+</div>

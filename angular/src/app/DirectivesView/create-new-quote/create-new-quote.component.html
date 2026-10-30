@@ -1,0 +1,282 @@
+<div class="panel panel-default" style="max-height: 75vh; overflow: auto;">
+    <div class="panel-heading">
+        <strong>Quote Information</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Case
+                </div>
+                <input [(ngModel)]="caseManualId" type="text" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Opportunity
+                </div>
+                <input [(ngModel)]="opportunityManaulId" type="text" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Quote Name
+                </div>
+                <input [(ngModel)]="quoteRequest.quoteName" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Quote Validity days
+                </div>
+                <input [(ngModel)]="quoteRequest.validityDays" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="_isEditMode" class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Status
+                </div>
+                <select class="form-control" [(ngModel)]="quoteRequest.quoteStatusId">
+                    <option value="0" disabled>--select--</option>
+                    <option *ngFor="let o of statusList" [ngValue]="o.id">{{o.name}}</option>
+                </select>
+            </div>
+            <div *ngIf="!_isEditMode" class="col-md-6 col-sm-6 form-group" style="display: none;">
+                <div class="control-label">
+                    Status
+                </div>
+                <select class="form-control" [(ngModel)]="quoteRequest.quoteStatusId">
+                    <option value="0" disabled>--select--</option>
+                    <option *ngFor="let o of statusList" [ngValue]="o.id">{{o.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Remarks
+                </div>
+                <textarea [(ngModel)]="quoteRequest.remark" name="" maxlength="1000" id="" cols="30" rows="2"
+                    class="form-control"></textarea>
+            </div>
+            <!-- <div *ngIf="_isEditMode" class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Expiration Date
+                </div>
+                <input [(ngModel)]="quoteRequest.expiryDate" type="text" class="form-control" bsDatepicker
+                    [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div *ngIf="!_isEditMode" class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Expiration Date
+                </div>
+                <input [(ngModel)]="quoteRequest.expiryDate" type="text" class="form-control" bsDatepicker
+                    [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" disabled>
+                <span class="fa fa-calendar errspan"></span>
+            </div> -->
+        </div>
+    </div>
+    <div class="panel-heading">
+        <strong>Billing Address Information</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Name
+                </div>
+                <input [(ngModel)]="quoteRequest.billingName" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Street
+                </div>
+                <input [(ngModel)]="quoteRequest.billingStreet" class="form-control" rows="3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    City
+                </div>
+                <input [(ngModel)]="quoteRequest.billingCity" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Country
+                </div>
+                <select [(ngModel)]="quoteRequest.billingCountryId" (change)="billingCountry()" class="form-control">
+                    <option value='null' disabled selected>--select--</option>
+                    <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">{{o.countryName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    State
+                </div>
+                <select [(ngModel)]="quoteRequest.billingStateId" class="form-control">
+                    <option value='0' disabled>--select--</option>
+                    <option *ngFor="let o of _billingState;" [ngValue]="o.stateId">{{o.stateName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Zipcode
+                </div>
+                <input [(ngModel)]="quoteRequest.billingPostalCode" type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <strong>Shipping Address Information</strong>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <input [(ngModel)]="quoteRequest.copyBillingDetails" type="checkbox" class="largerCheckbox"
+                    (click)="sameAsBillingAddress($event)">&nbsp;&nbsp;
+                Copy Billing Details
+            </div>
+
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Name
+                </div>
+                <input [(ngModel)]="quoteRequest.shippingName" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Street
+                </div>
+                <input [(ngModel)]="quoteRequest.shippingStreet" class="form-control" rows="3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    City
+                </div>
+                <input [(ngModel)]="quoteRequest.shippingCity" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Country
+                </div>
+                <select [(ngModel)]="quoteRequest.shippingCountryId" (change)="shippingCountry()" class="form-control">
+                    <option value='null' selected>--none--</option>
+                    <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">{{o.countryName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    State
+                </div>
+                <select [(ngModel)]="quoteRequest.shippingStateId" class="form-control">
+                    <option value='0'>--none--</option>
+                    <option *ngFor="let o of _shippingState;" [ngValue]="o.stateId">{{o.stateName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Zipcode
+                </div>
+                <input [(ngModel)]="quoteRequest.shippingPostalCode" type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-heading">
+        <strong>Use in Quotation Purpose</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="control-label">
+                    Others Terms & Conditions
+                </div>
+                <textarea name="" maxlength="10000" class="form-control" id="" cols="30" rows="2"
+                    [(ngModel)]="quoteRequest.otherTermsAndConditions"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group required">
+                <div class="control-label">
+                    To-Email Ids
+                </div>
+                <textarea name="" class="form-control" [(ngModel)]="quoteRequest.toEmailIds"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group required">
+                <div class="control-label">
+                    CC-Email Ids
+                </div>
+                <textarea name="" class="form-control" [(ngModel)]="quoteRequest.ccEmailIds"></textarea>
+
+            </div>
+        </div>
+
+        <!-- <div *ngIf="_isEditMode" class="panel-heading">
+            <strong>System Information</strong>
+        </div>
+        <div *ngIf="_isEditMode" class="panel-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="control-label">
+                        Created By
+                    </div>
+                    <div class="label">
+                        {{quoteRequest.createdByFirstName}} {{quoteRequest.createdByLastName}},
+                        {{quoteRequest.createdDate | date:'YYYY-MM-DD HH:mm:ss'}}
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="control-label">
+                        Last Modified By
+                    </div>
+                    <div class="label">
+                        {{quoteRequest.modifiedByFirstName}} {{quoteRequest.modifiedByLastName}},
+                        {{quoteRequest.modifiedDate | date:'YYYY-MM-DD HH:mm:ss'}}
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+        <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+            Cancel</button>&nbsp;
+        <button type="button" (click)="createQuote()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+            Save</button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">Created Quote ( <a href="#"
+                routerLink="/Quote/{{tempServiceId}}">{{tempServiceName}}</a> )
+            successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>

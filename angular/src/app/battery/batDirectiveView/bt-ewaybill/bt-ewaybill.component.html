@@ -1,0 +1,57 @@
+<div class="table-responsive">
+    <table class="table table-sm">
+        <tbody>
+            <tr>
+                <th>PT Number</th>
+                <td>{{ ptNumber }}</td>
+            </tr>
+
+            <tr>
+                <th><div class="form-group required">
+    <div class="control-label">E-Way Bill Number</div>
+  </div></th>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="ewayBillNumber">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+  <div class="form-group required">
+    <div class="control-label">Date</div>
+  </div>
+</th>
+
+                <td>
+                    <input type="date" class="form-control" [(ngModel)]="ewayBillDate">
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+  <div class="form-group required">
+    <div class="control-label">E-Way Bill File</div>
+  </div>
+</th>
+
+                <td>
+                    <input type="file" class="form-control" (change)="onFileSelected($event)">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-12 text-right">
+        <button class="btn btn-primary" (click)="saveEwayBill()">
+            <em class="fa fa-save"></em> Save
+        </button>
+
+        <button class="btn btn-default" (click)="cancel()">
+            <em class="fa fa-remove"></em> Cancel
+        </button>
+    </div>
+</div>

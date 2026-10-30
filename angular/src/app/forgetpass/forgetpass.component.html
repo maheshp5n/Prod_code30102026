@@ -1,0 +1,47 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <strong>Recover Your Password</strong>
+            </div>
+            <div class="card-body">
+                <table style="width: 100%;" *ngIf="!userdetails.resetdone">
+                    <tr>
+                        <td>
+                            User ID
+                        </td>
+                        <td style="padding: 3px 6px;">
+                            <input type="text" [(ngModel)]="userdetails.email" class="form-control" placeholder="Enter your registered User ID" 
+                                [disabled]="userdetails.disableemail">
+                        </td>
+                    </tr>
+                    <tr *ngIf="userdetails.disableemail">
+                        <td>
+                            OTP
+                        </td>
+                        <td style="padding: 3px 6px;">
+                            <input type="text" [(ngModel)]="userdetails.otp" class="form-control" placeholder="OTP">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td style="padding: 3px 6px;">
+                            <button type="button" class="btn btn-primary" (click)="saveClick()">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+                <p *ngIf="userdetails.resetdone">
+                    Your password has been send to your mail. <a [routerLink]="['/login']">Login ?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

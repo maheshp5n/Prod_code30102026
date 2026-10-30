@@ -1,0 +1,133 @@
+
+        <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+            <div class="panel-heading">
+              <span class="text-center"> Information</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 form-group">
+                      <div class="control-label">
+                        Approved Stage
+                      </div>
+                      <!-- <input type="text" class="form-control"  [(ngModel)]="itemAddReq.approvedStage" > -->
+                      <select [(ngModel)]="itemAddReq.approvedStage" class="form-control">
+                        <option value='0' disabled>--select--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+              
+               </div>
+                <div class="col-md-6 col-sm-6 form-group">
+       
+                    <div class="control-label">
+                     Object Field Name
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="itemAddReq.objectFieldName" >
+                           
+                 </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 form-group">
+                      <div class="control-label">
+                       On Approved Value
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="itemAddReq.onApprovedValue" >
+            
+               </div>
+                <div class="col-md-6 col-sm-6 form-group">
+                    <div class="control-label">
+                     On Rejected Value
+                    </div>
+                     <input type="text" class="form-control" [(ngModel)]="itemAddReq.onRejectedValue" >
+                              
+                 </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 form-group">
+                    <div class="control-label">
+                     Step Name
+                    </div>
+                     <input type="text" class="form-control" [(ngModel)]="itemAddReq.stepName">
+                              
+                 </div>
+              </div>
+
+              <!-- vgghk -->
+              <div class="row">
+                <div class="col-md-6 col-sm-6 form-group">
+                    <div class="control-label">
+                        <label for="">Approved By</label>
+                        </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 form-group required">
+                    <div class="control-label">
+                        User/Role
+                    </div>
+                    <select [(ngModel)]="userrole" class="form-control" (change)="getRolesList(userrole)">
+                        <option value='0' disabled>--select--</option>
+                        <option value="USER">User</option>
+                        <option value="ROLE">Role</option>
+                       
+                    </select>
+                </div>
+               
+                <div class="col-md-6 form-group required">
+                    <div class="control-label">
+                       Role
+                    </div>
+                    <ng-select *ngIf="userselect" [items]="ListUser" bindLabel="authorities" bindValue="authorities"
+                        [(ngModel)]="authorities" placeholder="Search for Roles">
+                        <ng-template let-item="item" ng-label-tmp>
+                            <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                            {{item.authorities}}
+                        </ng-template>
+                        <ng-template let-item="item" ng-option-tmp>
+                            <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                            {{item.authorities}}
+                        </ng-template>
+                    </ng-select>
+                    <!-- FOR roLE -->
+                    <ng-select *ngIf="roleselect" [items]="userUserList" bindLabel="fullName" bindValue="userEmailId"
+                    [(ngModel)]="userEmailId
+                    " placeholder="Search for Roles">
+                    <ng-template let-item="item" ng-label-tmp>
+                        <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                        {{item.userFirstName}} {{item.userMiddleName}} {{item.userLastName}}
+                    </ng-template>
+                    <ng-template let-item="item" ng-option-tmp>
+                        <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                        {{item.userFirstName}} {{item.userMiddleName}} {{item.userLastName}}
+                    </ng-template>
+                </ng-select>
+                </div>
+            </div>
+            </div>
+  
+          </div>
+          <div class="row">
+              <div class="col-md-12 text-right">
+                <button type="button" (click)="cancelAddItem()" class="btn btn-default"> <i class="fa fa-remove"></i> Cancel</button>&nbsp;
+                <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+                <button type="button" (click)="postAddLineItem()" class="btn btn-primary"><i class="fa fa-save"></i> save </button>
+              </div>
+            </div>
+  
+  
+  <!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+role="dialog" aria-labelledby="create-product">
+
+<div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <strong *ngIf="message=='Submitted Successfully'">
+    &nbsp;Created successfully !</strong>
+  <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+</div>
+</div>

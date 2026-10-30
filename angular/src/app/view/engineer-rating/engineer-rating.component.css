@@ -1,0 +1,52 @@
+/* Laptop screen */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+    .wrap{
+      width: 100%;
+      overflow: hidden;
+      overflow-x: auto;
+    }
+    
+    .wrap table {
+      width: 100%;
+      table-layout: fixed;
+      overflow: auto;
+    }
+    
+    .wrap tr td {
+      padding: 5px;
+      border: 2px solid #eee;
+      width: 100px;
+      word-wrap: break-word;
+    }
+    
+    .wrap table.head th{
+      padding: 5px;
+      border: 2px solid #eee;
+      width: 100px;
+      word-wrap: break-word;
+    }
+    table.head tr td {
+      background: #eee;
+    }
+    .wrap .inner_table{
+     
+      width: 100%;
+      
+    }
+    .wrap .head{
+      width: 100%; 
+    }
+
+    
+    .inner_table {
+      height: 300px;
+      
+      overflow-y: auto;
+      overflow-x: hidden;
+    
+    
+    }
+}

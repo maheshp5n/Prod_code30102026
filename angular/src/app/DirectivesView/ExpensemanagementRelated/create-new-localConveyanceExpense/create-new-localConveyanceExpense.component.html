@@ -1,0 +1,144 @@
+<div class="panel panel-default" style="max-height: 70vh; overflow: auto;">
+
+  <div class="panel-body">
+
+    <div *ngIf="_isEditModeLocalConveyance" class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Name</div>
+        <input [(ngModel)]="localConveyanceExpenseRequest.manualId" type="text" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Expenses Report</div>
+        <input [(ngModel)]="localConveyanceExpenseRequest.expenseManagementManualId" type="text" class="form-control"
+          disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Date</div>
+        <input [(ngModel)]="localConveyanceExpenseRequest.date" type="text" class="form-control" bsDatepicker onkeydown="return false"
+          [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Mode Of Travel</div>
+        <select [(ngModel)]="localConveyanceExpenseRequest.modeOfTravelId" class="form-control"
+          (change)="getOwnConveyance()">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of modeOfTravel;" [ngValue]="o.id">
+            {{o.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="localConveyanceExpenseRequest.modeOfTravelId==8" class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Own Conveyance</div>
+        <select [(ngModel)]="localConveyanceExpenseRequest.ownConveyanceId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of ownConveyance;" [ngValue]="o.id">
+            {{o.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="localConveyanceExpenseRequest.modeOfTravelId!=8" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Own Conveyance</div>
+        <select [(ngModel)]="localConveyanceExpenseRequest.ownConveyanceId" class="form-control" disabled>
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of ownConveyance;" [ngValue]="o.id">
+            {{o.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          From
+        </div>
+        <input [(ngModel)]="localConveyanceExpenseRequest.fromPlace" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          To
+        </div>
+        <input [(ngModel)]="localConveyanceExpenseRequest.toPlace" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+    
+      <div [ngClass]="kmrequired">
+        <div class="control-label">Total Kms
+          <em class="fa fa-info-circle" style="padding-left: 10px;"
+            tooltip="Enter total kms travelled, required for own conveyance"></em>
+        </div>
+        <input [(ngModel)]="localConveyanceExpenseRequest.distance" id="3" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Amount
+          <em class="fa fa-info-circle" style="padding-left: 10px;"
+            tooltip="Automatically calculated by system, when mode of travel is Own Conveyance"></em>
+        </div>
+        <input [(ngModel)]="localConveyanceExpenseRequest.amount" id="2" (keypress)="onlyNumbersForRs($event)"type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+     
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Remarks</div>
+        <textarea [(ngModel)]="localConveyanceExpenseRequest.remark" name="" class="form-control" id="" cols="30"
+          rows="2" maxlength="1000"></textarea>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group" *ngIf="_isEditModeLocalConveyance">
+        <div class="control-label">Amount to Disbures</div>
+        <input type="text" [(ngModel)]="localConveyanceExpenseRequest.amountToDisbursed" class="form-control" (keypress)="onlyNumbersForRs($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Grade</div>
+        <a  [routerLink]="[]" (click)="OpnGrade(boardingName)"> {{boardingName}}</a>
+      
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-right">
+    <button type="button" class="btn btn-default" (click)="cancelLocalConveyance()"><i class="fa fa-remove"></i>&nbsp;
+      Cancel</button>&nbsp;
+    <button type="button" class="btn btn-primary" (click)="createLocalConveyance()"><i class="fa fa-save"></i>&nbsp;
+      Save</button>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>
+<!-- bodingLodging_Details Model    by shagufta-->
+
+<div class="modal fade" bsModal #borloddtailModel="bs-modal" 
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="borloddtailModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-boding-lodging-da-detail [BordingRes]="response"></app-boding-lodging-da-detail>
+      </div>
+    </div>
+  </div>
+</div>

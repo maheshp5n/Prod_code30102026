@@ -1,0 +1,8 @@
+<div class="card">
+    <div class="card-header">
+        <strong>Product Transfer Receive</strong>
+    </div>
+</div>
+<app-productrequestreceive *ngIf="show" [locationProductRequest]="locationProductRequestResponse"
+    (onCencled)="onItemReceivedCancled($event)" (onReceived)="onItemReceived($event)">
+</app-productrequestreceive>

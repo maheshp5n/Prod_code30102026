@@ -1,0 +1,732 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:33px;">
+              <img alt="Location" src="assets/images/location_120.png"
+                style="height: auto;width:100%;;background-color: rgb(20, 155, 53);" title="Location" />
+            </td>
+            <td style="padding-left: 5px;">
+              <span>Warehouse</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;">{{response.locationName}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-5 text-right">
+        <div class="btn-group">
+          <button type="button" *ngIf="rights('Location','edit')" (click)="editLocation.show()"
+            class="btn btn-outline-info btn-sm"><em class="fa fa-edit"></em> Edit</button>&nbsp;
+          <button *ngIf="rights('MSLRequest','create')&&loginData.locationId==response.locationId" class="btn btn-outline-info btn-sm" (click)="mslRequest.show()"
+            type="button">MSL Request</button>&nbsp;
+          <a *ngIf="rights('LProductRequest','create')&&loginData.locationId==response.locationId" [routerLink]="['/location',response.locationId,'newpr']"
+            class="btn btn-outline-info btn-sm" [queryParams]="response">Product
+            Request </a>&nbsp;
+          <a *ngIf="rights('LProductReturnOrder','create')&&loginData.locationId==response.locationId" class="btn btn-outline-info btn-sm"
+            [routerLink]="['/location',response.locationId,'newro']" [queryParams]="response">Return
+            Order</a>
+          <!--
+          <button *ngIf="rights('LProductRequest','create')" class="btn btn-outline-info btn-sm"
+            (click)="productRequestModal.show()" type="button">Product
+            Request</button>
+          <button *ngIf="rights('LProductReturnOrder','create')" class="btn btn-outline-info btn-sm"
+            (click)="returnOrderModal.show()" type="button">Return
+            Order</button>-->
+          <!-- <button class="btn btn-outline-info btn-sm" type="button">Expense</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <span><small>Warehouse Type</small></span>
+    <div>{{response.locationTypeName}} </div>
+  </div>
+</div>
+<div class="card">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+          <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top:15px;">
+      </div>
+      <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+        <button type="button" (click)="changeInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><em style="font-size: 18px;"
+            [ngClass]="infoDisplay.angleIcon"></em> &nbsp;Information</button>
+        <div *ngIf="infoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width:50%">
+                    <small>Warehouse Name</small>
+                  </td>
+                  <td class="wrappable">{{response.locationName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable">
+                    <small>Parent Warehouse</small>
+                  </td>
+                  <td class="wrappable"><a
+                      [routerLink]="['/location',response.parentLocationId]">{{response.parentLocationName}}</a> </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Warehouse Type</small></td>
+                  <td class="wrappable">{{response.locationTypeName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Inventory Warehouse</small></td>
+                  <td><input type="checkbox" [ngModel]="response.inventoryLocation" readonly=true disabled></td>
+                </tr>
+                <tr>
+                  <td><small>Legal Entity</small></td>
+                  <td><a [routerLink]="['/legalentity',response.legalEntityId]">{{response.legalEntityName}}</a> </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small>Owner Name</small> </td>
+                  <td class="wrappable"> <a
+                      [routerLink]="['/createuser',response.ownerEmailId]">{{response.ownerFirstName}}&nbsp;{{response.ownerMiddleName}}&nbsp;{{response.ownerLastName}}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Root Warehouse</small>
+                  </td>
+                  <td class="wrappable"><a [routerLink]="['/location',rootLocationDetails.locationId]">
+                      {{rootLocationDetails.locationName}}</a> </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Plant</small></td>
+                  <td class="wrappable">{{response.plant}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Mobile Warehouse</small></td>
+                  <td><input type="checkbox" readonly=true [ngModel]="response.mobileLocation" disabled> </td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="visibility: hidden;"><small>Warehouse Level</small></td>
+                  <td></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><em style="font-size: 18px;"
+            [ngClass]="sysinfoDisplay.angleIcon"></em> &nbsp;System Information</button>
+        <div *ngIf="sysinfoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm" aria-describedby="">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                  <td class="wrappable"><a
+                      [routerLink]="['/createuser',response.createdByEmailId]">{{response.createdByFirstName}}&nbsp;{{response.createdByMiddleName}}&nbsp;{{response.createdByLastName}}</a>&nbsp;,&nbsp;{{response.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small>Last Modified By</small> </td>
+                  <td class="wrappable"><a
+                      [routerLink]="['/createuser',response.modifiedByEmailId]">{{response.modifiedByFirstName}}&nbsp;{{response.modifiedByMiddleName}}&nbsp;{{response.modifiedByLastName}}</a>&nbsp;,&nbsp;{{response.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!vDetails" class="card-body" style="padding-top: 0px;">
+        <div class="card">
+          <div class="card-header">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img src="assets/images/mslrqst.png" style="width: 24px;height: 24px;background-color: #30d8d8"></td>
+                <td>
+                  <a>&nbsp;<strong> Child Warehouse({{childLoactionDetails.totalElements}})</strong></a>
+                </td>
+                <td *ngIf="childLoactionDetails.totalElements>5" class="text-right">
+                  <a class="btn btn-sm btn-outline-info" [routerLink]="['/location',locationId,'childlocations']" [routerLinkActive]="['active']" target="_blank">View
+                    All</a>
+                  </td>
+              </tr>
+            </table><br>
+            <div class="row">
+              <div class="col-md-3">
+               <input type="text" class="form-control" placeholder="Warehouse Name" [(ngModel)]="LocaChildadvancesearch.locationName">
+              </div>
+              <div class="col-md-3">
+                  <select class="form-control" [(ngModel)]="LocaChildadvancesearch.locationTypeName" >
+                  <option value="">Select Warehouse Type</option>
+                  <option *ngFor="let typ of locationtypeList" [ngValue]="typ.locationTypeName">{{typ.locationTypeName}}</option>
+                </select>
+              </div>
+               <div class="col-md-3">
+                <input type="text" class="form-control"placeholder="Legal Entity Name"  [(ngModel)]="LocaChildadvancesearch.legalEntityName">
+               </div>
+               <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Owner" [(ngModel)]="LocaChildadvancesearch.owner">
+               </div>
+
+            </div> <br>
+            <div class="row">
+              <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Plant Code" [(ngModel)]="LocaChildadvancesearch.plantcode">
+               </div>
+               <div class="col-md-3">
+                <!-- <input type="text" class="form-control" placeholder="Mobile Warehouse" [(ngModel)]="LocaChildadvancesearch.mobileWarehoue"> -->
+                <div class="control-label">
+                  Mobile Warehouse
+                  </div>
+                <input  type="checkbox"  class="largerCheckbox"  [(ngModel)]="LocaChildadvancesearch.mobileWarehoue">
+              </div>
+               <div class="col-md-3">
+                <!-- <input type="text" class="form-control"placeholder="Inventory Warehouse"  [(ngModel)]="LocaChildadvancesearch.inventoryWarehouse"> -->
+                <div class="control-label">
+                  Inventory Warehouse
+                  </div>
+                <input  type="checkbox"  class="largerCheckbox"  [(ngModel)]="LocaChildadvancesearch.inventoryWarehouse">
+
+              </div>
+               <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="searchChildLoc()"><em
+                  class="fa fa-search"></em>
+                Search</button>
+                <button type="button" class="btn btn-outline-info btn-md" (click)="locChildresetsearch()">
+                Reset</button>
+               </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="searchChildLoc()"><em
+                    class="fa fa-search"></em>
+                  Search</button>
+                  <button type="button" class="btn btn-outline-info btn-md" (click)="locChildresetsearch()">
+                  Reset</button>
+              </div>
+            </div> -->
+          </div>
+          <div *ngIf="childLoactionDetails.totalElements>0" class="card-body" style="padding:0px;margin-bottom: 0px;">
+            <div>
+              <div class="table-responsive">
+                <table class="table table-sm table-condensed">
+                  <thead>
+                    <tr>
+                      <th>S.No.</th>
+                      <th scope="col" class="text-left" title="Warehouse Name">Warehouse Name
+                      </th>
+                      <th scope="col" class="text-left" title="Warehouse Type">Warehouse Type
+                      </th>
+                      <th scope="col" class="text-left" title="Mobile Warehouse">Mobile Warehouse
+                      </th>
+                      <th scope="col" class="text-left" title="Inventory Warehouse">Inventory Warehouse
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let t of childLoactionDetails.content; let i=index">
+                      <td style="text-align: center;">{{serialNumberChild+1+i}}.</td>
+                      <td class="wrappable"><a [routerLink]="['/location',t.locationId]"> {{t.locationName}}</a></td>
+                      <td class="wrappable">{{t.locationTypeName}}</td>
+                      <td><input type="checkbox" [ngModel]="t.mobileLocation" disabled></td>
+                      <td><input type="checkbox" [ngModel]="t.inventoryLocation" disabled></td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <div style="text-align: center" *ngIf="!(childLoactionDetails.first && childLoactionDetails.last)">
+                  <a id="prbtn" class="previous round" href="" [class.disabled]="childLoactionDetails.first"
+                    *ngIf="!childLoactionDetails.first" (click)="setPagePreviousChild($event)"
+                    [ngClass]="{'active':childLoactionDetails.number}">
+                    &#8249;</a>
+                  <a id="prbtn" class="nav-link active">{{childLoactionDetails.number+1}}</a>
+                  <a id="prbtn" class="next round" href="" [class.disabled]="childLoactionDetails.last"
+                    *ngIf="!childLoactionDetails.last" (click)="setPageNextChild($event)"
+                    [ngClass]="{'active':childLoactionDetails.number}">
+                    &#8250; </a>
+                </div> -->
+                <!-- <div *ngIf="childLoactionDetails.content.length>5" class="text-right">
+                  <a [routerLink]="['/location',locationId,'childlocations']" [routerLinkActive]="['active']">View
+                    All</a>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img src="assets/images/product_120.png" style="width: 24px;height: 24px;background-color: #6DA1EA">
+                </td>
+                <td>
+                  <a>&nbsp;<strong> Product Item({{locationProductItem.totalElements}})</strong></a>
+                </td>
+                <!-- view all link -->
+                <td *ngIf="locationProductItem.totalElements>5" class="text-right">
+                  <a [routerLink]="['/location',locationId,'productdetails']" [routerLinkActive]="['active']" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+              
+              </tr>
+            </table> <br>
+            <!-- search -->
+            <div class="row">
+              <div class="col-md-3">
+               <input type="text" class="form-control" placeholder="Product Item Number" [(ngModel)]="ProductItemAdvancesearch.productItemNumber">
+              </div>
+              <div class="col-md-3">
+                  <input type="text" class="form-control" placeholder="Product" [(ngModel)]="ProductItemAdvancesearch.partcode" >
+              </div>
+               <div class="col-md-3">
+                <input type="text" class="form-control"placeholder="Product Description"  [(ngModel)]="ProductItemAdvancesearch.productDescription">
+               </div>
+               <div class="col-md-3">
+               <select  class="form-control"  [(ngModel)]="ProductItemAdvancesearch.productType">
+                <option value="">Select Product Type</option>
+                <option *ngFor="let pt of proType"[ngValue]="pt.typeName">{{pt.typeName}}</option>
+              </select>
+              </div>
+            </div> <br>
+            <div class="row">
+               <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="searchPrItemLoc()"><em
+                  class="fa fa-search"></em>
+                Search</button>
+                <button type="button" class="btn btn-outline-info btn-md" (click)="resetProductItemADVSearch()">
+                Reset</button>
+               </div>
+            </div>
+          </div>
+          <!-- locationProductItem -->
+          <div *ngIf="locationProductItem.totalElements>0" class="card-body"
+            style="padding: 0px;margin-bottom:0px;overflow: auto;">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th scope="col" class="text-left" title="Product Item Number">
+                    Product Item Number
+                  </th>
+                  <th scope="col" class="text-left" title="Part Code">
+                    Part Code
+                  </th>
+                  <th scope="col" class="text-left" title="Product Description">
+                    Product Description
+                  </th>
+                  <th scope="col" class="text-left" title="Product Type">
+                    Product Type
+                  </th>
+                  <th scope="col" class="text-left" title="In-Hand Quantity">In-Hand Quantity</th>
+                  <th scope="col" class="text-left" title="OK Quantity">OK Quantity</th>
+                  <th scope="col" class="text-left" title="Faulty Quantity">Faulty Quantity</th>
+                  <th scope="col" class="text-left" title="Scrap Quantity">Scrap Quantity</th>
+                  <th scope="col" class="text-left" title="Rejected Quantity">Rejected Quantity</th>
+                  <th scope="col" class="text-left" title="BER Quantity">BER Quantity</th>
+                  <th scope="col" class="text-left" title="Customer Inventory">Customer Inventory</th>
+                  <th scope="col" class="text-left" title="Refurbished">Refurbished </th>
+                  <th></th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of locationProductItem.content;let i=index">
+                  <td style="text-align: center;">{{serialNumber+i+1}}.</td>
+                  <td class="wrappable"><a
+                      [routerLink]="'locationproductitem/'+p.locationProductItemId">{{p.locationProductItemManualId}}</a>
+                  </td>
+                  <td class="wrappable"><a [routerLink]="'/products/'+p.productPartCode">{{p.productPartCode}} </a>
+                  </td>
+
+                  <td class="wrappable">{{p.productDescription}}</td>
+                  <td class="wrappable">{{p.productType}} </td>
+                  <td class="wrappable">{{p.quantityInOnHand}}</td>
+                  <td class="wrappable">{{p.okQuantity}}</td>
+                  <td class="wrappable">{{p.faultyQuantity}}</td>
+                  <td class="wrappable">{{p.scrapQty}}</td>
+                  <td class="wrappable">{{p.rejectedQty}}</td>
+                  <td class="wrappable">{{p.berQty}}</td>
+                  <td class="wrappable">{{p.customerInventory}}</td>
+                  <td class="wrappable"> {{p.refurbished}}</td>
+                  <td><a *ngIf="p.productType!='Component'" (click)="expendPartcodeItem(p.productPartCode)"
+                      style="color: blue; text-decoration: underline;cursor: pointer;">View</a></td>
+
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="panel " *ngIf="serialNumberDetaiDisp" style="padding-left: 30px; padding-right: 30px;">
+              <div class="panel panel-default ">
+                <table class="table  table-sm table-condensed tablerview">
+                  <thead>
+                    <tr>
+                      <th>Part Code</th>
+                      <th>Serial Number</th>
+                      <th>State</th>
+                      <th>Refurbished</th>
+                      <th>Customer Inventory</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr *ngFor="let c of locationSerialNumberList;">
+                      <td data-line="Part COde"><a href="#"
+                          routerLink="/products/{{c.productPartCode}}">{{c.productPartCode}}</a></td>
+                      <td data-line="Serial Number">{{c.serialNumber}}</td>
+                      <td data-line="Product State Name">{{c.productStateName}}</td>
+                      <td data-line="Refurbished">
+                        <em *ngIf="c.refurbished" class="tik-mark"></em>
+                      </td>
+                      <td data-line="Customer Inventory">
+                        <em *ngIf="c.isCustomerInventory" class="tik-mark"></em>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- <div style="text-align: center" *ngIf="!(locationProductItem.first && locationProductItem.last)">
+              <a id="prbtn" class="previous round" href="" [class.disabled]="locationProductItem.first"
+                *ngIf="!locationProductItem.first" (click)="setPagePrevious($event)"
+                [ngClass]="{'active':locationProductItem.number}">
+                &#8249;
+              </a>
+
+              <a id="prbtn" class="nav-link active">{{locationProductItem.number+1}}</a>
+
+              <a id="prbtn" class="next round" href="" [class.disabled]="locationProductItem.last"
+                *ngIf="!locationProductItem.last" (click)="setPageNext($event)"
+                [ngClass]="{'active':locationProductItem.number}">
+                &#8250;
+              </a>
+            </div> -->
+            <!-- <div *ngIf="locationProductItem.totalElements>5" class="text-right"><a [routerLink]="['/location',locationId,'productdetails']" target="_blank"
+                [routerLinkActive]="['active']">View All</a></div> -->
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img src="/assets/images/product_request_120.png" alt=""
+                  style="width: 24px;height: 24px;background-color:#88C651;">
+                </td>
+                <td>
+                  <a><strong>&nbsp; Sent Requisition
+                    ({{productRequestSent.totalElements}})</strong></a>
+                </td>
+                <td  *ngIf="productRequestSent.totalElements>5" class="text-right">
+                  <a [routerLink]="['/location',locationId,'requisition']" [routerLinkActive]="['active']" target="_blank"
+                  [queryParams]="{typ:'sent'}"
+                   class="btn btn-sm btn-outline-info"> View All </a> </td>
+              
+              </tr>
+            </table> <br>
+            <div class="row">
+              <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Product Request Number" [(ngModel)]="SendReqAdvancesearch.productRequestNumber">
+               </div>
+               <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Source Warehouse" [(ngModel)]="SendReqAdvancesearch.sourceWarehouse">
+               </div>
+               <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Destination Warehouse" [(ngModel)]="SendReqAdvancesearch.destinationWarehouse">
+               </div>
+               <div>
+                 <!-- <input type="text" class="form-control" [(ngModel)]="SendReqAdvancesearch.expectedDate"> -->
+                 <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+                 [(ngModel)]="SendReqAdvancesearch.expectedDate" placeholder=" Expected Date" onkeydown="return false"
+                 [maxDate]="today">
+               <span class="fa fa-calendar errspan"></span>
+                </div>
+           
+              
+            </div> <br>
+            <div class="row">
+              <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="SearchSendReq()"><em
+                  class="fa fa-search"></em>
+                Search</button>
+                <button type="button" class="btn btn-outline-info btn-md" (click)="locSearchSenReqreset()">
+                Reset</button>
+               </div>
+
+            </div>
+          </div>
+          <div class="card-body" style="padding: 0px;" *ngIf="productRequestSent.totalElements> 0">
+            <div class="table-responsive">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Product Request Number</th>
+                    <th>Source Warehouse</th>
+                    <th>Destination Warehouse</th>
+                    <th>Expected Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let pr of productRequestSent.content; let i=index">
+                    <td style="text-align: center;">{{sentRequisitionSerialNumber+1+i}}.</td>
+                    <td><a [routerLink]="['/productrequest',pr.prId]">{{pr.prManualId}}</a> </td>
+                    <td><a [routerLink]="['/location',pr.sourceLocationId]">{{pr.sourceLocationName}} </a></td>
+                    <td><a [routerLink]="['/location',pr.destinationLocationId]"> {{pr.destinationLocationName}}</a>
+                    </td>
+                    <td style="text-align: center;">{{pr.needByDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <div style="text-align: center" *ngIf="!(productRequestSent.first && productRequestSent.last)">
+                <a id="prbtn" class="previous round" href="" [class.disabled]="productRequestSent.first"
+                  *ngIf="!productRequestSent.first" (click)="setSentRequisitionPagePrevious($event)"
+                  [ngClass]="{'active':productRequestSent.number}">
+                  &#8249;
+                </a>
+
+                <a id="prbtn" class="nav-link active">{{productRequestSent.number+1}}</a>
+
+                <a id="prbtn" class="next round" href="" [class.disabled]="productRequestSent.last"
+                  *ngIf="!productRequestSent.last" (click)="setSentRequisitionPageNext($event)"
+                  [ngClass]="{'active':productRequestSent.number}">
+                  &#8250;
+                </a>
+              </div> -->
+              <!-- <div  *ngIf="productRequestSent.content.length>5"class="text-right">
+                <a [routerLink]="['/location',locationId,'requisition']" [routerLinkActive]="['active']" target="_blank"
+                  [queryParams]="{typ:'sent'}">View All </a>
+              </div> -->
+
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <table style="width: 100%;">
+              <tr>
+              
+                <td style="width: 30px;">
+                  <img src="/assets/images/product_request_120.png" alt=""
+                  style="width: 24px;height: 24px;background-color:#88C651;">
+                </td>
+                <td>
+                  <a>
+                    &nbsp; <strong>Received Requisition
+                      ({{productRequestReceive.totalElements}})</strong>
+                  </a>
+                </td>
+                <td *ngIf="productRequestReceive.totalElements>5" class="text-right">
+                  <a [routerLink]="['/location',locationId,'requisition']" [routerLinkActive]="['active']" target="_blank"
+                    [queryParams]="{typ:'receive'}"class="btn btn-sm btn-outline-info">View All </a>
+                </td>
+              </tr>
+            </table>
+            <br>
+            <div class="row">
+              <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Product Request Number" [(ngModel)]="RecievReqAdvancesearch.productRequestNumber">
+               </div>
+               <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Source Warehouse" [(ngModel)]="RecievReqAdvancesearch.sourceWarehouse">
+               </div>
+               <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Destination Warehouse" [(ngModel)]="RecievReqAdvancesearch.destinationWarehouse">
+               </div>
+               <div>
+                 <!-- <input type="text" class="form-control" [(ngModel)]="SendReqAdvancesearch.expectedDate"> -->
+                 <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+                 [(ngModel)]="RecievReqAdvancesearch.expectedDate" placeholder=" Expected Date" onkeydown="return false"
+                 [maxDate]="today">
+               <span class="fa fa-calendar errspan"></span>
+                </div>
+           
+              
+            </div> <br>
+            <div class="row">
+              <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="SearchReceiev()"><em
+                  class="fa fa-search"></em>
+                Search</button>
+                <button type="button" class="btn btn-outline-info btn-md" (click)="locSearchRecievereset()">
+                Reset</button>
+               </div>
+
+            </div>
+          
+          </div>
+          <div class="card-body" style="padding: 0px;" *ngIf="productRequestReceive.totalElements>0">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Product Request Number</th>
+                  <th>Source Warehouse</th>
+                  <th>Destination Warehouse</th>
+                  <th>Expected Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pr of productRequestReceive.content; let i=index">
+                  <td style="text-align: center;">{{receivedRequisitionSerialNumber+1+i}}.</td>
+                  <td><a [routerLink]="['/productrequest',pr.prId]">{{pr.prManualId}}</a> </td>
+                  <td><a [routerLink]="['/location',pr.sourceLocationId]"> {{pr.sourceLocationName}}</a></td>
+                  <td><a [routerLink]="['/location',pr.destinationLocationId]"> {{pr.destinationLocationName}}</a></td>
+                  <td style="text-align: center;">{{pr.needByDateTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <div style="text-align: center" *ngIf="!(productRequestReceive.first && productRequestReceive.last)">
+              <a id="prbtn" class="previous round" href="" [class.disabled]="productRequestReceive.first"
+                *ngIf="!productRequestReceive.first" (click)="setReceivedRequisitionPagePrevious($event)"
+                [ngClass]="{'active':productRequestReceive.number}">
+                &#8249;
+              </a>
+              <a id="prbtn" class="nav-link active">{{productRequestReceive.number+1}}</a>
+              <a id="prbtn" class="next round" href="" [class.disabled]="productRequestReceive.last"
+                *ngIf="!productRequestReceive.last" (click)="setReceivedRequisitionPageNext($event)"
+                [ngClass]="{'active':productRequestReceive.number}">
+                &#8250;
+              </a>
+            </div> -->
+            <!-- <div *ngIf="productRequestReceive.content.length>5" class="text-right">
+              <a [routerLink]="['/location',locationId,'requisition']" [routerLinkActive]="['active']" target="_blank"
+                [queryParams]="{typ:'receive'}">View All </a>
+            </div> -->
+          </div>
+        </div>
+        <div>
+          <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Product Request -->
+<div class="modal fade" bsModal #productRequestModal="bs-modal" (onHide)="openModels.productrequest=false"
+  (onShow)="openModels.productrequest=true" [config]="{backdrop:'static'}" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Product Request :{{response.locationName}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="productRequestModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 0px;margin: 0px;">
+        <app-productrequestdirective *ngIf="openModels.productrequest" [loc]="response"
+          (onCancled)="onProductRequestCancled($event)" (onSave)="onProductRequestSaved($event)">
+        </app-productrequestdirective>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MSL Request-->
+<div class="modal fade" bsModal #mslRequest="bs-modal" (onHide)="openModels.mslrequestModel=false"
+  (onShow)="openModels.mslrequestModel=true" role="dialog" aria-labelledby="mslRequest" [config]="{backdrop:'static'}"
+  tabindex="-1">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">MSL Request : {{response.locationName}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="mslRequest.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-mslrequest *ngIf="openModels.mslrequestModel" [location]="response" [editMode]="false"
+          (onMSLCreated)="onMslCreated($event)" (onCancle)="onMslRequestCancel($event)"></app-create-mslrequest>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Return Order-->
+<div class="modal fade" bsModal #returnOrderModal="bs-modal" (onHide)="openModels.productReturn=false"
+  (onShow)="openModels.productReturn=true" role="dialog" aria-labelledby="" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Return Order : {{response.locationName}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="returnOrderModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-productreturnorderdirective [location]="response"
+          (onProductReturnSaved)="onProductReturnOrderSvaed($event)" (onCanled)="onProductReturnOrderCancled($event)"
+          *ngIf="openModels.productReturn"></app-productreturnorderdirective>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit Location -->
+<div class="modal fade" bsModal #editLocation="bs-modal" [config]="{backdrop: 'static'}"
+  (onShow)="openModels.location=true" (onHidden)="openModels.location=false" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left"> Edit Warehouse {{localres.locationName}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="editLocation.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-create-location *ngIf="openModels.location" [isEditMode]="true" [editEntityData]="localres"
+          (onLocationCreated)="onLocationCreated($event)" (onCancle)="cancelLocationData()"></app-create-location>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+
+  <div class="text-center" style="margin-left: 20%;margin-right:20%;">
+    <alert [type]="alerts.type"> <span [innerHTML]="alerts.message"></span>
+      <button type="button" (click)="popupSuccessModel.hide()" class="close pull-right">
+        <span aria-hidden="true">
+          &times;
+        </span>
+      </button>
+    </alert>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-header">
+        Information
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label>
+                    Vendor Invoice Number
+                </label>
+                <input type="text" class="form-control" placeholder="Vendor Invoice number"
+                    [(ngModel)]="_invoiceRequest.vendorInvoiceNumber">
+            </div>
+            <div class="col-md-4">
+                <label>
+                    Vendor Invoice Date
+                </label>
+                <input type="text" class="form-control" placeholder="Vendor invoice date" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today"
+                    [(ngModel)]="_invoiceRequest.vendorInvoiceDate" autocomplete="off">
+            </div>
+            <div class="col-md-4">
+                <label>
+                    Invoice Copy
+                </label>
+                <input type="file" class="form-control" (change)="fileChangeEvent($event)">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <label>
+                    WCC
+                </label>
+                <select class="form-control" [(ngModel)]="_invoiceRequest.wccId" [disabled]="true">
+                    <option [value]="invoice.wccDetailsId">{{invoice.wccManualId}}</option>
+                    <option *ngFor="let w of pendingWcc" [value]="w.wccId">{{w.manuId}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    Remarks
+                </label>
+                <textarea [(ngModel)]="_invoiceRequest.remarks" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-primary" (click)="updateVendorInvoice()"><em class="fa fa-save"></em> Save
+        </button>
+        <button type="button" class="btn btn-default" (click)="onCancled()"><em class="fa fa-remvoe"></em> Cancel
+        </button>
+    </div>
+</div>

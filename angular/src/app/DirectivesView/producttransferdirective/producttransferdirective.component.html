@@ -1,0 +1,142 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <strong>
+            Requested Item Details
+        </strong>
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <accordion>
+            <accordion-group *ngFor="let item of locationProductRequestItemResponse; let i = index">
+                <button class="btn btn-link" accordion-heading type="button">
+                    <i class="fa fa-angle-right"></i> {{item.lpRequestItemManualId}} {{item.partCode}}
+                    {{item.partDescription}}
+                </button>
+                <!-- this -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Requested Quantity</label> {{item.quantityRequired}}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Quantity Issued</label> {{item.quantityIssued}}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Quantity on Hand</label> {{item.okItems.okQuantityOnHand}}
+                    </div>
+                    <div class="col-md-3" *ngIf="item.productType!='Component'&&item.totalSelected">
+                        <label>Total Selected</label> {{item.totalSelected}}/{{item.okItems.serialNumbers.length}}
+                    </div>
+                </div>
+                <div class="table-responsive mobile" *ngIf="item.quantityIssued<item.quantityRequired">
+                    <!-- <div class="col-md-3"> -->
+                    <table class="table table-sm" *ngIf="item.productType!='Component'">
+                        <tr>
+                            <td style="width: 30px;">
+                                <input type="checkbox" name="all" [(ngModel)]="item.allselect"
+                                    (change)="allChecked($event,item.partCode)"></td>
+                            <td style="text-decoration: black; font-weight: bold;">Available Serial Number <input
+                                    type="text" [(ngModel)]="item.search" placeholder="Search serial number"></td>
+
+                            <!-- <th>Requested Quantity &nbsp; {{item.quantityRequired}} </th>
+                            <th>Quantity Issued &nbsp;{{item.quantityIssued}}</th>
+                            <th>Quantity on Hand &nbsp;{{item.okItems.okQuantityOnHand}}</th> -->
+                        </tr>
+                        <tbody>
+                            <tr *ngFor="let o of item.okItems.serialNumbers|globalSearchPipe:item.search">
+                                <td style="width:25px;"><input type="checkbox" [(ngModel)]="o.selected" (change)="checkSingle(item,o)"> </td>
+                                <td>{{o.serialNumber}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="item.productType=='Component'">
+                        Transfer Quantity <input type="text" *ngIf="item.productType=='Component'"
+                            [(ngModel)]="item.quantityToBeIssued" autocomplete="off">
+                    </div>
+
+
+
+                    <!-- <div class="col-md-3">
+                        <input type="checkbox" name="" id="">
+                        <label>Requested Quantity</label> {{item.quantityRequired}}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Quantity Issued</label> {{item.quantityIssued}}
+                    </div>
+                    <div class="col-md-3">
+                        <label>Quantity on Hand</label> {{item.okItems.okQuantityOnHand}}
+                    </div> -->
+                </div>
+                <!-- <table class="table table-sm" *ngIf="item.productType!='Component'&&item.okItems"> -->
+
+
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <strong>Shipment Details</strong>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">
+                    Shipping Mode
+                </label>
+                <select class="form-control" [(ngModel)]="_lpTransferRequest.shippingMode">
+                    <option value="select" disabled>Select</option>
+                    <option value="Courier">Courier</option>
+                    <option value="ByHand">ByHand</option>
+                    <option value="Transport">Transport</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Ship To Name </label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Company Name / Person Name"></em>
+                <input type="text" class="form-control" [(ngModel)]="_lpTransferRequest.shippingToName"
+                    autocomplete="off">
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Tracking Number</label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Tracking Number / Person Mobile Number"></em>
+                <input type="text" class="form-control" [(ngModel)]="_lpTransferRequest.trackingNumber"
+                    autocomplete="off">
+            </div>
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Expected Delivery Date</label>
+                <input type="text"onkeydown="return false" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+                    [minDate]="today" [(ngModel)]="_lpTransferRequest.actualDeliveryDate" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="button" (click)="cancelTransfer()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>
+        <button type="button" (click)="transferItems()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Transfer</button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #alertModal="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="text-center" style="margin-left: 20%;margin-right: 20%;">
+        <strong>
+            <alert [type]="alertstypes.type">
+                <span [innerHTML]="alertstypes.message"></span>
+                <button type="button" (click)="alertModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </alert>
+        </strong>
+    </div>
+</div>

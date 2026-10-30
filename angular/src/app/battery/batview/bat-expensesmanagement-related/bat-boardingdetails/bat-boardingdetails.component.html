@@ -1,0 +1,266 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="Boarding" src="assets/images/contact_120.png"
+                  style="height: auto;width:100%;background-color: rgb(91, 235, 191);border-radius: 1mm;"
+                  title="Boarding" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Boarding</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{boardingExpenseResponse.manualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('BtBoardingExpense','edit')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="onClickEditBoarding(boardingExpenseResponse.id)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-3">
+          <small>Expense Management</small>
+          <div>
+            <a [routerLink]="['/bat_expense', boardingExpenseResponse.btExpenseManagementId]"
+              [routerLinkActive]="'active'">
+              {{boardingExpenseResponse.btExpenseManagementManualId}}
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <small>Business Domain</small>
+          <div>
+            {{boardingExpenseResponse.businessDomainName}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card" style="margin-top: 10px;">
+  
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 15px;">
+  
+          <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Boarding Information
+            </button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Expense Management</small>
+                      </td>
+                      <td><a href="#" routerLink="/bat_expense/{{boardingExpenseResponse.btExpenseManagementId}}">
+                          {{boardingExpenseResponse.btExpenseManagementManualId}}
+                        </a></td>
+                    </tr>
+                    <tr>
+                    <tr>
+                      <td>
+                        <small>City Name</small>
+                      </td>
+                      <td>{{boardingExpenseResponse.cityName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>City Category Name</small>
+                      </td>
+                      <td>{{boardingExpenseResponse.cityCategory}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Other City</small>
+                      </td>
+                      <td>
+                        {{boardingExpenseResponse.otherCity}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Remarks</small>
+                      </td>
+                      <td>
+                        {{boardingExpenseResponse.remark}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Business Domain</small>
+                      </td>
+                      <td>{{boardingExpenseResponse.businessDomainName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>From Date/time</small>
+                      </td>
+                      <td>{{boardingExpenseResponse.fromTime}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>To Date/Time</small>
+                      </td>
+                      <td>{{boardingExpenseResponse.toTime}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Amount</small>
+                      </td>
+                      <td>{{boardingExpenseResponse.amount | currency:'INR'}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>No Of Days</small>
+                      </td>
+                      <td>{{boardingExpenseResponse.noOfDays}}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+            <button type="button" (click)="sysInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+            <div *ngIf="sysinfoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/bat_user', boardingExpenseResponse.createdByEmailId]"
+                        [routerLinkActive]="'active'">
+                        {{boardingExpenseResponse.createdByName}}&nbsp;
+                   </a>,&nbsp;
+                      {{boardingExpenseResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/bat_user', boardingExpenseResponse.lastModifiedByEmailId]"
+                        [routerLinkActive]="'active'">
+                        {{boardingExpenseResponse.lastModifiedByName}}&nbsp;
+                          </a>,&nbsp;
+                      {{boardingExpenseResponse.modifiedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!vDetails">
+            <div>
+              <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="modal fade" bsModal #createBoardingModel="bs-modal" (onShow)="isBoardingOpen=true"
+    (onHide)="isBoardingOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">Edit Boarding</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createBoardingModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-create-boarding *ngIf="isBoardingOpen" [isEditModeBoarding]="isEditModeBoarding"
+            [editBoardingData]="boardingExpenseRequest" (onBoardingCreated)="onBoardingCreated($event)"
+            (onCancleBoarding)="cancelBoarding()">
+          </app-bt-create-boarding>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+  
+    <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+    <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+      class="alert alert-danger center center-block" style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+  </div> -->

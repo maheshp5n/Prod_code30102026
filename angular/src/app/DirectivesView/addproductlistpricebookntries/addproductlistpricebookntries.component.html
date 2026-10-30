@@ -1,0 +1,41 @@
+<div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <div class="table table-responsive">
+            <table class="table  table-sm table-condensed tablerview">
+                <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                        <th>Part Code</th>
+                        <th> Active</th>
+                        <th>Product Price</th>
+                        <th>List Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{priceEntrieResponse.partCode}}</td>
+                        <td> <input type="checkbox" [(ngModel)]="priceEntrieResponse.active" value="priceEntrieResponse.active" > </td>
+                        <td>{{productPrices}}</td>
+                        <td> <input type="text" [(ngModel)]="priceEntrieResponse.listPrice"> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" (click)="cancelselectedData()" class="btn btn-default"> <i
+                   class="fa fa-remove"></i>Back</button>&nbsp;
+                <button type="button" (click)="editentriesList()" class="btn btn-primary"><i class="fa fa-save"></i> Add Product
+                </button>
+            </div>
+        </div>
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Product Added successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

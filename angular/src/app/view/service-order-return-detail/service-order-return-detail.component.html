@@ -1,0 +1,322 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width: 35px;">
+                <img alt="" src="assets/images/product_request_120.png"
+                  style="height: auto;width:100%;background-color: rgb(13, 173, 173);" title="Site">
+              </td>
+              <td style="padding-left: 5px;">Service Order Retrun</td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{resp.manualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4">
+  
+        </div>
+        <div class="col-md-4">
+          <div class="btn-group " *ngIf="_cFlag!='f'"   role="group" style="float:right;">
+            <app-sapdocdisplay [crmDocNumber]="resp.manualId"></app-sapdocdisplay>
+            <button  class="btn btn-outline-info btn-sm" type="button" 
+            (click)="confirmationPopup.show()">Packaging PDF</button>&nbsp;
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 15px;">
+          <div *ngIf="vDetails">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Service Order Return</small></td>
+                      <td class="wrappable">{{resp.manualId}}
+                      </td>
+  
+                    </tr>
+                    <tr>
+                      <td class="wrappable"><small>Source Location</small><br>
+                      </td>
+                      <td class="wrappable"> <a [routerLink]="['/location',resp.sourceLocationId]">
+                          {{resp.sourceLocationName}}</a></td>
+                    </tr>
+  
+                    <tr>
+                      <td class="wrappable"><small>Status</small></td>
+                       <td>{{resp.status}}</td>
+                    </tr>
+                   
+                  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small> Owner</small></td>
+                      <td class="wrappable"> <a [routerLink]="['/createuser',resp.ownerEmailId]">{{resp.ownerName}}</a></td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"><small>Destination Location</small> </td>
+                      <td class="wrappable"> <a [routerLink]="['/location',resp.destinationLocationId]">
+                        {{resp.destinationLocationName}} </a>
+                    </td>
+                    </tr>
+                
+                   
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <button type="button" (click)="changeAddressDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="addressDisplay.angleIcon"></i> Shipping Details</button>
+            <div *ngIf="addressDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Ship to Name</small></td>
+                      <td class="wrappable">{{resp.shipToName}} </td>
+                    </tr>
+                    <tr >
+                      <td class="wrappable"><small>Received Qunatity</small> </td>
+                      <td class="wrappable">{{resp.receivedQty}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"><small>Tracking Number</small></td>
+                      <td class="wrappable">{{resp.trackingNumber}} </td>
+                    </tr>
+                </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Shipping Mode</small></td>
+                      <td class="wrappable">{{resp.shippingMode}} </td>
+                    </tr>
+                    <tr >
+                      <td class="wrappable"><small>Return Qunatity</small></td>
+                      <td class="wrappable">{{resp.returnedQty}} </td>
+                    </tr>
+                   </tbody>
+                </table>
+              </div>
+  
+            </div>
+            <button type="button" (click)="sysInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+            <div *ngIf="sysinfoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                      <td class="wrappable">
+                        <a [routerLink]="['/createuser',resp.createdByEmailId]">{{resp.createdByName}}</a>&nbsp;{{resp.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                      <td class="wrappable">
+                        <a [routerLink]="['/createuser',resp.modifiedByEmailId]">{{resp.modifiedByName}}&nbsp;</a>&nbsp;,&nbsp;{{resp.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+  
+          </div>
+          <div *ngIf="!vDetails" class="panel-body">
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img src="assets/images/relationship_120.png"
+                        style="width: 24px;height: 24px;background-color: #ecd762"></td>
+                    <td>
+                      <a>&nbsp;<strong>Service Order Return Items({{soritems.totalElements}})</strong> </a>
+                    </td>
+                    <!-- *ngIf="soritems.totalElements>5" -->
+                    <td *ngIf="soritems.totalElements>5" class="text-right"><a [routerLink]="['/details',sorId,'cmponent','soritems']" [queryParams]="{cmponent:caseCoulms,page:page,sortArr:sortCaseColumnsBlnk}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+             
+                  </tr>
+                </table> <br>
+                <div class="row">
+                  <div class="col-md-3">
+                  
+                    <input type="text" class="form-control" [(ngModel)]="advancesearch.serialNumber" placeholder="Serial Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" class="form-control" [(ngModel)]="advancesearch.productPartcode" placeholder="Product Part Code">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text"class="form-control" placeholder="Product Description" [(ngModel)]="advancesearch.productDescription">
+                    
+                  </div>
+              
+          
+                </div><br>
+                <div class="row">
+                  <div class="col-md-2" >
+                    <div class="control-label">
+                      Received
+                    </div>
+                    <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearch.received">
+                  </div>
+                  <div class="col-md-2" style="float: left;">
+                    <div class="control-label" >
+                      Not Received
+                    </div>
+                    <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearch.notReceived">
+                  </div>
+                    <div class="col-md-2" >
+                      <div class="control-label">
+                        Customer Inventory
+                      </div>
+                      <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearch.customerInventory">
+                    </div>
+                    <div class="col-md-2">
+                      <div class="control-label">
+                        Inhouse Inventory
+                      </div>
+                      <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearch.inhouseInventory">
+                    </div>
+                </div> <br>
+                <div class="row">
+                  
+                  <div class="col-md-3">
+                     <button type="button" class="btn btn-outline-info btn-md" (click)="searchSROItems()"><em
+                          class="fa fa-search"></em>
+                        Search</button>
+                        <button type="button" class="btn btn-outline-info btn-md" (click)="resetSROItems()">
+                        Reset</button>
+                    </div>
+                </div>
+              </div>
+  
+              <div class="card-body" *ngIf="soritems.totalElements>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                <div class="table-responsive mobile" style="background-color: white">
+                  <table class="table table-sm table-condensed">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th class="text-left">S.No.</th>
+                        <th class="text-left" title="Service Order">Service Order
+                        </th>
+                        <th class="text-left" title="Item Serial Number">Item Serial Number
+                        </th>
+                        <th class="text-left" title="product Part Code">Product Part Code
+                        </th>
+                        <th class="text-left" title="Product Description">Product Description
+                        </th>
+                        <th  class="text-left" title="Previous Product Final State Name">previous Product Final StateName</th>
+                        <th class="text-left" title="Product Final State Name">final Product State Name</th>
+  
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="soritems.content.length>0">
+                      <tr *ngFor="let case of soritems.content ;let i=index">
+                        <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+                        <td class="wrappable" data-line="Service Order"><a [routerLink]="['/serviceorder',case.serviceOrderId]">{{case.serviceOrderManualId}}</a></td>
+                        <td class="wrappable" data-line="Item Serial Number">{{case.itemSerialNumber}}</td>
+                        <td class="wrappable" data-line="product Part Code">{{case.productPartCode}}</td>
+                        <td class="wrappable" data-line="Product Description">{{case.productDescription}}</td>
+                        <td class="wrappable" data-line="Previous Product Final State Name"> {{case.previousProductFinalStateName}}</td>
+                        <td class="wrappable" data-line="Product Final State Name">{{case.finalProductStateName}}</td>
+                      </tr>
+                    </tbody>
+                    <tbody *ngIf="soritems.content.length==0">
+                        <tr> 
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                  
+                                  <div class="col-md-4" style="text-align: center; float: center;"> <p>Data Not Found</p></div>
+                            
+                              </td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                           </tr>
+                    </tbody>
+                  </table>
+                  
+                </div>
+             </div>
+            </div>
+       
+            <div>
+              <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <!-- confirmation pop -->
+<div class="modal fade" bsModal #confirmationPopup='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content" style="text-align: center;">
+        <div class="modal-body">
+          <div class="control-label">
+            Do you want to procees with PDf Creation?
+          </div>
+          <br>
+          <div class="col-md-5 col-sm-5">
+            <button class="btn btn-md btn-success" style="border-radius: 2;" (click)="createPDF()">Yes
+            </button>
+          </div>
+          <div class="col-md-2 col-sm-2"></div>
+          <div class="col-md-5 col-sm-5">
+            <button class="btn btn-md btn-danger" style="border-radius: 2;" (click)="confirmationPopup.hide()">No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+ 
+ 

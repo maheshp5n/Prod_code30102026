@@ -1,0 +1,156 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Service Order Return
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                            class="fa fa-sort-down"></i>&nbsp;
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" *dropdownMenu role="menu"
+                                    aria-labelledby="button-disabled-item" style="width: 115%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                                        Views</li>
+                                    <li role="menuitem" *ngFor="let m of dropdownsList">
+                                        <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>&nbsp;
+                            <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                                (click)="pinFilter()">
+                                <em class="fa fa-thumb-tack"></em>
+                            </button>
+                            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                                <em class="fa fa-thumb-tack"></em>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-8 text-right">
+                <button type="button" class="btn btn-sm btn-outline-info" (click)="soReturnReceive.show()">
+                    <em class="fa fa-check"></em> SO Return Receive
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-info"
+                    *ngIf="rights('BtServiceOrderReturn','create')" (click)="soReturn.show()"><em
+                        class="fa fa-plus"></em> SO Return</button>&nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0 m-0">
+        <div class="table-responsive">
+            <table class="table table-sm" title="SO Return Order Details.. ">
+                <thead>
+                    <tr>
+                        <th scope="col" style="text-align: left;">
+                            S.No.
+                        </th>
+                        <th scope="col" *ngFor="let item of tableHeader;" (click)="getSortOrder(item.id)"
+                            style="text-align: left;">
+                             <div class="row">
+                                <div class="col sm-10"> {{item.titleName}}</div>
+                                <div class="col sm-2"> <i [ngClass]="item.icon"></i></div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of soReturnOrder.content;let i=index">
+                        <td data-line="S.No" style="text-align: left;">
+                            {{(dropdownSelected.page*dropdownSelected.size)+ (i+1)}}
+                        </td>
+                        <td style="text-align: left;" *ngFor="let ite of tableHeader">
+                            <ng-container *ngIf="ite.type&&ite.type=='link'">
+                                <a [routerLink]="[ite.linkurl,item[ite.linkid]]"> {{item[ite.propertiesBinding]}} </a>
+                            </ng-container>
+                            <ng-container *ngIf="ite.type&&ite.type=='date'">
+                                {{item[ite.propertiesBinding]|date:'dd-MM-yyyy'}}
+                            </ng-container>
+                            <ng-container *ngIf="!ite.type">
+                                {{item[ite.propertiesBinding]}}
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div *ngIf="soReturnOrder.content.length==0">
+            <div class="row">
+                <div class="col-md-4"> </div>
+                <div class="col-md-4">
+                    <p>Data Not Found</p>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{soReturnOrder.number+1}} &nbsp;of&nbsp;{{soReturnOrder.totalPages}}&nbsp;Total
+                Count={{soReturnOrder.totalElements}}
+            </div>
+            <div class="col-12 text-center" *ngIf="!(soReturnOrder.first && soReturnOrder.last) ">
+                <a class="btn btn-sm btn-success" [routerLink]="['/batsoreturn']"  
+                    [queryParams]="{page:((dropdownSelected.page-1)),size:dropdownSelected.size,order:dropdownSelected.sortname,orderBy:dropdownSelected.sortorder}"><em
+                        class="fa fa-arrow-left"></em> </a>
+                <a class="btn btn-sm btn-success" [routerLink]="['/batsoreturn']" 
+                    [queryParams]="{page:(dropdownSelected.page+1),size:dropdownSelected.size,order:dropdownSelected.sortname,orderBy:dropdownSelected.sortorder}"><em
+                        class="fa fa-arrow-right"></em> </a>
+
+                <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8"
+                    (keypress)="onlyNumbers($event)" autocomplete="off">
+                <button (click)="jumpPage(pagenumber)">Go</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #soReturn="bs-modal" (onShow)="openModal.returnso=true"
+    (onHide)="openModal.returnso=false" tabindex="-" role="dialog" [config]="{backdrop: 'static'}">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label><em class="fa fa-plus"></em> Service Order Return</label>
+            <button type="button" (click)="soReturn.hide()" class="cls-btn"> <em class="fa fa-remove"></em>
+            </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bt-create-service-order-return *ngIf="openModal.returnso" (onCancel)="soReturn.hide()"
+                (onSave)="onReturnSO($event)"></app-bt-create-service-order-return>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #soReturnReceive="bs-modal" (onShow)="openModal.returnsoreceive=true"
+    (onHide)="openModal.returnsoreceive=false" tabindex="-" role="dialog" [config]="{backdrop: 'static'}">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label><em class="fa fa-check"></em> Service Order Return Receive</label>
+            <button type="button" (click)="soReturnReceive.hide()" class="cls-btn"> <em class="fa fa-remove"></em>
+            </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bat-return-order-receive-dir *ngIf="openModal.returnsoreceive" (onCancel)="soReturnReceive.hide()"
+                (onSave)="onReturnSOReceive($event)"></app-bat-return-order-receive-dir>
+        </div>
+    </div>
+</div>

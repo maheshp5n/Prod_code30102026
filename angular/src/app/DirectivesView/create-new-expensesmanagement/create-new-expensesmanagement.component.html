@@ -1,0 +1,161 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Information</strong>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <!-- <div class="col-md-6 col-sm-6 form-group required" style="display: none;">
+        <div class="control-label">Document Date</div>
+        <input [(ngModel)]="newexpensesmanagement.documentDate" type="text" class="form-control" bsDatepicker
+          [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today">
+      </div> -->
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Expense Purpose</div>
+        <select [(ngModel)]="newexpensesmanagement.expensePurposeId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of purposeForList;" [ngValue]="o.expensePurposeId">
+            {{o.expensePurposeName}}</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Expense Type</div>
+        <select [(ngModel)]="newexpensesmanagement.expenseTypeId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of typeList;" [ngValue]="o.expenseTypeId">{{o.expenseTypeName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Cost Center / WBS Element</div>
+        <select [(ngModel)]="newexpensesmanagement.costCenterId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of costcenterForList;" [ngValue]="o.costCenterId"> {{o.costCenterName}}</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Purpose</div>
+        <input [(ngModel)]="newexpensesmanagement.purposeOfVisit" type="text" class="form-control">
+      </div>
+    </div>
+
+    <!-- <div class="row" style="display: none;">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div style="font: bolder;">Tour Start Date</div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div style="font: bolder;">Tour End Date</div>
+      </div>
+    </div>
+
+    <div class="row" style="display: none;">
+      <div class="col-md-3 col-sm-3 form-group">
+        <div class="control-label">Date</div>
+        <input [(ngModel)]="newexpensesmanagement.tourStartDate" type="text" class="form-control" bsDatepicker
+          [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+      <div class="col-md-3 col-sm-3 form-group">
+        <div class="control-label">Time</div>
+        <select [(ngModel)]="newexpensesmanagement.tourStartTime" class="form-control">
+          <option value="">--none--</option>
+          <option *ngFor="let t of timeList" [value]="t.time">{{t.time}}
+          </option>
+        </select>
+
+      </div>
+      <div class="col-md-3 col-sm-3 form-group">
+        <div class="control-label">Date</div>
+        <input [(ngModel)]="newexpensesmanagement.tourEndDate" type="text" class="form-control" bsDatepicker
+          [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="control-label">Time</div>
+        <select [(ngModel)]="newexpensesmanagement.tourEndTime" class="form-control">
+          <option value="">--none--</option>
+          <option *ngFor="let t of timeList" [value]="t.time">{{t.time}}
+          </option>
+        </select>
+      </div>
+
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Remarks</div>
+        <textarea name="" maxlength="500" id="" cols="30" rows="2" [(ngModel)]="newexpensesmanagement.remark"
+          class="form-control"></textarea>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <!-- <div class="control-label">Status</div>
+        <select [(ngModel)]="newexpensesmanagement.statusId" class="form-control">
+          <option value='0'>--none--</option>
+          <option *ngFor="let o of statusForList;" [ngValue]="o.statusId"> {{o.statusName}}</option>
+        </select> -->
+
+      </div>
+    </div>
+
+    <!-- <div class="row">
+      
+    </div> -->
+  </div>
+  <div class="panel-heading" style="display: none;">
+    <strong>For the use of Account's Department only</strong>
+  </div>
+  <div class="panel-body" style="display: none;">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Narration</div>
+        <input [(ngModel)]="newexpensesmanagement.narration" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Business Area</div>
+        <select [(ngModel)]="newexpensesmanagement.businessAreaId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of businessAreaForList;" [ngValue]="o.businessAreaId"> {{o.businessAreaName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Business Place</div>
+        <select [(ngModel)]="newexpensesmanagement.businessPlaceId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of businessPlaceForList;" [ngValue]="o.businessPlaceId"> {{o.businessPlaceName}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+      <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+        Cancel</button>&nbsp;
+
+      <button type="button" (click)="createexpensesmanagement()" class="btn btn-sm btn-primary"><i
+          class="fa fa-save"></i>&nbsp;
+        Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Created Expense ( <a href="#"
+        routerLink="/expensesmanagement/{{this.tempEmpId}}">{{this.tempEmpManId}}</a>
+      )
+      successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

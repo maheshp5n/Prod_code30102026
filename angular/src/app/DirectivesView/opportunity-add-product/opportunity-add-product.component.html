@@ -1,0 +1,252 @@
+<div class="panel panel-default" *ngIf="_viewAddPriceBook">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="control-label">
+                    Select a Price Book to add products.
+                </div>
+                <br>
+                <div class="control-label">
+                    Price Book
+                </div>
+                <select [(ngModel)]="opportunityPriceBook.id" class="form-control">
+                    <option value='0' disabled>--select--</option>
+                    <option *ngFor="let a of priceBookForList" [ngValue]="a.id">{{a.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type=" button" class="btn btn-default" (click)="cancelAddPriceBook()">
+                    Cancel</button>&nbsp;
+                <button type="button" class="btn btn-primary" (click)="postPriceBook()">
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--2 Price Items -->
+<div class="modal fade" bsModal #addPriceItems="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Add Products</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelAddPriceItems()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-header">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-12">
+                                <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+                                    style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel-body" style="max-height: 75vh;overflow: auto;">
+                        <div class="table-responsive">
+                            <table class="table  table-sm table-condensed tablerview">
+                                <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                    <tr>
+                                        <th></th>
+                                        <th class="table-header" (click)="setOrder('product.productPartCode',1)"
+                                            (mouseover)="columnVisibility[1]=true"
+                                            (mouseout)="columnVisibility[1]=false" title="Part Code">Part Code
+                                            <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]">▼</span>
+                                            <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]">▲</span></th>
+
+                                        <th (click)="setOrder('listPrice',2)" class="table-header"
+                                            (mouseover)="columnVisibility[2]=true"
+                                            (mouseout)="columnVisibility[2]=false" title="List price">List price
+                                            <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]">▼</span>
+                                            <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]">▲</span></th>
+
+                                        <th (click)="setOrder('product.pdoductDescription',3)" class="table-header"
+                                            (mouseover)="columnVisibility[3]=true"
+                                            (mouseout)="columnVisibility[3]=false" title="Product Description">
+                                            Product Description
+                                            <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]">▼</span>
+                                            <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]">▲</span></th>
+
+                                        <th class="table-header"
+                                            (click)="setOrder('subProductFamily.productFamily.productFamilyName',4)"
+                                            (mouseover)="columnVisibility[4]=true"
+                                            (mouseout)="columnVisibility[4]=false" title="Product Family">
+                                            Product Family
+                                            <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]">▼</span>
+                                            <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]">▲</span></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let c of priceBookEntries| searchfilt: searchitem; let i=index">
+                                        <td><input type="checkbox" (change)="getCheckboxValues($event,c)"></td>
+                                        <td>{{c.partCode}}</td>
+                                        <td>{{c.listPrice}}</td>
+                                        <td>{{c.description}}</td>
+                                        <td>{{c.productFamily}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="text-align: center">
+                            <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                                (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                                &#8249;
+                            </a>
+
+                            <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                                [ngClass]="{'active':i==page}">
+                                {{page+1}}
+                            </a>
+
+                            <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                                (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                                &#8250;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type=" button" class="btn btn-default" (click)="cancelAddPriceItems()">
+                            Cancel</button>&nbsp;
+                        <button type="button" class="btn btn-primary" (click)="addProducts()">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 3 editSelectedProducts -->
+<div class="modal fade" bsModal #editSelectedProducts="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Edit Selected Products</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelselectedData()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body" style="max-height: 75vh; overflow: auto;">
+                        <div class="table table-responsive">
+                            <table class="table table-sm table-condensed tablerview">
+                                <thead style="background-color:rgb(248, 245, 245)">
+                                    <tr>
+                                        <th>S. No</th>
+                                        <th>Part Code</th>
+                                        <th>List Price</th>
+                                        <th>Sales Price</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let list of oppertunityLineItemRequestArray;let i = index">
+                                        <td>{{serialNumber+i+1}}.</td>
+                                        <td>{{list.partCode}}</td>
+                                        <td>{{list.listPrice}}</td>
+                                        <td><input type='text' [(ngModel)]="list.price" (keypress)="onlyNumbersForRs($event)"  />
+                                        </td>
+                                        <td><input type='text' [(ngModel)]="list.quantity" (keypress)="onlyNumbers($event)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" (click)="cancelselectedData()" class="btn btn-default"> <i
+                                class="fa fa-remove"></i>&nbsp;Back</button>&nbsp;
+                        <button type="button" (click)="saveList()" class="btn btn-primary"><i class="fa fa-save"></i>
+                            &nbsp;Add Product
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 4 editAllProducts -->
+<!-- <div class="modal fade" bsModal #editAllProducts="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Edit Products</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="canceleditAllData()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table table-responsive">
+                    <table class="table table-sm table-condensed tablerview">
+                        <thead style="background-color:rgb(248, 245, 245)">
+                            <tr>
+                                <th>S. No</th>
+                                <th>Part Code</th>
+                                <th>List Price</th>
+                                <th>Sales Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let list of oppertunityLineItemRequestArray;let i = index">
+                                <td>{{serialNumber+i+1}}.</td>
+                                <td>{{list.productPartCode}}</td>
+                                <td>{{list.listPrice}}</td>
+                                <td><input type='text' [(ngModel)]="list.price" />
+                                </td>
+                                <td><input type='text' [(ngModel)]="list.quantity" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" (click)="canceleditAllData()" class="btn btn-default"> <i
+                                class="fa fa-remove"></i>Back</button>&nbsp;
+                        <button type="button" (click)="editAll()" class="btn btn-primary"><i class="fa fa-save"></i>
+                            Add Product
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="popupSuccessModel">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

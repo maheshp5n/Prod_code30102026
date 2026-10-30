@@ -1,0 +1,185 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group  required">
+                <div class="control-label">
+                    PDI Date
+                </div>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control" [minDate]="today"
+                    autocomplete="off" [(ngModel)]="updateJobCardReq.qcPidDate">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Physical Check
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcPhysicalCheck"
+                    (change)="getChangePhysicalCheck()">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcPhysicalCheckList">{{item.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6" [ngClass]="ngClassqcPhysicalRemarks">
+                <div class="control-label">
+                    Physical Remarks
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcPhysicalRemarks"
+                    *ngIf="updateJobCardReq.qcPhysicalCheck=='OK'" disabled>
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcPhysicalRemarksList">{{item.value}}</option>
+                </select>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcPhysicalRemarks"
+                    *ngIf="updateJobCardReq.qcPhysicalCheck=='Not OK'||updateJobCardReq.qcPhysicalCheck=='0'">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcPhysicalRemarksList">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Electrical Check
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcElectricalCheck"
+                    (change)="getChangeElectricalCheck()">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcElectricalCheckList">{{item.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6" [ngClass]="ngClassqcElectricalRemarks">
+                <div class="control-label">
+                    Electrical Remarks
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcElectricalRemarks"
+                    *ngIf="updateJobCardReq.qcElectricalCheck=='OK'" disabled>
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcElectricalRemarksList">{{item.value}}</option>
+                </select>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcElectricalRemarks"
+                    *ngIf="updateJobCardReq.qcElectricalCheck=='Not OK'||updateJobCardReq.qcElectricalCheck=='0'">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcElectricalRemarksList">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Fault Observed During PDI
+                </div>
+                <!-- old -->
+                <!-- <input type="text" rows="3" class="form-control"
+                    [(ngModel)]="updateJobCardReq.qcFaultObservedDuringPID"> -->
+                    <!-- NEW -->
+                    <select type="text" rows="3" class="form-control"
+                    [(ngModel)]="updateJobCardReq.qcFaultObservedDuringPID">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcFaultObservedDuringPDITakenList">{{item.value}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Corrective Action Taken
+                </div>
+                <select type="text" rows="3" class="form-control"
+                    [(ngModel)]="updateJobCardReq.qcCorrectiveActionTaken">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcCorrrectiveActionTakenList">{{item.value}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Software Updation
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcSoftWareupdation">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcsoftwareupdationList">{{item.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Parameters Checks
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcParameterCheck">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcparametercheckList">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    SOH Updation
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcSohUpdation">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcsohupationList">{{item.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Voltage Gap &#60; 150 mv
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcVoltageGap">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcvoltagapList">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Final Approved
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="updateJobCardReq.qcFinalApproval">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of qcfinalapprovalList">{{item.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Vmax
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="updateJobCardReq.qcVmax">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Vmin
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="updateJobCardReq.qcVmin">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    QC Observation 1
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="updateJobCardReq.qcObservation1">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    QC Observation 2
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="updateJobCardReq.qcObservation2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 text-right" style="margin-top: 20px;">
+                <button type="button" class="btn btn-default" (click)="cancelJobCardQc()"><i class="fa fa-remove"></i>
+                    Cancel</button>&nbsp;
+                <button type="button" class="btn btn-primary" (click)="UpdateJobCardQc()"><i class="fa fa-save"></i>
+                    Save</button>
+            </div>
+        </div>
+    </div>
+</div>

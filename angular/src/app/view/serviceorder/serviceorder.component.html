@@ -1,0 +1,234 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Service Order
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                            class="fa fa-sort-down"></i>&nbsp;
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" *dropdownMenu role="menu"
+                                    aria-labelledby="button-disabled-item" style="width: 115%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                                        VIEWS</li>
+                                    <li role="menuitem" *ngFor="let m of dropdownsList">
+                                        <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>&nbsp;
+                            <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                            (click)="pinFilter()">
+                            <em class="fa fa-thumb-tack"></em>
+                        </button>
+                        <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                            <em class="fa fa-thumb-tack"></em>
+                        </button>
+                           
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="searchkey"
+                autocomplete="off"  placeholder="Search from current list"> -->
+            </div>
+            <div class="col-md-4 text-right">
+                <app-pendingserviceorderreturn *ngIf="rights('ServiceOrderItemReturn','create')">
+                </app-pendingserviceorderreturn>
+                <app-serviceorderitemreturnreceive *ngIf="rights('ServiceOrderItemReturnReceive','create')">
+                </app-serviceorderitemreturnreceive>
+                <!-- <button type="button" class="btn btn-sm btn-outline-info"
+                [routerLink]="serviceorder/newso" [routerLinkActive]="'active'"><em class="fa fa-plus"></em> New</button> -->
+                <a [routerLink]="['/serviceorder/newso']"
+                class="btn btn-outline-info btn-sm" [queryParams]="">New</a>&nbsp;
+                <!-- <button type="button" class="btn btn-sm btn-outline-info" *ngIf="rights('ServiceOrder','create')"
+                    (click)="serviceOrderModal.show()"><em class="fa fa-plus"></em> New</button> -->
+                <button type="button" class="btn btn-sm btn-outline-info"
+                    *ngIf="rights('ServiceOrderItemReceive','create')" (click)="receiveModal.show()"><em
+                        class="fa fa-check"></em> Receive</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+            
+              <input type="text" class="form-control" [(ngModel)]="advancesearch.manualId" placeholder="SO ManualId">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" [(ngModel)]="advancesearch.warehouse" placeholder="Warehouse">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" [(ngModel)]="advancesearch.repairLocation" placeholder="Repair Location.">
+            </div>
+            <div class="col-md-3">
+               
+                
+                  <button type="button" class="btn btn-outline-info btn-md" (click)="searchSO()"><em
+                    class="fa fa-search"></em>
+                  Search</button>
+                  <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()"><em
+                    class="fa fa-search"></em>
+                  Reset</button>
+        
+              <!-- <input type="text" class="form-control" [(ngModel)]="advancesearch.status" placeholder=" Status"> -->
+            </div>
+    
+          </div><br>
+          <div class="row">
+            <div class="col-md-3">
+                <!-- <button type="button" class="btn btn-outline-info btn-md" (click)="searchSO()"><em
+                    class="fa fa-search"></em>
+                  Search</button> -->
+              </div>
+          </div> 
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="wrap">
+            <table class="head">
+                <thead>
+                    <tr>
+                        <th title="S.No.">S.No.</th>
+                        <th scope="col" *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+                        title="{{tb.name}}">
+                        <div class="row">
+                            <div class="col sm-10"> {{tb.name}}</div>
+                            <div class="col sm-2"> <i [ngClass]="tb.icon"></i></div>
+                        </div>
+                         </th>
+                    </tr>
+                </thead>
+            </table>
+        <div class="inner_table"  *ngIf="serviceOrders.content.length>0">
+            <table>
+            
+                <tbody>
+                    <tr *ngFor="let item of serviceOrders.content;let i=index;">
+                        <td>{{serialNumber+i+1}}.</td>
+                        <td>
+                            <a [routerLink]="['/serviceorder',item.id]"
+                                [routerLinkActive]="'active'">{{item.manualId}}</a>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/location',item.repairCenterLocationId]" [routerLinkActive]="'active'">
+                                {{item.repariCenterLocationName}}
+                            </a>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/location',item.wareHouseId]">
+                                {{item.warehouseName}}
+                            </a>
+                        </td>
+                        <td>
+                            {{item.totalNumberOfItem}}
+                        </td>
+                        <td>
+                            {{item.lastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                        <td>
+                            {{item.lastModifiedByFirstName}} {{item.lastModifiedByMiddleName}}
+                            {{item.lastModifiedByLastName}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+        <div *ngIf="serviceOrders.content.length==0">
+            <div class="row">
+              <div class="col-md-4"> </div>
+              <div class="col-md-4"> <p>Data Not Found</p></div>
+              <div class="col-md-4"></div>
+           </div>
+       </div>
+        
+        </div>
+     
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{serviceOrders.number+1}} &nbsp;of&nbsp;{{serviceOrders.totalPages}}&nbsp;Total Count={{serviceOrders.totalElements}}
+              </div>
+            <div class="col-sm-4">
+                <div style="text-align: center" *ngIf="!(serviceOrders.first && serviceOrders.last) ">
+                    <a [routerLink]="['/serviceorder']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  *ngIf="!serviceOrders.first"
+                                  [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:serviceOrders.number-1,size:dropdownSelected.size}">
+                                  &lt;
+                              </a>
+                              <a [routerLink]="['/serviceorder']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:serviceOrders.number,size:dropdownSelected.size}">
+                                  {{serviceOrders.number+1}}
+                              </a>
+                              <a [routerLink]="['/serviceorder']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  *ngIf="!serviceOrders.last"
+                                  [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:serviceOrders.number+1,size:dropdownSelected.size}">
+                                  &gt;
+                              </a>
+                  </div>
+            </div>
+            <div class="col-sm-4" style="text-align: right;">
+                <div class="row">
+                 <div class="col-md-6"></div>
+                  <div  *ngIf="!(serviceOrders.first && serviceOrders.last) "  class="col-md-6">
+                    <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+                     <button (click)=jumpPage(pagenumber)>Go</button>
+                   </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+<!--Service Order Creation Window-->
+<div class="modal fade" bsModal #serviceOrderModal="bs-modal" (onShow)="openModal.create=true"
+    (onHide)="openModal.create=false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Service Order</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="serviceOrderModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <app-serviceorderdirective *ngIf="openModal.create" (created)="onCreated($event)"
+                    (cancled)="serviceOrderModal.hide()"></app-serviceorderdirective> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Receiving Service Order Model-->
+<div class="modal fade" bsModal #receiveModal="bs-modal" (onShow)="openModal.receive=true"
+    (onHide)="openModal.receive=false" tabindex="-" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Service Order Receive</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="receiveModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-serviceorderreceivedirec *ngIf="openModal.receive" [orderId]="undefined"
+                    (cancled)="receiveModal.hide()" (received)="onReceived()"></app-serviceorderreceivedirec>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,237 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-4">
+                <label>
+                    <strong>
+                        Approved Request for part code change
+                    </strong>                    
+                </label>
+            </div>
+            
+        </div><br>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" class="form-control" [(ngModel)]="search.refid" placeholder="Ref ID">
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" [(ngModel)]="search.partcode" placeholder="Part Code">
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" [(ngModel)]="search.serialnumber" placeholder="Serial Number">
+            </div>
+          
+        </div> <br>
+        <div class="row">
+            <div class="col-4">
+                <button type="button" (click)="getSearchResult()" class="btn btn-md btn-outline-primary"><em class="fa fa-search"></em> Search</button>
+                <button type="button" (click)="reset()" class="btn btn-md btn-outline-primary"> Reset</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+        <div class="card-body" style="padding: 0px;">
+            <div class="wrap">
+                <table class="head">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                        <!-- <th  title="S.No">S.No</th> -->
+                        <th *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+                        title="{{tb.name}}">
+                       <div class="row"> 
+                           <div class="col sm-10">{{tb.name}}</div>
+                           <div class=" col sm-2"></div>
+                       </div>
+                        </th>
+                        <!-- <th>Action</th> -->
+                      </thead>
+                </table>
+                <div class="inner_table"  *ngIf="data.content.length>0">
+                  <table>
+                      <tbody>
+                        <tr *ngFor="let item of data.content">
+                            <td>{{item.manual_id}}</td>
+                            <td > {{item.request_date|date:'dd-MMM-yy'}}</td>
+                            <td><a [routerLink]="['/serviceappointment',item.sa_id]" [routerLinkActive]="['active']"> {{item.sa_manual_id}}</a></td>
+                            <td>{{item.circle}}</td>
+                            <td>
+                                {{item.location_name}}
+                            </td>
+                            <td>
+                                {{item.legal_entity}}
+                            </td>
+                            <td>{{item.consumed_product_product_part_code}}</td>
+                            <td>{{item.consumed_product_description}}</td>
+                            <td>{{item.consumed_product_serial_number}}</td>
+                            <td>{{item.faulty_product_product_part_code}}</td>
+                            <td>{{item.faulty_product_description}}</td>
+                            <td>{{item.faulty_product_serial_number}}</td>
+                            <td>{{(item.faulty_product_price-item.consumed_product_price)|currency:'INR'}}</td>
+                            <td>{{item.new_part_code}}</td>
+                            <td>{{item.new_serialnumber}}</td>
+                            <td>{{item.mblnr}}</td>
+                            <td>{{item.mblnr_c}}</td>
+                            <td>{{item.mblnr_u}}</td>
+                            <td>{{item.mjahr}}</td>
+                            <td>{{item.mjahr_c}}</td>
+                            <td>{{item.mjahr_u}}</td>
+                            <td>{{item.remark_c}}</td>
+                            <td>{{item.remark_u}}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                </div>
+                <div *ngIf="data.content.length==0">
+                    <div class="row">
+                      <div class="col-md-4"> </div>
+                      <div class="col-md-4"> <p>Data Not Found</p></div>
+                      <div class="col-md-4"></div>
+                   </div>
+                   </div>
+
+            </div>
+            <!-- pages buttn -->
+            <div class="row">
+                <div class="col-sm-4" style="text-align:left">
+                    Showing Page {{data.number+1}} &nbsp;of&nbsp;{{data.totalPages}}&nbsp;Total Count={{data.totalElements}}
+                  </div>
+               <div class="col-sm-4">
+                <div style="text-align: center" >
+                    <a [routerLink]="['/partcodechange/approved']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  *ngIf="!data.first"
+                                  [queryParams]="{page:data.number-1,size:size}">
+                                  &lt;
+                              </a>
+                              <a [routerLink]="['/partcodechange/approved']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  [queryParams]="{page:data.number,size:size}">
+                                  {{data.number+1}}
+                              </a>
+                              <a [routerLink]="['/partcodechange/approved']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                                  *ngIf="!data.last"
+                                  [queryParams]="{page:data.number+1,size:size}">
+                                  &gt;
+                              </a>
+                  </div>
+               </div>
+               <div class="col-sm-4" style="text-align: right;" >
+                <div class="row">
+                 <div class="col-md-6"></div>
+                  <div  *ngIf="!(data.first && data.last) "  class="col-md-6">
+                    <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+                     <button (click)=jumpPage(pagenumber)>Go</button>
+                   </div>
+                </div>
+             </div>
+            </div>
+            <!-- <table class="table table-sm"> -->
+                <!-- <thead>
+                    <tr>
+                        <th scope="col" class="text-left">
+                            Ref. ID
+                        </th>
+                        <th scope="col" class="text-left">
+                            Date
+                        </th>
+                        <th scope="col">
+                            Service Appointment
+                        </th>
+                        <th scope="col">
+                            Circle
+                        </th>
+                        <th scope="col">
+                            Location
+                        </th>
+                        <th scope="col">
+                            Legal Entity
+                        </th>
+                        <th scope="col">
+                           Consumed Part code
+                        </th>
+                        <th scope="col">
+                            Description
+                        </th>
+                        <th scope="col">
+                            Consumed Serial Number
+                        </th>
+                        <th scope="col">
+                            Faulty Part code
+                        </th>
+                        <th scope="col">
+                            Description
+                        </th>
+                        <th scope="col">
+                            Faulty Serial Number
+                        </th>
+                        <th scope="col">
+                            Price difference
+                        </th>
+                       <th scope="col">
+                            New Part code
+                       </th>
+                       <th scope="col">
+                           New Serial Number
+                       </th>
+                       <th scope="col">
+                            MBLNR
+                       </th>
+                       <th scope="col">
+                            MBLNR_C
+                       </th>
+                       <th scope="col">
+                            MBLNR_U
+                       </th>
+                       <th scope="col">
+                            MJAHR
+                       </th>
+                       <th scope="col">
+                            MJAHR_C
+                       </th>
+                       <th scope="col">
+                           MJAHR_U
+                       </th>
+                       <th scope="col">
+                            REMARK_C
+                       </th>
+                       <TH scope="col">
+                            REMARK_U
+                       </TH>
+                    </tr>
+                </thead> -->
+                <!-- <tbody>
+                    <tr *ngFor="let item of data">
+                        <td class="text-left">{{item.manual_id}}</td>
+                        <td class="text-left"> {{item.request_date|date:'dd-MMM-yy'}}</td>
+                        <td><a [routerLink]="['/serviceappointment',item.sa_id]" [routerLinkActive]="['active']"> {{item.sa_manual_id}}</a></td>
+                        <td>{{item.circle}}</td>
+                        <td>
+                            {{item.location_name}}
+                        </td>
+                        <td>
+                            {{item.legal_entity}}
+                        </td>
+                        <td>{{item.consumed_product_product_part_code}}</td>
+                        <td>{{item.consumed_product_description}}</td>
+                        <td>{{item.consumed_product_serial_number}}</td>
+                        <td>{{item.faulty_product_product_part_code}}</td>
+                        <td>{{item.faulty_product_description}}</td>
+                        <td>{{item.faulty_product_serial_number}}</td>
+                        <td>{{(item.faulty_product_price-item.consumed_product_price)|currency:'INR'}}</td>
+                        <td>{{item.new_part_code}}</td>
+                        <td>{{item.new_serialnumber}}</td>
+                        <td>{{item.mblnr}}</td>
+                        <td>{{item.mblnr_c}}</td>
+                        <td>{{item.mblnr_u}}</td>
+                        <td>{{item.mjahr}}</td>
+                        <td>{{item.mjahr_c}}</td>
+                        <td>{{item.mjahr_u}}</td>
+                        <td>{{item.remark_c}}</td>
+                        <td>{{item.remark_u}}</td>
+                    </tr>
+                </tbody> -->
+            <!-- </table> -->
+        </div>
+    
+</div>

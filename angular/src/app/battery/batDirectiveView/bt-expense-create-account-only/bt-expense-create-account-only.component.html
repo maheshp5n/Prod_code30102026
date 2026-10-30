@@ -1,0 +1,73 @@
+
+        <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+            <div class="panel-heading">
+              <span class="text-center"> Information</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+              
+                   <div class="col-md-6 col-sm-6 form-group required">
+                    <div class="control-label">
+                      Buisness Area
+                    </div>
+                    <select name="type"  class="form-control" [(ngModel)]="accountOnlyReq.businessAreaId">
+                        <option  value='0' selected disabled>--Select Buisness Area--</option>
+                      <option *ngFor="let ba of buisnessAreaList " [ngValue]="ba.businessAreaId">{{ba.businessAreaName}}
+                      </option>
+                     </select>
+                  </div>
+                    <div class="col-md-6 col-sm-6 form-group required">
+                     <div class="control-label">
+                       Buisness Place
+                     </div>
+                     <select name="type"  class="form-control" [(ngModel)]="accountOnlyReq.businessPlaceId">
+                         <option  value='0' selected disabled>--Select Buisness Place--</option>
+                       <option *ngFor="let bp of buisnessPlaceList " [ngValue]="bp.businessPlaceId">{{bp.businessPlaceName}}
+                       </option>
+                      </select>
+                   </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 form-group required">
+                    <div class="control-label">
+                      Document Date
+                    </div>
+                    <input type="text" class="form-control"  [maxDate]="today" [dateCustomClasses]="dateCustomClasses" onkeydown="return false" [(ngModel)]="accountOnlyReq.documentDate"
+                    bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" autocomplete="off" >
+                    <span class="fa fa-calendar errspan"></span>
+                  </div>
+                  <div class="col-md-6 col-sm-6 form-group">
+                      <div class="control-label"> Narration</div>
+                      <textarea rows="2" class="form-control" [(ngModel)]="accountOnlyReq.narration" (keypress)="onlyNumbers($event)" ></textarea>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label>
+                    Post/Park
+                  </label>
+                  <input style="width: 15px;" type="checkbox" [(ngModel)]="accountOnlyReq.postPark" [checked]="accountOnlyReq.postPark" class="form-control">
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <div class="row">
+              <div class="col-md-12 text-right">
+                <button type="button" (click)="cancelAcountOnly()" class="btn btn-default"> <i class="fa fa-remove"></i> Cancel</button>&nbsp;
+                <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+                <button type="button" (click)="postAccountOnly()" class="btn btn-primary"><i class="fa fa-save"></i> save </button>
+              </div>
+            </div>
+  
+  <!-- popupSuccessModel -->
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="alertmeta.ngClass" style="width:40%; text-align: center;margin:auto;">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessclose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{alertmeta.message}}</strong>
+    </div>
+  </div> -->

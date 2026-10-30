@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-header">
+        General Information
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <label>Assigned To</label>
+                <div class="row">
+                    <div class="col-4">
+                        <select class="form-control" [(ngModel)]="stapesDetails.rltype" (change)="onChangeMode($event)">
+                            <option value="00">
+                                --SELECT--
+                            </option>
+                            <option value="ROLE">ROLE</option>
+                            <option value="USER">USER</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control" [(ngModel)]="stapesDetails.assignedTo">
+                            <option *ngFor="let o of initList" [ngValue]="o.initvalue">{{o.initlavel}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <label>Stape</label>
+                <input type="number" [(ngModel)]="stapesDetails.stapesNumber" class="form-control">
+            </div>
+            <div class="col-4">
+                <label>Stape Name</label>
+                <input type="text" [(ngModel)]="stapesDetails.stapeName" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label>On Approved</label>
+                <small>(BtApprovalStapes approval,Object object(id for object),String approverAction,LoginUser user,javax.persistence.EntityManager _em)throws com.pratikshat.exicom.exception.BadRequestException,com.pratikshat.exicom.exception.UnauthoriseException)</small>
+                <textarea rows="4" cols="10" class="form-control" [(ngModel)]="stapesDetails.onApprove"></textarea>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label>On Reject</label>
+                <small>(BtApprovalStapes approval,Object object(id for object),String approverAction,LoginUser user,javax.persistence.EntityManager _em)throws com.pratikshat.exicom.exception.BadRequestException,com.pratikshat.exicom.exception.UnauthoriseException)</small>
+                <textarea rows="4" cols="10" class="form-control" [(ngModel)]="stapesDetails.onReject"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-body">
+    <div class="row">
+        <div class="col-12 text-right">
+            <button (click)="cancelRequest()" class="btn btn-default"><em class="fa fa-remove"></em> Cancel</button>
+            <button (click)="saveDetails()" class="btn btn-primary"><em class="fa fa-save"></em> Save</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,197 @@
+<div *ngIf="_data.dataServiceLocationTResponse">
+    <button type="button" (click)="changeButtonDisplay('info')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displayButtons.info.icon"></i> &nbsp;Information
+</button>
+<div class="row" *ngIf="displayButtons.info.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td>
+                    <small>
+                        Product Transfer Number
+                    </small>
+                </td>
+                <td>
+                    {{_data.dataServiceLocationTResponse.manualId}}
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>
+                    <small> Product Part Code</small>
+                </td>
+                <td>
+                    <a
+                        [routerLink]="['/products',_data.dataServiceLocationTResponse.productPartCode]" [routerLinkActive]="'active'">{{_data.dataServiceLocationTResponse.productPartCode}}</a>
+                </td>
+
+            </tr> -->
+            <tr>
+                <td>
+                    <small>Source Warehouse</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/location',_data.dataServiceLocationTResponse.sourceLocationId]"
+                        [routerLinkActive]="'active'">{{_data.dataServiceLocationTResponse.sourceLocationName}}</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Quantity Sent
+                    </small>
+                </td>
+                <td>
+                    {{_data.dataServiceLocationTResponse.transferQty}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Product Request</small>
+                </td>
+                <td><a
+                        [routerLink]="['/productrequest',_data.dataServiceLocationTResponse.productRequestId]">{{_data.dataServiceLocationTResponse.productRequestManualId}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Receive date</small>
+                </td>
+                <td>{{_data.dataServiceLocationTResponse.receivedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+            </tr>
+          
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td>
+                    <small>Owner</small>
+                </td>
+                <td><a [routerLink]="['/createuser',_data.dataServiceLocationTResponse.ownerEmailId]"
+                    activateRout="active">{{_data.dataServiceLocationTResponse.ownerName}}</a></td>
+            </tr>
+          
+            <tr>
+                <td>
+                    <small>Destination Warehouse</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/location',_data.dataServiceLocationTResponse.destinationLocationId]"
+                        [routerLinkActive]="'active'">{{_data.dataServiceLocationTResponse.destinationLocationName}}</a>
+
+                </td>
+            </tr>
+           
+            <tr>
+                <td>
+                    <small>Quantity Received</small>
+                </td>
+                <td>
+                    {{_data.dataServiceLocationTResponse.receivedQty}}
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <small>Delivery Date</small>
+                </td>
+                <td>
+
+                    {{_data.dataServiceLocationTResponse.deliveryDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<button type="button" (click)="changeButtonDisplay('shippinginfo')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displayButtons.shippingInfo.icon"></i> &nbsp;Shipping Information
+</button>
+<div class="row" *ngIf="displayButtons.shippingInfo.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping Mode
+                    </small>
+                </td>
+                <td>
+                    {{_data.dataServiceLocationTResponse.shippingMode}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Tracking Number
+                    </small>
+                </td>
+                <td>
+                    {{_data.dataServiceLocationTResponse.trackingNumber}}
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping To Name
+                    </small>
+                </td>
+                <td>
+                    {{_data.dataServiceLocationTResponse.shippingToName}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Status</small>
+                </td>
+                <td>
+                    {{_data.dataServiceLocationTResponse.status}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+
+<button type="button" (click)="changeButtonDisplay('sysinfo')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displayButtons.sysInfo.icon"></i> &nbsp;System Info
+</button>
+<div class="row" *ngIf="displayButtons.sysInfo.visibal">
+    <div class="col-md-6">
+       <table class="table table-sm">
+           <tr>
+               <td><small>Created By</small></td>
+               <td>
+                <a [routerLink]="['/createuser',_data.dataServiceLocationTResponse.createdByEmailId]"
+                            activateRout="active">   
+                {{_data.dataServiceLocationTResponse.createdByName}}&nbsp;</a>{{_data.dataServiceLocationTResponse.createdDate|date:'dd-MM-yyyy HH:mm:ss'}}</td>
+           </tr>
+       </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td>
+                    <small>Last Modified By</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/createuser',_data.dataServiceLocationTResponse.modifiedByEmailId]"
+                            activateRout="active">
+                    {{_data.dataServiceLocationTResponse.modifiedByName}}&nbsp;</a>{{_data.dataServiceLocationTResponse.modifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>

@@ -1,0 +1,380 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Service Resources" src="assets/images/service_resource_120.png"
+                                style="height: auto;width:100%;background-color: lightskyblue;"
+                                title="Service Resources" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Service Resources</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;">
+                                {{serviceResource.name}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+                    <button *ngIf="rights('ServiceRecource','edit')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="onClickEdit(serviceResource)">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <small>User</small>
+                <div>
+                    <a [routerLink]="['/createuser',serviceResource.userEmailId]" [routerLinkActive]="'active'">
+                        {{serviceResource.userEmailId}}</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <small>Resource Type</small>
+                <div>
+                    <div>{{serviceResource.resourceTypeName}}</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <small>Active</small>
+                <div>
+                    <div *ngIf="serviceResource.active==true"><input type="checkbox" checked disabled></div>
+                    <div *ngIf="serviceResource.active==false"><input type="checkbox" disabled></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 10px;">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Information
+                    </button>
+                    <!--  <div *ngIf="addressDisplay.open" class="row"> -->
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Name</small>
+                                        </td>
+                                        <td>
+                                            <a href="#" routerLink="/contacts/{{serviceResource.contactId}}">
+                                                {{serviceResource.name}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>User</small>
+                                        </td>
+                                        <td>
+                                            <a href="#" routerLink="/createuser/{{serviceResource.userEmailId}}">
+                                                {{serviceResource.userFirstName}} {{serviceResource.userMiddleName}}
+                                                {{serviceResource.userLastName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Active</small>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="serviceResource.active==true"><input type="checkbox" checked
+                                                    disabled></div>
+                                            <div *ngIf="serviceResource.active==false"><input type="checkbox" disabled>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Resource Type</small>
+                                        </td>
+                                        <td>{{serviceResource.resourceTypeName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Warehouse</small>
+                                        </td>
+                                        <td>{{serviceResource.locationName}}</td>
+                                    </tr>
+
+                                    <td>
+                                        <small>Contact</small>
+                                    </td>
+                                    <td>
+                                        <a href="#" routerLink="/contacts/{{serviceResource.contactId}}">
+                                            {{serviceResource.contactFirstName}} {{serviceResource.contactMiddleName}}
+                                            {{serviceResource.contactLastName}}
+                                        </a>
+                                    </td>
+                                    <tr>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> &nbsp;System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                                        <td class="wrappable" >
+                                            <!-- <a href="#" routerLink="/contacts/{{serviceResource.contactId}}"> -->
+                                            <a [routerLink]="['/createuser',serviceResource.createdByEmailId]"
+                                                [routerLinkActive]="'active'">{{serviceResource.createdByFirstName}}&nbsp;
+                                                {{serviceResource.createdByMiddleName}}&nbsp;
+                                                {{serviceResource.createdByLastName }}</a>&nbsp;,&nbsp;
+                                                {{serviceResource.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                                        <td class="wrappable">
+                                            <!-- <a href="#" routerLink="/contacts/{{serviceResource.contactId}}"> -->
+                                            <a [routerLink]="['/createuser',serviceResource.modifiedByEmailId]"
+                                                [routerLinkActive]="'active'">{{serviceResource.modifiedByFirstName}}&nbsp;
+                                                {{serviceResource.modifiedByMiddleName}}&nbsp;
+                                                {{serviceResource.modifiedByLastName}}</a>&nbsp;,&nbsp;
+                                                {{serviceResource.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!vDetails" class="panel-body">
+                    <div class="card">
+                        <!-- 1 Service Appointments-->
+                        <div class="card">
+                            <div class="card-header">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 30px;">
+                                            <img _ngcontent-c5="" alt="Dashboard"
+                                                src="assets/images/service_appointment_120.png"
+                                                style="height: 30px;widows: 30px;background-color: lightskyblue;border-radius: 1mm;"
+                                                title="Service Appointments"> </td>
+                                        <td>
+                                            <b>&nbsp;&nbsp;Service
+                                                Appointments({{totalElementsServiceAppointments}})</b>
+                                        </td>
+                                        <!-- Comment Ayuhs -->
+                                        <!-- <td class="text-right">
+                                            <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                                                <button class="btn btn-outline-info btn-sm" type="button"
+                                                    (click)="showServiceAppointment()">New</button>
+                                            </div>
+                                        </td> -->
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="card-body" style="padding: 0px;">
+                                <div class="table-responsive">
+                                    <table class="mobile table table-sm table-condensed tablerview">
+                                        <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                            <tr>
+                                                <th>S.No.</th>
+                                                <th class="table-header" title="Appointment Number">Appointment Number
+                                                </th>
+                                                <th class="table-header" title="Account">Account
+                                                </th>
+                                                <th class="table-header" title="Case">Case
+                                                </th>
+                                                <th class="table-header" title="Case type">Case type
+                                                </th>
+                                                <!-- <th> Action </th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let c of serviceAppointmentsListByServiceResourceId; let i=index">
+                                                <td data-line="S.No." class="mhide">
+                                                    {{serialNumberServiceAppointments+i+1}}.
+                                                </td>
+                                                <td data-line="Appointment Number"> <a href="#"
+                                                        routerLink="/serviceappointment/{{c.serviceAppointmentId}}">
+                                                        {{c.serviceAppointmentManulaId}}
+                                                    </a>
+                                                </td>
+                                                <td data-line="Account">
+                                                    <a href="#" routerLink="/accounts/{{c.accountSapNumber}}">
+                                                        {{c.accountName}}
+                                                    </a>
+                                                </td>
+                                                <td data-line="Case">
+                                                    <a href="#" routerLink="/cases/{{c.caseId}}">
+                                                        {{c.caseIdManual}}
+                                                    </a>
+                                                </td>
+                                                <td data-line="Case type">{{c.caseType}}</td>
+                                                <!-- Comment Ayush -->
+                                                <!-- <td data-line="Action" class="mhide" style="width: 50;">
+                                                    <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                        placement="bottom right">
+                                                        <button dropdownToggle type="button"
+                                                            class="fa fa-sort-down"></button>
+                                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                            aria-labelledby="button-disabled-item">
+                                                            <li *ngIf="rights('ServiceAppointment','edit')"
+                                                                role="menuitem">
+                                                                <a class="dropdown-item"
+                                                                    (click)="onClickEditServiceAppointment(c.serviceAppointmentId)">
+                                                                    Edit
+                                                                </a>
+                                                            </li> -->
+                                                            <!-- <li *ngIf="rights('ServiceAppointment','delete')"
+                                                                role="menuitem">
+                                                                <a class="dropdown-item">Delete</a>
+                                                            </li> -->
+                                                        <!-- </ul>
+                                                    </div>
+                                                </td> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div style="text-align: center"
+                                    *ngIf="!(firstServiceAppointments && lastServiceAppointments)">
+                                    <a id="pag" class="previous round" href=""
+                                        [class.disabled]="firstServiceAppointments" *ngIf="!firstServiceAppointments"
+                                        (click)="setPagePreviousServiceAppointments($event)">
+                                        <!-- [ngClass]="{'active':pageServiceAppointments}" -->
+                                        &#8249;
+                                    </a>
+
+                                    <a id="pag" class="nav-link active" href=""
+                                        (click)="setPageServiceAppointments($event)"
+                                        [ngClass]="{'active':i==pageServiceAppointments}">
+                                        {{pageServiceAppointments+1}}
+                                    </a>
+                                    <a id="pag" class="next round" href="" [class.disabled]="lastServiceAppointments"
+                                        *ngIf="!lastServiceAppointments"
+                                        (click)="setPageNextServiceAppointments($event)">
+                                        <!-- [ngClass]="{'active':pageServiceAppointments}" -->
+                                        &#8250;
+                                    </a></div>
+                            </div>
+                        </div>
+                        <!-- 1 Service Appointments-->
+                    </div>
+                    <div>
+                        <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #createServiceResourceModel="bs-modal" (onShow)="isServiceResourceOpen=true"
+        (onHide)="isServiceResourceOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-account">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                    <button type="button" class="close pull-right" aria-label="Close"
+                        (click)="createServiceResourceModel.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                    <app-create-serviceresource *ngIf="isServiceResourceOpen" [isEditMode]="isEditMode"
+                        [editServiceResourseData]="serviceResourceRequest"
+                        (onServiceResourseCreated)="onServiceResourseCreated($event)" (onCancle)="cancelData()">
+                    </app-create-serviceresource>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+        role="dialog" aria-labelledby="create-asset">
+        <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{message}}</strong>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #createserviceAppointmentModel="bs-modal" (onShow)="isserviceAppointmentOpen=true"
+        (onHide)="isserviceAppointmentOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-account">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="create-account" class="modal-title pull-left">New Service Appointment</h4>
+                    <button type="button" class="close pull-right" aria-label="Close"
+                        (click)="cancelServiceAppointment()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                    <app-create-new-service-appointments *ngIf="isserviceAppointmentOpen" [isEditMode]="isEditMode"
+                        [editServiceAppointmentData]="serviceAppointmentRequest"
+                        (onServiceAppointmentCreated)="onServiceAppointmentCreated($event)"
+                        (onCancle)="cancelServiceAppointment()">
+                    </app-create-new-service-appointments>
+                </div>
+            </div>
+        </div>
+    </div>

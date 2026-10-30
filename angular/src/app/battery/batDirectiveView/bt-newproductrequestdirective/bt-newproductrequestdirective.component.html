@@ -1,0 +1,57 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="padding:0px;">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <label class="reque">Source Warehouse</label>
+                <ng-select *ngIf="locationForList" [items]="locationForList" bindLabel="locationName"
+                    bindValue="locationId" placeholder="Search Location" [(ngModel)]="editProdReq.sourceLocationId">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076;" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-6">
+                <label>Destination Warehouse</label>
+                <span class="form-control">
+                    {{destinationLocationName}}
+                </span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <label>Expected Date</label>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control"
+                    [(ngModel)]="editProdReq.needByTime" [minDate]="today" autocomplete="off">
+                    <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-6">
+                <label>Description</label>
+                <textarea type="text" class="form-control" [(ngModel)]="editProdReq.description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="button" class="btn btn-default" (click)="cancled()"><i class="fa fa-remove"></i>&nbsp;Cancel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="UpdateProductRequest()"><i
+                class="fa fa-save"></i>&nbsp;Save </button>
+    </div>
+</div>
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div [ngClass]="alertMessage.alertClass" style="width:40%; text-align: center">
+        <strong>{{alertMessage.alertMessage}}!</strong>
+        <button class="close pull-right" (click)="popupSuccessModel.hide()"> <span>&times;</span> </button>
+    </div>
+</div>

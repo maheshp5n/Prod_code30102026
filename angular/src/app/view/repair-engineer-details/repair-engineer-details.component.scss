@@ -1,0 +1,82 @@
+.menue{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+.menue>li{
+  float: left;
+}
+.menue> li> a {
+  display: block;
+  text-align: center;
+  padding: 5px 8px;
+  text-decoration: none;
+  font-size: 15px;
+  color: rgba(0,0,0,0.8);
+  cursor: pointer;
+}
+.menue>li a:hover:not(.active) {
+  background-color: rgb(178, 200, 178);
+  border-bottom-style: solid;
+  border-bottom-color: green;
+}
+.active{
+  font-weight: bold;
+  text-decoration-style: solid;
+  text-decoration: underline;
+  border-bottom-style: solid;
+  border-bottom-color: blue;
+}
+.edit-inactive{
+  cursor: pointer;
+  color: rgba(0,0,0,0.5);
+}
+.edit-active{
+  color: rgba(0,0,0,0.8);
+}
+.edit-inactive:hover{
+  cursor: pointer;
+  color: rgba(0,0,0,0.8);
+}
+
+
+.invisible {
+visibility: hidden;
+}
+
+tr.fixedtd td{
+  height: 67px;
+}
+
+.open ul.dropdown-menu {
+  display: block;
+}
+
+#prbtn {
+text-decoration: none;
+display: inline-block;
+padding: 8px 16px;
+}
+
+a:hover {
+background-color: #ddd;
+color: black;
+}
+
+.previous {
+background-color: #4CAF50;
+color: black;
+}
+
+.next {
+background-color: #4CAF50;
+color: white;
+}
+
+.round {
+border-radius: 50%;
+}
+
+.table-header{
+cursor: pointer;
+}

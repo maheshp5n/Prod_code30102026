@@ -1,0 +1,12 @@
+.row{
+    margin-top: 0px;
+}
+label{
+    color: rgba(0, 0, 0, .75)
+}
+.form-group.required .control-label:before{
+    color: red;
+    content: "*"; 
+ }
+
+ 

@@ -1,0 +1,203 @@
+MIME-Version: 1.0
+Date: Thu, 28 Oct 2021 17:55:12 +0530
+From: "ankit@pratikshat.com" <ankit@pratikshat.com>
+Subject: FWD: Service Appointment Closure Scenarios
+Thread-Topic: Service Appointment Closure Scenarios
+To: Shagufta <shagufta@pratikshat.com>, 
+	"kalindi@pratikshat.com" <kalindi@pratikshat.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<blockquote class=3D"threadBlockQuote" style=3D"border-left: 2px solid #C2C=
+2C2; padding-left: 3px; margin-left: 4px;">--------- Original Message -----=
+----
+<div>Subject: Service Appointment Closure Scenarios<br />From: "Shefali Aro=
+ra" &lt;shefali@exicom.in&gt;<br />Date: 10/28/21 4:58 pm<br />To: "ankit@p=
+ratikshat.com" &lt;ankit@pratikshat.com&gt;<br />Cc: "Vineet Asthana" &lt;v=
+ineet.asthana@exicom.in&gt;, "Manoj Kumar Maurya" &lt;manoj.maurya@exicom.i=
+n&gt;<br /><br /><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Dear Ankit,</p>
+<p class=3D"MsoNormal"><strong>&nbsp;</strong></p>
+<p class=3D"MsoNormal">As per discussion, PFA required SA closure Scenarios=
+.</p>
+<p class=3D"MsoNormal"><strong>&nbsp;</strong></p>
+<p class=3D"MsoNormal"><strong>Scenario 1</strong>: SA status selected by u=
+ser &ldquo;Completed&rdquo; &amp; Save changes <span style=3D"font-family: =
+Wingdings;">&agrave;</span></p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Status of serv=
+ice appointment will be &ldquo;Completed&rdquo; and case status will be &ld=
+quo;In-process&rdquo;.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;SA will fall i=
+n SCH bucket for Approval/Rejection.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On clicking of=
+ &ldquo;Approve/Reject&rdquo; button, SCH will get notification to fill man=
+datory details(SCH Use Only) on SA page then only he can approve/reject SA.=
+</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On Approval<sp=
+an style=3D"font-family: Wingdings;">&agrave;</span> case status will be &l=
+dquo;Closed&rdquo;.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On Rejection <=
+span style=3D"font-family: Wingdings;">&agrave;</span> case status will be =
+&ldquo;In-process&rdquo;(as mentioned above) and SA status will become &ldq=
+uo;In-completed&rdquo; and eng. Need to do same process again as working in=
+ DCT.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><strong>Note</strong>: on selection of RMA Check wit=
+h Complete status, system need to through error. As both things cannot be m=
+ade on same time.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><strong>Scenario 2</strong>: SA status selected by u=
+ser &ldquo;In-completed&rdquo; including selection of RMA check box &amp; S=
+ave changes <span style=3D"font-family: Wingdings;">&agrave;</span></p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Status of serv=
+ice appointment will be &ldquo;In-completed&rdquo; and case status will be =
+&ldquo;In-process&rdquo;.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;SA will fall i=
+n SCH bucket for Approval/Rejection.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On clicking of=
+ &ldquo;Approve/Reject&rdquo; button, SCH will get notification to fill man=
+datory details(SCH Use Only) on SA page then only he can approve/reject SA.=
+</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Post details a=
+ddition, SCH need to Approve SA request then only he can raised RMA case re=
+quest from Case Edit page.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On RMA case ge=
+neration Status of service appointment will be &ldquo;completed&rdquo; and =
+case status will be &ldquo;Closed&rdquo; automatically.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On Rejection <=
+span style=3D"font-family: Wingdings;">&agrave;</span> case status will be =
+&ldquo;In-process&rdquo;(as mentioned above) and SA status will become &ldq=
+uo;In-completed&rdquo; and eng. Need to do same process again as working in=
+ DCT.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><strong>Scenario 3</strong>: SA status selected by u=
+ser &ldquo;In-completed&rdquo; &amp; Save changes <span style=3D"font-famil=
+y: Wingdings;">&agrave;</span></p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Status of serv=
+ice appointment will be &ldquo;In-completed&rdquo; and case status will be =
+&ldquo;In-process&rdquo;.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;SA will fall i=
+n SCH bucket for 2<sup>nd</sup> SA Approval/Rejection on engineer request.<=
+/p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On clicking of=
+ &ldquo;Approve/Reject&rdquo; button, SCH will get notification to fill man=
+datory details(SCH Use Only) on SA page then only he can approve/reject SA.=
+</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Post details a=
+ddition, SCH need to Approve SA request then only engineer can raised 2<sup=
+>nd</sup> SA request.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Approve<span s=
+tyle=3D"font-family: Wingdings;">&agrave;</span> eng. Can raise 2<sup>nd</s=
+up> SA request</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Reject <span s=
+tyle=3D"font-family: Wingdings;">&agrave;</span> case status will be &ldquo=
+;In-process&rdquo;(as mentioned above) and SA status will become &ldquo;In-=
+completed&rdquo; and eng. Need to do same process again as working in DCT.<=
+/p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Once 2<sup>nd<=
+/sup> SA closed and engineer saved changes then again SA will fall in SCH b=
+ucket for Approval/Rejection on engineer request.</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;On clicking of=
+ &ldquo;Approve/Reject&rdquo; button, SCH will get notification to fill man=
+datory details(SCH Use Only) on SA page then only he can approve/reject SA.=
+</p>
+<p class=3D"MsoListParagraph" style=3D"text-indent: -18.0pt; mso-list: l0 l=
+evel1 lfo1;">&lt;![if !supportLists]&gt;<span style=3D"font-family: Wingdin=
+gs;"><span style=3D"mso-list: Ignore;">&uuml;<span style=3D"font: 7.0pt 'Ti=
+mes New Roman';">&nbsp; </span></span></span>&lt;![endif]&gt;Post details a=
+ddition, SCH need to Approve SA request.</p>
+<p class=3D"MsoNormal" style=3D"margin-left: 18.0pt;">&nbsp;</p>
+<p class=3D"MsoNormal"><strong>Note</strong>: in this scenario, we are taki=
+ng details from SCH twice so need to show both details on SA screen.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language: EN-IN;" lang=3D=
+"EN-US">Regards,</span></p>
+<p class=3D"MsoNormal"><span style=3D"mso-fareast-language: EN-IN;" lang=3D=
+"EN-US">Shefali</span></p>
+<p class=3D"MsoNormal">&nbsp;</p>
+</div>
+Disclaimer: This e-mail &amp; attachment(s) within it are for sole use of i=
+ntended recipient(s) &amp; may contain confidential &amp; privileged inform=
+ation. If you are not the intended recipient, please intimate the sender by=
+ replying to this email &amp; destroy all copies &amp; the original message=
+. Any unauthorized review, use, disclosure, dissemination, forwarding, prin=
+ting or copying of this email or any action taken in reliance on this e-mai=
+l is strictly prohibited &amp; unlawful. The recipient acknowledges that CO=
+MPANY , its subsidiaries, associated companies or persons authorized by it =
+(collectively "THE Group"), are unable to exercise control, ensure, guarant=
+ee the integrity of/over the contents of the information contained in e-mai=
+l transmissions &amp; further acknowledges that any views expressed in this=
+ message are those of the individual sender &amp; no binding nature of the =
+message shall be implied or assumed unless the sender does so expressly wit=
+h due authority of THE Group.</div>
+</blockquote>

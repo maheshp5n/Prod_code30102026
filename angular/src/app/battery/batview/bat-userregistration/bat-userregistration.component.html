@@ -1,0 +1,591 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width: 35px;">
+                            <img src="assets/images/lightning_blue_profile_avatar_96.png"
+                                style="width: 100%;height: auto;" alt="">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Users
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;{{selectedDropdown.name}} &nbsp;&nbsp;<i
+                                            class="fa fa-sort-down"></i>&nbsp;
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" *dropdownMenu role="menu"
+                                    aria-labelledby="button-disabled-item" style="width: 115%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                                        Views</li>
+                                    <li role="menuitem" *ngFor="let m of dropdownlists" style="cursor: pointer;">
+                                        <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="searchkey"
+                    placeholder="Search from list" autocomplete="off"> -->
+            </div>
+            <div class="col-md-4 text-right">
+                <button type="button" (click)="createUserModal.show()" class="btn btn-sm btn-outline-info"><em
+                        class="fa fa-plus"></em> New User</button>
+            </div>
+        </div> <br>
+        <!-- search advance -->
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="User Id" [(ngModel)]="searchContent.userId">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Name" [(ngModel)]="searchContent.name">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Account" [(ngModel)]="searchContent.account">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Account SAP Number"
+                    [(ngModel)]="searchContent.accountSapNumber">
+            </div>
+
+        </div> <br>
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Employee Code"
+                    [(ngModel)]="searchContent.employeeCode">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Profile" [(ngModel)]="searchContent.profile">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Role" [(ngModel)]="searchContent.role">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Manager" [(ngModel)]="searchContent.manager">
+            </div>
+        </div> <br>
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="Approval Manager"
+                    [(ngModel)]="searchContent.approverManager">
+            </div>
+            <div class="col-md-3">
+                <button type="button" (click)="getAdvanceSearchresult()" class="btn btn-md btn-outline-info"><em
+                        class="fa fa-search"></em> Search</button>
+                <button type="button" (click)="ResetSearchresult()" class="btn btn-md btn-outline-info"> Reset</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="wrap">
+            <table class="head">
+                <thead>
+                    <tr>
+                        <th title="S.No.">S.No.</th>
+                        <th *ngFor="let he of tableHeaders" title="{{he.name}}">
+                            <div class="row">
+                                <div class="col sm-10"> {{he.name}}</div>
+                                <div class="col sm-2"><em *ngIf="he.icon" [ngClass]="he.icon"></em></div>
+                            </div>
+
+
+                        </th>
+                        <th title="Action">Action</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="inner_table" *ngIf="pageUers.content.length>0">
+                <table>
+
+                    <tbody *ngIf="pageUers.content">
+                        <tr *ngFor="let u of pageUers.content ;let i=index;">
+                            <td>
+                                {{(selectedDropdown.page*selectedDropdown.size)+(i+1)}}.
+                                <!-- {{i+1}}. -->
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_user',u.userName]">{{u.userName}}</a>
+                            </td>
+                            <td>
+                                {{u.contactFirstName}}
+                            </td>
+                            <td>
+                                {{u.contactMiddleName}}
+                            </td>
+                            <td>
+                                {{u.contactLastName}}
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_account',u.accountSapNumber]"> {{u.accountName}} </a>
+
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_account',u.accountSapNumber]">{{u.accountSapNumber}}</a>
+                            </td>
+                            <td>
+                                {{u.contactDetailsEmployeeCode}}
+                            </td>
+                            <td>
+                                {{u.buisnessDomainName}}
+                            </td>
+                            <td>
+                                <em class="tik-mark" *ngIf="!u.accountNotExpired"></em>
+                                <i class="material-icons" *ngIf="u.accountNotExpired">&#xe5cd;</i>
+                            </td>
+                            <td>
+
+                                <em class="tik-mark" *ngIf="!u.accountNonLocked"></em>
+                                <i class="material-icons" *ngIf="u.accountNonLocked">&#xe5cd;</i>
+                            </td>
+                            <td>
+
+                                <em class="tik-mark" *ngIf="u.enabled"></em>
+                                <i class="fa fa-check" style="font-size:36px" *ngIf="!u.enabled">&#xe5cd;</i>
+                            </td>
+                            <td>
+                                {{u.profileName}}
+                            </td>
+                            <td>
+                                {{u.userRole}}
+                            </td>
+                            <td>
+                                {{u.managerFirstName}}&nbsp;{{u.managerLastName}}&nbsp;{{u.managerMiddleName}}
+                            </td>
+                            <td>
+                                {{u.approverManagerFirstName}}&nbsp;{{u.approverManagerMiddleName}}&nbsp;{{u.approverManagerLastName}}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" (click)="edit(u, u.userName)"
+                                        class="btn btn-sm btn-outline-info">
+                                        <em class="fa fa-edit"></em>
+                                    </button>
+                                    <!-- <button *ngIf="!u.enabled" (click)="enableDisableUser(u.userName,true)" type="button"
+                                    class="btn btn-sm btn-outline-primary"><em class="fa fa-check"></em> Enablesssss</button> -->
+                                    <button *ngIf="!u.enabled" type="button" class="btn btn-sm btn-outline-primary"><em
+                                            class="fa fa-check"></em> Enable</button>
+
+                                    <!-- <button *ngIf="u.enabled" (click)="enableDisableUser(u.userName,false)" type="button"
+                                    class="btn btn-sm btn-outline-danger"><em class="fa fa-remove"></em>
+                                    Disable</button> -->
+                                    <button *ngIf="u.enabled" (click)="userDisable(u.userName,false)" type="button"
+                                        class="btn btn-sm btn-outline-danger"><em class="fa fa-remove"></em>
+                                        Disable</button>
+                                    <button type="button" (click)="resetPasswordModalOpen(u.userName)"
+                                        class="btn btn-sm btn-outline-info"><em class="fa fa-lock"></em> Reset
+                                        Password</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="pageUers.content.length==0">
+                <div class="row">
+                    <div class="col-md-4"> </div>
+                    <div class="col-md-4">
+                        <p>Data Not Found</p>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{pageUers.number+1}}
+                &nbsp;of&nbsp;{{pageUers.totalPages}}&nbsp;Total
+                Count={{pageUers.totalElements}}
+            </div>
+            <div class="col-sm-4">
+                <div style="text-align: center" *ngIf="!(pageUers.first && pageUers.last) ">
+                    <a [routerLink]="['/bat_user']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!pageUers.first"
+                        [queryParams]="{sqId:selectedDropdown.sqId,name:selectedDropdown.name,filtreparam:selectedDropdown.filtreparam,sortname:selectedDropdown.sortname,sortorder:selectedDropdown.sortorder,page:pageUers.number-1,size:selectedDropdown.size}">
+                        &lt;
+                    </a>
+                    <a [routerLink]="['/bat_user']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        [queryParams]="{sqId:selectedDropdown.sqId,name:selectedDropdown.name,filtreparam:selectedDropdown.filtreparam,sortname:selectedDropdown.sortname,sortorder:selectedDropdown.sortorder,page:pageUers.number,size:selectedDropdown.size}">
+                        {{pageUers.number+1}}
+                    </a>
+                    <a [routerLink]="['/bat_user']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!pageUers.last"
+                        [queryParams]="{sqId:selectedDropdown.sqId,name:selectedDropdown.name,filtreparam:selectedDropdown.filtreparam,sortname:selectedDropdown.sortname,sortorder:selectedDropdown.sortorder,page:pageUers.number+1,size:selectedDropdown.size}">
+                        &gt;
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4" style="text-align: right;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div *ngIf="!(pageUers.first&& pageUers.last) " class="col-md-6">
+                        <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8"
+                            (keypress)="onlyNumbers($event)" autocomplete="off">
+                        <button (click)=jumpPage(pagenumber)>Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Create User Modal-->
+<div class="modal fade" bsModal #createUserModal="bs-modal" (onHide)="modalOnHidee()" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    <em class="fa fa-user"></em>&nbsp;Create User
+                </h4>
+                <button type="button" (click)="createUserModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-12" style="max-height: 70vh;overflow: auto;">
+                    <div class="form-row">
+                        <div class="col-md-6 form-group required">
+                            <label class="control-label" for="inputAccount4">Account</label>
+                            <ng-select [items]="accountList" (change)="getContactDetails($event)"
+                                bindLabel="accountName" bindValue="sapAccountNumber"
+                                [(ngModel)]="reqUserData.accountSapNumber" placeholder="Search" autocomplete="off"
+                                [disabled]="editMode">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <img src="assets/images/account_120.png" alt=""
+                                        style="width: 15px;height: 15px;background-color: rgb(91, 235, 191);">
+                                    {{item.accountName}}
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item">
+                                    <img src="assets/images/account_120.png" alt=""
+                                        style="width: 15px;height: 15px;background-color: rgb(91, 235, 191);">
+                                    {{item.accountName}}
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                        <div class="col-md-6 form-group required">
+                            <label class="control-label" for="inputContact4">Contact</label>
+                            <ng-select [items]="contactDetail" bindValue="contactId" bindLabel="fullName"
+                                (change)="getUserList($event)" placeholder="Search for contact"
+                                [(ngModel)]="reqUserData.contactId" [disabled]="editMode">
+                                <ng-template let-item="item" ng-label-tmp>
+                                    <img src="assets/images/contact_120.png" alt=""
+                                        style="width: 15px;height: 15px;background-color: rgb(91, 235, 191);border-radius: 1mm;">
+                                    {{item.fullName}} (<small>{{item.phoneNumber}} {{item.emailId}}</small>)
+
+                                </ng-template>
+                                <ng-template let-item="item" ng-option-tmp>
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="width: 20px;" rowspan="2">
+                                                <img src="assets/images/contact_120.png" alt=""
+                                                    style="width: 15px;height: 15px;background-color: rgb(91, 235, 191);border-radius: 1mm;">
+                                            </td>
+                                            <td>
+                                                {{item.fullName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <small>{{item.phoneNumber}} {{item.emailId}}</small>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </ng-template>
+                            </ng-select>
+
+                        </div>
+
+                        <div class="col-md-6 form-group required" *ngIf="!editMode">
+                            <label class="control-label" for="inputPassword4">Password</label>
+                            <input type="password" class="form-control" [(ngModel)]="reqUserData.password"
+                                [ngModelOptions]="{standalone: true}" placeholder="Password" autocomplete="off">
+                        </div>
+
+                        <div class="col-md-6 form-group required" *ngIf="!editMode">
+                            <label class="control-label" for="confirmPassword4">Confirm Password</label>
+                            <input type="password" class="form-control" [(ngModel)]="reqUserData.confirmPassword"
+                                [ngModelOptions]="{standalone: true}" compare-to="reqUserData.password"
+                                placeholder="Confirm Password" autocomplete="off">
+                        </div>
+
+                        <div class="col-md-6 form-group required">
+                            <label class="control-label" for="inputRoles4">Roles</label>
+                            <ng-select [items]="userRoleList" bindLabel="authorities" bindValue="authorities"
+                                [(ngModel)]="reqUserData.authorities" placeholder="Search for Roles">
+                                <ng-template let-item="item" ng-label-tmp>
+                                    <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                                    {{item.authorities}}
+                                </ng-template>
+                                <ng-template let-item="item" ng-option-tmp>
+                                    <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                                    {{item.authorities}}
+                                </ng-template>
+                            </ng-select>
+
+                        </div>
+                        <div class="col-md-6 form-group required">
+                            <label class="control-label">Profile</label>
+                            <ng-select [items]="userprofiles" bindLabel="profileName" bindValue="id" appendTo="body"
+                                [(ngModel)]="reqUserData.userProfileId" placeholder="Search for User Profile"
+                                (change)="onProfileChange($event)" (clear)="objectAccess=[]">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                                    {{item.profileName}}
+                                </ng-template>
+                                <ng-template let-item="item" ng-option-tmp>
+                                    <img src="assets/images/role.png" alt="" style="width: 15px;height: 15px;">
+                                    {{item.profileName}}
+                                </ng-template>
+                            </ng-select>
+
+                        </div>
+                        <div class="col-md-6 form-group" *ngIf="!editMode">
+                            <label>Warehouse</label>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <ng-select [items]="locationList" bindLabel="locationName" bindValue="locationId"
+                                        placeholder="Search for Warehouse" [(ngModel)]="reqUserData.locationId">
+                                        <ng-template ng-label-tmp let-item="item">
+                                            <img src="assets/images/location_120.png"
+                                                style="width: 15px;height: 15px;background-color: rgb(20, 155, 53);"
+                                                alt="">&nbsp;{{item.locationName}}
+                                        </ng-template>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            <img src="assets/images/location_120.png"
+                                                style="width: 15px;height: 15px;background-color: rgb(20, 155, 53);"
+                                                alt="">&nbsp;{{item.locationName}}
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" (click)="createlocationModal.show()"
+                                        class="btn btn-primary"><em class="fa fa-plus"></em> </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6" *ngIf="!editMode">
+                            <label>Resource Type</label>
+                            <select class="form-control" [(ngModel)]="reqUserData.resourceTypeId">
+                                <option value='0' disabled>Select</option>
+                                <option *ngFor="let o of resourceTypeList;" [ngValue]="o.resourceTypeId">
+                                    {{o.resourceTypeName}}</option>
+                                <!-- <option value="0">Select</option>
+                                <option value="1">Technician</option>
+                                <option value="2">Dispatcher</option>
+                                <option value="3">Crew</option>
+                                <option value="4">Agent</option> -->
+                                <!--<option value="5">Asset</option>-->
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group required">
+                            <label class="control-label">
+                                Manager
+                            </label>
+                            <ng-select [items]="usersforlist" bindLabel="fullName" bindValue="userEmailId"
+                                [(ngModel)]="reqUserData.managerEmailId" placeholder="Search for Manager">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <em class="fa fa-user"></em>&nbsp;&nbsp;{{item.fullName}}
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item">
+                                    <em class="fa fa-user"></em>&nbsp;&nbsp;{{item.fullName}}
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                        <div class="col-md-6 form-group required">
+                            <label class="control-label">Approval Manager</label>
+                            <ng-select [items]="usersforlist" bindLabel="fullName" bindValue="userEmailId"
+                                [(ngModel)]="reqUserData.approvarManagerEmailId"
+                                placeholder="Search for Approver Manager">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <em class="fa fa-user"></em>&nbsp;&nbsp;{{item.fullName}}
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item">
+                                    <em class="fa fa-user"></em>&nbsp;&nbsp;{{item.fullName}}
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Object
+                                            </th>
+                                            <th>
+                                                View
+                                            </th>
+                                            <th>
+                                                View All
+                                            </th>
+                                            <th>
+                                                Create
+                                            </th>
+                                            <th>
+                                                Edit
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let o of objectAccess">
+                                            <td>
+                                                {{o.objectName}}
+                                            </td>
+                                            <td>
+                                                <em *ngIf="o.viewRights" class="tik-mark"></em>
+
+                                            </td>
+                                            <td>
+                                                <em *ngIf="o.viewAllRights" class="tik-mark"></em>
+
+                                            </td>
+                                            <td>
+
+                                                <em *ngIf="o.createRights" class="tik-mark"></em>
+                                            </td>
+                                            <td>
+
+                                                <em *ngIf="o.editRights" class="tik-mark"></em>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-default" (click)="createUserModal.hide()"><em
+                            class="fa fa-remove"></em>&nbsp; Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="createLoginUser()"><em
+                            class="fa fa-save"></em>&nbsp; Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Create Location Modal -->
+<div class="modal fade" bsModal #createlocationModal="bs-modal" (onHide)="openModels.locationModal=false"
+    (onShow)="openModels.locationModal=true" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-lx">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Create Location </h4>
+                <button type="button" (click)="createlocationModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-bt-createwarehouse *ngIf="openModels.locationModal" [isEditMode]="false"
+                    (onLocationCreated)="onLocationCreated($event)" (onCancle)="onLocationCanled($event)">
+                </app-bt-createwarehouse>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Reset User Password-->
+<div class="modal fade" bsModal #userResetPassword="bs-modal" (onHide)="onResetHide()" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Reset Password : {{resetPassword.userName}}</h4>
+                <button type="button" (click)="userResetPassword.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>
+                            New Password
+                        </label>
+                        <input type="password" class="form-control" [(ngModel)]="resetPassword.newPassword">
+                    </div>
+                    <div class="col-md-5">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" [(ngModel)]="resetPassword.confirmPassword">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" (click)="resetPasswordDone()" style="margin-top: 28px;"
+                            class="btn btn-primary"><em class="fa fa-save"></em> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Alert Modal-->
+<div class="modal fade" bsModal #alertModal="bs-modal" role="dialog" tabindex="-1">
+    <div style="margin-left:20%;margin-right: 20%;" class="text-center">
+        <strong>
+            <alert [type]="alertDetails.type">
+                <span [innerHTML]="alertDetails.message"></span>
+                <button type="button" (click)="alertModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </alert>
+        </strong>
+    </div>
+</div>
+
+
+<!-- Confirm Box For Disable the Account -->
+
+<div class="modal fade" bsModal #accountdisablemodel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Disable User Alert({{userEmailID}})</h4>
+
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <div class="control-label text-center">
+                                Do you want to disable this Record?
+                                If yes, this will not be enable in future.
+
+                            </div>
+                            <!-- <textarea [(ngModel)]="remarks" class="form-control" rows="2"></textarea> -->
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="button" (click)="accountdisablemodel.hide()" class="btn btn-default"> <i
+                                    class="fa fa-remove"></i> No </button>&nbsp;
+                            <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+                            <button type="button" (click)="onClickDisableUser()" class="btn btn-primary"> Yes </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

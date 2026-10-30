@@ -1,0 +1,208 @@
+<!-- <div class="modal-body" style="max-height: 500px;overflow: auto;padding: 0px;"> -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Information</strong>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">Name</div>
+        <input [(ngModel)]="newdeliverychallan.infoName" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">Requisition</div>
+        <!-- <select [(ngModel)]="newdeliverychallan.legalEntityId" class="form-control">
+            <option value='null' disabled>--Select--</option>
+            <option *ngFor="let o of legalEntityList;" [ngValue]="o.legalEntityId"> {{o.legalEntityName}}</option>
+          </select> -->
+        <input [(ngModel)]="newdeliverychallan.requisition" type="text" class="form-control">
+        <!-- <div class="input-group">
+          <input (change)="legalEntitySelected()" [(ngModel)]="newdeliverychallan.requisition" class="form-control"
+            [typeahead]="legalEntityList" typeaheadBindTo="legalEntityId" typeaheadOptionField="legalEntityName"
+            [isAnimated]="true" placeholder="Search Legal Entity...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isLegalEntitySelected" (click)="legalEntityTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+        </div> -->
+
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">Received Quantity</div>
+        <input [(ngModel)]="newdeliverychallan.receivedQuantity" type="text" class="form-control">
+      </div>
+      <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">Is Used Quantity</div>
+        <input [(ngModel)]="newdeliverychallan.issuedQuantity" type="text" class="form-control">
+      </div>
+      <div *ngIf="_isEditMode==false" class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">From warehouse name</div>
+        <input [(ngModel)]="newdeliverychallan.fromWarehouseName" type="text" class="form-control">
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">Status</div>
+        <!-- <input [(ngModel)]="newdeliverychallan.status" type="text" class="form-control"> -->
+        <select [(ngModel)]="newdeliverychallan.status" class="form-control">
+          <option value='' disabled>--none--</option>
+          <option value='transit'>Transit</option>
+          <option value='complete'>Complete</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">To Warehouse</div>
+        <input [(ngModel)]="newdeliverychallan.toWarehouse" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">Username</div>
+        <input [(ngModel)]="newdeliverychallan.username" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">Send Shipping Email</div>
+        <input [(ngModel)]="newdeliverychallan.sendShippingEmail" type="checkbox">
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="panel-heading">
+    <strong>Shipping Details</strong>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Shipment Mode</div>
+        <!-- <input [(ngModel)]="newdeliverychallan.shipmentMode" type="text" class="form-control"> -->
+        <select [(ngModel)]="newdeliverychallan.shipmentMode" class="form-control">
+          <option value='' disabled>--none--</option>
+          <option value='courier'>Courier</option>
+          <option value='byHand'>By Hand</option>
+          <option value='transport'>Transport</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Shipment Date</div>
+        <!-- <select [(ngModel)]="newdeliverychallan.legalEntityId" class="form-control">
+              <option value='null' disabled>--Select--</option>
+              <option *ngFor="let o of legalEntityList;" [ngValue]="o.legalEntityId"> {{o.legalEntityName}}</option>
+            </select> -->
+        <input [(ngModel)]="newdeliverychallan.shipmentDate" type="text" class="form-control" bsDatepicker
+          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today">
+        <!-- <div class="input-group">
+            <input (change)="legalEntitySelected()" [(ngModel)]="newdeliverychallan.requisition" class="form-control"
+              [typeahead]="legalEntityList" typeaheadBindTo="legalEntityId" typeaheadOptionField="legalEntityName"
+              [isAnimated]="true" placeholder="Search Legal Entity...">
+            <span class="input-group-append">
+              <div><i [ngClass]="isLegalEntitySelected" (click)="legalEntityTimes()"
+                  class="input-group-text bg-transparent border-left-0"></i></div>
+            </span>
+          </div> -->
+
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Name</div>
+        <input [(ngModel)]="newdeliverychallan.shippingName" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Email</div>
+        <input [(ngModel)]="newdeliverychallan.shippingEmail" type="text" class="form-control">
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Number</div>
+        <input [(ngModel)]="newdeliverychallan.shippingNumber" type="text" class="form-control">
+      </div>
+
+    </div>
+
+
+  </div>
+  <!-- <div *ngIf="_isEditMode==true" class="panel-heading">
+    <strong>System Information</strong>
+  </div>
+  <div *ngIf="_isEditMode==true" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label" style="font-weight: bold;">
+          Created By
+        </div>
+        <div class="label">
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label" style="font-weight: bold;">
+          Last Modified By
+        </div>
+        <div class="label">
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-right">
+    <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+      Cancel</button>&nbsp;
+
+    <button type="button" (click)="createdeliverychallan()" class="btn btn-sm btn-primary"><i
+        class="fa fa-save"></i>&nbsp;
+      Save</button>
+  </div>
+</div>
+<!-- </div>
+      </div> -->
+<!-- </div> -->
+
+<!-- </div> -->
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+  <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+  <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+    class="alert alert-danger center center-block" style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+</div> -->
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center"> Information</span>
+  </div>
+  <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+              Name
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="req.legalEntityName">
+          </div>
+          <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+              Type
+            </div>
+            <select name="type" [(ngModel)]="req.legalEntityTypeId" class="form-control">
+                <option  value='0' disabled>--Select--</option>
+              <option *ngFor="let req of serviceCenter "  [ngValue]="req.typeId">{{req.typeName}}
+              </option>
+
+
+            </select>
+            <!-- <textarea rows="3" class="form-control"></textarea> -->
+          </div>
+        </div>
+       
+         
+       
+        <div class="row">
+          <div class="col-md-6 col-sm-6 form-group">
+            <div class="control-label">
+              Fixed Payout
+            </div>
+            <input type="text" rows="3" class="form-control" [(ngModel)]="req.legalEntiytFixedLayou">
+          </div>
+          <div class="col-md-6 col-sm-6 form-group">
+            <div class="control-label">
+               Circle Manager
+            </div>
+            <ng-select  [items]="userforlist" [(ngModel)]="req.ownerAccountId" appendTo="body"
+                bindLabel="firstName" bindValue="emailId" placeholder="Search Circle Manager">
+                <ng-template ng-label-tmp let-item="item">
+                    <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                        style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                    {{item.lastName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                    <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                        style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                    {{item.lastName}}
+                </ng-template>
+            </ng-select>
+        </div>
+        </div>
+      
+
+  </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 text-right">
+      <button type="button" (click)="cancelData()" class="btn btn-default"> <i
+          class="fa fa-remove"></i>Cancel</button>&nbsp;
+      <button type="button" (click)="postLigalEntity()" class="btn btn-primary"> <i class="fa fa-save"></i>
+        Save </button>
+    </div>
+  </div>
+
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Legal Entity ( <a href="#" routerLink="/legalentity/{{legalEntityManualTemp}}" activateRout="active">{{leganEntityNameTemp}}</a>)
+      &nbsp;Created Successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

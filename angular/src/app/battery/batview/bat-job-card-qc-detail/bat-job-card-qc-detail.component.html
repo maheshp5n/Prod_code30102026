@@ -1,0 +1,388 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Job Card QC
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px;">
+                            <strong>{{btJobCardQCDetail.qcManualId}}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-8 text-right">
+                <input type="file" name="profile" (change)="onFileSelect($event)" id="getFile1" style="display:none"
+                    *ngIf="isQcDone" />
+                <button class="btn btn-sm btn-outline-info" onclick="document.getElementById('getFile1').click()"
+                    type='submit' *ngIf="isQcDone"><i class="fa fa-upload"></i>&nbsp;&nbsp;Upload File</button>
+                <div class="btn-group" *ngIf="fileFound">
+                    <button type="button" (click)="editJobCardQCModel.show()" class="btn btn-sm btn-outline-info">Edit
+                        QC
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top:15px;">
+    </div>
+    <div *ngIf="vDetails" class="card-body">
+        <button type="button" (click)="changeButtonDisplay('info')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.info.icon"></i> &nbsp;Information
+        </button>
+        <div *ngIf="displayButtons.info.visibal" class="row">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>QC Number</small>
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcManualId}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Job Card Number
+                            </small>
+                        </td>
+                        <td>
+                            <a
+                                [routerLink]="['/bat_job_card',btJobCardQCDetail.qcJobCardId]">{{btJobCardQCDetail.jobCardManualId}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Product Part Code
+                            </small>
+                        </td>
+                        <td>{{btJobCardQCDetail.productPartcode}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Asset Serial Number
+                            </small>
+                        </td>
+                        <td>{{btJobCardQCDetail.soItemSerialNumber}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Assigned To
+                            </small>
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcAssignedToFirstName}} {{btJobCardQCDetail.qcAssignedToMiddleName}}
+                            {{btJobCardQCDetail.qcAssignedToLastName}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>Service Order Number</small>
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.soManualId}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                QC Status
+                            </small>
+                        </td>
+                        <td>
+                            <em *ngIf="btJobCardQCDetail.jobCardQcDone==true" class="tik-mark"></em> <em
+                                *ngIf="btJobCardQCDetail.jobCardQcDone!=true" class="cross-mark"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Return Status
+                            </small>
+                        </td>
+                        <td>
+                            <em *ngIf="btJobCardQCDetail.jobIsCardReturnedToSource==true" class="tik-mark"></em> <em
+                                *ngIf="btJobCardQCDetail.jobIsCardReturnedToSource!=true" class="cross-mark"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Repair Status
+                            </small>
+                        </td>
+                        <td>
+                            <em *ngIf="btJobCardQCDetail.jobCardIsReparied==true" class="tik-mark"></em> <em
+                                *ngIf="btJobCardQCDetail.jobCardIsReparied!=true" class="cross-mark"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Description
+                            </small>
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.productDescription}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button type="button" (click)="changeButtonDisplay('qcEditDetails')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.qcEditDetails.icon"></i> &nbsp;QC Eng. Input Information
+        </button>
+        <div class="row" *ngIf="displayButtons.qcEditDetails.visibal">
+            <div class="col-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td><small>Physical Check</small></td>
+                        <td>
+                            {{btJobCardQCDetail.qcPhysicalCheck}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small>Physical Remarks</small></td>
+                        <td>{{btJobCardQCDetail.qcPhysicalRemarks}}</td>
+                    </tr>
+                    <tr>
+                        <td><small>Electrical Check</small> </td>
+                        <td>{{btJobCardQCDetail.qcElectricalCheck}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Electrical Remarks</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcElectricalRemarks}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Fault Observed During PDI</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcFaultObservedDuringPID}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small> Corrective Action Taken</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcCorrectiveActionTaken}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small> Software Updation</small></td>
+                        <td>{{btJobCardQCDetail.qcSoftWareupdation}}</td>
+                    </tr>
+                    <tr>
+                        <td><small> QC Observation 2</small></td>
+                        <td>{{btJobCardQCDetail.qcObservation2}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td><small>Parameters Checks</small></td>
+                        <td>{{btJobCardQCDetail.qcParameterCheck}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>SOH Updation</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcSohUpdation}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small> Voltage Gap</small>
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcVoltageGap}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small> Final Approved</small>
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcFinalApproval}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small> Vmax</small>
+                        </td>
+                        <td>
+                            {{btJobCardQCDetail.qcVmax}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small> Vmax</small> </td>
+                        <td>{{btJobCardQCDetail.qcVmin}}</td>
+                    </tr>
+                    <tr>
+                        <td><small> QC Observation 1</small></td>
+                        <td>{{btJobCardQCDetail.qcObservation1}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button type="button" (click)="changeButtonDisplay('sysinfo')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.sysInfo.icon"></i> &nbsp;System Information
+        </button>
+
+        <div class="row" *ngIf="displayButtons.sysInfo.visibal">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Created By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/bat_user',btJobCardQCDetail.qcCreatedByEmailId]"
+                                activateRout="active">{{btJobCardQCDetail.qcAssignedToFirstName}}&nbsp;{{btJobCardQCDetail.qcAssignedToMiddleName}}&nbsp;{{btJobCardQCDetail.qcAssignedToLastName}}</a>,&nbsp;{{btJobCardQCDetail.qcCreatedDate|date
+                            :'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Last Modified By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/bat_user',btJobCardQCDetail.qcLastModifiedByEmailId]"
+                                activateRout="active">{{btJobCardQCDetail.qcModifiedByFirstName}}&nbsp;{{btJobCardQCDetail.qcModifiedByMiddleName}}&nbsp;{{btJobCardQCDetail.qcModifiedLastName}}</a>,&nbsp;
+                            {{btJobCardQCDetail.qcLastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!vDetails" style="margin: 0px;">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive mobile" style="height: 100%;">
+                <table class="table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                            <th title="S.No" style="width:50px;">S.No.</th>
+                            <th title="File Name" scope="col"> File Name
+                            </th>
+                            <th title="Created Date" scope="col"> Created Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td *ngIf="fileFound">1</td>
+                            <td data-line="File Name" class="wrappable">
+                                <a href="/bt/api/jobcardqc/files/download/{{fileResponse.id}}"
+                                    target="_blank">{{fileResponse.file_name}}</a>
+                            </td>
+                            <td>{{fileResponse.created_date|date
+                                :'dd-MM-yyyy'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Edit QC-->
+<div class="modal fade" bsModal #editJobCardQCModel="bs-modal" (onShow)="openModel.editJobCardQc=true"
+    (onHide)="openModel.editJobCardQc=false" tabindex="-" role="dialog" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Edit QC : {{btJobCardQCDetail.qcManualId}}
+                </h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="editJobCardQCModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-edit-job-card-qc *ngIf="openModel.editJobCardQc" (cancled)="editJobCardQCModel.hide()"
+                    [updateJobCardQc]="btJobCardQCDetail" (editJobCard)="onEditJobCardQc()"></app-edit-job-card-qc>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #choosenFiles="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Files</h4>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <div class="row" *ngFor="let s of fileList;let i=index">
+                    <div class="col-6">
+                        {{s.name}}
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <div>
+                        <button type="button" class="btn btn-default" (click)="cancelChoosen()"><i
+                                class="fa fa-remove"></i>
+                            Cancel</button>&nbsp;
+                        <button type="submit" class="btn btn-primary" (click)="uploadFile()">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

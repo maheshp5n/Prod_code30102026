@@ -1,0 +1,21 @@
+<button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+  <span aria-hidden="true">&times;</span>
+</button>
+
+
+
+<div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+  style="width:40%; text-align: center">
+  <strong>{{message}} !</strong>
+</div>
+
+
+<div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+  style="width:40%; text-align: center">
+  <strong>{{message}} !</strong>
+</div>
+
+<div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+  class="alert alert-danger center center-block" style="width:40%; text-align: center">
+  <strong>{{message}} !</strong>
+</div>

@@ -1,0 +1,76 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div *ngIf="_isEditModeOtherCharges" class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Name</div>
+        <input [(ngModel)]="otherChargesRequest.manualId" type="text" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Expenses Report</div>
+        <input [(ngModel)]="otherChargesRequest.expenseManagementManualId" type="text" class="form-control" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Date</div>
+        <input [(ngModel)]="otherChargesRequest.date" type="text" class="form-control" onkeydown="return false" bsDatepicker
+          [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Bill No</div>
+        <input [(ngModel)]="otherChargesRequest.billNo" type="text" class="form-control">
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Type</div>
+        <select [(ngModel)]="otherChargesRequest.otherChargesTypeId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of typeListOtherExpenses" [ngValue]="o.id">{{o.name}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Amount
+        </div>
+        <input [(ngModel)]="otherChargesRequest.amount" type="text" class="form-control" (keypress)="onlyNumbersForRs($event)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Remarks</div>
+        <textarea [(ngModel)]="otherChargesRequest.remark" name="" class="form-control" id="" cols="30" rows="2"
+          maxlength="1000"></textarea>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group" *ngIf="_isEditModeOtherCharges">
+        <div class="control-label">Amount to Disbures</div>
+        <input type="text" [(ngModel)]="otherChargesRequest.amountToDisbursed" class="form-control" (keypress)="onlyNumbersForRs($event)">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-right">
+    <button type="button" class="btn btn-default" (click)="cancelOtherCharges()"><i class="fa fa-remove"></i>&nbsp;
+      Cancel</button>&nbsp;
+    <button type="button" class="btn btn-primary" (click)="createOtherCharges()"><i class="fa fa-save"></i>&nbsp;
+      Save</button>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

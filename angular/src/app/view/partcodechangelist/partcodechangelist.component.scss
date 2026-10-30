@@ -1,0 +1,30 @@
+.inner-nav{
+    list-style: none;
+    display: flex;
+    text-decoration: none;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+}
+.inner-nav >li a{
+    margin-right: 5px;
+    padding: 3px 6px;
+    border-bottom-style: solid;
+    border-bottom-color: lightgray;
+    font-size: larger;
+    font-weight: 400;
+    border-top-width: .5px;
+    text-decoration: none;
+    height: 35px;
+}
+.inner-nav >li a:hover{
+    border-top-style: solid;
+    border-top-width: .5px;
+    border-top-color: green;
+    background-image: linear-gradient(white,gray);
+}
+.active-link{
+    border-top-style: solid;
+    border-top-color: green;
+    background-image: linear-gradient(white,gray);
+}

@@ -1,0 +1,183 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Information</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Name
+                </div>
+                <input *ngIf="_isEditMode==true" [(ngModel)]="newcircles.circleName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newcircles.circleName" type="text" class="form-control">
+            </div>
+            <!-- <div class="col-md-6 col-sm-6 form-group" style="visibility: hidden;">
+                <div class="control-label">
+                    Owner
+                </div>
+
+                <input type="text" class="form-control"
+                    value="{{loginData.firstName}} {{loginData.middleName}} {{loginData.lastName}}" disabled>
+            </div> -->
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Zone
+                </div>
+                <select [(ngModel)]="newcircles.zoneName" class="form-control">
+                    <option value='' selected disabled>--select--</option>
+                    <option *ngFor="let o of _zoneDetailsForList">
+                        {{o.zoneName}}</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Country
+                </div>
+                <select [(ngModel)]="newcircles.countryCode" class="form-control">
+                    <option value='' disabled>--select--</option>
+                    <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">
+                        {{o.countryName}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Legal Entity
+                </div>
+                <ng-select *ngIf="leaglEntityList" [items]="leaglEntityList"(change)="getServiceResForList(res.serviceCenterId)"
+                    [(ngModel)]="newcircles.legalEntity" bindLabel="legalEntityName" bindValue="legalEntityId"
+                    placeholder="Search Service Center...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="panel-heading">
+        <strong>Circle Manager (Please select atleast one)</strong>
+    </div> -->
+    <!-- <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Battery Division
+                </div>
+                <ng-select *ngIf="userforlist" [items]="userforlist" [(ngModel)]="newcircles.circleManagerBattryId"
+                    bindLabel="firstName" bindValue="contactId" placeholder="Search Circle Manager...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                        {{item.lastName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                        {{item.lastName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Power Division
+                </div>
+                <ng-select *ngIf="userforlist" [items]="userforlist" [(ngModel)]="newcircles.circleManagerPowerId"
+                    bindLabel="firstName" bindValue="contactId" placeholder="Search Circle Manager...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                        {{item.lastName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                        {{item.lastName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    EV Division
+                </div>
+                <ng-select *ngIf="userforlist" [items]="userforlist" [(ngModel)]="newcircles.circleManagerEv"
+                    bindLabel="firstName" bindValue="contactId" placeholder="Search Circle Manager...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                        {{item.lastName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.firstName}} {{item.middleName}}
+                        {{item.lastName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div *ngIf="_isEditMode==true" class="panel-heading">
+        <strong>System Information</strong>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bold;">
+                    Created By
+                </div>
+                <div class="label">
+                    &nbsp;{{newcircles.createByFirstName}} {{newcircles.createByLastName}},
+                    {{newcircles.createdDate | date:'YYYY-MM-DD HH:mm:ss'}}
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bolder;">
+                    Last Modified By
+                </div>
+                <div class="label">
+                    &nbsp;{{newcircles.modifiedByFirstName}} {{newcircles.modifiedByLastName}},
+                    {{newcircles.lastModifiedDate| date:'YYYY-MM-DD HH:mm:ss'}}
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+        <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+            Cancel</button>&nbsp;
+
+        <button type="button" (click)="createCircle()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+            Save</button>
+    </div>
+</div>
+
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">Circle ( <a href="#"
+                routerLink="/circles/{{tempId}}">{{tempId}}</a>
+            )
+            created successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div> -->

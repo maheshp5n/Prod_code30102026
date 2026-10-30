@@ -1,0 +1,44 @@
+reason_id,case_reason_details_name,cost_center,synced,wcc_type_id,case_type_case_type_id,vertical_business_domain_id,crm_id,case_type_id,case_types_name,synced,wcc_type_id,vertical_business_domain_id,crm_id
+2,Exceptional,NULL,0,0,1,1,NULL,1,Exceptional Case,0,1,1,NULL
+3,Man Power,NULL,0,0,1,1,NULL,1,Exceptional Case,0,1,1,NULL
+7,Audit,NULL,0,0,1,1,NULL,1,Exceptional Case,0,1,1,NULL
+9,NARADA Assets Replacement at Site,NULL,0,0,1,1,NULL,1,Exceptional Case,0,1,1,NULL
+10,NARADA Assets Replacement at Warehouse,NULL,0,0,1,1,NULL,1,Exceptional Case,0,1,1,NULL
+4,OCD Kitting,NULL,0,1,2,1,NULL,2,Installation,0,1,1,NULL
+8,Installation,NULL,0,1,2,1,NULL,2,Installation,0,1,1,NULL
+1,Corrective Maintenance,NULL,0,0,3,1,NULL,3,Under Warranty,0,3,1,NULL
+6,BRC Repair,NULL,0,0,3,1,NULL,3,Under Warranty,0,3,1,NULL
+20,Audit,NULL,0,0,3,1,NULL,3,Under Warranty,0,3,1,NULL
+27,Paid Repair,NULL,0,0,3,1,NULL,3,Under Warranty,0,3,1,NULL
+5,Paid Repair,NULL,0,0,4,1,NULL,4,Without Warranty,0,4,1,NULL
+21,Corrective Maintenance,NULL,0,0,4,1,NULL,4,Without Warranty,0,4,1,NULL
+22,BRC Repair,NULL,0,0,4,1,NULL,4,Without Warranty,0,4,1,NULL
+23,Audit,NULL,0,0,4,1,NULL,4,Without Warranty,0,4,1,NULL
+38,Preventive Maintenance,NULL,0,0,4,1,NULL,4,Without Warranty,0,4,1,NULL
+12,Exceptional,NULL,0,0,5,2,NULL,5,Exceptional Case,0,1,2,NULL
+18,Installation,1142082000,0,1,6,2,NULL,6,Installation,0,1,2,NULL
+40,Acceptance Testing,1142082000,0,1,6,2,NULL,6,Installation,0,1,2,NULL
+42,SMPS Kitting Warehouse,1142082000,0,1,6,2,NULL,6,Installation,0,1,2,NULL
+43,Warehouse Health check-ups,1142082000,0,1,6,2,NULL,6,Installation,0,1,2,NULL
+45,Site Survey,1142082000,0,1,6,2,NULL,6,Installation,0,1,2,NULL
+46,Battery Bank Charging,1142082000,0,1,6,2,NULL,6,Installation,0,1,2,NULL
+11,Corrective Maintenance,1042101030,0,4,7,2,NULL,7,Under Warranty,0,4,2,NULL
+14,Preventive Maintenance,1042101030,0,4,7,2,NULL,7,Under Warranty,0,4,2,NULL
+15,Upgradation,1042101030,0,5,7,2,NULL,7,Under Warranty,0,4,2,NULL
+16,Online Support,NULL,0,0,7,2,NULL,7,Under Warranty,0,4,2,NULL
+19,Fault During PM,1042101030,0,4,7,2,NULL,7,Under Warranty,0,4,2,NULL
+28,Paid Repair,1042101030,0,4,7,2,NULL,7,Under Warranty,0,4,2,NULL
+29,Job Warranty,1042101030,0,3,7,2,NULL,7,Under Warranty,0,4,2,NULL
+13,Job Warranty,1142082000,0,3,8,2,NULL,8,Without Warranty,0,3,2,NULL
+17,Paid Repair,1142082000,0,3,8,2,NULL,8,Without Warranty,0,3,2,NULL
+25,Upgradation,1042101030,0,5,8,2,NULL,8,Without Warranty,0,3,2,NULL
+26,Online Support,NULL,0,0,8,2,NULL,8,Without Warranty,0,3,2,NULL
+39,Preventive Maintenance,1142082000,0,0,8,2,NULL,8,Without Warranty,0,3,2,NULL
+44,Fault During PM,1142082000,0,3,8,2,NULL,8,Without Warranty,0,3,2,NULL
+30,Corrective Maintenance,1142082000,0,2,9,2,NULL,9,Under AMC,0,2,2,NULL
+31,Preventive Maintenance,1142082000,0,2,9,2,NULL,9,Under AMC,0,2,2,NULL
+32,Upgradation,1042101030,0,5,9,2,NULL,9,Under AMC,0,2,2,NULL
+33,Online Support,NULL,0,0,9,2,NULL,9,Under AMC,0,2,2,NULL
+34,Fault During PM,1142082000,0,2,9,2,NULL,9,Under AMC,0,2,2,NULL
+36,Paid Repair,1142082000,0,2,9,2,NULL,9,Under AMC,0,2,2,NULL
+37,Job Warranty,1142082000,0,3,9,2,NULL,9,Under AMC,0,2,2,NULL

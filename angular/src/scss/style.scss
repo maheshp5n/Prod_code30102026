@@ -1,0 +1,14 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+// If you want to override variables do it here
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "../app/role-chart/theming";
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+

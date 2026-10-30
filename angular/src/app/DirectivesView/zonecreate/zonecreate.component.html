@@ -1,0 +1,47 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="modal-body" style="max-height: 500px;padding: 0px;">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Zone Information</strong>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Zone Name
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <input [(ngModel)]="newzone.zoneName" type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-right">
+        <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+          Cancel</button>&nbsp;
+        <button type="button" (click)="createZone()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+          Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+    <!-- <strong *ngIf="message=='Submitted Successfully'">Created Product ( <a href="#"
+        routerLink="/products/{{idd}}">{{idd}}</a>
+      )
+      successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong> -->
+  </div>
+</div>

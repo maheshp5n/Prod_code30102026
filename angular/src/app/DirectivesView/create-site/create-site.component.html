@@ -1,0 +1,364 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center">Site Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6  form-group required">
+        <div class="control-label">
+          Account
+        </div>
+       
+        <div class="row">
+            <div class="col-md-10 col-sm-10">
+                <ng-select *ngIf="AccountList" [items]="AccountList"
+                    [(ngModel)]="siteres.accountSapNumber" bindLabel="accountName" bindValue="sapAccountNumber" (change)="accountSelected($event)"
+                    placeholder="Search Account...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.accountName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.accountName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <span class="input-group-append"*ngIf="rights('Accounts','create')">
+                    <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAccount()"></i></div>
+                </span>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+         Customer
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="customerList" [items]="customerList" [(ngModel)]="siteres.customer"
+              bindLabel="customerName" bindValue="customerName" placeholder="Search Customers...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.customerName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.customerName}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" *ngIf="rights('CustomerDeatils','create')" class="border-left-0"
+                  (click)="createCustomerModelshow()"></i></div>
+            </span>
+          </div>
+        </div>
+        <!-- <input type="text" name="type" [(ngModel)]="siteres.customer" class="form-control" > -->
+      </div>
+      <!-- <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Owner
+        </div>
+        <input type="text" *ngIf="_isEditMode == false" rows="3" class="form-control"
+          value="{{loginData.firstName}} {{loginData.lastName}}" disabled>
+
+        <input type="text" *ngIf="_isEditMode == true" rows="3" class="form-control"
+          value="{{siteres.createByFirstName}} {{siteres.createByLastName}}" disabled>
+
+      </div> -->
+    </div>
+    <div class="row">
+      
+      <!-- site ID -->
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Site ID
+        </div>
+        <input type="text" *ngIf="_isEditMode == false" class="form-control" [(ngModel)]="siteres.siteManualId">
+        <input type="text" *ngIf="_isEditMode == true" class="form-control" [(ngModel)]="siteres.siteManualId">
+        <input type="hidden" *ngIf="_isEditMode == true" class="form-control" [(ngModel)]="siteres.siteId" readonly>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Exchange/Site Name
+        </div>
+        <input type="text" rows="3" class="form-control" [(ngModel)]="siteres.siteName">
+
+      </div>
+    </div>
+   
+    <div class="row">
+      <!-- add service center -->
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Service Center
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-sm-10">
+                <ng-select *ngIf="serviceCenterList" [items]="serviceCenterList"(change)="getServiceResForList($event)"
+                    [(ngModel)]="siteres.serviceCenterId" bindLabel="legalEntityName" bindValue="legalEntityId"
+                    placeholder="Search Service Center...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <span class="input-group-append" *ngIf="rights('LegalEntity','create')">
+                    <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewServiceCenter()"></i></div>
+                </span>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Service Resource
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+              <ng-select *ngIf="serviceResourcesList" [items]="serviceResourcesList" appendTo="body"
+                  [(ngModel)]="siteres.serviceResourceId" bindLabel="bothvalue"
+                  bindValue="serviceResourceId" placeholder="Search Service Resource..">
+                  <ng-template ng-label-tmp let-item="item">
+                      <img height="15" alt="" width="15" src='/assets/images/service_resource_120.png'
+                          style="background-color: lightskyblue" />{{item.name}}<small>({{item.emailId}})</small>
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <img height="15" alt="" width="15" src='/assets/images/service_resource_120.png'
+                          style="background-color: lightskyblue" /> {{item.name}} <small>({{item.emailId}})</small>
+                  </ng-template>
+              </ng-select>
+          </div>
+      </div>
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Infra ID
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="siteres.infraId">
+      </div>
+      
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Indus ID
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="siteres.indusId">
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading">
+    <span class="text-center">Geographical Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Circle
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-sm-10">
+                <ng-select *ngIf="circlesList" [items]="circlesList" (change)="circleNameSelect($event)"
+                    [(ngModel)]="siteres.circleName" bindLabel="circleName" bindValue="circleName"
+                    placeholder="Search Circle...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                            style="background-color: rgb(147, 75, 241);" /> {{item.circleName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                            style="background-color: rgb(147, 75, 241);" /> {{item.circleName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <span class="input-group-append" *ngIf="rights('CircleDetails','create')">
+                    <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewCircle()"></i></div>
+                </span>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6  form-group required">
+        <div class="control-label">
+          SSA
+        </div>
+          <!-- <input type="text" [(ngModel)]="siteres.zoneName"  class="form-control" placeholder="Zone..." readonly> -->
+          <div class="row">
+              <div class="col-md-10 col-sm-10">
+                  <ng-select  [items]="SSAList"
+                      [(ngModel)]="siteres.ssaId" bindLabel="name" bindValue="id"
+                      placeholder="Search SSA...">
+                      <ng-template ng-label-tmp let-item="item">
+                          <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                              style="background-color: rgb(206, 45, 206);" /> {{item.name}}
+                      </ng-template>
+                      <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                          <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                              style="background-color: rgb(206, 45, 206);" /> {{item.name}}
+                      </ng-template>
+                  </ng-select>
+              </div>
+              <div class="col-md-2 col-sm-2">
+                  <span class="input-group-append">
+                      <div><i [ngClass]="faPlus" *ngIf="rights('SSA','create')" class="border-left-0" (click)="addNewSSACenter()"></i></div>
+                  </span>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Cluster/District
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="siteres.clusterDistrict">
+      </div>
+      <div class="col-md-6 col-sm-6  required">
+        <div class="control-label">
+          Site Address
+        </div>
+        <textarea rows="3" class="form-control" [(ngModel)]="siteres.siteAddress"></textarea>
+      </div>
+    </div>
+ <div class="row">
+       <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Site Description
+        </div>
+        <textarea rows="3" class="form-control" [(ngModel)]="siteres.siteDescription"></textarea>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+          <button type="button" class="btn btn-default" (click)="cancelData()"><i class="fa fa-remove"></i> Cancel</button>&nbsp;
+          <button type="button" (click)="siteSave()" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>  
+      </div>
+  </div>
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Site ( <a href="#" routerLink="/sites/{{siteIdTamp}}" activateRout="active">{{siteManualIdTamp}}</a>)
+      &nbsp;created successfully !</strong>
+      <!-- <strong *ngIf="message=='Updated Successfully'">Site &nbsp;Udated successfully !</strong> -->
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+  </div>
+
+  <div class="modal fade" bsModal #createCustomerModel="bs-modal" (onShow)="isCustomerModelShow=true"
+  (onHide)="isCustomerModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-customer">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> New Customer</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createCustomerModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-customer *ngIf="isCustomerModelShow" [isEditMode]="isEditMode" [editAccountData]="parentcustomer"
+          (onAccountCreated)="onParentCustomerCreated($event)" (onCancle)="createCustomerModelhide()"></app-create-customer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========create Accout model=========== -->
+<div class="modal fade" bsModal #createAcountModel="bs-modal" (onShow)="modelmeta.accountModelOpen=true" (onHide)="modelmeta.accountModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-createaccount *ngIf="modelmeta.accountModelOpen" [isEditMode]="isEditMode" [editAccountData]="createAccount"
+          (onAccountCreated)="onAccountCreated($event)" (onCancle)="cancelAccontData()"></app-createaccount>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- =========add service center========== -->
+<div class="modal fade" bsModal #createServiceCenterModel="bs-modal" (onShow)="modelmeta.legalEntityModelOpen=true" (onHide)="modelmeta.legalEntityModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> {{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createServiceCenterModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-createlegalentity *ngIf="modelmeta.legalEntityModelOpen" [isEditMode]="isEditMode" [editEntityData]="req"
+          (onEntityCreated)="onEntityCreated($event)" (onCancle)="cancelLegalentityData()"></app-createlegalentity>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============add circle ========= -->
+<div class="modal fade" bsModal #createCircleModel="bs-modal" (onShow)="modelmeta.circleModelOpen=true" (onHide)="modelmeta.circleModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-new-circle">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createCircleModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-circle *ngIf="modelmeta.circleModelOpen" [isEditMode]="isEditMode" [editCircleData]="newcircles"
+          (onCircleCreated)="onCircleCreated($event)" (onCancle)="cancelCircleData()"></app-create-new-circle>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #createSSAModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="cancelSSAData()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="max-height: 500px;overflow: auto;">
+      <!-- new ssa create model form-->
+      <app-create-ssa [isEditMode]="isEditMode" [editSSAEntityData]="ssares" [circles]="circleName" (onSSACreated)="onSSACreated($event)"
+        (onSSACancle)="cancelSSAData()"></app-create-ssa>
+
+    </div>
+  </div>
+</div>
+</div>

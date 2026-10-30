@@ -1,0 +1,135 @@
+.menue{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.menue>li{
+    float: left;
+}
+.menue> li> a {
+    display: block;
+    text-align: center;
+    padding: 5px 8px;
+    text-decoration: none;
+    font-size: 15px;
+    color: rgba(0,0,0,0.8);
+    cursor: pointer;
+  }
+.menue>li a:hover:not(.active) {
+    background-color: rgb(178, 200, 178);
+    border-bottom-style: solid;
+    border-bottom-color: green;
+}
+.active{
+    font-weight: bold;
+    text-decoration-style: solid;
+    text-decoration: underline;
+    border-bottom-style: solid;
+    border-bottom-color: blue;
+}
+.edit-inactive{
+    cursor: pointer;
+    color: rgba(0,0,0,0.5);
+}
+.edit-active{
+    color: rgba(0,0,0,0.8);
+}
+.edit-inactive:hover{
+    cursor: pointer;
+    color: rgba(0,0,0,0.8);
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+
+.upload-btn-wrapper {
+    position: relative;
+   
+    display: inline-block;
+  }
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+
+.fancy {
+  line-height: 0.5;
+  /* text-align: center; */
+}
+.fancy span {
+  display: inline-block;
+  position: relative;  
+}
+.fancy span:before,
+.fancy span:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  border-bottom: 1px solid rgb(71, 69, 69);
+ 
+  top: 0;
+  width:30px;
+}
+.fancy span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+.fancy span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+tr.fixedHieght td{
+  height: 70px;
+}#problem{
+  color:blue;
+  cursor: pointer;
+}
+#prbtn {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #4CAF50;
+  color: black;
+}
+
+.next {
+  background-color: #4CAF50;
+  /* color: white; */
+}
+
+.round {
+  border-radius: 50%;
+}
+.open ul.dropdown-menu {
+  display: block;
+}

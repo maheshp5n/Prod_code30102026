@@ -1,0 +1,457 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card ">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table>
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <img alt="Battery FSR CBMS & Li-lon Battery" src="assets/images/Sites.png"
+              alt="Battery FSR CBMS & Li-lon Battery" title="Battery FSR CBMS & Li-lon Battery"
+                style="height: auto;width:100%;background-color: rgb(230, 99, 95);" title="Battery FSR CBMS & Li-lon Battery">
+            </td>
+            <td style="padding-left: 5px;">
+              <span>Battery FSR CBMS & Li-lon Battery</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;"> {{BTRresponse.manualId}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4 text-right">
+        <button  *ngIf="rights('BatteryFSR','edit') && _cFlag!='f'" type="button" (click)="createEditModelshow(BTRresponse)"class="btn btn-outline-info btn-sm">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" >
+  <div class="card-body">
+        <ul class="menue">
+          <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 14px;">
+
+        <div *ngIf="vDetails">
+          <button type="button" (click)="changeInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> Information </button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6 ">
+              <table class="table table-sm ">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%" ><small>FSR CBMS & Li-lon Battery</small></td>
+          
+                    <td class="wrappable" > {{BTRresponse.manualId}} </td>
+                  </tr>
+                  <tr >
+                    <td style="width:50%"><small>Case</small> </td>
+                    <td class="wrappable" ><a href="#" routerLink="/cases/{{BTRresponse.caseId}}">{{BTRresponse.caseManualId}}</a></td>
+                  </tr>
+                  <tr>
+                    <td ><small>Technician Name</small></td>
+                    <td class="wrappable" >{{BTRresponse.technicianFirstName}} &nbsp;{{BTRresponse.technicianMiddleName}}&nbsp;{{BTRresponse.technicianLastName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" ><small>Fault Reported By Customer</small> </td>
+                    <td class="wrappable" >{{BTRresponse.faultReportedByCustomer}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Service Appointment</small></td>
+                    <td class="wrappable"> <a href="#" routerLink="/serviceappointment/{{BTRresponse.serviceAppointmentId}}">{{BTRresponse.serviceAppointmentManualId}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Date Of Visit</small></td>
+                    <td class="wrappable">{{BTRresponse.dateOfVisit | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Technician Contact Number</small>
+                    </td>
+                    <td class="wrappable"> {{BTRresponse.technicianContact}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"> <small>Fault Observed By Exicom Engineer</small> </td>
+                    <td class="wrappable">{{BTRresponse.faultObservedByEngineer}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeSystemDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="systemDisplay.angleIcon"></i> Site Observation </button>
+          <div *ngIf="systemDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Site Type</small> </td>
+                    <td class="wrappable"> {{BTRresponse.siteTypeName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"> <small>Avg. EB Availability in a Day (Hrs.)</small></td>
+                    <td class="wrappable">{{BTRresponse.ebavailability}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"> <small>DG Rating</small></td>
+                    <td class="wrappable">{{BTRresponse.dgrating}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Total Equipment DC Load (Amp.) </small> </td>
+                    <td class="wrappable">{{BTRresponse.dcload}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Ambient Temperature Deg C </small></td>
+                    <td class="wrappable">{{BTRresponse.ambientTemp}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Battery Voltage before repair</small></td>
+                    <td class="wrappable">{{BTRresponse.batteryVoltageBeforRepair}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Corrective Actions</small> </td>
+                    <td class="wrappable">{{BTRresponse.correctiveAction}}</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Site Environment Conditions</small></td>
+                    <td class="wrappable">{{BTRresponse.siteEnvCond}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"> <small>Avg. DG Run Hrs Per Day </small></td>
+                    <td class="wrappable">{{BTRresponse.dgrun}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"> <small>Earthing Status (Ground to Neutral) </small>
+                    </td>
+                    <td>{{BTRresponse.earthingStatus}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Power Plant Make & Capacity </small> </td>
+                    <td class="wrappable">{{BTRresponse.powerPlantMakeAndCapacity}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"> <small>Software Version Cbms </small> </td>
+                    <td>{{BTRresponse.softVersionCBMS}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"> <small>Battery Voltage After Repair</small>
+                    </td>
+                    <td>{{BTRresponse.batteryVoltageAfterRepair}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Spare Parts Replaced</small></td>
+                    <td class="wrappable">{{BTRresponse.sparePartReplaced}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeAddressDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="addressDisplay.angleIcon"></i> Root Cause Of The Problem(Engineer's Remarks) </button>
+          <div *ngIf="addressDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Exicom Engineer Remarks</small> </td>
+                    <td class="wrappable">{{BTRresponse.remark}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Problem Related To Exicom/Customer</small> </td>
+                    <td class="wrappable">{{BTRresponse.problemCustomerOrExicom}}</td>
+                  </tr>
+                  <tr>
+                    <td><small>Complain Status</small></td>
+                    <td class="wrappable">{{BTRresponse.complaintStatusName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Pending On Whom End </small></td>
+                    <td class="wrappable">{{BTRresponse.pendingResponsibilityName}}</td>
+                  </tr>
+                  <tr>
+                    <td><small>Customer/Site Related Problem</small> </td>
+                    <td class="wrappable">{{BTRresponse.customerOrSiteProblem}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Other Pending Issues</small></td>
+                    <td class="wrappable">{{BTRresponse.otherPendingIssue}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+        <div *ngIf="sysinfoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Created By</small></td>
+                  <td class="wrappable">
+                    <a [routerLink]="['/createuser',BTRresponse.createdByEmailId]">{{BTRresponse.createdByFirstName}}&nbsp;{{BTRresponse.createdByMiddleName}}&nbsp;{{BTRresponse.createdByLastName}}</a>&nbsp;,&nbsp;{{BTRresponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr><td class="wrappable"  style="width: 50%"><small>Last Modified By</small>
+  
+                  </td>
+                  <td class="wrappable"><a
+                    [routerLink]="['/createuser',BTRresponse.modifiedByEmailId]">{{BTRresponse.modifiedByFirstName}}&nbsp;{{BTRresponse.modifiedByMiddleName}}&nbsp;{{BTRresponse.modifiedByLastName}}</a>&nbsp;,&nbsp;{{BTRresponse.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+        </div>
+
+        <div *ngIf="!vDetails" >
+          <div class="card" style="display:none;">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/custom25_120.png" style="width: 24px;height: 24px;background-color: brown">
+                  </td>
+                  <td>
+                    <a href="#" routerLink="/serviceAppointment" style="font-weight: bold;color: black;">
+                      Battery Inventory Consumptions (0) </a>
+                  </td>
+                  <td class="text-right">
+                    <!-- <button type="button" class="btn btn-sm btn-default">
+                      <i class="fa fa-plus"></i> New </button> -->
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div  class="card-body" style="margin-bottom: 0px;">
+
+            </div>
+          </div>
+              <!-- 6 Files -->
+      <div class="card">
+        <div class="card-header">
+          <table style="width: 100%;">
+            <tr>
+              <td style="width: 30px;">
+                <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                  style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                  title="Files"> </td>
+              <td>
+                <b>&nbsp;&nbsp;Files({{fileLists.length}})</b>
+              </td>
+             <td class="text-right">
+                  <!-- <input class="btn btn-sm btn-default" multiple type="file" name="profile" (change)="onFileSelect($event)" /> -->
+                 <!-- ankur sir -->
+                 <input multiple type="file" name="profile" (change)="onFileSelect($event)" id="getFile"
+                  style="display:none" accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"/>
+                <button class="btn btn-sm btn-outline-info" onclick="document.getElementById('getFile').click()"
+                  type='submit'><i class="fa fa-upload"></i>&nbsp;&nbsp;File Upload</button>
+                 <!-- ankur sir -->
+             </td>
+            </tr>
+          </table>
+        </div>
+        <div *ngIf="fileLists.length>0" class="card-body"
+          style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+          <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+            <div class="table-responsive mobile">
+              <table class="table table-sm">
+                <thead style="background-color:rgb(248, 245, 245)">
+                  <tr>
+                    <th>S No.</th>
+                    <th class="text-left" title="Service Appointment Number">File Name
+                    </th>
+                    <th class="text-left" title="File Size">File Size
+                    </th>
+                    <!-- <th class="text-left" title="Content Type">Content Type
+                    </th> -->
+                    <th class="text-left" title="Created Date">Created Date
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ser of fileLists;let i=index">
+                    <td data-line="S.No."class="mhide" style="width:50px;">{{i+1}}.</td>
+                    <td  data-line="FileName" class="wrappable"><a [routerLink]="" (click)="opneImage(ser)"
+                        activateRout="active">{{ser.fileName}}</a></td>
+                    <td data-line="Case Type">{{(ser.fileSize/1024/1024) | number:'1.0-3'}}MB</td>
+                    <!-- <td data-line="Content Type">{{ser.fileContentType}}</td> -->
+                    <td data-line="Created date">{{ser.createdDate| date:'dd-MM-yyyy HH:mm:ss'}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createBFSRModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelBFSRModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-createbattery-fsrcbmslilonbattery [isEditMode]="isEditMode" [editAccountData]="BFSRres"
+        (onBFSRCreated)="onBFSRCreated($event)" (onCancle)="cancelBFSRModelhide()">
+      </app-createbattery-fsrcbmslilonbattery>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- choosen files box -->
+<div class="modal fade" bsModal #choosenFiles="bs-modal" [config]="{backdrop: 'static'}"
+  tabindex="-1" role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">Files</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+          (click)="cancelChoosen()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+          <div class="row" *ngFor="let s of fileList;let i=index">
+              <div class="col-6">
+                {{s.name}}
+              </div>
+              <div class="col-6">
+                <a style="font-weight: bolder; text-align: center;color: red;" (click)=" remove(s.name)"><i
+                    class="fa fa-times"></i></a>
+              </div>
+            </div>
+      <div class="modal-footer text-right">
+          <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+              <div>
+                  <button type="button" class="btn btn-default" (click)="cancelChoosen()"><i class="fa fa-remove"></i>
+                    Cancel</button>&nbsp;
+                 <button type="submit" class="btn btn-primary">Upload</button>
+              </div>
+            </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Show image files box -->
+<div class="modal fade" bsModal #choosenFilesShow="bs-modal" [config]="{backdrop: 'static'}"
+  tabindex="-1" role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{fileName}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="choosenFilesShow.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+    <img [src]="imageToShow" alt="" style="width:100%;height: auto;" type="application/pdf">
+    <pdf-viewer [src]="imageToShow" [render-text]="true" style="
+    height: auto;width: 100%;"></pdf-viewer>
+  
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-right">
+          <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+              <div>
+                  <button type="button" class="btn btn-default" (click)="choosenFilesShow.hide()"><i class="fa fa-remove"></i>
+                    Cancel</button>&nbsp;
+                 <button type="submit" class="btn btn-primary" (click)="downloadFile(fileName)">Download</button>
+              </div>
+            </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #createBatteryInventoryConsumption="bs-modal" [config]="{backdrop: 'static'}"
+  tabindex="-1" role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">New Battery Inventory Consumption</h4>
+        <button type="button" class="close pull-right" aria-label="Close"
+          (click)="createBatteryInventoryConsumption.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-batteryinventory-consumption [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+          (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()">
+        </app-create-batteryinventory-consumption>
+        <!--  <app-create-batteryinventory-consumption [isEditMode]="isEditMode" [editServiceData]="assetResponse"
+                    (onServiceCreated)="onServiceCreated($event)" (onCancle)="cancelData()"></app-create-batteryinventory-consumption>
+           -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <strong *ngIf="message=='Submitted Successfully'">Case ( <a href="#" routerLink="/cases/{{tampCaseId}}"
+        activateRout="active">{{tempCaseName}}</a>) &nbsp;created successfully !</strong> -->
+
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

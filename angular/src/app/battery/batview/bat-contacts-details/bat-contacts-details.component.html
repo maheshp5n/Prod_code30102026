@@ -1,0 +1,586 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="Contacts" src="assets/images/contact_120.png"
+                  style="height: auto;width:100%;background-color: rgb(91, 235, 191);border-radius: 1mm;"
+                  title="Contacts" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Contact</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{contact.contactFirstName}}
+                  {{contact.contactMiddleName}}
+                  {{contact.contactLastName}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('ContactDetails','edit')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="onClickEdit(contact, contact.contactid)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-3">
+          <small>Account name</small>
+          <div>
+            <a href="#" routerLink="/bat_account/{{contact.accountSAPNumber}}">
+              {{contact.accountName}}
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <small>Mobile</small>
+          <div>
+            {{contact.contactMobileNumber}}
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <small>Email</small>
+  
+          <div>
+            <a>{{contact.contactEmailId}}</a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <small>Owner</small>
+          <div>
+            <a [routerLink]="['/bat_user',contact.contactOwnerEmailId]" [routerLinkActive]="'active'">
+              {{contact.contactOwnerFirstName}} {{contact.contactOwnerMiddleName}} {{contact.contactOwnerLastName}}
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card" style="margin-top: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 15px;">
+          <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Contact Information
+            </button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Account Name</small>
+                      </td>
+                      <td><a href="#" routerLink="/bat_account/{{contact.accountSAPNumber}}">
+                          {{contact.accountName}}
+                        </a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Name</small>
+                      </td>
+                      <td>{{contact.contactFirstName}} {{contact.contactMiddleName}} {{contact.contactLastName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Mobile</small>
+                      </td>
+                      <td>{{contact.contactMobileNumber}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Contact Type</small>
+                      </td>
+                      <td>{{contact.contactTypeName}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Email</small>
+                      </td>
+                      <td>{{contact.contactEmailId}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Address</small>
+                      </td>
+                      <td class="wrappable">
+                        {{contact.contactMallingAddress}}
+                        {{contact.contactMallingStreet}}
+                        {{contact.contactMallingCity}}
+                        {{contact.contactMallingStateName}} {{contact.contactMallingCountryName}}
+                        {{contact.contactMallingPincode}}
+                      </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Owner</small>
+                      </td>
+                      <td><a [routerLink]="['/bat_user',contact.contactOwnerEmailId]" [routerLinkActive]="'active'">
+                          {{contact.contactOwnerFirstName}} {{contact.contactOwnerMiddleName}}
+                          {{contact.contactOwnerLastName}}
+                        </a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Employee/Vendor Code</small>
+                      </td>
+                      <td>{{contact.employeeCode}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Phone</small>
+                      </td>
+                      <td>{{contact.contactPhoneNumber}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Designation</small>
+                      </td>
+                      <td>{{contact.contactDesignationName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Grade</small>
+                      </td>
+                      <td>
+                        <a href="#" routerLink="/Bording_lodging_DA/{{contact.gradeName}}">
+                          {{contact.gradeName}}
+                        </a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Legal Entity</small>
+                      </td>
+                      <td><a href="#" routerLink="/bat_legalentity/{{contact.legalEntityId}}">
+                          {{contact.leagalEntityName}}
+                        </a></td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+            <button type="button" (click)="sysInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+            <div *ngIf="sysinfoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                      <td class="wrappable">
+                        <a [routerLink]="['/bat_user',contact.contactCreatedByEmailId]"
+                          [routerLinkActive]="'active'">{{contact.contactCreatedByFirstName}}&nbsp;
+                          {{contact.contactCreatedByMiddleName}}&nbsp;
+                          {{contact.contactCreatedByLastName}}</a>&nbsp;,&nbsp;
+                        {{contact.contactCreatedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                      <td><a [routerLink]="['/bat_user',contact.contactModifyedByEmailId]"
+                        [routerLinkActive]="'active'">{{contact.contactModifyedByFirstName}}&nbsp;
+                        {{contact.contactModifyedByMiddleName}}&nbsp;
+                        {{contact.contactModifyedByLastName}}</a>&nbsp;,&nbsp;
+                      {{contact.contactModifyedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+  
+          <div *ngIf="!vDetails" class="panel-body">
+  
+            <!-- 1 Expense Management-->
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img _ngcontent-c5="" alt="Dashboard" src="assets/images/expense_120.png"
+                        style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                        title="Expenses Management"> </td>
+                    <td>
+                      <b>&nbsp;&nbsp;Expenses Management
+                        ({{totalElementsExpenseManagement}})</b>
+                    </td>
+                    <td class="text-right">
+                      <!-- <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                        <button class="btn btn-outline-info btn-sm" type="button" (click)="showExpenseManagement()"
+                          *ngIf="rights('ExpenseManagement','create')">New</button>
+                      </div> -->
+                      <td *ngIf="totalElementsExpenseManagement>5" class="text-right">
+                        <a [routerLink]="['/details_of_all_view',contactid,'cmponent','expanseByContact']" [queryParams]="{cmponent:expanseColumn,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> 
+                        
+                      </td>
+                  
+                  </tr>
+                </table>
+              </div>
+  
+              <div class="card-body" style="padding: 0px;">
+                <div class="table-responsive">
+                  <table class="mobile table table-sm table-condensed tablerview">
+                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S.No</th>
+                        <th class="table-header" title="Claim Number">Claim Number
+                        </th>
+                        <th class="table-header" title="Employee Purpose">Employee Purpose
+                        </th>
+                        <th class="table-header" title="Expense Type">Expense Type
+                        </th>
+                        <th class="table-header" title="Cost Center">Cost Center
+                        </th>
+                        <th class="table-header" title="Purpose Of Visit">Purpose Of Visit
+                        </th>
+                        <th class="table-header" title="Status">Status
+                        </th>
+                        <th class="table-header" title="Business Place">Business Place
+                        </th>
+                        <th class="table-header" title="Created Date">Created Date
+                        </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of expenseListByContactId; let i=index">
+                        <td data-line="S. No." class="mhide">{{serialNumberExpenseManagement+i+1}}.</td>
+                        <td data-line="Claim Number"><a href="#"
+                            routerLink="/bat_expense/{{c.expenseManagementId}}">{{c.expenseManagementManualId}}</a>
+                        </td>
+                        <td data-line="Expense Purpose">{{c.expensePurposeName}}</td>
+                        <td data-line="Expense Type" class="mhide">{{c.expenseTypeName}}</td>
+                        <td data-line="Cost Center" class="mhide">{{c.costCenterName}}</td>
+                        <td data-line="Purpose Of Visit">{{c.purposeOfVisit}}</td>
+                        <td data-line="Status">{{c.statusName}}</td>
+                        <td data-line="Business Place" class="mhide">{{c.businessPlaceName}}</td>
+                        <td data-line="Created Date" class="mhide">{{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        <td data-line="Action" class="mhide" style="width: 50;">
+                          <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                            <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                              aria-labelledby="button-disabled-item">
+                              <li *ngIf="rights('ExpenseManagement','edit')" role="menuitem">
+                                <a class="dropdown-item" (click)="onClickEditExpenses(c.expenseManagementId)">Edit
+                                </a>
+                              </li>
+                              <!-- <li *ngIf="rights('ExpenseManagement','delete')" role="menuitem">
+                                <a class="dropdown-item">Delete</a>
+                              </li> -->
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+  
+                <!-- <div style="text-align: center" *ngIf="!(firstExpenseManagement && lastExpenseManagement)">
+                  <a id="pag" class="previous round" href="" [class.disabled]="firstExpenseManagement"
+                    *ngIf="!firstExpenseManagement" (click)="setPagePreviousExpenseManagement($event)">
+                    <!-- [ngClass]="{'active':pageExpenseManagement}" -->
+                    <!-- &#8249;
+                  </a>
+  
+                  <a id="pag" class="nav-link active" href="" (click)="setPageExpenseManagement($event)"
+                    [ngClass]="{'active':i==pageExpenseManagement}">
+                    {{pageExpenseManagement+1}}
+                  </a>
+                  <a id="pag" class="next round" href="" [class.disabled]="lastExpenseManagement"
+                    *ngIf="!lastExpenseManagement" (click)="setPageNextExpenseManagement($event)">
+                    <!--  [ngClass]="{'active':pageExpenseManagement}" -->
+                    <!-- &#8250;
+                  </a></div> --> 
+              </div>
+            </div>
+            <div>
+              <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" bsModal #createContactModel="bs-modal" (onShow)="isContactOpen=true"
+    (onHide)="isContactOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-contact">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createContactModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createcontacts *ngIf="isContactOpen" [isEditMode]="isEditMode" [editContactData]="newcontact"
+            (onContactCreated)="onContactCreated($event)" (onCancle)="cancelData()"></app-bt-createcontacts>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Grade -->
+  <div class="modal fade" bsModal #GradeModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">New Boarding/Lodging & DA</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="GradeModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;padding-left: 2mm">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="text-center">Information</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+  
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                      <div class="control-label">
+                        Owner
+                      </div>
+                      <label style="font-weight: bold">
+                        <a [routerLink]="['/bat_user',contact.contactOwnerEmailId]" [routerLinkActive]="'active'">
+                          {{firstName}} {{lastName}}</a></label>
+                    </div>
+                  </div>
+  
+                </div>
+  
+                <div class="col-md-6 col-sm-6">
+  
+                  <div class="row">
+                    <div class="col-md-12  form-group required">
+                      <div class="control-label">
+                        Name
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingName">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+  
+  
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="text-center">Lodging</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+  
+                  <div class="row">
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Class A City
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingClassACity">
+                    </div>
+  
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Class B City
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingClassBCity">
+                    </div>
+  
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Class C City
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingClassCCity">
+                    </div>
+                  </div>
+  
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+  
+  
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="text-center">Boarding</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+  
+                  <div class="row">
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Boarding Amount City A
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingAmountCityA">
+                    </div>
+  
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Boarding Amount City B
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingAmountCityB">
+                    </div>
+  
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Boarding Amount City C
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.boardingAmountCityC">
+                    </div>
+                  </div>
+  
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+  
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="text-center">Tavelling Charges</span>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+  
+                  <div class="row">
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Two wheeler charge(/Km)
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.twoWheelerChargesParKilo">
+                    </div>
+  
+                    <div class="col-md-12  form-group ">
+                      <div class="control-label">
+                        Four wheeler charge(/Km)
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="postBoardingLoading.fourWheelChargesParkilo">
+                    </div>
+  
+                  </div>
+  
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+  
+  
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <button type=" button" class="btn btn-default" (click)="GradeModel.hide()">
+                Cancel</button>&nbsp;
+              <!-- <button type="button" class="btn btn-default" (click)="postBoarding()">
+                Save & New</button>&nbsp; -->
+              <button type="button" class="btn btn-primary" (click)="postBoarding()"> Save
+              </button>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+      class="alert alert-danger center center-block" style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  </div> -->
+  
+  <div class="modal fade" bsModal #createexpensesmanagementModel="bs-modal" (onShow)="isExpensesmanagementOpen=true"
+    (onHide)="isExpensesmanagementOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{headingExpenseManagement}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataExpense()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createexpenses-management *ngIf="isExpensesmanagementOpen" [isEditMode]="isEditModeExpenseManagement"
+            [editexpensesmanagementData]="newexpensesmanagement"
+            (onexpensesmanagementCreated)="onexpensesmanagementCreated($event)" (onCancle)="cancelDataExpense()">
+          </app-bt-createexpenses-management>
+        </div>
+      </div>
+    </div>
+  </div>

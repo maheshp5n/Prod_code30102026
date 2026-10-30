@@ -1,0 +1,95 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 30px;"><img src="assets/images/custom13_120.png"
+                        style="width: 24px;height: 24px;background-color: #df6184" title="SCH Use Only"> </td>
+                <td style="font-weight: bold;color: black;">SCH Use Only Details ({{btServiceAppointmentResponseSchOnly.content.length}})</td> 
+                <!-- <td class="text-right"><a [routerLink]="['/objectactionhistory']" [queryParams]="{object:actionHistoryObjectAndId.objectName,id:actionHistoryObjectAndId.objectId}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td> --> 
+            </tr>
+        </table>
+    </div>
+    <div *ngIf="btServiceAppointmentResponseSchOnly.content.length>0" class="card-body"
+        style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+        <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+            <div class="table-responsive mobile">
+                <table class="table table-sm">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                            <th>S.No.</th>
+                            <th>  Site Visit Charge</th>
+                            <th>Customer Spare Charges</th>
+                            <th> Corrective Action</th>
+                            <th> Spare Part Name</th>
+                            <th>Spare Part Quantity</th>
+                            <th>Spare Part Replaced</th>
+                            <th>Spare Replace From</th>
+                            <th>Resolution Method Name</th>
+                            <th>Solution Imparted</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let ob of btServiceAppointmentResponseSchOnly.content;let i=index">
+
+                            <td  data-line="S.No" class="mhide">{{i+1}}.</td>
+                            <td data-line="File Name" class="wrappable">{{ob.customerRate}} 
+                            </td>
+                            <td data-line="File Name" class="wrappable">{{ob.customerBillingRate}} 
+                            </td>
+                            <td data-line="File Name" class="wrappable">{{ob.correctiveAction}} 
+                            </td>
+                            <td data-line="File Name" class="wrappable">{{ob.sparePartName}} 
+                            </td>
+                            <td data-line="File Name" class="wrappable">{{ob.sparePartQuantity}} 
+                            </td>
+                            <td data-line="File Name" class="wrappable">{{ob.sparePartReplaced}} 
+                            </td>
+                            <td data-line="File Name" class="wrappable">{{ob.sparePartReplacedFrom}} 
+                             </td> 
+                            <td data-line="File Name" class="wrappable">{{ob.resolutionMethodName}} 
+                            </td>
+                            <td data-line="File Name" class="wrappable">
+                                <!-- <ol style="list-style-type: none; ">
+                                    
+                                    <span *ngFor="let ob1 of ob.btSolutionImpartedSch; let j = index ">
+                                      {{ob1.solutinName + " , "}} 
+                                    </span>
+                                </ol> -->
+                                <li *ngFor="let ob1 of ob.problem" style="list-style-type: none;">
+                                    
+                                    <span >
+                                     {{ob1.solutinName }} 
+                                    </span>
+                                </li>
+
+
+                            </td>
+                          
+                        </tr>
+
+
+                        <!-- <tr *ngFor="let history of actionHistoryResponse; let i=index">
+                            <td data-line="S.No" class="mhide" style="text-align: center;">{{i+1}}.</td>
+                            <td data-line="Label">{{history.fieldLabelName}}</td>
+                            <td data-line="Old Value">{{history.old_value}}</td>
+                            <td data-line="New Value">{{history.value}}</td>
+                            <td data-line="Modified By">
+                                <a [routerLink]="['/bat_user',history.logged_by_email_id]">
+                                    {{history.first_name}}&nbsp;
+                                    {{history.middle_name}}&nbsp;
+                                    {{history.last_name }}</a>
+                            </td>
+                            <td data-line="Modified Date" style="text-align: center;">{{history.created_date | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

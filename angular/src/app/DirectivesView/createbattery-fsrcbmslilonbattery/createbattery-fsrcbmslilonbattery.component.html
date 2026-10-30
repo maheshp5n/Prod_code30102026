@@ -1,0 +1,316 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    FSR CBMS & Li-lon Battery Name
+                </div>
+                <input type="text" class="form-control" value="{{BFSRres.manualId}}" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Service Appointment
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.serviceAppointmentManualId" readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Case
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.caseManualId" readonly>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required ">
+                <div class="control-label">
+                    Date Of Visit
+                </div>
+                <input [(ngModel)]="BFSRres.dateOfVisit" class="form-control " bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today"
+                    [dateCustomClasses]="dateCustomClasses" autocomplete="off">&nbsp;
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+        <div class="row" style="display: none;">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Technician Name
+                </div>
+                <input type="text" class="form-control"
+                    value="{{BFSRres.technicianFirstName}} {{BFSRres.technicianMiddleName}} {{BFSRres.technicianLastName}}"
+                    readonly>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Technician Contact Number
+                </div>
+                <input type="text" *ngIf="_isEditMode == false" class="form-control"
+                    [(ngModel)]="BFSRres.technicianContact">
+                <input type="text" *ngIf="_isEditMode == true" class="form-control"
+                    [(ngModel)]="BFSRres.technicianContact" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group ">
+                <div class="control-label" style="font-weight: bold">
+                    Fault Reported By Customer
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group ">
+                        <ol>
+                            <li *ngFor="let problems of problemReportedDetails">
+                                {{problems.problemName}}
+                            </li>
+                        </ol>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold">Case Attended By</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Vendor's Engineer Name
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.vendorEngName">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Vendor's Engineer Contact
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.vendorEngContact">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Fault Reported By Customer
+                </div>
+                <textarea type="text" class="form-control" rows="2"
+                    [(ngModel)]="BFSRres.faultReportedByCustomer"></textarea>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Fault Observed By Exicom Engineer
+                </div>
+                <textarea type="text" class="form-control" rows="2"
+                    [(ngModel)]="BFSRres.faultObservedByEngineer"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Site Observation </span>
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Site Type
+                </div>
+                <select name="type" [(ngModel)]="BFSRres.siteTypeId" class="form-control">
+                    <option value='0' disabled>--None--</option>
+                    <option *ngFor="let res of siteTypeList " [ngValue]="res.id">{{res.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Site Environment Conditions
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.siteEnvCond">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Avg. EB Availability In A Day (Hrs.)
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.ebavailability">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Avg. DG Run Hrs Per Day
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.dgrun">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    DG Rating
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.dgrating">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Earthing Status (Ground to Neutral)
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.earthingStatus">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Total Equipment DC Load (Amp.)
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.dcload">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Power Plant Make & Capacity
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.powerPlantMakeAndCapacity">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Ambient Temperature Deg C
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.ambientTemp">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Software Version Cbms
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.softVersionCBMS">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Battery Voltage Before Repair
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.batteryVoltageBeforRepair">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Battery Voltage After Repair
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.batteryVoltageAfterRepair">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Corrective Actions
+                </div>
+                <textarea type="text" class="form-control" rows="2" [(ngModel)]="BFSRres.correctiveAction"></textarea>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Spare Parts Replaced
+                </div>
+                <select class="form-control " [(ngModel)]="BFSRres.sparePartReplaced">
+                    <option value='' disabled>--None--</option>
+                    <option value="yes">yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Root Cause of the problem(Engineer's Remark)</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Exicom Engineer Remarks
+                </div>
+                <textarea type="text" class="form-control" rows="2" [(ngModel)]="BFSRres.remark"></textarea>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Pending on Whom End
+                </div>
+                <select name="type" [(ngModel)]="BFSRres.pendingResponsibilityId" class="form-control">
+                    <option value='' disabled>--None--</option>
+                    <option *ngFor="let resp of pendingres " [ngValue]="resp.pendingResponsibilityId">
+                        {{resp.pendingResponsibilityName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Problem Related to Exicom/Customer
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="BFSRres.problemCustomerOrExicom">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Customer/ Site Related Problem
+                </div>
+                <select class="form-control " [(ngModel)]="BFSRres.customerOrSiteProblem">
+                    <option value='0' disabled>--None--</option>
+                    <option value="yes"> Yes</option>
+                    <option value="No"> No</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Complain Status
+                </div>
+                <select name="type" [(ngModel)]="BFSRres.complaintStatusId" class="form-control">
+                    <option value='0' disabled>--Select--</option>
+                    <option *ngFor="let res of complainStatusList " [ngValue]="res.id">
+                        {{res.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Other Pending Issues
+                </div>
+                <textarea type="text" class="form-control" rows="2" [(ngModel)]="BFSRres.otherPendingIssue"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreateBFRS()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">Battery FSR CBMS & Li-Lon Battery ( <a href="#"
+                routerLink="/batteryFSRCBMS/{{tempId}}" activateRout="active">{{tempManualId}}</a>)
+            &nbsp;{{message}}!</strong>
+        <strong *ngIf="message=='Updated Successfully'">&nbsp;{{message}} !</strong>
+        
+    </div>
+</div>

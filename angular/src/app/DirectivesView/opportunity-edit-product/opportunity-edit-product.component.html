@@ -1,0 +1,111 @@
+<!-- editAllProducts -->
+<div class="panel panel-default" *ngIf="_isEditAll">
+    <div class="panel-body" style="max-height: 75vh;overflow: auto;">
+        <div class="table table-responsive">
+            <table class="table table-sm table-condensed tablerview">
+                <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                        <th>S. No</th>
+                        <th>Part Code</th>
+                        <th>List Price</th>
+                        <th>Sales Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let o of oppertunityLineItemRequestArray;let i = index">
+                        <td>{{i+1}}.</td>
+                        <td>{{o.partCode}}</td>
+                        <td>{{o.listPrice}}</td>
+                        <td><input type='text' [(ngModel)]="o.price" (keypress)="onlyNumbersForRs($event)" />
+                        </td>
+                        <td><input type='text' [(ngModel)]="o.quantity" (keypress)="onlyNumbers($event)"   />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" (click)="canceleditAllData()" class="btn btn-default"> <i
+                    class="fa fa-remove"></i>Cancel</button>&nbsp;
+            <button type="button" (click)="editAll()" class="btn btn-primary"><i class="fa fa-save"></i>
+                Edit Products
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="_isEditAll==false">
+    <div class="panel-heading">
+        <strong>Product Information</strong>
+    </div>
+    <div class="panel-body" style="max-height: 75vh;overflow: auto;">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">Opportunity</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.oppertunityNumber"
+                    disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">List Price</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.listPrice" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div style="font: bolder;">Part Code</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.partCode" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div style="font: bolder;">Sales Price</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.price" (keypress)="onlyNumbersForRs($event)">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">Product Description</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.pdoductDescription"
+                    disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">Quantity</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.quantity" (keypress)="onlyNumbers($event)">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">Total Price</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.totalPrice" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <!-- <div class="control-label">Unique</div>
+                <input type="text" class="form-control" [(ngModel)]="oppertunityLineItemRequest.unique"> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 text-right">
+            <button type="button" class="btn btn-sm btn-default" (click)="cancelDataEditProduct()"><i
+                    class="fa fa-remove"></i>&nbsp;
+                Cancel</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-primary" (click)="editOpportunityLineItem()"><i
+                    class="fa fa-save"></i>&nbsp;
+                Save</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

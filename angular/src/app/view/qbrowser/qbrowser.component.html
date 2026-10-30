@@ -1,0 +1,92 @@
+<tabset>
+    <tab heading="Query Browser">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-body" style="max-height: 92vh;">
+
+                    <input type="text" [(ngModel)]="tblsearch" class="form-control" placeholder="Search Table">
+
+                    <div class="table-responsive">
+                        <table style="width: 100%;">
+                            <tr *ngFor="let tbl of tblList|globalSearchPipe:tblsearch">
+                                <td style="cursor: pointer;vertical-align: top;text-align: left;width: 25px;">
+                                    <em class="fa fa-plus" *ngIf="!tbl.exp" (click)="describeTable(tbl.tblname)"></em>
+                                    <em class="fa fa-minus" *ngIf="tbl.exp"
+                                        (click)="hidetableDetails(tbl.tblname)"></em>
+                                </td>
+                                <td style="text-align: left;">
+                                    <span (click)="getTableData(tbl.tblname)"
+                                        style="cursor: pointer;">{{tbl.tblname}}</span>
+                                    <table *ngIf="tbl.exp" style="width: 100%;">
+                                        <tr *ngFor="let t of tbl.clm">
+                                            <td style="width: 25px;"> </td>
+                                            <td [ngClass]="t.Key">
+                                                {{t.Field}},&nbsp; {{t.Type}},&nbsp;{{t.Null=='NO'?'Not Null':'Null'}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <textarea rows="6" cols="6" [(ngModel)]="qry" style="width: 100%;">
+
+                </textarea>
+                <button type="button" (click)="getQueryResult()" class="btn btn-outline-primary"><em
+                        class="fa fa-play"></em>
+                    Execute
+                </button>
+                <hr>
+                <div style="max-height: 70vh;">
+                    <tabset>
+                        <tab heading="Result">
+                            <div class="text-right"
+                                style="padding-bottom: 2px;border-bottom: solid;border-bottom-width: 1px;">
+                                <input type="checkbox" [(ngModel)]="lm.limit" [checked]="lm.limit"> Limit
+                                <input type="number" [(ngModel)]="lm.limitValue" placeholder="Limit Value" title="Please a limit here">&nbsp;
+                                <button type="button" class="btn btn-sm btn-info" (click)="refreshQuery()"><em
+                                        class="fa fa-refresh"></em> </button>&nbsp;
+                                <button type="button" class="btn btn-sm btn-primary" (click)="exportToExcel()">Export To
+                                    Excel</button>
+                            </div>
+
+                            <div style="height: 60vh;overflow: auto;">
+                                <p style="color: red;">{{error}}</p>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered" #reportTable>
+                                        <thead>
+                                            <tr>
+                                                <th *ngFor="let t of queryheaders" style="text-align: left;">
+                                                    {{t}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let t of queryresult;let i=index;">
+                                                <td *ngFor="let f of queryheaders;let j=index;"
+                                                    style="text-align: left;">
+                                                    {{t[f]}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+
+        </div>
+    </tab>
+    <tab heading="Report Wizard">
+        <app-reportwizard></app-reportwizard>
+    </tab>
+    <tab heading="Summary Page Filter Setup">
+        <app-pagefiltersetup></app-pagefiltersetup>
+    </tab>
+</tabset>

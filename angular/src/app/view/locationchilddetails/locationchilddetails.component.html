@@ -1,0 +1,143 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Location" src="assets/images/location_120.png"
+                                style="height: auto;width:100%;;background-color: rgb(20, 155, 53);" title="Location" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Child Warehouse details</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span *ngIf="location"
+                                style="font-size:15px;font-weight: bold;">{{location.locationName}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div> <br>
+
+        <div class="row">
+            <div class="col-md-3">
+             <input type="text" class="form-control" placeholder="Warehouse Name" [(ngModel)]="LocaChildadvancesearch.locationName">
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" [(ngModel)]="LocaChildadvancesearch.locationTypeName" >
+                <option value="">Select Warehouse Type</option>
+                <option *ngFor="let typ of locationtypeList" [ngValue]="typ.locationTypeName">{{typ.locationTypeName}}</option>
+              </select>
+            </div>
+             <div class="col-md-3">
+              <input type="text" class="form-control"placeholder="Legal Entity Name"  [(ngModel)]="LocaChildadvancesearch.legalEntityName">
+             </div>
+             <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="Owner" [(ngModel)]="LocaChildadvancesearch.owner">
+             </div>
+
+          </div> <br>
+          <div class="row">
+            <div class="col-md-3">
+              <input type="text" class="form-control" placeholder="Plant Code" [(ngModel)]="LocaChildadvancesearch.plantcode">
+             </div>
+             <div class="col-md-3">
+              <!-- <input type="text" class="form-control" placeholder="Mobile Warehouse" [(ngModel)]="LocaChildadvancesearch.mobileWarehoue"> -->
+              <div class="control-label">
+                Mobile Warehouse
+                </div>
+              <input  type="checkbox"  class="largerCheckbox"  [(ngModel)]="LocaChildadvancesearch.mobileWarehoue">
+            </div>
+             <div class="col-md-3">
+              <!-- <input type="text" class="form-control"placeholder="Inventory Warehouse"  [(ngModel)]="LocaChildadvancesearch.inventoryWarehouse"> -->
+              <div class="control-label">
+                Inventory Warehouse
+                </div>
+              <input  type="checkbox"  class="largerCheckbox"  [(ngModel)]="LocaChildadvancesearch.inventoryWarehouse">
+
+            </div>
+             <div class="col-md-3">
+              <button type="button" class="btn btn-outline-info btn-md" (click)="searchChildLoc()"><em
+                class="fa fa-search"></em>
+              Search</button>
+              <button type="button" class="btn btn-outline-info btn-md" (click)="locChildresetsearch()">
+              Reset</button>
+             </div>
+          </div>
+            </div>
+</div>
+
+<div class="card">
+    <div class="card-body m-0 p-0">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th *ngFor="let t of tableHeader;let i=index;" (click)="sortOrder(i)">
+                        {{t.name}} <span *ngIf="i==queryparam.clm"><em *ngIf="queryparam.sort=='desc'"
+                                class="fa fa-angle-down"></em><em *ngIf="queryparam.sort=='asc'"
+                                class="fa fa-angle-up"></em> </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="childLocations">
+                <tr *ngFor="let item of childLocations.content;let i=index;">
+                    <td>
+                        {{(queryparam.size*queryparam.page)+(i+1)}}
+                    </td>
+                    <td>
+                        <a [routerLink]="['/location',item.locationId]" [routerLinkActive]="['active']" *ngIf="!btpath">
+                            {{item.locationName}}</a>
+
+                            <a [routerLink]="['/bat_warehouse',item.locationId]" [routerLinkActive]="['active']" *ngIf="btpath">
+                                {{item.locationName}}</a>
+                    </td>
+                    <td>
+                        {{item.locationTypeName}}
+                    </td>
+                    <td>
+                        <input type="checkbox" [checked]="item.mobileLocation" disabled>
+                    </td>
+                    <td>
+                        <input type="checkbox" [checked]="item.inventoryLocation" disabled>
+                    </td>
+                    <td>
+                        {{item.ownerFirstName}} {{item.ownerMiddleName}} {{item.ownerLastName}}
+                    </td>
+                    <td>
+                        <a [routerLink]="['/legalentity',item.legalEntityId]"
+                            [routerLinkActive]="['active']"   *ngIf="!btpath">{{item.legalEntityName}}</a>
+
+                            <a [routerLink]="['/bat_legalentity',item.legalEntityId]"
+                            [routerLinkActive]="['active']"    *ngIf="btpath">{{item.legalEntityName}}</a>
+                    </td>
+                    <td>
+                        {{item.plant}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center" *ngIf="childLocations">
+            <a class="btn btn-sm btn-success" [routerLink]="['/location',locationId,'childlocations']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page-1,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;" *ngIf="!childLocations.first"> <em class="fa fa-angle-left"></em> </a>
+            <a class="btn btn-sm btn-success" [routerLink]="['/location',locationId,'childlocations']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;"> {{queryparam.page+1}} </a>
+            <a class="btn btn-sm btn-success" [routerLink]="['/location',locationId,'childlocations']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page+1,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;" *ngIf="!childLocations.last"> <em class="fa fa-angle-right"></em> </a>
+            <br>
+        </div>
+    </div>
+</div>

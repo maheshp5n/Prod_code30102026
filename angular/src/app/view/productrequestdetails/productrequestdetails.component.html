@@ -1,0 +1,698 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:30px">
+                            <img alt="" src="/assets/images/product_request_120.png"
+                                style="width: 100%;height: auto;background-color: #88C651">
+                        </td>
+                        <td style="padding-left: 5px;">Product Request</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size: 15px;font-weight: bold;">
+                                {{locationProductRequestResponse.prManualId}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+           
+            <div class="col-md-8 text-right">
+                <div *ngIf="_cFlag!='f' " >
+                    <div class="btn-group" >
+                        <button
+                        *ngIf="(locationProductRequestResponse.destinationLocationId==logedInUser.locationId||locationProductRequestResponse.sourceLocationId==logedInUser.locationId) && (locationProductRequestResponse.status!='Short Closed')"
+                        type="button" (click)="additemModel()" class="btn btn-sm btn-outline-info">Add
+                        Item</button>&nbsp;
+                    <a *ngIf="locationProductRequestResponse.status!='Short Closed'&& locationProductRequestResponse.status!='Draft'&&locationProductRequestResponse.status!='Submitted BY SCH' &&locationProductRequestResponse.totalQuantityRequired!=locationProductRequestResponse.totalQuantityIssued&&locationProductRequestResponse.sourceLocationId==logedInUser.locationId"
+                        [routerLink]="['/productrequest',locationProductRequestResponse.prId,'newpt']"
+                        [queryParams]="locationProductRequestResponse" class="btn btn-sm btn-outline-info">Transfer
+                        Item</a>&nbsp;
+                   
+                    <!--
+                    <button
+                        *ngIf="locationProductRequestResponse.status!='Draft'&&locationProductRequestResponse.totalQuantityRequired!=locationProductRequestResponse.totalQuantityIssued"
+                        type="button" (click)="transferItem.show()" class="btn btn-sm btn-outline-info">Transfer
+                        Item</button>&nbsp;
+                    <button
+                        *ngIf="locationProductRequestResponse.status!='Draft'&&locationProductRequestResponse.totalQuantityIssued>locationProductRequestResponse.totalQuantityReceived"
+                        type="button" (click)="receiveItem.show()" class="btn btn-sm btn-outline-info">Receive
+                        Item</button>-->
+                    <button
+                        *ngIf="locationProductRequestResponse.status=='Draft'&&locationProductRequestResponse.destinationLocationId==logedInUser.locationId"
+                        type="button" (click)="submitProductRequest()"
+                        class="btn btn-sm btn-outline-info">Submit</button>
+                    <button
+                        *ngIf="locationProductRequestResponse.status=='Submitted BY SCH'&&locationProductRequestResponse.sourceLocationId==logedInUser.locationId&& locationProductRequestResponse.sourceLocationName=='NRC-Stock Warehouse'"
+                        type="button" (click)="submitToSap()"
+                        class="btn btn-sm btn-outline-info">Submit To SAP</button>
+                        <button
+                        *ngIf="locationProductRequestResponse.status!='Short Closed'&&logedInUser.locationId==locationProductRequestResponse.sourceLocationId"
+                        type="button" (click)="onshortClose()"
+                        class="btn btn-sm btn btn-primary">Short Close</button>
+                
+                    </div>
+                    <a *ngIf="locationProductRequestResponse.status!='Draft'&&locationProductRequestResponse.totalQuantityIssued>locationProductRequestResponse.totalQuantityReceived&&locationProductRequestResponse.destinationLocationId==logedInUser.locationId"
+                        [routerLink]="['/productrequest',locationProductRequestResponse.prId,'newptr']"
+                        [queryParams]="locationProductRequestResponse" class="btn btn-sm btn-outline-info">Receive
+                        Item</a>&nbsp;
+                    <!-- <app-sapdocdisplay [crmDocNumber]="locationProductRequestResponse.prManualId"></app-sapdocdisplay> -->
+                  </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <small>Status</small>
+                <div>{{locationProductRequestResponse.status}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top:15px;">
+    </div>
+    <div *ngIf="vDetails" class="card-body">
+        <button type="button" (click)="changeButtonDisplay('info')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.info.icon"></i> &nbsp;Information
+        </button>
+        <div *ngIf="displayButtons.info.visibal" class="row">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>Product Request Number</small>
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.prManualId}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Destination Location
+                            </small>
+                        </td>
+                        <td>
+                            <a
+                                [routerLink]="['/location',locationProductRequestResponse.destinationLocationId]">{{locationProductRequestResponse.destinationLocationName}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Total Quantity Required
+                            </small>
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.totalQuantityRequired}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Total Quantity Issued
+                            </small>
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.totalQuantityIssued}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Total Short Closed Qty.
+                            </small>
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.totalSortCloseQty}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Expected Date
+                            </small>
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.needByDateTime |date :'dd-MM-yyyy'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>Owner</small>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/createuser',locationProductRequestResponse.ownerEmailid]"
+                                activateRout="active">{{locationProductRequestResponse.ownerFirstName}}&nbsp;{{locationProductRequestResponse.ownerMiddleName}}&nbsp;{{locationProductRequestResponse.ownerLastName}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Source Warehouse
+                            </small>
+                        </td>
+                        <td>
+                            <div *ngIf="locationProductRequestResponse.status=='Draft'">
+                                <select style="outline: none;border-style: none;border-bottom-style: solid .5px;" *ngIf="locationProductRequestResponse.destinationLocationOwnerEmailId==logedInUser.emailId" [(ngModel)]="locationProductRequestResponse.sourceLocationId">
+                                    <option *ngFor="let l of locationParentAndSiblings" [ngValue]="l.locationId">{{l.locationName}}</option>
+                                </select>
+                                <button *ngIf="locationProductRequestResponse.destinationLocationOwnerEmailId==logedInUser.emailId" (click)="updateLocation()" class="btn btn-sm btn-ouline-info"><em class="fa fa-pencil"></em> </button>
+                            </div>
+                            
+                            <a *ngIf="locationProductRequestResponse.status !='Draft'||locationProductRequestResponse.destinationLocationOwnerEmailId!=logedInUser.emailId"
+                                [routerLink]="['/location',locationProductRequestResponse.sourceLocationId]">{{locationProductRequestResponse.sourceLocationName}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Status
+                            </small>
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.status}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Total Quantity Received
+                            </small>
+
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.totalQuantityReceived}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Description
+                            </small>
+                        </td>
+                        <td>
+                            {{locationProductRequestResponse.description}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button type="button" (click)="changeButtonDisplay('sysinfo')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.sysInfo.icon"></i> &nbsp;System Information
+        </button>
+        <div class="row" *ngIf="displayButtons.sysInfo.visibal">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Created By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/createuser',locationProductRequestResponse.createdByEmail]"
+                                activateRout="active">{{locationProductRequestResponse.createdByFirstName}}&nbsp;{{locationProductRequestResponse.createdByMiddleName}}&nbsp;{{locationProductRequestResponse.createdByLastName}}</a>,&nbsp;{{locationProductRequestResponse.createdDate|date :'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Last Modified By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/createuser',locationProductRequestResponse.modifiedByEmail]"
+                                activateRout="active">{{locationProductRequestResponse.modifiedByFirstName}}&nbsp;{{locationProductRequestResponse.modifiedByMiddleName}}&nbsp;{{locationProductRequestResponse.modifiedByLastName}}</a>,&nbsp;{{locationProductRequestResponse.modifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!vDetails" class="card-body">
+        <div class="card">
+            <div class="card-header">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 24px;">
+                            <img src="assets/images/product_request_line_item_120.png" alt=""
+                                style="width: 100%;height: auto;background-color: #88C651">
+                        </td>
+                        <td style="padding-left:5px;"><strong>Product Request Items
+                                ({{pageProductRequestItems.totalElements}}) </strong> </td>
+                                <!-- *ngIf="pageProductRequestItems.totalElements>5" -->
+                                <td  class="text-right" *ngIf="pageProductRequestItems.totalElements>5"><a [routerLink]="['/details',productRequestId,'cmponent','proLi']" [queryParams]="{cmponent:lineItemColumns,page:page,sortArr:pRItemSortNam,totalElement:pageProductRequestItems.totalElements}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+           
+                    </tr>
+                    
+                </table> <br>
+                <div class="row">
+                    <div class="col-md-3">
+            
+                        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="advancesearchPRitems.name">
+                      </div>
+                       <div class="col-md-3">
+        
+                        <input type="text" class="form-control" placeholder="Product" [(ngModel)]="advancesearchPRitems.product">
+                      </div>
+                      <div class="col-md-3">
+        
+                        <input type="text" class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPRitems.productDescription">
+                      </div>
+                      <div class="col-md-3">
+                        <button type="button" class="btn btn-outline-info btn-md" style="float:right;padding-left:20px;" (click)="resetpreqitem()"> Reset</button> &nbsp;
+                          <button type="button" class="btn btn-outline-info btn-md" style="padding-right: 50px; padding-left: 40px;"(click)="searchPReqitems()" >
+                            <em class="fa fa-search"></em> Search</button>
+                      </div>
+                    
+                </div>
+
+            </div>
+            <div class="card-body"
+                style="padding: 0px;">
+                <table class="table table-sm" style="border-top: 0px solid #c8ced3;">
+                    <thead style="border-top: none;">
+                        <tr>
+                            <th title="S.No." style="width: 50px;">S.No.</th>
+                            <th title="Name">
+                                Name
+                            </th>
+                            <th class="text-left" title="Product Part code" style="border-top: none;">
+                                Product
+                            </th>
+                            <th class="text-left" title="Product Description">
+                                Product Description
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th title="Quantity Transfer" style="text-align: center;">
+                                Qty. Transfer
+                            </th>
+                            <th title="Quantity Short Closed" style="text-align: center;">
+                                Qty. Short Closed
+                            </th>
+                            <th title="Quantity Requested" style="text-align: center;">
+                                Qty. Requested
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="pageProductRequestItems.content.length>0">
+                        <tr  *ngFor="let _item of pageProductRequestItems.content;let j=index;">
+                            <td style="width: 50px;">{{j+1}}.</td>
+                            <td> <a [routerLink]="['/productrequest/lineItems',_item.lpRequestItemId]">
+                                    {{_item.lpRequestItemManualId}}</a></td>
+                            <td>
+                                <table style="width: 100%;">
+                                    <tr *ngIf="_item.edit&&logedInUser.roleGroupAndAccount.roleGroup=='SCH'">
+                                        <td style="vertical-align: middle;  border-style: none;">
+                                            <ng-select [items]="products" bindLabel="productPartCode" bindValue="productPartCode" [(ngModel)]="_item.partCode" >
+
+
+                                                <ng-template ng-label-tmp let-item="item">
+                                                    <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                                        style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}} - {{item.productDescription}}
+                                                </ng-template>
+                                                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                                    <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                                        style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}} - {{item.productDescription}}
+                                                </ng-template>
+            
+                                            </ng-select>
+
+                                        </td>
+                                        <td style="width: 50px;">
+                                            <button type="button" class="btn" (click)="changePartCode(_item.lpRequestItemId,_item.partCode)"><em class="tik-mark"></em> Change</button>
+                                        </td>
+                                        <td style="width: 50px;">
+                                            <button type="button" class="btn" (click)="_item.edit=!_item.edit;cancel()"><em class="fa fa-remove"></em> Cancel</button> 
+                                        </td>
+                                    </tr>
+                                    <tr  *ngIf="!_item.edit" style="border-top: none;">
+                                        <td style="border-top: none;">
+                                            <a *ngIf="!_item.edit" [routerLink]="['/products',_item.partCode]">{{_item.partCode}}</a>
+                                        </td>
+                                        <td style="width: 50px;" *ngIf="logedInUser.roleGroupAndAccount.roleGroup=='SCH'">
+                                            <button type="button" class="btn" (click)="_item.edit=!_item.edit"><em class="fa fa-pencil"></em> </button> 
+                                        </td>
+                                    </tr>
+                                </table>
+                            
+                              
+                                </td>
+                            <td style="text-align: center;">{{_item.partDescription}}</td>
+                            <td style="text-align: center;">  {{_item.lineItemStatus}}</td>
+                            <td style="text-align: center;">{{_item.quantityIssued}}</td>
+                            <!-- <td style="text-align: center;" >{{_item.quantityRequired-_item.quantityIssued}}</td> -->
+                            <!-- <td style="text-align: center;" *ngIf="_item.quantityIssued!=0">{{_item.quantityRequired-_item.quantityIssued}}</td> -->
+                            <td style="text-align: center;" >{{_item.shortClosedQuantity}}</td>
+                            <td style="text-align: center;">{{_item.quantityRequired}}</td>
+                            <td><button type="button"  *ngIf="issSortclose && _item.lineItemStatus!='Short Closed'&&logedInUser.locationId==locationProductRequestResponse.sourceLocationId" (click)="onshortCloseItem(_item)"  class="btn btn-sm btn-info">
+                                Short Closed
+                            </button>
+                           
+                        </td>
+                            <!-- <td >
+                                <button type="button" (click)="disableLineItem(_item.lpRequestItemId)" *ngIf="locationProductRequestResponse.status !='Draft'&&!_item.disabled" class="btn btn-sm btn-outline-danger">
+                                    Disable
+                                </button>
+                                <span *ngIf="_item.disabled"> <em class="fa fa-remove"></em> Disabled</span>
+                               
+                                <button *ngIf="locationProductRequestResponse.status=='Draft'" type="button"
+                                    class="btn btn-sm btn-danger" (click)="deleteItem(_item.lpRequestItemId)"><em
+                                        class="fa fa-remove"></em> </button>
+                            </td> -->
+                        </tr>
+                    
+                    </tbody>
+                    <tbody *ngIf="pageProductRequestItems.content.length==0">
+                  <tr> 
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                            
+                            <div class="col-md-4" style="text-align: center; float: center;"> <p>Data Not Found</p></div>
+                      
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                     </tr>
+                    </tbody>
+                 
+                 
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 24px;">
+                            <img src="assets/images/product_request_line_item_120.png" alt=""
+                                style="width: 100%;height: auto;background-color: #88C651">
+                        </td>
+                        <td style="padding-left:5px;"><strong>Product Transfer
+                                ({{pageProductTranferDetails.totalElements}}) </strong> </td>
+                                <!-- <td class="text-right"><a [routerLink]="['/details',productRequestId,'cmponent','proTransfer']" [queryParams]="{cmponent:protransferCol,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td> -->
+                                <td *ngIf="pageProductTranferDetails.totalElements>5" class="text-right"><a [routerLink]="['/details',productRequestId,'cmponent','proTransfer']" [queryParams]="{cmponent:protransferCol,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+                    </tr>
+                    <br>
+                  
+                </table> <br>
+                <div class="row">
+                    <div class="col-md-3">
+            
+                        <input type="text" class="form-control" placeholder="PT Item" [(ngModel)]="advancesearchPT.name">
+                      </div>
+                       <div class="col-md-3">
+        
+                        <input type="text" class="form-control" placeholder="Product" [(ngModel)]="advancesearchPT.product">
+                      </div>
+                      <div class="col-md-3">
+        
+                        <input type="text" class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPT.productDescription">
+                      </div>
+                      <div class="col-md-3">
+                        <button type="button" class="btn btn-outline-info btn-md" style="float:right;padding-left:20px;" (click)="resetPT()"> Reset</button> &nbsp;
+                          <button type="button" class="btn btn-outline-info btn-md" style="padding-right: 50px; padding-left: 40px;" (click)="searchPT()" >
+                            <em class="fa fa-search"></em> Search</button>
+                      </div>
+                    
+                </div>
+              
+            </div>
+            <div class="card-body" style="padding:0px">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th title="S.No.">S.No.</th>
+                                <th>
+                                    Product Transfer Item
+                                </th>
+                                <th title="Product Transfer">
+                                    Product Transfer
+                                </th>
+                               
+                                <th title="Product Part code">
+                                    Product
+                                </th>
+                                <th title="Product Description">
+                                    Product Description
+                                </th>
+                                <th title="Quantity Sent" style="text-align: center;">
+                                    Quantity Sent
+                                </th>
+                                <th title="Quantity Received" style="text-align: center;">
+                                    Quantity Received
+                                </th>
+                                <th title="Full Received">
+                                    Full Received
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="pageProductTranferDetails.content.length>0">
+                            <tr *ngFor="let d of pageProductTranferDetails.content;let i=index;">
+                                <td style="text-align: center;">{{i+1}}.</td>
+                                <td>
+                                    {{d.locationProductTransferItemManualId}}
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/producttransfer',d.locationProductTransferId]"
+                                        [routerLinkActive]="'active'">{{d.locationProductTransferManualId}}</a>
+
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/products',d.productPartCode]"
+                                        [routerLinkActive]="'active'">{{d.productPartCode}}</a>
+
+                                </td>
+                                <td>
+                                    {{d.partDescription}}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{d.quantitySent}}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{d.quantityReceived}}
+                                </td>
+                                <td style="text-align: center;">
+                                    <input type="checkbox" [(ngModel)]="d.receivedAll" disabled>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="pageProductTranferDetails.content.length==0">
+                            <tr> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                     <div class="col-md-4" style="text-align: center; float: center;"> <p>Data Not Found</p></div>
+                                 </td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                               </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+        </div>
+    </div>
+</div>
+<!--Add Items-->
+<div class="modal fade" bsModal #addItemModal="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Add Item : {{locationProductRequestResponse.prManualId}}
+                </h4>
+                <button type="button" class="close pull-right" (click)="addItemModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 form-group required">
+                        <label class="control-label">Product</label>
+                        <ng-select *ngIf="productItemList" [items]="productItemList" bindLabel="bothvalues" (search)="searchProducts($event)"
+                            [(ngModel)]="_lpitemRequest.productPartCode" bindValue="productPartCode"
+                            placeholder="Search Products" (change)="getAvilableStock($event)">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}<small>({{item.productDescription}})</small>
+                            </ng-template>
+                        </ng-select>
+                        <small *ngIf="Discription!=null">
+                            Product Description:{{Discription}}
+                        </small>
+                      
+                    </div>
+                    <!-- <div class="col-md-4 form-group required">
+                        <label class="control-label">Quantity Required</label>
+                        <input type="text" class="form-control" [(ngModel)]="_lpitemRequest.requestQuantity">
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button type="button" (click)="addItem()" class="btn btn-primary" style="margin-top: 28px;"><i
+                                class="fa fa-save"></i> Add</button>
+                    </div> -->
+                    <div class="col-md-2 form-group required">
+                        <label class="reque">Quantity Required</label>
+                        <input type="text" class="form-control" [(ngModel)]="_lpitemRequest.requestQuantity">
+                    </div>
+                    <div class="col-md-2">
+                        <label>Av. Source </label>
+                        <input type="text" class="form-control" [(ngModel)]="avilableStockAtSource.ok_quantity" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Av. Destination</label>
+                        <input type="text" class="form-control" [(ngModel)]="avilabStockAtU.ok_quantity" disabled>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <button type="button" style="margin-top: 28px;" (click)="addItem()" class="btn btn-info"><i
+                                class="fa fa-plus"></i>
+                            Add</button>
+                    </div>
+                </div>
+                <br>
+
+            </div>
+            <!-- <div class="card-footer text-right">
+                <button type="button" class="btn btn-default" (click)="cancled()"><i class="fa fa-remove"></i>&nbsp;Cancel
+                </button>
+                <button type="button" class="btn btn-primary" (click)="addItem()"><i
+                        class="fa fa-save"></i>&nbsp;Save </button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!--Item Transfer-->
+<div class="modal fade" bsModal #transferItem="bs-modal" (onShow)="openModels.transferItem=true"
+    (onHide)="openModels.transferItem=false" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Product Transfer, Request ID : {{locationProductRequestResponse.prManualId}}
+                </h4>
+                <button type="button" class="close pull-right" (click)="transferItem.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-producttransferdirective [productRequest]="locationProductRequestResponse"
+                    (onTransferDone)="onProductTransferDone($event)" (onCancel)="onProductTransferCancled($event)"
+                    *ngIf="openModels.transferItem"></app-producttransferdirective>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Item Receive-->
+<div class="modal fade" bsModal #receiveItem="bs-modal" [config]="{backdrop:'static'}"
+    (onHide)="openModels.receiveItem=false" (onShow)="openModels.receiveItem=true" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Product Receive ,Request ID :{{locationProductRequestResponse.prManualId}}
+                </h4>
+                <button type="button" class="close pull-right" (click)="receiveItem.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-productrequestreceive *ngIf="openModels.receiveItem"
+                    [locationProductRequest]="locationProductRequestResponse"
+                    (onCencled)="onItemReceivedCancled($event)" (onReceived)="onItemReceived($event)">
+                </app-productrequestreceive>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Alert Popup Moudles-->
+<div class="modal fade" bsModal #alertPopupModal="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="text-center" style="margin-left: 20%;margin-right: 20%;">
+        <strong>
+            <alert [type]="alertInfo.type">
+                <span [innerHTML]="alertInfo.message"></span>
+                <button type="button" (click)="alertPopupModal.hide()" class="close pull-right"><span
+                        aria-hidden="true">&times;</span> </button>
+            </alert>
+        </strong>
+    </div>
+</div>
+
+  <!-- for short close popup -->
+  <div class="modal fade" bsModal #sureModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-serviceAppointment">
+      <div  class="modal-dialog modal-md">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 id="popupRequestforSA" class="modal-title pull-left"> {{shortcloseHeading}}</h4>
+                  <button type="button" class="close pull-right" (click)="sureModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+               
+              </div>
+              <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                  <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                    <div class="raw">
+                    
+                        <p class="text-align center">{{messageShort}}</p>
+                        <!-- <p *ngIf="forPR=='allPR'"> PR </p>
+                        <p *ngIf="forPR!='allPR'"> item </p> -->
+                    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 text-right">
+                            <button type="button" class="btn btn-sm btn-primary" (click)="sureModelhide()"><i class="fa fa-remove"></i>&nbsp;
+                              No</button>&nbsp;
+                        
+                            <button type="button" (click)="yesRequest()" class="btn btn-sm btn-danger"><i class="fa fa-save"></i>&nbsp;
+                              Yes</button>
+                          </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>

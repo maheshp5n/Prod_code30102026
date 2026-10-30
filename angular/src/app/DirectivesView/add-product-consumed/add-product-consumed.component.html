@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group ">
+                <div class="control-label">
+                    Part Code   
+                  </div>                
+                  <select  class="form-control ">
+                    <option  value='0'>--Select--</option>
+                  </select>  
+            </div>                  
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group required">
+                <div class="control-label">
+                    Type
+                  </div>
+                  <select class="form-control ">
+                    <option  value='0'>--Select--</option>
+                 </select>                     
+            </div>                  
+        </div>
+       
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group required">              
+                    <div class="control-label">
+                        Quantity Consumed
+                    </div>
+                      <input type="text"  class="form-control">                   
+            </div>                   
+        </div>
+  
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group ">
+                <div class="control-label">
+                    Remarks 
+                  </div>
+                  <textarea type="text"  rows="3" class="form-control"></textarea>                        
+            </div>                  
+        </div>
+        
+            
+    </div>
+    
+   <!--  // save and close button -->
+    <div class="row">
+        <div class="col-md-12 text-center">
+          <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+          <!-- <button type="button" (click)="postCreateAccountAndNew(sampAccountNumber)" class="btn btn-default"><i class="fa fa-save"></i>
+            Save & New</button>&nbsp; -->
+          <button type="button" (click)="postCreateAccount()" class="btn btn-primary"><i class="fa fa-save"></i> 
+            Save
+          </button>
+        </div>
+    </div>
+  
+  </div>
+  
+  
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  
+  <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+  </div>
+  

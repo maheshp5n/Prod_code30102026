@@ -1,0 +1,474 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+      <span class="text-center" style="font-weight: bold">Asset Information</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Serial Number
+          </div>
+          <input type="text" *ngIf="_isEditMode == true" [(ngModel)]="assetResponse.serialNumber" class="form-control"
+            disabled>
+          <input type="text" *ngIf="_isEditMode == false" [(ngModel)]="assetResponse.serialNumber" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Part Code
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-sm-10" *ngIf="_isEditMode == true" >
+              <ng-select  [items]="_productList" [(ngModel)]="assetResponse.productID"
+                bindLabel="bothvalues" bindValue="id" placeholder="Search Products..." (change)="productSelected($event)" disabled>
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                    style="background-color: rgb(49,121,146);" /> {{item.partCode}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                    style="background-color: rgb(49,121,146);" /> {{item.partCode}}<small>({{item.productDescription}})</small>
+                </ng-template>
+              </ng-select>
+              
+            </div>
+            <!--  -->
+            <div class="col-md-10 col-sm-10"  *ngIf="_isEditMode == false">
+              <ng-select *ngIf="_productList" [items]="_productList" [(ngModel)]="assetResponse.productID"
+                bindLabel="bothvalues" bindValue="id" placeholder="Search Products..." (change)="productSelected($event)" (search)="searchProducts($event)">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                    style="background-color: rgb(49,121,146);" /> {{item.partCode}} 
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                    style="background-color: rgb(49,121,146);" /> {{item.partCode}}<small>({{item.productDescription}})</small> 
+                </ng-template>
+              </ng-select>
+              
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                <div><i [ngClass]="faPlus" *ngIf="rights('Products','create')" class="border-left-0" (click)="addNewProduct()"></i></div>
+              </span>
+            </div>
+          </div>
+          <small *ngIf="assetResponse.productDescription!=null">
+            Product Description: {{assetResponse.productDescription}}</small>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Account
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-sm-10">
+              <ng-select  [items]="accountForList" [(ngModel)]="assetResponse.accountSapNumber"
+                bindLabel="accountName" bindValue="sapAccountNumber" placeholder="Search Accounts..."
+                >
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                    style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                    style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                <div><i [ngClass]="faPlus" *ngIf="rights('Accounts','create')" class="border-left-0" (click)="addNewAccount()"></i></div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Primary Account
+          </div>
+          <ng-select [disabled]="true" [items]="accountForList" [(ngModel)]="assetResponse.primaryAccountSapNumber"
+                bindLabel="accountName" bindValue="sapAccountNumber" placeholder="Search Accounts...">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                    style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                    style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+                </ng-template>
+              </ng-select >
+          <!-- <input type="text" value="{{assetResponse.primaryAccountName}}"
+            class="form-control" disabled> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Site
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-sm-10">
+              <ng-select *ngIf="siteList" [items]="siteList" [(ngModel)]="assetResponse.siteId" bindLabel="manuaSitelId"
+                bindValue="batterySiteId" placeholder="Search Sites..." (search)="getSiteForList($event)">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/Sites.png'
+                    style="background-color: rgb(248, 109, 90);" /> {{item.manuaSitelId}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/Sites.png'
+                    style="background-color: rgb(248, 109, 90);" /> {{item.manuaSitelId}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                <div><i [ngClass]="faPlus" *ngIf="rights('SiteDetails','create')" class="border-left-0" (click)="addNewSite()"></i></div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Status
+          </div>
+          <select [(ngModel)]="assetResponse.assetsStatusId" class="form-control">
+            <option value='0' disabled>--Select-- </option>
+            <option *ngFor="let o of status;" [ngValue]="o.id">{{o.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngIf="false" class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Plant
+          </div>
+          <select [(ngModel)]="assetResponse.plantCode" class="form-control">
+            <option value='0' disabled>--select-- </option>
+            <option *ngFor="let o of plant" [ngValue]="o.plantCode">{{o.plantName}}</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Remarks
+          </div>
+          <textarea [(ngModel)]="assetResponse.remarks" class="form-control" rows="2"></textarea>
+        </div>
+      </div>
+      <div *ngIf="false" class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Product Family
+          </div>
+          <input type="text" class="form-control" value="{{assetResponse.productFamailyName}}" disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Product Sub Family
+          </div>
+          <input type="text" class="form-control" value="{{assetResponse.productSubProductName}}" disabled>
+        </div>
+      </div>
+      <div *ngIf="false" class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Warranty
+          </div>
+          <input type="text" class="form-control" value="{{assetResponse.warranty}}" disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Asset Description
+          </div>
+          <input type="text" class="form-control" value="{{assetResponse.productDescription}}" disabled>
+        </div>
+      </div>
+      <div *ngIf="false" class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Exchange/Site Name
+          </div>
+          <input type="text" class="form-control" value="{{assetResponse.siteName}}" disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+  
+        </div>
+      </div>
+  
+    </div>
+  
+    <div *ngIf="false" class="panel-heading">
+      <span class="text-center" style="font-weight: bold"> Purchase Detail </span>
+    </div>
+  
+    <div *ngIf="false" class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            PO No
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.purchaseOrderNumber" class="form-control" disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            PO Date
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.purchaseOrderDate" class="form-control" bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" disabled>
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            SAP Delivery Document No
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.sapDeliveryDocumentNumber" class="form-control" disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            SAP Material Document No
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.sapMaterialDocumentNumber" class="form-control" disabled>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="rights('BtAssetsWarrantyDetails','create') ||rights('BtAssetsWarrantyDetails','edit')" class="panel-heading">
+      <span class="text-center" style="font-weight: bold">Warranty Details </span>
+    </div>
+    <div *ngIf="rights('BtAssetsWarrantyDetails','create') || rights('BtAssetsWarrantyDetails','edit')" class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Delivery Date
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.purchaseDate" onkeydown="return false" class="form-control " bsDatepicker
+            [bsConfig]=" { dateInputFormat: 'YYYY-MM-DD',adaptivePosition: true}" [maxDate]="today"
+            [dateCustomClasses]="dateCustomClasses" autocomplete="off">&nbsp;
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Installation Date
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.installDate"  onkeydown="return false" class="form-control" bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' ,adaptivePosition: true }" [maxDate]="today"
+            [dateCustomClasses]="dateCustomClasses" autocomplete="off">&nbsp;
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Warranty From DOD(Months)
+          </div>
+          <input type="text"  [(ngModel)]="assetResponse.warrantyFromDateOfDeliveryInMonth" (keypress)="keyPressNumbersWithDecimal($event)" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Warranty From Installation(Months)
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.warrantyFromDateOfInstallationInMonth" (keypress)="keyPressNumbersWithDecimal($event)" class="form-control">
+        </div>
+      </div>
+      <div *ngIf="false" class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            DOD expiration Date
+          </div>
+          <input type="text"  value="{{assetResponse.dateOfDeliveryExpiryDate | date:'yyyy-MM-dd'}}" class="form-control" disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Install Expiry Date
+          </div>
+          <input type="text" value="{{assetResponse.installExpiryDate | date:'yyyy-MM-dd'}}" class="form-control" disabled>
+        </div>
+      </div>
+      <div *ngIf="false" class="row">
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Warranty Expiry Date
+          </div>
+          <input type="text" value="{{assetResponse.warrantyExpiryDate | date:'yyyy-MM-dd'}}" class="form-control"
+            disabled>&nbsp;
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+        <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Warranty Status
+          </div>
+          <label>
+            <div>
+              <img title="Warranty Expiry Status"
+                [src]="assetResponse.warrantyExpiryDate==null? 'assets/images/flag_gray.png': assetResponse.warrantyExist==true? 'assets/images/flag_green.gif' : 'assets/images/flag_red.gif' ">
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="loginData.roleGroupAndAccount.roleGroup=='COMMERCIAL'" class="panel-heading">
+      <span class="text-center" style="font-weight: bold">AMC Detail </span>
+    </div>
+    <div *ngIf="loginData.roleGroupAndAccount.roleGroup=='COMMERCIAL'" class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            AMC PO No
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.amcPurchaseOrderNumber" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            AMC PO Date
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.amcPurchaseOrderDate" class="form-control" bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' ,adaptivePosition: true }" [dateCustomClasses]="dateCustomClasses" autocomplete="off">&nbsp;
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            AMC Start Date
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.amcStartDate" class="form-control" bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' ,adaptivePosition: true }" [dateCustomClasses]="dateCustomClasses" autocomplete="off">&nbsp;
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            AMC Period(Months)
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.amcPeriod" class="form-control">
+        </div>
+        <div *ngIf="false" class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            AMC Expiry Date
+          </div>
+          <input type="text" value="{{assetResponse.amcExpiryDate | date:'yyyy-MM-dd'}}" class="form-control"
+            disabled>&nbsp;
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+      </div>
+      <div *ngIf="false" class="row">
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            AMC Period(Months)
+          </div>
+          <input type="text" [(ngModel)]="assetResponse.amcPeriod" class="form-control">
+        </div>
+        <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            AMC Status
+          </div>
+          <label>
+            <div>
+              <img title="AMC Expiry Status"
+                [src]="assetResponse.amcExpiryDate==null? 'assets/images/flag_gray.png' : assetResponse.amcwarrantyExist==true? 'assets/images/flag_green.gif' : 'assets/images/flag_red.gif' ">
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="false" class="panel-heading">
+      <span class="text-center" style="font-weight: bold">System Information</span>
+    </div>
+    <div *ngIf="false" class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label" style="font-weight: bold;">
+            Created By
+          </div>
+          <div>{{assetResponse.createdByFirstName}} {{assetResponse.createdByLastName }}
+            {{assetResponse.createdDate | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label" style="font-weight: bold;">
+            Last Modified By
+          </div>
+          <div>{{assetResponse.modifyedByFirstName}} {{assetResponse.modifyedByLastName}}
+            {{assetResponse.modifyedDate | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  // save and close button -->
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+        Cancel</button>&nbsp;
+      <button type="button" (click)="postCreateAsset()" class="btn btn-primary"><i class="fa fa-save"></i>
+        Save
+      </button>
+    </div>
+  </div>
+  
+  
+  <div class="modal fade" bsModal #createProductModel="bs-modal" (onShow)="isProductModelShow=true"
+    (onHide)="isProductModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">New Product</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createProductModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-creteproduct *ngIf="isProductModelShow" [isEditMode]="isEditMode" [editProductData]="createProduct"
+            (onProductCreated)="onProductCreated($event)" (onCancle)="cancelDataProd()">
+          </app-bt-creteproduct>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #accountModel="bs-modal" (onShow)="isAccountModelShow=true"
+    (onHide)="isAccountModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">New Account</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="accountModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <!-- <app-createaccount *ngIf="isAccountModelShow" [isEditMode]="isEditMode" [editAccountData]="createAccount"
+            (onAccountCreated)="onAccountCreated($event)" (onCancle)="cancelDataAccount()">
+          </app-createaccount> -->
+          <app-bt-createaccount *ngIf="isAccountModelShow" [isEditMode]="isEditMode"
+         (onAccountCreated)="onAccountCreated($event)" (onCancle)="accountModelhide()">
+        </app-bt-createaccount>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #createSiteModel="bs-modal" (onShow)="isSiteModelShow=true"
+    (onHide)="isSiteModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">New Site</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createSiteModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createsite *ngIf="isSiteModelShow" [isEditMode]="isEditMode" [editEntityData]="res"
+            (onSiteCreated)="onSiteCreated($event)" (onCancle)="cancelDataSite()"></app-bt-createsite>
+        </div>
+      </div>
+    </div>
+  </div>

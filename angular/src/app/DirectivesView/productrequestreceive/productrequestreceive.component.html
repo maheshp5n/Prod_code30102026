@@ -1,0 +1,67 @@
+
+<div *ngIf="pendingItemToReceive.length>0;else nodata">
+    <div class="card">
+        <accordion *ngFor="let item of pendingItemToReceive">
+            <accordion-group style="padding: 0px;margin:0px;">
+                <div accordion-heading>
+                   {{item.productTransferItemManualId}}
+                    {{item.productPartCode}}
+                    {{item.productDescription}}
+                    <span *ngIf="item.invoiceNumber&&item.invoiceNumber!=''&&item.invoiceNumber!=null">
+                        ,&nbsp; Invoice Number {{item.invoiceNumber}}
+                    </span>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Transferred Quantity</div>
+                    <div class="col-md-3">{{item.totalQuantityTransfred}}</div>
+                    <div class="col-md-3">Received Quantity</div>
+                    <div class="col-md-3">{{item.totalQuantityReceived}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Pending To Receive
+                    </div>
+                    <div class="col-md-3">
+                        {{item.totalQuantityTransfred-item.totalQuantityReceived}}
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" *ngIf="item.productType=='Component'" [(ngModel)]="item.actualReceive">
+                    </div>
+                </div>
+                <div class="row">
+                    <table *ngIf="item.productType!='Component'" class="table table-sm">
+                        <tr>
+                            <td style="width: 30px;">
+                                <input type="checkbox" *ngIf="item.productType!='Component'" [checked]="item.checked"
+                                (change)="mastercheccked($event,item.productPartCode)" [ngModel]="item.checked"> 
+                            </td>
+                            <td style="text-decoration: black; font-weight: bold;">
+                                Available Serial Numbers <input type="text" [(ngModel)]="item.search" placeholder="Search serial number">
+                            </td>
+                        </tr>
+                        <tr *ngFor="let serial of item.serialNumbers|globalSearchPipe:item.search">
+                            <td style="width: 30px;">
+                                <input type="checkbox" [(ngModel)]="serial.selected">
+                            </td>
+                            <td>
+                                {{serial.serialNumber}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="text-right">
+        <button type="button" (click)="cancelItemReceive()" class="btn btn-default"> <i class="fa fa-remove"></i>
+            Cancel</button>
+        <button type="button" (click)="receiveItems()" class="btn btn-info"> <i class="fa fa-save"></i> Receive</button>
+    </div>
+</div>
+<ng-template #nodata>
+    <p>You have not any item pending to receive</p>
+</ng-template>
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)"></p>
+</ngx-spinner>

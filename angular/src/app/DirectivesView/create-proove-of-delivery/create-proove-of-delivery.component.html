@@ -1,0 +1,96 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+     <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Proof Of Delivery </span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required ">
+                <div class="control-label">
+                    POD Number
+                </div>
+                <input type="text" class="form-control"[(ngModel)]="casePDRequest.podNumber">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required ">
+                <div class="control-label">
+                    POD Date
+                </div>
+                <input class="form-control" 
+                onkeydown="return false" bsDatepicker [bsValue]="(podDate)" value="{{casePDRequest.podDate|date:'dd-MM-yyyy'}}"
+                [bsConfig]="{adaptivePosition: true}"         
+                 [maxDate]="today" [dateCustomClasses]="dateCustomClasses" autocomplete="off" (bsValueChange)="onpodateDatechange($event)">&nbsp;
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+    </div>
+    <!--Shiping  -->
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Shipment Details </span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 form-group ">
+                <label class="control-label">
+                    Shipping Mode
+                </label>
+                <select class="form-control" [(ngModel)]="casePDRequest.podShippingMode">
+                    <option value="select">Select</option>
+                    <option value="Courier">Courier</option>
+                    <option value="ByHand">ByHand</option>
+                    <option value="Transport">Transport</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label class="control-label">Ship To Name </label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Company Name / Person Name"></em>
+                <input type="text" class="form-control" [(ngModel)]="casePDRequest.podShippingToName">
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label class="control-label">Tracking Number</label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Tracking Number / Person Mobile Number"></em>
+                <input type="text" class="form-control" [(ngModel)]="casePDRequest.podShippingTrackingNumber">
+            </div>
+            <div class="col-md-6 form-group">
+                <label class="control-label">Expected Delivery Date</label>
+                <!-- <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+                    [minDate]="today" [(ngModel)]="casePDRequest.podShippingExpectedDate"> -->
+                    <input class="form-control" [bsValue]="(expectDate)" value="{{casePDRequest.podShippingExpectedDate|date:'dd-MM-yyyy'}}"
+                    [bsConfig]="{adaptivePosition: true}"             
+                     onkeydown="return false" bsDatepicker
+                     [dateCustomClasses]="dateCustomClasses" autocomplete="off" (bsValueChange)="onexpectchange($event)">&nbsp;
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-sm-12 col-md-12 text-right">
+        <button type="button" (click)="cancelPDData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postPD()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message!='Updated Successfully'"> &nbsp;{{message}}!</strong>
+        <strong *ngIf="message=='Updated Successfully'">&nbsp;{{message}} !</strong>
+
+    </div>
+</div>

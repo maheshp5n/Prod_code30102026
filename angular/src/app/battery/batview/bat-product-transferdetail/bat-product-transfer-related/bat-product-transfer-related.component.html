@@ -1,0 +1,85 @@
+<div class="card">
+    <div class="card">
+        <div class="card-header">
+          
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="padding-left:5px;"><strong>Transfer Items</strong></td>
+                        <td *ngIf="btProductTransferLineItems.length>0" class="text-right">
+                            <!-- <a [routerLink]="['/details',objectId,'cmponent','proTranferLI']" [queryParams]="{cmponent:proRoCol,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a>  -->
+                        <a [routerLink]="['/details_of_all_view',ptid,'cmponent','productTransfer']" [queryParams]="{cmponent:productTransferColumn,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> 
+
+
+                        </td>
+              
+                    </tr>
+            </table> <br>
+            <div class="row">
+                <div class="col-md-3">       
+                    <input type="text" class="form-control" placeholder="Manual Id" [(ngModel)]="advancesearchPT.productTransferManualId">
+                  </div>
+                   <div class="col-md-3">
+    
+                    <input type="text" class="form-control" placeholder="Part Code" [(ngModel)]="advancesearchPT.productPartcode">
+                  </div>
+                  <div class="col-md-3">
+    
+                    <input type="text" class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPT.productDescription">
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-outline-info btn-md"  (click)="resetPTItems()"> Reset</button> &nbsp;
+                    <button type="button" class="btn btn-outline-info btn-md" (click)="searchPTitems()" >
+                        <em class="fa fa-search"></em> Search</button>
+                </div>
+                
+            </div> <br>
+            
+        </div>
+        <div class="card-body" style="padding: 0px;">
+            <div class="table-responsive">
+                <table class="table table-sm" aria-describedby="">
+                    <thead>
+                        <tr>
+                            <th title="S.No.">S.No.</th>
+                            <th scope="col" title="Product Serial Number">Product Request Number</th>
+                            <th scope="col" title="Product Part code">Product Part code</th>
+                            <th scope="col" title="Product Description">Product Description</th>
+                            <th scope="col" title="Product Type">Producyt Type</th>
+                            <th scope="col" title="Received">Quantity Issued</th>
+                            <th scope="col" title="Received">Quantity Recieved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of btProductTransferLineItems;let i=index;">
+                            <td style="text-align: center;">{{i+1}}.</td>
+                            <td>
+                                <a
+                                    [routerLink]="['/bat_product_request',item.productRequestId]">{{item.productRequestManualId}}</a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_product',item.productId]">{{item.productPartcode}}</a>
+                            </td>
+                            <td>
+                                {{item.productDescription}}
+                            </td>
+                            <td>
+                                {{item.productType}}
+                            </td>
+                            <td>
+                                {{item.transferQuantity}}
+                            </td>
+                            <td style="text-align: center;">
+                                {{item.transferReceivedQuantity}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div>
+            <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+        </div>
+    </div>
+</div>

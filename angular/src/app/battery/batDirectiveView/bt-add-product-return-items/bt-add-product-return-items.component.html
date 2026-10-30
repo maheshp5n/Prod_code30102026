@@ -1,0 +1,27 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-4 form-group required">
+            <label class="control-label">Product</label>     
+            <select type="text" class="form-control" (change)="getChangeProduct(btAddProductItemReq.productId)" [(ngModel)]="btAddProductItemReq.productId" >
+                <option value="0">--Select--</option>
+                <option *ngFor ="let list of btReturnItemsList" value="{{list.productId}}">{{list.productPartcode}}</option>
+                </select>
+        </div>
+        <div class="col-md-2 form-group required">
+            <label class="reque">Exicom Faulty Qty.</label>
+            <input type="text" class="form-control" (keypress)="numberOnly($event)" [(ngModel)]="btAddProductItemReq.exicomIvnentory">
+        </div>
+        <div class="col-md-2 form-group required">
+            <label>Customer Faulty Qty.</label>
+            <input type="text"  (keypress)="numberOnly($event)" class="form-control"
+              [(ngModel)]="btAddProductItemReq.customerInventory">
+        </div>
+        <div class="col-md-2 text-right">
+            <button type="button" style="margin-top: 28px;" (click)="addItem()" class="btn btn-info"><i
+                    class="fa fa-plus"></i>
+                Add</button>
+        </div>
+    </div>
+    <br>
+
+</div>

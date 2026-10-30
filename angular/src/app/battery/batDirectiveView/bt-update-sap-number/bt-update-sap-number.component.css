@@ -1,0 +1,55 @@
+.list-group{
+    margin-bottom: 10px;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.errspan {
+    float: right;
+    margin-right: 6px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+    /* color: red; */
+}
+.list-group-item {
+    user-select: none;
+  }
+  
+  .list-group input[type="checkbox"] {
+    display: none;
+  }
+  
+  .list-group input[type="checkbox"] + .list-group-item {
+    cursor: pointer;
+  }
+  
+  .list-group input[type="checkbox"] + .list-group-item:before {
+    content: "\2713";
+    color: transparent;
+    font-weight: bold;
+    margin-right: 1em;
+  }
+  
+  .list-group input[type="checkbox"]:checked + .list-group-item {
+    background-color: rgb(4,12,85);;
+    color: #FFF;
+  }
+  
+  .list-group input[type="checkbox"]:checked + .list-group-item:before {
+    color: inherit;
+  }
+  
+  .list-group input[type="radio"] {
+    display: none;
+  }
+  
+ 
+  .form-group.required .control-label:before{
+    color: red;
+    content: "*"; 
+ }
+
+.internalCmnt{
+  visibility: none;
+}

@@ -1,0 +1,181 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-10">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Product Request
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                            class="fa fa-sort-down"></i>&nbsp;
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" *dropdownMenu role="menu"
+                                    aria-labelledby="button-disabled-item" style="width: 28%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                                        View</li>
+                                    <li role="menuitem" *ngFor="let m of dropdownsList">
+                                        <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>&nbsp;
+                            <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                                (click)="pinFilter()">
+                                <em class="fa fa-thumb-tack"></em>
+                            </button>
+                            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                                <em class="fa fa-thumb-tack"></em>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-2 text-right" *ngIf="loginData.locationId!=null">
+                <a [routerLink]="['/bat_product_request',loginData.locationId,'bt_newpr']"
+                    class="btn btn-outline-info btn-sm" [queryParams]="loginData">
+                    Product Request </a>
+            </div>
+        </div>
+        <br>
+        <!-- advance search -->
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="advancesearch.productRequestManualId"
+                    placeholder="Product Request Number">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="advancesearch.productRequestSoruceLocationName"
+                    placeholder="Source Location">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control"
+                    [(ngModel)]="advancesearch.productRequestDestinationLocationName"
+                    placeholder="Destination Location">
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" [(ngModel)]="advancesearch.productRequestStatus">
+                    <option value="">--Select--</option>
+                    <option *ngFor="let item of prStatusDropDownList">{{item}}</option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info btn-md" (click)="searchPR()"><em
+                        class="fa fa-search"></em>
+                    Search</button>
+                <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()">
+                    Reset</button>
+            </div>
+        </div>
+        <!-- advance search -->
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="wrap">
+            <table class="head">
+                <thead>
+                    <tr>
+                        <th title="S.No.">S.No.</th>
+                        <th scope="col" *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+                            title="{{tb.name}}">
+                            <div class="row">
+                                <div class="col sm-10"> {{tb.name}}</div>
+                                <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="inner_table">
+                <table>
+                    <tbody>
+                        <tr *ngFor="let item of batProdutReqList.content;let i=index;">
+                            <td>{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}</td>
+                            <td>
+                                <a [routerLink]="['/bat_product_request',item.productRequestId]"
+                                    [routerLinkActive]="'active'">{{item.productRequestManualId}}</a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_warehouse',item.productRequestDestinationLocationId]"
+                                    [routerLinkActive]="'active'">
+                                    {{item.productRequestDestinationLocationName}}
+                                </a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/bat_warehouse',item.productRequestSourceLocationId]">
+                                    {{item.productRequestSourceLocationName}}
+                                </a>
+                            </td>
+                            <td>
+                                {{item.productRequestStatus}}
+                            </td>
+                            <td>
+                                {{item.productRequestSubmittedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                            </td>
+                            <td>
+                                {{item.productRequestCreatedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                            </td>
+                            <td>
+                                {{item.productRequestLastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                            </td>
+                            <td>
+                                {{item.lastModifiedByFirstName}} {{item.lastModifiedByMiddleName}}
+                                {{item.lastModifiedByLastName}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{batProdutReqList.number+1}} &nbsp;of&nbsp;{{batProdutReqList.totalPages}}&nbsp;Total
+                Count={{batProdutReqList.totalElements}}
+            </div>
+            <div class="col-sm-4">
+                <div class="text-center" *ngIf="!(batProdutReqList.first && batProdutReqList.last)&&batProdutReqList">
+                    <a [routerLink]="['/bat_product_request']" [routerLinkActive]="['active']"
+                        class="previous round btn-sm" *ngIf="!batProdutReqList.first"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:batProdutReqList.number-1,size:dropdownSelected.size}">
+                        &lt;
+                    </a>
+                    <a [routerLink]="['/bat_product_request']" [routerLinkActive]="['active']"
+                        class="previous round btn-sm"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:batProdutReqList.number,size:dropdownSelected.size}">
+                        {{batProdutReqList.number+1}}
+                    </a>
+                    <a [routerLink]="['/bat_product_request']" [routerLinkActive]="['active']"
+                        class="previous round btn-sm" *ngIf="!batProdutReqList.last"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:batProdutReqList.number+1,size:dropdownSelected.size}">
+                        &gt;
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4" style="text-align: right;">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div *ngIf="!(batProdutReqList.first && batProdutReqList.last) " class="col-md-6">
+                        <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8"
+                            (keypress)="onlyNumbers($event)" autocomplete="off">
+                        <button (click)=jumpPage(pagenumber)>Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

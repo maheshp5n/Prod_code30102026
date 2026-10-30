@@ -1,0 +1,106 @@
+ <div class="modal-body" style="max-height: 500px;overflow: auto;">
+     <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+      <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+      </div>
+      <div class="panel-body">
+    
+        <div class="row">
+          <div class="col-md-4 col-sm-4 form-group required ">
+            <div class="control-label">
+              Type
+            </div>
+    
+            <select class="form-control" [(ngModel)]="caseTypeId" (change)="getCasereasonchange(caseTypeId)">
+              <option value="">Select Case Type</option>
+              <option *ngFor="let casetypelist of caseTypeList" [ngValue]="casetypelist.caseTypeId">{{casetypelist.caseTypeName}} </option>
+            </select>
+          </div>
+          <div class="col-md-4 col-sm-4 form-group required ">
+            <div class="control-label">
+              Reason
+            </div>
+    
+            <select class="form-control" [(ngModel)]="caseReason">
+              <option value="">Select Case Reason</option>
+              <option *ngFor="let reslist of newcaseReasonForList" [ngValue]="reslist.caseReasonName"> {{reslist.caseReasonName}}</option>
+            </select>
+          </div>
+    
+          <div class="col-md-2 col-sm-2">
+            <button type="button" class="btn btn-md btn-outline-info" style="margin-top: 20px;" (click)="findCase(caseReason)">Find
+            </button>
+          </div>
+    
+        </div>
+        <div class="row" *ngIf="caseListPOD.length>0">
+          <div class="col-md-12">
+            <div  class="card-body" style="overflow: auto;">
+              <div class="table-responsive mobile">
+                <table class="table  table-sm table-condensed tablerview">
+                  <thead>
+                    <tr>
+                      <th>S.No.</th> <th><input type="checkbox" [(ngModel)]="allselect"
+                        (change)="recalculateall($event)">All</th>
+                      <th class="table-header">Case Number</th>
+                      <th class="table-header">Site Id</th>
+                      <th class="table-header" title="Customer Name">Customer Name</th>
+                      <th class="table-header" title="Case Type">Case Type</th>
+                      <th class="table-header" title="Case Reason">Case Reason</th>
+                      <th class="table-header" title="Case Number">Zone/SSA</th>
+                      <th class="table-header" title="Customer Name">Circle</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor=" let sal of caseListPOD;let i = index ">
+                      <td>{{i+1}}</td>
+                      <td><input type="checkbox" [(ngModel)]="sal.caseidselected"
+                          (change)="recalculate($event, sal)"></td>
+                      <td>{{sal.caseManualId}}</td>
+                      <td>{{sal.siteId}}</td>
+                      <td>{{sal.first_name}} {{sal.middle_name}} {{sal.last_name}}</td>
+                      <td>{{sal.caseTypes}}</td>
+                      <td>{{sal.caseReason}}</td>
+                      <td>{{sal.SSA}}</td>
+                      <td>{{sal.circle}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+    
+      </div>
+    
+      <div class="row pb-3 mr-2" *ngIf="caseListPOD.length>0">
+        <div class="col-md-12 text-right">
+          <button type="button" (click)="cancelinvPOD()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+          <button type="button" (click)="submittopod()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <div class="modal fade" bsModal #createPD="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account">
+<div class="modal-dialog modal-lg modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">Proof Of Delivery(For SCH Use Only)</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="cancelPDData()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-bt-create-pod [isthisEditMode]="isEditMode" [caseID]="caseselectlist" [isBrcRepair]="brcRepairCase" (onCasePDCreated)="onCasePDCreated($event)"
+     (onCancle)="cancelPDData()" (onCancle)="backclik(caseselectlist)" ></app-bt-create-pod>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,9 @@
+.row{
+    margin-top: 5px;
+}
+label{
+    color: rgba(0, 0, 0, .75)
+}
+.alert {
+    width:40%;    
+ }

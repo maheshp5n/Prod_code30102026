@@ -1,0 +1,434 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="SSA" src="assets/images/Zone_120.png"
+                  style="height: auto;width:100%;background-color: rgb(198, 90, 207);" title="SSA" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>WCC</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{wccres.manulId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div class="btn-group" *ngIf="_cFlag!='f'" style="padding: 10px;">
+            <button *ngIf="(statusDraft)&&rights('BtWccDetails','edit')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="editWCCModel(wccres.id)">Edit</button>
+              <!--comment for short time-->
+            <button *ngIf="statusDraft" class="btn btn-outline-info btn-sm" type="button"
+              (click)="submitForApproval()">Submit Approval</button>
+            <button type="button" *ngIf="newInvoice && rights('BtVendorInvoiceDetails','create') &&(wccres.invoiced==false)"
+              (click)="createINVShowModal()" class="btn btn-sm btn-outline-info"><i class="fa fa-plus"></i>&nbsp;Create
+              Invoice</button>
+          </div>
+          <!--change by pawan -->
+          <!-- <app-itemapproval-button [objectName]="'WccDetails'" [_objectId]="wccid"></app-itemapproval-button> -->
+  
+          <!--  -->
+
+          <!-- <div class="col-sm-1 col-md-1" style="padding-top: 10px"> -->
+            
+            <button  *ngIf="btnshow" class="btn btn-outline-info btn-sm" type="button"
+            (click)="showApprovalWindow()">Approve/Reject</button>
+         
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+          <!-- </div> -->
+          <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Type</small></td>
+                      <td>{{wccres.wccType}}</td>
+                    </tr>
+  
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Status</small></td>
+                      <td>{{wccres.wccStatus}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;">
+                        <small> Taxable Amount</small>
+                      </td>
+                      <td>
+                        {{wccres.wccAmount|currency:'INR'}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;">
+                        <small>
+                          Total Amount
+                        </small>
+                      </td>
+                      <td>
+                        {{wccres.wccTotalAmount|currency:'INR'}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Start Date</small></td>
+                      <td>{{wccres.fromDate | date:'dd-MM-yyyy'}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>End Date</small></td>
+                      <td class="wrappable">{{wccres.toDate | date:'dd-MM-yyyy'}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;">
+                        <small>
+                          Tax Amount
+                        </small>
+                      </td>
+                      <td>
+                        {{wccres.wccTaxAmount|currency:'INR'}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+            </div>
+            <!-- <div class ="row">
+      <div class="col-md-6 col-sm-6">
+          <table class="table table-sm">
+            <tbody>
+              <tr >
+                <td class="wrappable" style="width:50%"><small>Start Date</small></td>
+                <td>{{wccres.createdDate}}</td>
+              </tr>
+             
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <table class="table table-sm">
+            <tbody>
+           zz
+             
+             </tbody>
+          </table>
+        </div>
+   </div> -->
+            <!-- SA  -->
+            <button type="button" (click)="SAInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="SAinfoDisplay.angleIcon"></i> Service Apointment</button>
+            <div *ngIf="SAinfoDisplay.open" class="row">
+  
+              <!-- table SA List -->
+              <div class="card-body" style="overflow: auto;">
+                <div class="table-responsive mobile">
+                  <table class="table table-sm table-condensed tablerview">
+                    <thead>
+                      <tr>
+                        <th>S.No.</th>
+                        <th class="table-header" title="Appointment Number">Appointment Number</th>
+                        <th class="table-header" title="Close Date">Close Date</th>
+                        <th class="table-header" title="Case Number">Case Number</th>
+                        <th class="table-header" title="Customer Name">Customer Name</th>
+                        <th class="table-header" title="Case Type">Case Type</th>
+                        <th class="table-header" title="Case Reason">Case Reason</th>
+                        <th class="table-header" title="Circle">Circle </th>
+                        <th class="table-header" title="Activity Price">Activity Price Description</th>
+                        <th class="table-header" title="PO Number">PO Number</th>
+                        <th class="table-header" title="Taxable Amount">Taxable Amount</th>
+                        <th class="table-header" title="Tax Rate">Tax Rate</th>
+                        <th class="table-header" title="Tax Amount">Tax Amount</th>
+                        <th class="table-header" title="Total Amount">Total Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor=" let sal of wccSAList; let i = index ">
+                        <td>{{i+1}}.
+                        </td>
+                        <td>
+                          <a href="#"
+                            routerLink="/bat_serviceappointment/{{sal.id}}">{{sal.appointmentNumber}}</a>
+                        </td>
+                        <td>{{sal.caseCloseDate| date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                        <td>{{sal.caseId}}</td>
+                        <td>{{sal.customerName}}</td>
+                        <td>{{sal.caseType}}</td>
+                        <td>{{sal.caseReason}}</td>
+                        <td>{{sal.circleName}}</td>
+                        <td class="wrappable">{{sal.activityProceListDescription}}</td>
+                        <td class="wrappable">{{sal.poNumber}}</td>
+                        <td>{{sal.amount|currency:'INR'}}</td>
+                        <td>{{sal.taxRate}} %</td>
+                        <td>{{sal.taxAmount|currency:'INR'}}</td>
+                        <td>{{sal.totalAmount|currency:'INR'}}</td>
+                      </tr>
+  
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
+          <!-- SA End -->
+  
+  
+        </div>
+        <div *ngIf="!vDetails" class="card-body" style="margin: 0px;">
+          <div class="card">
+            <div class="card-header">
+              <table>
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/document.png"
+                      style="width: 24px;height:24px;background-color:rgb(119,179,212)" alt="">
+                  </td>
+                  <td>
+                    <strong>&nbsp; Invoice Details ({{invoiceList.length}})</strong>
+  
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body" *ngIf="invoiceList.length>0" style="padding:0px;margin-bottom: 0px;">
+              <div class="table-responsive">
+                <table class="table table-sm">
+                  <thead style="background-color:rgb(240, 240, 240)">
+                    <tr>
+                      <th>
+                        S.No.
+                      </th>
+                      <th>
+                        Invoice Id
+                      </th>
+                      <th>
+                        Vendor Invoice Number
+                      </th>
+                      <th>
+                        Vendor Invoice Date
+                      </th>
+  
+                      <th>
+                        Activity Amount
+                      </th>
+                      <th>
+                        GRN Number
+                      </th>
+                      <th>
+                        GRN Date
+                      </th>
+                      <th>
+                        Service Entry Number
+                      </th>
+                      <th>
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of invoiceList;let i=index;">
+                      <td>
+                        {{i+1}}
+                      </td>
+                      <td>
+                        <a [routerLink]="['/bat_invoice',item.invoiceId]" [routerLinkActive]="'active'">
+                          {{item.invoiceManualId}} </a>
+                      </td>
+                      <td>
+                        {{item.vendorInvoiceNumber}}
+                      </td>
+                      <td>
+                        {{item.vendorInvoiceDate|date:'dd-MM-yyyy'}}
+                      </td>
+                      <td>
+                        {{item.invoiceAmount}}
+                      </td>
+                      <td>{{item.grnNumber}}</td>
+                      <td>{{item.grnDate|date:'dd-MM-yyyy'}}</td>
+                      <td>{{item.entrySheetNumber}}</td>
+                      <th>{{item.vendorInvocieStatus}}</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+            </div>
+          </div>
+  
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/Sites.png" style="width: 24px;height: 24px;background-color: #f15050">
+                  </td>
+                  <td>
+                    <a>&nbsp; <strong>Approval History({{historyList.length}})</strong> </a>
+                  </td>
+  
+                </tr>
+              </table>
+            </div>
+  
+            <div *ngIf="historyList.length>0" class="card-body"
+              style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive mobile">
+                  <table class="table table-sm">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S.No</th>
+                        <th class="text-left" title="Approvel Stage"> Approvel Stage
+                        </th>
+                        <th class="text-left" title="Assigned Date">Assigned Date
+                        </th>
+                        <th class="text-left" title="Assigned To"> Assigned To
+                        </th>
+                        <th class="text-left" title="Action">Action</th>
+                        <th class="text-left" title="Approved Date">Approved Date</th>
+  
+                        <th class="text-left" title="Remarks">Remarks
+                        </th>
+  
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let hlist of historyList;let i=index ">
+                        <td class="mhide" data-line="S.No." style="width:50px;">{{i+1}}.</td>
+                        <td data-line="Approvel Stage" class="wrappable">{{hlist.stageName}}</td>
+                        <td class="wrappable text-left" data-line="Assigned Date">
+                          {{hlist.assignedDate | date:'dd-MM-yyyy'}}</td>
+                        <td class="wrappable" data-line="Assigned To">
+                 
+                            {{hlist.assignedTo}}
+                        </td>
+                        <td class="wrappable" data-line="Action">{{hlist.action}}</td>
+                        <td class="wrappable" data-line="Approved date">{{hlist.approvedDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td class="wrappable text-left" data-line="Remarks">{{hlist.remark}}</td>
+  
+                      </tr>
+                    </tbody>
+                  </table>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  <!-- WCC EDIT -->
+  <div class="modal fade" bsModal #createWCCModel="bs-modal" (onShow)="isModelOpen=true" (onHide)="isModelOpen=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createWCCModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-create-wcc *ngIf="isModelOpen" [isEditMode]="isEditMode" [editWCCData]="wccreq"
+            (onWccCreated)="onWccCreated($event)" [ElementWCCID]="WccID" (onCancle)="cancelData()"></app-bt-create-wcc>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- commercial window display -->
+  
+  <div class="modal fade" bsModal #commercialModel="bs-modal" (onShow)="isModelOpen=true" (onHide)="isModelOpen=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelInvoice()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-new-invoice *ngIf="isModelOpen" [isEditMode]="false" [editwccId]="wccid" (onCancle)="cancelInvoice()"
+            (onInvoiceCreated)="onInvoiceCreated($event)"></app-bt-new-invoice>
+  
+          <!-- <app-commercial-vendor-invoice [isEditMode]="isEditMode" [editGRNData]="comreq" (onGRNupdate)="onGRNupdate($event)" (onCancel)="cancelCommercial()" [venInvoiceID]="venInvoiceId"></app-commercial-vendor-invoice> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong *ngIf="message=='Submitted For Approval'">Approved successfully !</strong>
+      <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+  </div>
+  <!--Alert modal details -->
+  <div class="modal fade" bsModal #alertModal="bs-modal" tabindex="-1" role="dialog">
+    <div [ngClass]="alertmeta.ngClass" style="width:40%; text-align: center;margin: auto;">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="alertModal.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong> {{alertmeta.message}}</strong>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #approvalModule="bs-modal" [config]="{backdrop:'static'}" tabindex="-1"  role="dialog">
+    <div class="mpanel" style="width:61%">
+        <div class="mpanel-header"> 
+            <label>Approval For {{wccres.manulId}} </label>
+            <button (click)="approvalModule.hide()" class="cls-btn"><em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body ">
+            <app-bat-tobeapproved-dr [objectName]="'BtWccDetails'" [manualId]="wccres.manulId" [_objectId]="wccresIdForApproval" [approvaldata]="wccres"  (onSaveDetails)="onApprovalDone()" (onCancel)="approvalModule.hide()"></app-bat-tobeapproved-dr>
+        </div>
+    </div>
+</div>

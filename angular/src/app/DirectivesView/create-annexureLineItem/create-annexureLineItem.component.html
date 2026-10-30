@@ -1,0 +1,203 @@
+<div class="panel panel-default" style="max-height: 75vh; overflow: auto;">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Annexure
+                    <input [(ngModel)]="annexureLineItemRequest.annexureManualId" type="text" class="form-control"
+                        disabled>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Service Appointment
+                </div>
+                <!--  (change)="getDataFromSA()" -->
+                <ng-select *ngIf="serviceAppointmentList" [items]="serviceAppointmentList" (change)="onclickSA(annexureLineItemRequest.serviceAppointmentId)"
+                    [(ngModel)]="annexureLineItemRequest.serviceAppointmentId" bindLabel="serviceAppointmentManulaId"
+                    bindValue="serviceAppointmentId" placeholder="Search Service Appointment">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/annexure_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.serviceAppointmentManulaId}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/annexure_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.serviceAppointmentManulaId}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Case Number
+                </div>
+                <input [(ngModel)]="annexureLineItemRequest.caseIdManual" type="text" class="form-control" disabled>
+           
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Customer
+                </div>
+                <input [(ngModel)]="customerName" type="text" class="form-control" disabled>
+           
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Case Type
+                    <input [(ngModel)]="annexureLineItemRequest.activity" type="text" class="form-control" disabled>
+                </div>
+            </div> 
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Case Status
+                </div>
+                <input [(ngModel)]="annexureLineItemRequest.workStatus" type="text" class="form-control" disabled>
+            </div>
+
+        </div>
+        <div class="row">
+            
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                 Case Closer Date
+                </div>
+                <input [(ngModel)]="annexureLineItemRequest.workCompletionDate" type="text" class="form-control"
+                    bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today"
+                    [dateCustomClasses]="dateCustomClasses" disabled>
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Warrenty Status
+                </div>
+                <input [(ngModel)]="warrentyStatus" type="text" class="form-control" disabled>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                   Activity Price List
+                </div>
+                <select [(ngModel)]="annexureLineItemRequest.glCodeId" class="form-control" (change)="setAmount()">
+                    <option value='0'>--select--</option>
+                    <option *ngFor="let o of gLCodeForList;" [ngValue]="o.id">
+                        {{o.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Remarks
+                </div>
+                <textarea [(ngModel)]="annexureLineItemRequest.remark" type="text" rows="3"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Case Number
+                </div>
+                <input [(ngModel)]="annexureLineItemRequest.caseIdManual" type="text" class="form-control" disabled>
+            </div> -->
+            
+        </div>
+
+        <!-- <div class="row">
+            
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Exicom Invoice Date
+                </div>
+                <input [(ngModel)]="annexureLineItemRequest.approvalStatusId" type="text" class="form-control"
+                    bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today"
+                    [dateCustomClasses]="dateCustomClasses">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div> -->
+
+        <div class="row">
+            <!-- <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Rate
+                </div>
+                <input [(ngModel)]="annexureLineItemRequest.amount" type="text" class="form-control" disabled>
+            </div> -->
+
+        </div>
+
+        <div class="row">
+            <!-- <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Exicom Invoice Number
+                </div>
+                <input [(ngModel)]="annexureLineItemRequest.isInvoiceReceived" type="text" class="form-control">
+
+            </div> -->
+           
+        </div>
+
+    </div>
+
+    <!-- <div *ngIf="_isEditMode==true" class="panel-heading">
+        <span class="text-center" style="font-weight: bold">System Information</span>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bold;">
+                    Created By
+                </div>
+                <div class="label">
+                    &nbsp;{{annexureLineItemRequest.createdByFirstName}} {{annexureLineItemRequest.createdByMiddleName}}
+                    {{annexureLineItemRequest.createdByLastName}},
+                    {{annexureLineItemRequest.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bolder;">
+                    Last Modified By
+                </div>
+                <div class="label">
+                    &nbsp;{{annexureLineItemRequest.modifiedByFirstName}}
+                    {{annexureLineItemRequest.modifiedByLastName}},
+                    {{annexureLineItemRequest.modifiedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelDataAnnexureLineItem()" class="btn btn-default"><i
+                class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreateAnnexureLineItem()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully !'">Annexure Line Item ( <a href="#"
+                routerLink="annexureLineItem/{{tempServiceId}}">{{tempServiceName}}</a> )
+            created successfully !</strong>
+        <!-- <strong>{{message}}</strong> -->
+        <strong *ngIf="message!='Submitted Successfully !'">{{message}}</strong>
+    </div>
+</div>

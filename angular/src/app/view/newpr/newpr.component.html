@@ -1,0 +1,12 @@
+<div class="card">
+    <div class="card-header">
+        <strong>Product Request</strong>
+    </div>
+    <div class="card-body">
+        <small>Destination Warehouse</small><br>
+        {{locationResponse.locationName}}
+    </div>
+</div>
+
+<app-productrequestdirective *ngIf="show" [loc]="locationResponse" (onSave)="onSave($event)" (onCancled)="onCancel()">
+</app-productrequestdirective>

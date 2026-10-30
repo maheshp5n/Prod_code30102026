@@ -1,0 +1,128 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Name
+                </div>
+                <input type="text" [(ngModel)]="consumedResponse.miManualId" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Part Code
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-sm-10">
+                        <ng-select *ngIf="productList" [items]="productList"
+                            [(ngModel)]="consumedResponse.productPartCode" bindLabel="productPartCode"
+                            bindValue="productPartCode" placeholder="Search Products..."
+                            (change)="getProductDescriptionByPardCode(consumedResponse.productPartCode)">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(49,121,146);" /> {{item.productPartCode}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(49,121,146);" /> {{item.productPartCode}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <span class="input-group-append">
+                            <div><i [ngClass]="faPlus" *ngIf="rights('Products','create')" class="border-left-0" (click)="addNewProduct()"></i></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Quantity
+                </div>
+                <input type="number" [(ngModel)]="consumedResponse.quantity" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Product Description
+                </div>
+                <input type="text" value="{{consumedResponse.productDescription}}" class="form-control" disabled >
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Materiala Issue Date
+                </div>
+                <input type="text" [(ngModel)]="consumedResponse.materialIssueDate" class="form-control" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" [dateCustomClasses]="dateCustomClasses">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Faulty Submission Date
+                </div>
+                <input type="text" [(ngModel)]="consumedResponse.faultySubmissionDate" class="form-control" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" [dateCustomClasses]="dateCustomClasses">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Remarks(Replacement)
+                </div>
+                <textarea [(ngModel)]="consumedResponse.remarks" rows="2" class="form-control"></textarea>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreate()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createProductModel="bs-modal" (onShow)="isProductModelShow=true"
+    (onHide)="isProductModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">New Product</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createProductModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <app-create-new-product ></app-create-new-product> -->
+                <app-create-new-product *ngIf="isProductModelShow" [isEditMode]="isEditMode"
+                    [editProductData]="createProduct" (onProductCreated)="onProductCreated($event)"
+                    (onCancle)="cancelDataProd()">
+                </app-create-new-product>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-productConsumed">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">
+            Created Successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>

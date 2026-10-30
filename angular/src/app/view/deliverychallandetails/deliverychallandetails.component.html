@@ -1,0 +1,387 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Delivery Challan" src="assets/images/delivery_120.png"
+                                style="height: auto;width:100%;background-color: rgb(49,121,146);"
+                                title="Delivery Challan" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Delivery Challan</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div class="btn-group" style="padding: 10px;">
+                    <!-- <button class="btn btn-outline-info btn-sm" type="button" (click)="createCaseModelshow(asset.serialNumber,2)"><i class="fa fa-plus"></i>&nbsp; New Case DCT</button>
+            <button class="btn btn-outline-info btn-sm" type="button" (click)="createCaseModelshow(asset.serialNumber,1)"><i class="fa fa-plus"></i>&nbsp; New Case Battery</button> -->
+                    <button class="btn btn-outline-info btn-sm" type="button" (click)="onClickEdit()">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="card-body">
+      <small>Account</small>
+      <div><a href="#" routerLink="/accounts/{{asset.accountSapNumber}}">{{asset.accountName}}</a>
+      </div>
+    </div> -->
+</div>
+
+<div class="card" style="margin-top: 10px;">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Information
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>NAME</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Received Quantity</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Status</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Username</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Send Shipping Email</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Requisition</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Issued Quantity</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>From warehouse name</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>To Warehouse</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" (click)="changeShippingDetailsDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="shippingDetailsDisplay.angleIcon"></i> &nbsp;Shipping Details</button>
+                    <div *ngIf="shippingDetailsDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Shipment Mode</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Name</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Number</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Shipping Date</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Email</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" (click)="sysInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+                    <div *ngIf="sysinfoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Created By</small>
+                                            <div></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Last Modified By</small>
+                                            <div> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!vDetails" class="panel-body">
+                    <div class="card">
+                        <div class="card-heading" style="background-color: white;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/delivery_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(199, 197, 81);border-radius: 1mm;"
+                                            title="Expenses Management"> </td>
+                                    <td>
+                                        <a>&nbsp;Delivery Challan LineItems
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="card-body"
+                            style="padding:0px;margin-bottom: 0px; background-color:rgb(240, 240, 240)">
+                            <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-condensed">
+                                        <thead style="background-color:rgb(248, 245, 245)">
+                                            <tr>
+                                                <th class="table-header" title="DELIVERY CHALLAN LINEITEM">
+                                                    &nbsp;DELIVERY CHALLAN
+                                                    LINEITEM
+                                                </th>
+                                                <th>PART CODE</th>
+                                                <th>PRODUCT TYPE</th>
+                                                <th>PRODUCT DESCRIPTION</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- <tr *ngFor="let c of zoneList |searchfilt: searchitem; let i=index">
+                                                <td style="text-align: center">{{serialNumber+i+1}}.</td>
+                                                <td>{{c.zoneName}} </td>
+                                              </tr> -->
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="width: 50;">
+                                                    <div class="btn-group" dropdown placement="bottom right">
+                                                        <button dropdownToggle type="button"
+                                                            class="fa fa-sort-down"></button>
+                                                        <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                            aria-labelledby="button-disabled-item">
+                                                            <li role="menuitem">
+                                                                <a class="dropdown-item">Edit </a>
+                                                            </li>
+                                                            <li role="menuitem">
+                                                                <a class="dropdown-item">Delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="text-align: center">
+                                    <a id="pag" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                                        (click)="setPagePrevious($event)">
+                                        <!--  [ngClass]="{'active':page}" -->
+                                        &#8249;
+                                    </a>
+
+                                    <a id="pag" class="nav-link active" href="" (click)="setPage($event)"
+                                        [ngClass]="{'active':i==page}">
+                                        {{page+1}}
+                                    </a>
+
+                                    <a id="pag" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                                        (click)="setPageNext($event)">
+                                        <!-- [ngClass]="{'active':page}" -->
+                                        &#8250;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-heading" style="background-color: white;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/inventory_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(22, 235, 111);border-radius: 1mm;"
+                                            title="Expenses Management"> </td>
+                                    <td>
+                                        <a>&nbsp;Manage Inventory
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-heading" style="background-color: white;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/inventory_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(22, 235, 111);border-radius: 1mm;"
+                                            title="Expenses Management"> </td>
+                                    <td>
+                                        <a>&nbsp;Manage Inventory (Delivery Challan (Issue))
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-heading" style="background-color: white;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard"
+                                            src="assets/images/ManageComponent_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(124, 150, 236);border-radius: 1mm;"
+                                            title="Delivery Chaalan"> </td>
+                                    <td>
+                                        <a>&nbsp;Manage Component
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-asset">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

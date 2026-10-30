@@ -1,0 +1,94 @@
+
+<div class="card">
+    <div class="card-body">
+        <span>Destination Location</span>
+        <div class="form-row mt-1">
+            <div class="form-group col-md-2">
+                <select type="text" class="form-control form-control-sm" [(ngModel)]="destinationLocatonId"
+                    (change)="getIdOfDestinationLocation(destinationLocatonId)">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let list of btLocationList" [ngValue]="list.locationId">
+                        {{list.locationName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-sm" title="Item To return">
+          <thead>
+            <tr>
+              <th scope="col" class="text-left"><input type="checkbox" (change)="onGlobalChange($event)" [(ngModel)]="globalcheck" [checked]="globalcheck"> Sl.No</th>
+              <th scope="col">Service Order Item</th>
+              <th scope="col">Service Order</th>
+              <th scope="col">Serial Number</th>
+              <th scope="col">Product prtcode</th>
+              <th scope="col">Product Type</th>
+              <th scope="col">Product Description</th>
+              <th scope="col">Is Customer Inventory </th>
+              <th scope="col" class="text-left">Item Return Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of btSoReturnItemsList;let i=index;">
+              <td><input type="checkbox" [(ngModel)]="item.checked" [checked]="item.checked"> {{i+1}}</td>
+              <td>{{item.serviceOrderItemManualId}}</td>
+              <td><a [routerLink]="['/bat_serviceorder',item.serviceOrderId]"> {{item.serviceOrderManualId}}</a></td>
+              <td>{{item.serviceOrderItemSerialnumber}}</td>
+              <td><a [routerLink]="['/bat_products',item.productId]"> {{item.productPartcode}}</a> </td>
+              <td>{{item.productType}}</td>
+              <td>{{item.productDescription}}</td>
+              <td><em *ngIf="item.serviceOrderIsCustomerInventory" class="tik-mark"></em><em *ngIf="!item.serviceOrderIsCustomerInventory" class="cross-mark"></em></td>
+              <td><select [(ngModel)]="item.serviceOrderItemReturnStatus" [disabled]="true">
+                <option value="1">OK</option>
+                <option value="2">Faulty</option>
+                <option value="3">Scrap</option>
+                <option value="4">Rejected</option>
+                <option value="5">BER</option>
+              </select></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+      <div class="row">
+          <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">             
+            Shipping Mode
+            </div>
+          <select [(ngModel)]="btServiceOrderReturnReq.shippingMode" class="form-control">
+            <option value="0" disabled>--Select--</option>
+            <option value="Courier">Courier</option>
+            <option value="ByHand">ByHand</option>
+            <option value="Transport">Transport</option>
+        </select>
+        </div>
+          <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">             
+              Shipping To Name
+            </div>
+          <input type="text" class="form-control" [(ngModel)]="btServiceOrderReturnReq.shippingTo">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+          <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">             
+              Tracking Number
+            </div>
+          <input type="text" class="form-control" [(ngModel)]="btServiceOrderReturnReq.trackingNumber">
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-12 text-right">
+          <button class="btn btn-primary" type="button" (click)="postServiceOrderReturn()"><em class="fa fa-save"></em> Save</button> &nbsp;
+          <button class="btn btn-default" type="button" (click)="cancelServiceOrderReturn()"><em class="fa fa-remove"></em> Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>

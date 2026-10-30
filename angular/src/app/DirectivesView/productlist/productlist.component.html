@@ -1,0 +1,199 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+ <div class="card">
+        <div class="card-header">
+                <!-- <div class="row">
+        
+                    <div class="col-sm-12 col-md-12">
+                        <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+                            style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">
+                    </div>
+        
+                </div> -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" [(ngModel)]="advancesearch.partCode" placeholder="Part Code">
+                    </div>
+                 
+                  
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-info btn-md" (click)="searchProduct()"><em
+                            class="fa fa-search"></em>
+                          Search</button>
+                          <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()">
+                          Reset</button>
+                      </div>
+                   
+                  
+                  </div><br>
+               
+
+            </div>
+ </div>
+<div class="card" style="max-height: 75vh;overflow: auto;">
+  <div class="card-body" style="padding: 0px;">
+        <div class="table-responsive scroll-container">
+            <table class="table  table-sm table-condensed tablerview">
+                <thead fix-head style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                        <th style="width:50px;">S.No</th>
+                        <th></th>
+                        <th class="table-header" (click)="setOrder('productPartCode',1)"
+                            (mouseover)="columnVisibility[1]=true" (mouseout)="columnVisibility[1]=false" title="Part
+                    Code">Part Code
+                            <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]">▼</span>
+                            <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]">▲</span></th>
+
+                        <th (click)="setOrder('subProductFamily.productFamily.productFamilyName',2)"
+                            class="table-header" (mouseover)="columnVisibility[2]=true"
+                            (mouseout)="columnVisibility[2]=false" title="Product
+                    Family">Product Family
+                            <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]">▼</span>
+                            <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]">▲</span></th>
+
+                        <th (click)="setOrder('subProductFamily.productFailySubProductName',3)" class="table-header"
+                            (mouseover)="columnVisibility[3]=true" (mouseout)="columnVisibility[3]=false"
+                            title="Product Sub Family">
+                            Product Sub Family
+                            <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]">▼</span>
+                            <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]">▲</span></th>
+
+                        <th class="table-header" (click)="setOrder('productType',4)"
+                            (mouseover)="columnVisibility[4]=true" (mouseout)="columnVisibility[4]=false" title="Type">
+                            Type
+                            <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]">▼</span>
+                            <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]">▲</span></th>
+
+                        <th class="table-header" (click)="setOrder('productPrice',5)"
+                            (mouseover)="columnVisibility[5]=true" (mouseout)="columnVisibility[5]=false" title="Price">
+                            Price
+                            <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]">▼</span>
+                            <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]">▲</span></th>
+
+                        <th class="table-header" (click)="setOrder('pdoductDescription',6)"
+                            (mouseover)="columnVisibility[6]=true" (mouseout)="columnVisibility[6]=false"
+                            title="Product Description" style="width: 5cm">
+                            Product Description
+                            <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]">▼</span>
+                            <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]">▲</span></th>
+
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of productList| searchfilt: searchitem; let i=index">
+                        <td>{{serialNumber+i+1}}</td>
+                        <!-- <td><a href="#" routerLink="/products/{{c.partCode}}">{{c.partCode}}</a> -->
+                        <!-- </td> -->
+                        <td><input type="checkbox" value="checked" (click)='onSelect($event,c)'></td>
+                        <td>{{c.partCode}}</td>
+                        <td>{{c.productFamilyName}} </td>
+
+                        <td>
+
+                            {{c.productSubFamilyName}}
+
+                        </td>
+
+                        <td>{{c.productType}}
+                        </td>
+
+                        <td>
+                            <i class="fa fa-inr"></i>
+                            {{c.productPrice}}
+
+                        </td>
+
+                        <td>{{c.productDescription}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       
+        <div style="text-align: center">
+            <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                &#8249;
+            </a>
+
+            <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+                {{page+1}}
+            </a>
+
+            <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last" (click)="setPageNext($event)"
+                [ngClass]="{'active':page}">
+                &#8250;
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" (click)="cancelPricebookData()" class="btn btn-default"> <i
+                    class="fa fa-remove"></i>
+                Cancel</button>&nbsp;
+            <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+            <button type="button" (click)="AddSelected()" class="btn btn-primary" [disabled]="(selectedProductList.length === 0)" > Next
+            </button>
+        </div>
+    </div>
+<!-- next model -->
+<div class="modal fade" bsModal #selectedItemModel="bs-modal" (onShow)="isCaseModelOpen=true"
+    (onHide)="isCaseModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-center">Add Selected</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="selectedItemModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <div class="table table-responsive">
+                    <table class="table  table-sm table-condensed tablerview">
+                        <thead style="background-color:rgb(248, 245, 245)">
+                            <tr>
+                                <th>Part Code</th>
+                                <th> Active</th>
+                                <th>List Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let list of selectedProductList">
+                                <td>{{list.partCode}}</td>
+                                <td> <input type="checkbox" [(ngModel)]="list.active" value="list.active" > </td>
+                                <td> <input type="text" [(ngModel)]="list.listPrice"> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" (click)="cancelselectedData()" class="btn btn-default"> <i
+                           class="fa fa-remove"></i>Back</button>&nbsp;
+                        <button type="button" (click)="saveList()" class="btn btn-primary"><i class="fa fa-save"></i> Add Product
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Product Added successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>
+

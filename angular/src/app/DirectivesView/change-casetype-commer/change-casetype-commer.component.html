@@ -1,0 +1,78 @@
+<div class="panel panel-default" style="max-height: 70vh;overflow: auto;">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold">Information</span>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+               <div class="control-label">Case Number</div>
+               <input type="text" class="form-control" [(ngModel)]="caseres.caseManualId" disabled>
+             </div>
+           </div>
+           <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">Old Case Type</div>
+                <input type="text" class="form-control" [(ngModel)]="caseres.caseTypeName" disabled>
+              </div>
+              <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label"> Old Case Reason</div>
+                <input type="text" class="form-control" [(ngModel)]="caseres.caseReasonName" disabled>
+              </div>
+           </div>
+           <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label"> New Case Type</div>
+                <!-- <input type="text" class="form-control"> -->
+                <select  name="type" class="form-control" [(ngModel)]="casetypereq.caseType" (change)="getCasereasonchange(casetypereq.caseType)" >
+                  <option value='' disabled>--Select Case Type--</option>
+                    <option *ngFor="let res of caseTypeList " [ngValue]="res.caseType">{{res.caseType}}
+                      <!-- {{res.caseTypeName}} -->
+                    </option>
+                  </select>
+              </div>
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">New Case Reason</div>
+                <select  name="type" class="form-control" [(ngModel)]="casetypereq.caseReason" >
+                  <option value='' disabled>--Select Reason--</option>
+                  <option *ngFor="let res of caseReason " [ngValue]="res.casereason">{{res.casereason}}
+                    <!-- {{res.caseTypeName}} -->
+                  </option>
+                </select>
+              </div>
+           </div>
+           <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">PO Number</div>
+                <input type="text" class="form-control" [(ngModel)]="casetypereq.poNo">
+              </div>
+              <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">PO Date</div>
+                <input class="form-control" onkeydown="return false" bsDatepicker
+               value="{{casetypereq.poDate|date:'dd-MM-yyyy'}}"
+                 [bsConfig]="{adaptivePosition: true}"
+                    [maxDate]="today" [dateCustomClasses]="dateCustomClasses" autocomplete="off" (bsValueChange)="onPODatechange($event)">&nbsp;
+                <span class="fa fa-calendar errspan"></span>
+              </div>
+           </div>
+      </div>
+</div>
+<div class="row">
+    <div class=" col-sm-6 col-md-6 ">&nbsp;</div>
+    <div class="col-sm-6 col-md-6 text-right">
+        <button type="button" class="btn btn-default" (click)="cancelChange()"><i class="fa fa-remove"></i>
+          Cancel</button>&nbsp;
+        <button type="button" class="btn btn-primary" (click)="submitcaseType()"><i class="fa fa-save"></i> Save</button>
+      </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully !'">Updated Successfully
+      </strong>
+    <strong *ngIf="message!='Submitted Successfully !'">{{message}}</strong>
+  </div>
+</div>

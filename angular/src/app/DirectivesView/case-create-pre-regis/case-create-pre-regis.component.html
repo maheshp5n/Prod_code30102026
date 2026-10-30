@@ -1,0 +1,734 @@
+<div class="panel panel-default" style="max-height: 70vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Case Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+     <div class="col-md-6 col-sm-6 form-group" *ngIf="isEditMode==true">
+        <div class="control-label">Case Number</div>
+        <input type="text" class="form-control" value="{{res.caseManualId}}" disabled>
+      </div>
+    </div>
+   <div class="row">
+      <div class="col-md-6 col-sm-6 form-group" [ngClass]="ngClassAssetSerial">
+        <div class="control-label">
+          Assets &nbsp;<i *ngIf="indate" class="fa fa-flag" style="color:green;"></i>
+          <i *ngIf="outdate" class="fa fa-flag" style="color:red"></i>
+        </div>
+      
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+              <ng-select [items]="assetList" (change)="assetsSerialNumberSelected($event)"(search)="getAssetsListTini($event)"
+               [(ngModel)]="res.assetsSerialNumber"
+               bindLabel="assetsSerialNumber" bindValue="assetsSerialNumber"
+                  placeholder="Search Asset Serial No...">
+                  <ng-template ng-label-tmp let-item="item">
+                      <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                          style="background-color: rgb(49,121,146);" /> {{item.assetsSerialNumber}}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                          style="background-color: rgb(49,121,146);" /> {{item.assetsSerialNumber}}
+                  </ng-template>
+              </ng-select>
+              
+          </div>
+          
+          <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                  <div *ngIf="rights('Assets','create')"><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAsset()"></i></div>
+              </span>
+          </div>
+      </div>
+      <small *ngIf="res.assetDescription!=null">
+       Asset Description: {{res.assetDescription}}</small>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Site ID
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+              <ng-select  [items]="siteList" [(ngModel)]="res.siteId" (change)="siteIdSelected($event)"
+               bindLabel="siteManualId" bindValue="siteId" placeholder="Search Site...">
+                  <ng-template ng-label-tmp let-item="item">
+                      <img height="15" alt="" width="15" src='/assets/images/Sites.png'
+                          style="background-color: rgb(238, 85, 85);" /> {{item.siteManualId}}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <img height="15" alt="" width="15" src='/assets/images/Sites.png'
+                          style="background-color: rgb(238, 85, 85);" /> {{item.siteManualId}}
+                  </ng-template>
+              </ng-select>
+              
+          </div>
+          <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                  <div *ngIf="rights('SiteDetails','create')"><i [ngClass]="faPlus" class="border-left-0" (click)="addNewSite()"></i></div>
+              </span>
+          </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- <div class="col-md-6 col-sm-6 form-group" *ngIf="isEditMode==true">
+        <div class="control-label">Case Number</div>
+        <input type="text" class="form-control" value="{{res.caseManualId}}" disabled>
+      </div> -->
+      <div [ngClass]="ngClassMissingAsset" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Missing Asset
+        </div>
+        <input type="text" class="form-control" rows="2" [(ngModel)]="res.missingAssets">
+      </div>
+      <div class="col-md-6 col-sm-6  form-group required">
+          <div class="control-label">
+            Caller Name
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-sm-10">
+                <ng-select [items]="ContactOfAccount"
+                 [(ngModel)]="res.contactPersonId" 
+                 bindLabel="fullName" bindValue="contactId" placeholder="Search Contacts...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                          /> {{ item.firstName}} {{item.middleName }} {{item.lastName }}<small>({{item.phoneNumber}})</small>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                           > {{ item.firstName}} {{item.middleName }} {{item.lastName }}<small>({{item.phoneNumber}})</small>
+                    </ng-template>
+                </ng-select>
+                
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <span class="input-group-append">
+                    <div *ngIf="rights('ContactDetails','create')"><i [ngClass]="faPlus" class="border-left-0" (click)="addNewContact()"></i></div>
+                </span>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6  form-group required">
+        <div class="control-label">
+          Case Type
+        </div>
+        <select name="type" [(ngModel)]="res.caseTypeId" class="form-control" (change)="getCasereasonchange(res.caseTypeId)" disabled>
+          <!-- <option value='0' disabled>--Select Case Type--</option> -->
+          <option *ngFor="let res of caseTypeList " [ngValue]="res.caseTypeId">{{res.caseTypeName}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6  form-group required">
+        <div class="control-label">
+          Case Reason
+        </div>
+        <select name="type" [(ngModel)]="res.caseReasonId" class="form-control">
+          <!-- <option value='0' disabled>--Select Reason--</option> -->
+          <option *ngFor="let res of caseReason " [ngValue]="res.caseReasonId">{{res.caseReasonName}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required" style="display:none;">
+        <div class="control-label">
+          Call Center Rep. name
+        </div>
+        <input type="text" *ngIf="_isEditMode == false" rows="3" class="form-control"
+          value="{{loginData.firstName}} {{loginData.middleName}} {{loginData.lastName}}" disabled>
+        <input type="text" *ngIf="_isEditMode == true" rows="3" class="form-control"
+          value="{{res.callCenterRepFirstName}} {{res.callCenterRepMiddleName}} {{res.callCenterRepLastName}}" disabled>
+      </div>
+      <!-- <div class="col-md-6 col-sm-6  form-group required">
+        <div class="control-label">
+          Caller Name
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+              <ng-select [items]="ContactOfAccount"
+               [(ngModel)]="res.contactPersonId" 
+               bindLabel="fullName" bindValue="contactId" placeholder="Search Contacts...">
+                  <ng-template ng-label-tmp let-item="item">
+                      <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                        /> {{ item.firstName}} {{item.middleName }} {{item.lastName }}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                         > {{ item.firstName}} {{item.middleName }} {{item.lastName }}
+                  </ng-template>
+              </ng-select>
+              
+          </div>
+          <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                  <div *ngIf="rights('ContactDetails','create')"><i [ngClass]="faPlus" class="border-left-0" (click)="addNewContact()"></i></div>
+              </span>
+          </div>
+      </div>
+      </div> -->
+      <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6" style="display: none;">
+        <div class="control-label">
+          Date Of Visit
+        </div>
+        <input type="text" class="form-control" onkeydown="return false" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+          value="{{res.dateOfVisit | date:'yyyy-MM-dd'}}" [maxDate]="today"[dateCustomClasses]="dateCustomClasses" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 " style="display: none;">
+        <div class="control-label">Internal Comments</div>
+        <textarea [(ngModel)]="res.internalRemark" class="form-control" rows="3"></textarea>
+      </div>
+      <!-- <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Date Of Visit
+        </div>
+        <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+          value="{{res.dateOfVisit | date:'yyyy-MM-dd'}}" [maxDate]="today"[dateCustomClasses]="dateCustomClasses">
+        <span class="fa fa-calendar errspan"></span>
+      </div> -->
+    </div>
+    <!-- <div *ngIf="_isEditMode == true" class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">Date/Time Opened</div>
+        <input type="text" class="form-control" value="{{res.dateTimeOpened}}" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">Date/Time Closed</div>
+        <input type="text" class="form-control" value="{{res.dateTimeClosed}}" disabled>
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">RJIL TT01 No</div>
+        <input type="text" class="form-control" [(ngModel)]="res.rjil_TT01_No" >
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-lable">
+          Send SMS
+        </div>
+        <input type="checkbox" class="form-control-input" [(ngModel)]="res.iSmsSend" *ngIf="_isEditMode == true" disabled>
+        <input type="checkbox" class="form-control-input" [(ngModel)]="res.iSmsSend" *ngIf="_isEditMode == false">
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-heading" style="display: none;">
+    <span class="text-center" style="font-weight: bold">Site Details</span>
+  </div>
+
+  <div class="panel-body" style="display: none;">
+    <div class="row">
+      <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6">
+        <div class="control-label">Site Name</div>
+        <input type="text" class="form-control" value="{{res.siteName}}" placeholder="Search Site..." disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Account Name
+          </div>
+          <div class="input-group">
+            <input type="text" [(ngModel)]="res.accountName" class="form-control" disabled>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+     
+
+      <!-- <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Primary Account Name
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control" value="{{assests.accountName}}" disabled>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- <div class="row">
+      <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Customer
+        </div>
+        <input type="text" class="form-control" value="{{res.customer}}" disabled>
+      </div>
+      <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Caller Mobile</div>
+        <input type="text" class="form-control" value="{{res.contactPersonContactNo}}" disabled>
+      </div>
+    </div> -->
+
+    <!-- <div class="row">
+      <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6  form-group">
+        <div class="control-label">
+          Assets Description
+        </div>
+        <textarea class="form-control" rows="2" value="{assests.{productDescription}}"  disabled></textarea>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Additional Information</span>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 form-group required">
+        <div class="control-label">
+          Status
+        </div>
+        <select name="type" [(ngModel)]="res.caseStatusId" class="form-control" (change)="getstage(res.caseStatusId)">
+          <option *ngFor="let res of status " [ngValue]="res.id">{{res.caseStatusName}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Stage
+        </div>
+        <select name="type" [(ngModel)]="res.caseStageId"  class="form-control">
+          <option value='0' disabled>--Select Status--</option>
+          <option *ngFor="let stagres of stage"  [ngValue]="stagres.id">{{stagres.caseStageName}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Case Origin
+        </div>
+        <select name="type" [(ngModel)]="res.caseOriginId" class="form-control">
+          <option *ngFor="let res of origin " [ngValue]="res.caseOriginId">{{res.caseOrignName}}
+          </option>
+        </select>
+        <!-- <textarea  rows="3" class="form-control"></textarea> -->
+      </div>
+      <div class="col-md-6 col-sm-6  form-group required">
+        <div class="control-label">
+          Priority
+        </div>
+        <select name="type" [(ngModel)]="res.casePriorityId" class="form-control">
+          <option *ngFor="let res of priority " [ngValue]="res.casePriorityId">{{res.casePriorityName}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Pending Responsibility
+        </div>
+        <select name="type" [(ngModel)]="res.pendingResponsibilityId" class="form-control">
+          <!-- <option value='0' disabled>--Select Pending Responsibility--</option> -->
+          <option *ngFor="let resp of pendingres " [ngValue]="resp.pendingResponsibilityId">{{resp.pendingResponsibilityName}}
+          </option>
+        </select>
+      </div>
+      <!-- <div *ngIf="_isEditMode == true" class="col-md-6 col-sm-6">
+        <div class="control-label">SLA Time</div>
+        <input type="text" class="form-control" value="{{res.slatime}}" disabled>
+      </div> -->
+    </div>
+  </div>
+
+
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Problem Description</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group ">
+        <div class="control-label" style="font-weight: bold">
+          <!-- Problem Reported -->
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-sm-5 form-group ">
+            <div class="control-label"style="font-weight: bold">
+              Problem Type
+            </div>
+            <div class="list-group">
+              <select [(ngModel)]="problem" multiple="multiple" (dblclick)="moveRight(problem)" class="form-control"
+                size="10">
+                <option *ngFor=" let problem of AllProblemList" [ngValue]="problem">{{problem.problemName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-2 form-group text-center " style="margin-top: 5%">
+            <button class="btn" (click)="moveRight(problem)"><i class="fa fa-caret-right fa-2x" style="size:5px;"></i></button><br><br>
+            <button class="btn" (click)="moveLeft(problem)"><i class="fa fa-caret-left fa-2x"></i></button>
+          </div>
+
+          <div class="col-md-5 col-sm-5 form-group required">
+            <div class="control-label" style="font-weight: bold">
+              Problem Reported
+            </div>
+            <div class="list-group">
+              <select (dblclick)="moveLeft(problem)" [(ngModel)]="problem"
+               multiple="multiple" class="form-control" size="10">
+                <option *ngFor=" let problem of problemOccured" [ngValue]="problem">{{problem.problemName}}</option>
+              </select>
+
+              <!-- <select *ngIf="_isEditMode == true" (dbclick)="moveLeft(problem)" [(ngModel)]="problem"
+                multiple="multiple" class="form-control" size="10">
+                <option *ngFor=" let problem of problemReported" [ngValue]="problem">{{problem.problemName}}
+                </option>
+              </select> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-sm-4 form-group">
+        <div class="control-label">
+          Number of SMR
+        </div>
+        <input type="text" [(ngModel)]="res.noOfSmr" class="form-control" (keypress)="onlyNumbers($event)" (keyup)="onKey($event)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group " style="display: none;">
+        <div class="control-label">
+          Input from Engineer & SCH
+        </div>
+        <textarea [(ngModel)]="res.inputFromEng" class="form-control" rows="2"></textarea>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Other Problem Reported
+        </div>
+        <textarea class="form-control" [(ngModel)]="res.otherProblemReported" rows="3"></textarea>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Remarks
+        </div>
+        <textarea [(ngModel)]="res.remarks" class="form-control" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="row">
+     
+      <!-- <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Other Problem Reported
+        </div>
+        <textarea class="form-control" [(ngModel)]="res.otherProblemReported" rows="3"></textarea>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- <div *ngIf="_isEditMode == true" class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Proof Of Delivery</span>
+  </div> -->
+  <!-- <div *ngIf="_isEditMode == true" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          POD Number
+        </div>
+        <input type="text" class="form-control" value="{{res.podnumber}}" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          POD Date
+        </div>
+        <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+          value="{{res.poddate | date:'yyyy-MM-dd'}}" [maxDate]="today" disabled>
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div>
+  </div> -->
+  <div class="panel-heading" *ngIf="installationTrue">
+    <span class="text-center" style="font-weight: bold">Customer PO Details</span>
+  </div>
+  <div class="panel-body" *ngIf="installationTrue">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          PO Number
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="res.ponumber">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          PO Date
+        </div>
+        <input type="text" class="form-control" onkeydown="return false"  [maxDate]="today" [dateCustomClasses]="dateCustomClasses"
+        bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="res.podate" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Invoice No.
+        </div>
+        <input type="text" class="form-control" value="{{res.invoiceNumber}}" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Invoice Date
+        </div>
+        <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+          value="{{res.invoiceDate | date:'yyyy-MM-dd ' }}" disabled>
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div> -->
+  </div>
+  <!-- <div *ngIf="_isEditMode == false" class="panel-heading" >
+    <span class="text-center" style="font-weight: bold">Vendor Invoice Detail</span>
+
+  </div>
+  <div *ngIf="_isEditMode == false" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">Vendor Invoice No.</div>
+        <input type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label">Vendor Invoice Date</div>
+        <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="panel-heading" style="display: none;">
+    <span class="text-center" style="font-weight: bold">For SCH Use Only</span>
+  </div>
+  <div class="panel-body" style="display: none;">
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <div class="control-label">
+          Service Territory
+        </div>
+        <select name="type" class="form-control"
+          placeholder="&#xF002; Search Service Teritory..">
+          <option value='0' disabled>--Select Service territory--</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Work type(Assets type)Choice
+        </div>
+        <select name="type" class="form-control"
+          placeholder="&#xF002; Search Work Type..">
+          <option value='0' disabled>--None--</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Spare Part name
+        </div>
+        <input type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6  form-group">
+        <div class="control-label">
+          Spare Part Quality
+        </div>
+        <input type="text" class="form-control">
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Corrective Actions
+        </div>
+        <input type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6  form-group ">
+        <div class="control-label">
+          Resolution Method
+        </div>
+        <select name="type" class="form-control" placeholder="&#xF002;">
+          <option value='0' disabled>--None--</option>
+          <!-- <option *ngFor="let res of priority " [ngValue]="res.casePriority">{{res.casePriority}}
+          </option> -->
+        </select>
+      </div>
+    </div>
+  </div>
+  <div  class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Assignment Details</span>
+  </div>
+  <div  class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6  form-group">
+        <div class="control-label">
+          Service Center
+        </div>
+        <!-- <div class="input-group">
+          <select class="form-control" [(ngModel)]="res.serviceCenterId" (change)="getServiceResForList(res.serviceCenterId)">
+            <option value='0'>--None--</option>
+            <option *ngFor="let l of leaglEntityList" [ngValue]="l.legalEntityId">{{l.legalEntityName}}</option>
+          </select>
+        </div> -->
+       <div class="row">
+          <div class="col-md-12 col-sm-12">
+              <ng-select *ngIf="leaglEntityList" [items]="leaglEntityList"(change)="getServiceResForList(res.serviceCenterId)"
+                  [(ngModel)]="res.serviceCenterId" bindLabel="legalEntityName" bindValue="legalEntityId"
+                  placeholder="Search Service Center...">
+                  <ng-template ng-label-tmp let-item="item">
+                      <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                          style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                          style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                  </ng-template>
+              </ng-select>
+          </div>
+       </div>
+      </div>
+      <div class="col-md-6 col-sm-6  form-group required">
+        <div class="control-label">
+          Engineer(Service Resource)
+        </div>
+        <select name="type" [(ngModel)]="res.serviceResourceId" class="form-control" placeholder="&#xF002;" >
+          <option value='0' disabled>--Select--</option>
+          <option *ngFor="let res of serviceResourcesList " [ngValue]="res.serviceResourceId">{{res.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-right">
+    <div class="col-md-6 col-sm-6 text-left">
+      <div class="custom-checkbox" *ngIf="_isEditMode == false" >
+        <input type="checkbox" class="custom-control-input" id="defaultChecked2"
+          [(ngModel)]="res.isAssignByAssignmentRule">
+        <label class="custom-control-label" for="defaultChecked2">Assign using assignment rule</label>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 text-right">
+      <button type="button" class="btn btn-default" (click)="cancelDatacase()"><i class="fa fa-remove"></i>
+        Cancel</button>&nbsp;
+      <button type="button" class="btn btn-primary" (click)="postCase()"><i class="fa fa-save"></i> Save</button>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Pre-Registration Case ( <a href="#" routerLink="/prc/{{tampCaseId}}"
+        activateRout="active">{{tempCaseName}}</a>) &nbsp;created successfully !</strong>
+
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>
+
+<!-- ============site create============ -->
+<div class="modal fade" bsModal #createSiteModel="bs-modal" (onShow)="openModlues.siteModuleOpen=true"
+  (onHide)="openModlues.siteModuleOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createSiteModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- style="max-height: 500px;overflow: auto;" -->
+      <div class="modal-body">
+        <app-create-site *ngIf="openModlues.siteModuleOpen" [isEditMode]="isEditMode"
+          [isAssetSerialnmbr]="isAssetSerialnmbr" [editEntityData]="siteres" [assetSerialnoCase]="assetSerialnoCase"
+          (onSiteCreated)="onSiteCreated($event)" (onCancle)="cancelDatasite()"></app-create-site>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- ======createv leaglentity === -->
+<div class="modal fade" bsModal #createLegalEntityModel="bs-modal" (onShow)="openModlues.legalEntityModuleOpen=true"
+  (onHide)="openModlues.legalEntityModuleOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> {{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createLegalEntityModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- new site create model form-->
+
+        <app-createlegalentity *ngIf="openModlues.legalEntityModuleOpen" [isEditMode]="isEditMode"
+          [editEntityData]="req" (onEntityCreated)="onEntityCreated($event)" (onCancle)="cancelData()">
+        </app-createlegalentity>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- =========Assets Creation===== -->
+<div class="modal fade" bsModal #createAssetModel="bs-modal" (onShow)="openModlues.assetsModuleOpen=true"
+  (onHide)="openModlues.assetsModuleOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createAssetModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-createasset *ngIf="openModlues.assetsModuleOpen" [isEditMode]="isEditMode"
+          [editAccountData]="assetResponse" (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()">
+        </app-createasset>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- new contact========= -->
+<div class="modal fade" bsModal #createContactModel="bs-modal" (onShow)="openModlues.contactModuleOpen=true"
+  (onHide)="openModlues.contactModuleOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createContactModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-contactcreate *ngIf="openModlues.contactModuleOpen" [isEditMode]="isEditMode"
+          [editContactData]="newcontact" (onContactCreated)="onContactCreated($event)" (onCancle)="cancelData()">
+        </app-contactcreate>
+      </div>
+    </div>
+  </div>
+</div>

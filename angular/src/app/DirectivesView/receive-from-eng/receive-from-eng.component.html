@@ -1,0 +1,251 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold">Information</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Manage Inventory
+                </div>
+                <input type="text" value="{{brcRepairInventoryReceiveItemRequest.receivingName}}"  class="form-control"
+                    disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Engineer
+                </div>
+                <input type="text" value="{{brcRepairInventoryReceiveItemRequest.engineerName}}" class="form-control"
+                    disabled>
+                <!-- <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <ng-select *ngIf="resourceList" [items]="resourceList"
+                            [(ngModel)]="brcRepairInventoryReceiveItemRequest.serviceResourceId" bindLabel="name"
+                            bindValue="serviceResourceId" placeholder="Search Contacts...">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/service_resource_120.png'
+                                    style="background-color: lightskyblue" /> {{item.name}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/service_resource_120.png'
+                                    style="background-color: lightskyblue" /> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                     <div class="col-md-2 col-sm-2">
+                                      <span class="input-group-append">
+                                        <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAsset()"></i></div>
+                                      </span>
+                        </div> 
+                </div> -->
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Type
+                </div>
+                <select [(ngModel)]="brcRepairInventoryReceiveItemRequest.brcRepariType" class="form-control">
+                    <!-- <option value='0' disabled>--Select--</option> -->
+                    <option *ngFor="let ob of bRCRepairTypeList" [value]="ob.typeId">{{ob.typeName}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Engineer Issued Date
+                </div>
+                <input type="text"
+                    value="{{brcRepairInventoryReceiveItemRequest.engineerIssuedDate | date:'yyyy-MM-dd'}}"
+                    class="form-control" disabled>
+                <span class="fa fa-calendar errspan"></span>
+                <!-- <input [(ngModel)]="brcRepairInventoryReceiveItemRequest.engineerIssuedDate" type="text"
+                    class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today">
+                <span class="fa fa-calendar errspan"></span> -->
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Repair Date
+                </div>
+                <input [(ngModel)]="brcRepairInventoryReceiveItemRequest.repariDate" type="text" class="form-control"
+                    bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" [maxDate]="today"
+                    [dateCustomClasses]="dateCustomClasses" autocomplete="off">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Battery Voltage After Repair
+                </div>
+                <input [(ngModel)]="brcRepairInventoryReceiveItemRequest.battryVoltageAfterRepair" type="text"
+                    class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Battery AH After Repair
+                </div>
+                <input [(ngModel)]="brcRepairInventoryReceiveItemRequest.battryAHAfterRepair" type="text"
+                    class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    BRC Eng. Corrective Action
+                </div>
+                <textarea [(ngModel)]="brcRepairInventoryReceiveItemRequest.battryEngCorrectiveAction" type="text"
+                    class="form-control" rows="2"></textarea>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    BRC Engineer Remarks
+                </div>
+                <textarea [(ngModel)]="brcRepairInventoryReceiveItemRequest.battryEngRemarks" type="text"
+                    class="form-control" row="2"></textarea>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Battery Balance At
+                </div>
+                <select [(ngModel)]="brcRepairInventoryReceiveItemRequest.battryBalanceAtId" class="form-control ">
+                    <option value='0'>--Select--</option>
+                    <option *ngFor="let ob of bRCRepiarBalancedList" [value]="ob.balancedAtId">{{ob.balancedAtName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group ">
+                <div class="control-label" style="font-weight: bold">
+                    BRC Eng Resolution Method
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 form-group ">
+                        <div class="control-label">
+                            Available
+                        </div>
+                        <div class="list-group">
+                            <select [(ngModel)]="resolution" multiple="multiple" (dblclick)="moveRight(resolution)"
+                                class="form-control" size="10">
+                                <option *ngFor="let resolution of bRCRepiarResolutionMethodList" [ngValue]="resolution">
+                                    {{resolution.resolutionMethodName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 form-group " style="margin-top: 5%;text-align: center;">
+                        <button class="btn" (click)="moveRight(resolution)"><i
+                                class="fa fa-caret-right fa-2x"></i></button><br><br>
+                        <button class="btn" (click)="moveLeft(resolution)"><i class="fa fa-caret-left fa-2x"></i></button>
+                    </div>
+                    <div class="col-md-5 col-sm-5 form-group ">
+                        <div class="control-label">
+                            Chosen
+                        </div>
+                        <div class="list-group">
+                            <select [(ngModel)]="resolution" multiple="multiple" (dblclick)="moveLeft(resolution)"
+                                class="form-control" size="10">
+                                <option *ngFor="let resolution of choosenList " [ngValue]="resolution">
+                                    {{resolution.resolutionMethodName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    BER Remarks
+                </div>
+                <select [(ngModel)]="brcRepairInventoryReceiveItemRequest.brcBERRemarksId" class="form-control ">
+                    <option value='0'>--Select--</option>
+                    <option *ngFor="let ob of bRCRepairBERRemarkList" [value]="ob.berRemarkId">{{ob.berRemarkName}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    SLA Bucket
+                </div>
+                <input type="text" class="form-control" disabled>
+            </div>
+            <div *ngIf="_isEditMode==false" class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Material Shortage(If Any)
+                </div>
+                <input [(ngModel)]="brcRepairInventoryReceiveItemRequest.materialSortage" type="text"
+                    class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Cell Bulged #
+                </div>
+                <input [(ngModel)]="brcRepairInventoryReceiveItemRequest.cellBulged" type="text" class="form-control">
+            </div>
+            <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Material Shortage(If Any)
+                </div>
+                <input type="text" [(ngModel)]="brcRepairInventoryReceiveItemRequest.materialSortage"
+                    class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreate()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-assignToEng">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">
+            <!-- Customer ( <a href="#"
+            routerLink="/accounts/{{this.createAccount.sampAccountNumber}}">{{this.createAccount.sampAccountNumber}}</a>
+          ) -->
+            Created successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createServiceResourceModel="bs-modal" (onShow)="isServiceResourceModel=true"
+    (onHide)="isServiceResourceModel=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-serviceResource">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-serviceResource" class="modal-title pull-left">New Service Resource</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="createServiceResourceModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-create-serviceresource *ngIf="isServiceResourceModel" [isEditMode]="isEditMode"
+                    [editServiceResourseData]="newServiceResource"
+                    (onServiceResourseCreated)="onServiceResourseCreated($event)"
+                    (onCancle)="cancelDataServiceResource()">
+                </app-create-serviceresource>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,359 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <table style="width: fit-content;">
+          <tr>
+            <td rowspan="2" style="width:32px;">
+              <img alt="Contacts" src="assets/images/caseImg.png"
+                style="height: 32px;width:32px;background-color: rgb(91, 235, 191);border-radius: 1mm;"
+                title="Contacts">
+              <!-- <img _ngcontent-c5="" alt="Dashboard" src="assets/images/contact_120.png"
+                    style="height: 32px;width:32px;background-color: rgb(91, 235, 191);border-radius: 1mm;" title="Account"> -->
+            </td>
+            <td style="padding-left:5px;">{{pageName}}</td>
+          </tr>
+        </table><br>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="card-body" style="padding:0px;">
+  <div class="wrap">
+    <table *ngIf="pageName!='SSA By Circle'" class="head">
+      <thead style="background-color:rgb(248, 245, 245)">
+        <th *ngFor="let col of tbalehead" (click)="getSortOrder(col.id)" title="{{col.name}}">
+          <div class="row">
+            <div class="col sm-10">{{col.name}}</div>
+            <div class="col sm-2"><i [ngClass]="col.icon"></i></div>
+          </div>
+        </th>
+      </thead>
+    </table>
+
+    <table *ngIf="pageName=='SSA By Circle'" class="head" style="width: inherit;">
+      <thead style="background-color:rgb(248, 245, 245)">
+        <th *ngFor="let col of tbalehead" (click)="getSortOrder(col.id)" title="{{col.name}}">
+          <div class="row">
+            <div class="col sm-10">{{col.name}}</div>
+            <div class="col sm-2"><i [ngClass]="col.icon"></i></div>
+          </div>
+        </th>
+      </thead>
+    </table>
+
+    <!-- Get Trasfer Item  By Product Transfer -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Transfer Item By Product Transfer'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Transfer Item By Product Transfer'">
+          <tr *ngFor="let item of btProductTransferLineItems.content;let i=index;">
+            <td style="text-align: center;">{{i+1}}.</td>
+            <td>
+              <a [routerLink]="['/bat_product_request',item.productRequestId]">{{item.productRequestManualId}}</a>
+            </td>
+            <td>
+              <a [routerLink]="['/bat_product',item.productId]">{{item.productPartcode}}</a>
+            </td>
+            <td>
+              {{item.productDescription}}
+            </td>
+            <td>
+              {{item.productType}}
+            </td>
+            <td>
+              {{item.transferQuantity}}
+            </td>
+            <td style="text-align: center;">
+              {{item.transferReceivedQuantity}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Get Expanse By Contact -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Expanse By Contact'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Expanse By Contact'">
+          <tr *ngFor="let c of expenseListByContactId.content; let i=index">
+            <td data-line="S. No." class="mhide">{{serialNumber+i+1}}.</td>
+            <td data-line="Claim Number"><a href="#"
+                routerLink="/bat_expense/{{c.expenseManagementId}}">{{c.expenseManagementManualId}}</a>
+            </td>
+            <td data-line="Expense Purpose">{{c.expensePurposeName}}</td>
+            <td data-line="Expense Type" class="mhide">{{c.expenseTypeName}}</td>
+            <td data-line="Cost Center" class="mhide">{{c.costCenterName}}</td>
+            <td data-line="Purpose Of Visit">{{c.purposeOfVisit}}</td>
+            <td data-line="Status">{{c.statusName}}</td>
+            <td data-line="Business Place" class="mhide">{{c.businessPlaceName}}</td>
+            <td data-line="Created Date" class="mhide">{{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+            <td data-line="Action" class="mhide" style="width: 50;">
+              <div class="btn-group" dropdown placement="bottom left">
+                <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                <ul class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="button-disabled-item">
+                  <li *ngIf="rights('ExpenseManagement','edit')" role="menuitem">
+                    <a class="dropdown-item" (click)="onClickEditExpenses(c.expenseManagementId)">Edit
+                    </a>
+                  </li>
+                  <!-- <li *ngIf="rights('ExpenseManagement','delete')" role="menuitem">
+                          <a class="dropdown-item">Delete</a>
+                        </li> -->
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <!-- Edit Model For Expanse -->
+
+    <div class="modal fade" bsModal #createexpensesmanagementModel="bs-modal" (onShow)="isExpensesmanagementOpen=true"
+      (onHide)="isExpensesmanagementOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+      aria-labelledby="create-new-product">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="create-account" class="modal-title pull-left">{{headingExpenseManagement}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataExpense()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <app-bt-createexpenses-management *ngIf="isExpensesmanagementOpen"
+              [isEditMode]="isEditModeExpenseManagement" [editexpensesmanagementData]="newexpensesmanagement"
+              (onexpensesmanagementCreated)="onexpensesmanagementCreated($event)" (onCancle)="cancelDataExpense()">
+            </app-bt-createexpenses-management>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Get SSA  By Circle -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='SSA By Circle'"
+      style="background-color: white;     width: inherit;">
+      <table>
+        <tbody *ngIf="pageName=='SSA By Circle'">
+          <tr *ngFor="let c of SSAListByCircleName.content; let i=index">
+            <td data-line="S.No." class="mhide" style="text-align: left">{{serialNumber+i+1}}.</td>
+            <td data-line="Name">
+              <a href="#" routerLink="/ssa/{{c.id}}">
+                {{c.name}}
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- Get Product Counsume By Case -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Product Consumed'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Product Consumed'">
+          <tr *ngFor="let ser of productConsumedList.content;let i=index ">
+            <td class="mhide" data-line="S.No." style="width:50px;">{{serialNumber+i+1}}.</td>
+            <td data-line="Part Code" class="wrappable"> <a href="" routerLink="/bat_product/{{ser.partCode}}"
+                activateRout="active">{{ser.partCode}}</a></td>
+            <td class="wrappable" data-line="Quantity">{{ser.consumedQty}}</td>
+            <td class="wrappable" data-line="Description">{{ser.partDescription}}</td>
+            <td class="wrappable" data-line="Remarks">{{ser.remark}}</td>
+            <td class="wrappable text-left" data-line="Consumed Type">{{ser.consumedType}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- Get PRC By Asset -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Asset Pre Registration Case'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Asset Pre Registration Case'">
+          <tr *ngFor="let pr of prcdata.content ;let i=index">
+            <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+            <td class="wrappable" data-line="Prc ID"><a href=""
+                routerLink="/bat_prc/{{pr.prcCaseId}}">{{pr.prcCaseManualId}}</a></td>
+            <td class="wrappable" data-line="Type">{{pr.caseTypeName}}</td>
+            <td class="wrappable" data-line="Case Reason">{{pr.caseReasonName}}</td>
+            <td class="wrappable" data-line="Action">{{pr.lastAction}}</td>
+            <td class="wrappable" data-line="case"> <a href="" routerLink="/bat_case/{{pr.caseId}}">
+                {{pr.caseManualId}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- get PRC by SITE -->
+        <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Site Pre Registration Case'"
+          style="background-color: white;">
+          <table>
+            <tbody>
+              <tr *ngFor="let pr of prcdata.content ;let i=index">
+                <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+                <td class="wrappable" data-line="Prc ID"><a
+                    routerLink="/bat_prc/{{pr.preCaseId}}">{{pr.preCaseManualId}}</a></td>
+                <td class="wrappable" data-line="Type">{{pr.caseTypeName}}</td>
+                <td class="wrappable" data-line="Case Reason">{{pr.caseReasonName}}</td>
+                <td class="wrappable" data-line="Action">{{pr.lastAction}}</td>
+                <td class="wrappable" data-line="case"> <a href="" routerLink="/bat_case/{{pr.caseId}}">
+                    {{pr.caseManualId}}</a></td>
+              </tr>
+            </tbody>
+          </table>
+    
+        </div>
+
+
+    <!-- For Case By Asset-->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Case By Asset'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Case By Asset'">
+          <tr *ngFor="let c of casesListByAsset.content;let i=index">
+            <td data-line="S.No" class="mhide">{{caseSerial+i+1}}.</td>
+            <td data-line="Case Number" scope="col" class="text-left"><a href="#"
+                routerLink="/bat_case/{{c.id}}">{{c.manualId}}</a></td>
+            <td data-line="Type" scope="col" class="text-left">{{c.caseTypeName}}</td>
+            <td data-line="Case Reason" scope="col" class="text-left">{{c.caseReasonName}}</td>
+            <td data-line="Status" scope="col" class="text-left">{{c.statusName}} </td>
+            <td class="wrappable" data-line="PRC"> <a href="" routerLink="/bat_prc/{{c.prcId}}"> {{c.prcManualId}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- For Case By Account-->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Case By Account'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Case By Account'">
+          <tr *ngFor="let c of casesList.content;let i=index">
+            <td data-line="S.No" class="mhide">{{caseSerial+i+1}}.</td>
+            <td data-line="Case Number" scope="col" class="text-left"><a href="#"
+                routerLink="/bat_case/{{c.caseId}}">{{c.caseManualId}}</a></td>
+            <td data-line="Type" scope="col" class="text-left">{{c.caseTypeName}}</td>
+            <td data-line="Case Reason" scope="col" class="text-left">{{c.caseReasonName}}</td>
+            <td data-line="Status" scope="col" class="text-left">{{c.caseStatusName}} </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+
+    <!-- For Case -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Case'" style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Case'">
+          <tr *ngFor="let case of casedetails.content ;let i=index">
+            <td data-line="S.No.">{{serialNumber+i+1}}.</td>
+            <td data-line="Case ID"><a [routerLink]="['/cases',case.id]">{{case.manualId}}</a></td>
+            <td data-line="Type">{{case.caseTypeName}}</td>
+            <td data-line="Case Reason">{{case.caseReasonName}}</td>
+            <td data-line="Status">{{case.statusName}}</td>
+
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+    <!--for brc case by asset serial no-->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='BRC Case'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='BRC Case'">
+          <tr *ngFor="let item of brcCaseList.content ;let i=index">
+            <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+            <td class="wrappable" data-line="BRC Case"><a
+                [routerLink]="['/bat_brc',item.customerInventoryInId]">{{item.customerInventoryInManualId}}</a></td>
+            <td class="wrappable" data-line="Challan Number">{{item.customerInventoryInChallanNumber}}</td>
+            <td class="wrappable" data-line="BRC Case Stage">{{item.customerInventoryInStage}}</td>
+            <td class="wrappable" data-line="BRC Case Status">{{item.customerInventoryInStatus}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- For Site By Account -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Sites'" style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Sites'">
+          <tr *ngFor="let s of sitesList.content; let i=index">
+            <td data-line="S.No" class="mhide">{{siteSerial+i+1}}.</td>
+            <td data-line="Site ID" scope="col" class="text-left"><a href="#" routerLink="/bat_site/{{s.siteId}}"
+                activateRout="active">{{s.siteManualId}}</a>
+            </td>
+            <td data-line="cluster/District" scope="col" class="text-left">{{s.clusterDistrict}}</td>
+            <td data-line="Exchange/Site Name" scope="col" class="text-left">{{s.siteName}} </td>
+            <td data-line="Infra ID" scope="col" class="text-left">{{s.infraId}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- For Contact -->
+    <div class="inner_table" *ngIf="AllDataList.content.length>0 && pageName=='Contacts'"
+      style="background-color: white;">
+      <table>
+        <tbody *ngIf="pageName=='Contacts'">
+          <tr *ngFor="let c of contactsList.content ;let i=index">
+            <td data-line="S.No" class="mhide">{{serialNumber+i+1}}.</td>
+            <td data-line="Name" scope="col" class="text-left"><a href="#" routerLink="/bat_contacts/{{c.contactid}}">
+                {{c.contactFirstName}} {{c.contactMiddleName}} {{c.contactLastName}}</a></td>
+            <td data-line="Department" scope="col" class="text-left">{{c.contactDepartment}}</td>
+            <td data-line="Email" scope="col" class="text-left">{{c.contactEmailId}}</td>
+            <td data-line="Phone Number" scope="col" class="text-left">{{c.contactPhoneNumber}} </td>
+            <td data-line="Contact Number" scope="col" class="text-left">{{c.contactMobileNumber}} </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- pagination -->
+  <div class="row">
+    <div class="col-sm-4" style="text-align:left">
+      Showing Page {{AllDataList.number+1}} &nbsp;of&nbsp;{{AllDataList.totalPages}}&nbsp;Total
+      Count={{AllDataList.totalElements}}
+    </div>
+    <div class="col-sm-4" *ngIf="!(AllDataList.first && AllDataList.last)" style="text-align: center">
+      <a [routerLink]="['/details_of_all_view',objectId,'cmponent',compom]" [routerLinkActive]="['active']"
+        class="previous round btn-sm" *ngIf="!AllDataList.first"
+        [queryParams]="{cmponent:colmnsLineItemPR,page:AllDataList.number-1}">
+        &lt;
+      </a>
+      <a [routerLink]="['/details_of_all_view',objectId,'cmponent',compom]" [routerLinkActive]="['active']"
+        class="previous round btn-sm" [queryParams]="{cmponent:colmnsLineItemPR,page:AllDataList.number}">
+        {{AllDataList.number+1}}
+      </a>
+      <a [routerLink]="['/details_of_all_view',objectId,'cmponent',compom]" [routerLinkActive]="['active']"
+        class="previous round btn-sm" *ngIf="!AllDataList.last"
+        [queryParams]="{cmponent:colmnsLineItemPR,page:AllDataList.number+1}">
+        &gt;
+      </a>
+    </div>
+    <div class="col-sm-4" *ngIf="AllDataList.content.length>0" style="text-align: right;">
+      <div class="row">
+        <div class="col-md-6"></div>
+        <div *ngIf="!(AllDataList.first && AllDataList.last) " class="col-md-6">
+          <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8" autocomplete="off">
+          <button (click)=jumpPage(pagenumber)>Go</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div [ngClass]="drawer.cls">
+
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <strong>Your Notes</strong>
+            </td>
+            <td class="text-right">
+                <button class="btn btn-sm" (click)="mis.nNote=true"><em class="fa fa-plus"></em> </button>
+            </td>
+        </tr>
+    </table>
+
+    <div style="height: 10px;"></div>
+
+    <div class="card card-body note-details" *ngIf="mis.nNote">
+        <table style="width: 100%;">
+            <tr>
+                <td>
+                    <i>New Note</i>
+                </td>
+                <td class="text-right">
+                    <button type="button" class="btn btn-sm" (click)="mis.nNote=false"><em class="fa fa-remove"></em>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <div contenteditable="true" [textContent]="mis.notecontent" (input)="mis.notecontent=$event.target.textContent"
+            style="min-height: 100px;border: none;outline: none;font-style: italic;">
+        </div>
+        <div class="text-right">
+            <button type="button" (click)="postNote()" class="btn btn-outline-info btn-sm"><em class="fa fa-save"></em>
+            </button>
+        </div>
+    </div>
+    <div class="card card-body note-details" *ngFor="let nt of notes">
+        <table style="width: 100%;">
+            <tr>
+                <td>
+                    <i>{{nt.createdDate|date:'dd-MMM-yyyy'}}</i>
+                </td>
+                <td class="text-right">
+                    <button type="button" (click)="deleteNtoes(nt.id)" class="btn btn-sm"><em class="fa fa-remove"></em>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <hr>
+        <div style="font-style: italic;">
+            {{nt.notes}}
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-danger btn-sm" style="position: fixed;top: 50%;right: 0;transform: translateY(-50%);"
+    (click)="transformDrawer()"><em [ngClass]="drawer.anglecls"></em>
+</button>

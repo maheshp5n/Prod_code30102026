@@ -1,0 +1,104 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <strong>Role Management</strong>
+        <div>
+            <select [(ngModel)]="directionh">
+                <option value="vertical">Vertical</option>
+                <option value="horizontal">Horizontal</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <ngx-org-chart [nodes]="nodes" [direction]="directionh" (itemClick)="test($event)"></ngx-org-chart>
+        </div>
+    </div>
+</div>
+
+
+<!--fIRST POPUP FOR ACTION-->
+<div class="modal fade" bsModal #actionWidows="bs-modal" (onHide)="onActionHide()" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Action : {{actiondetails.selectedUserrole}}
+                </h4>
+                <button type="button" (click)="actionWidows.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="btn-group">
+                        <button type="button" (click)="changeAction('n')" class="btn btn-sm btn-outline-info"><em
+                                class="fa fa-plus"></em> Add New Role</button>
+                        <button type="button" (click)="changeAction('p')" class="btn btn-sm btn-outline-info"><em
+                                class="fa fa-refresh"></em> Change Parent Role</button>
+                        <button type="button" (click)="removeCurrentSelection()"
+                            class="btn btn-sm btn-outline-danger"><em class="fa fa-remove"></em> Delete Current
+                            Role</button>
+                    </div>
+                </div>
+                <br />
+                <h4 *ngIf="actiondetails.changeParent" class="text-center">
+                    CHANGE PARENT ROLE FOR CURRENT ROLE
+                </h4>
+                <H4 *ngIf="actiondetails.newRole" class="text-center">
+                    ADD NEW ROLE UNDER CURRENT ROLE
+                </H4>
+                <HR>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div *ngIf="actiondetails.changeParent">
+                            <ng-select [items]="userroles" bindLabel="authorities" bindValue="authorities"
+                                [(ngModel)]="actiondetails.pRoleValue">
+                                <ng-template ng-label-tmp let-item="item">
+                                    <img height="15" width="15" src="assets/images/role.png" />
+                                    {{item.authorities}}
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item" let-index="index">
+                                    <img height="15" width="15" src="assets/images/role.png" /> {{item.authorities}}
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                        <div *ngIf="actiondetails.newRole">
+                            <div class="row">
+                                <div class="col-md-6">
+                            <select class="form-control" [(ngModel)]="actiondetails.roleGroup">
+                                <option value="0">Role Group</option>
+                                <option *ngFor="let o of rolesGroup" [ngValue]="o.id">{{o.group_name}}</option>
+                            </select>
+                            </div>
+                                <div class="col-md-6">
+                            <input type="text" class="form-control" [(ngModel)]="actiondetails.nRoleValue"
+                                placeholder="New Role Name">
+                        </div></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button type="button" (click)="saveUserroles()" class="btn btn-primary"><em
+                                class="fa fa-save"></em> Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Alert Module-->
+<div class="modal fade" tabindex="-1" role="dialog" bsModal #alertmodule="bs-modal">
+    <div class="text-center" style="margin-left: 20%;margin-right: 20%;">
+        <alert [type]="alertDetails.type">
+            <span [innerHTML]="alertDetails.message"></span>
+            <button (click)="alertmodule.hide()" type="button" class="close pull-right">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </alert>
+    </div>
+</div>

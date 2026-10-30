@@ -1,0 +1,181 @@
+#button-disabled-item{
+    background: none;
+    outline: none;
+    border-bottom-style: solid;
+    font-size: 18px;
+    border-bottom-width: 1px;
+}
+.table th{
+    color: rgba(0,0,0,.8);
+}
+
+body{
+    height:fit-content;
+   
+}
+/* #header-fixed {
+  position: fixed;
+ display:none;
+  background-color:white;
+} */
+
+.form-group.required .control-label:before{
+    color: red;
+    content: "*";
+   
+ }
+ .open ul.dropdown-menu {
+    display: block;
+}
+
+.mat-sort-header-container {
+    align-items: center;
+  }
+
+  .ag-header-cell-label {
+    text-overflow: clip;
+    overflow: visible;
+    white-space: normal;
+}
+
+
+
+.table th i{
+    visibility:hidden;
+}
+.table th:hover{
+    background-color: white;
+    
+}
+
+.table td:hover{
+  background-color: rgb(231, 226, 226);
+}
+
+.table th:hover i {
+    color: grey;
+    visibility: visible;  
+}
+.table td i{
+    visibility:hidden;
+
+}
+.table td:hover i{
+    float: right;
+    color:gray;
+    visibility: visible;
+
+   
+}
+/* ========a style== */
+a .fa fa-pencil{
+    visibility: hidden;
+}
+a .fa fa-pencil:hover{
+    visibility: visible;
+}
+
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  .active, .collapsible:hover {
+    background-color: #555;
+  }
+  
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+  .btn-group button:hover{
+      color:blue;
+      background-color: white;
+  }
+ 
+  .span.ui-column-resizer {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: 8px;
+    height: 100%;
+    padding: 0;
+    cursor: col-resize;
+    border: 1px solid transparent;
+    
+  }  
+  .table thead{
+    background-color: rgb(248, 245, 245);
+  }
+  #prbtn {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+  
+  a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .previous {
+    background-color: #4CAF50;
+    color: black;
+  }
+  
+  .next {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .round {
+    border-radius: 50%;
+  }
+  .table-header{
+    cursor: pointer;
+  }
+  /* ==== */
+  /* .table-fixed{
+    width: 100%;
+    background-color: #f3f3f3;}
+   .table-fixed tbody{
+      height:200px;
+      overflow-y:auto;
+      width: 100%;
+      }
+    thead,tbody,tr,td,th{
+      display:block;
+    }
+    tbody td{
+    
+        float:left;
+     
+    }
+    thead tr th {
+     
+          float:left;
+         background-color: #f39c12;
+         border-color:#e67e22;
+        
+      
+    }
+  
+   */
+   .dropdown-item-checked::before {
+    position: absolute;
+    left: .4rem;
+    content: '✓';
+    font-weight: 800;
+  }

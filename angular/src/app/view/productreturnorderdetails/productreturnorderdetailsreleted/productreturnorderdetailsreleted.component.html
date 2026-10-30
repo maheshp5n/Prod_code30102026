@@ -1,0 +1,125 @@
+<div class="card">
+    <div class="card">
+        <div class="card-header">
+           
+            <table style="width: 100%;">
+                <tr>
+                    <td style="padding-left:5px;">
+                        <strong>Line items ({{d.totalElements}} <strong *ngIf="d.numberOfElements>5">+</strong>
+                            )</strong>
+                    </td>
+                    <!-- *ngIf="d.totalElements>5" -->
+                    <td *ngIf="d.totalElements>5"  class="text-right"><a [routerLink]="['/details',productROid,'cmponent','proRO']" [queryParams]="{cmponent:proRoCol,page:page,sortArr:proSortArr,totalElement:d.totalElements}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td>
+                </tr>
+            </table> <br>
+            <div class="row">
+                <div class="col-md-3">
+                 
+                    <input type="text"  class="form-control" placeholder="Return Order Line Item" [(ngModel)]="advancesearch.returnOrderLineItemManualId">
+                  </div>
+                  <div class="col-md-3">
+                 
+                    <input type="text"  class="form-control" placeholder="Product" [(ngModel)]="advancesearch.productPartcode">
+                  </div>
+                  <div class="col-md-3">
+                 
+                    <input type="text"  class="form-control" placeholder="Product Description" [(ngModel)]="advancesearch.productDescription">
+                  </div>
+                  <div class="col-md-3">
+                 
+                    <input type="text"  class="form-control" placeholder="Product Serial Number" [(ngModel)]="advancesearch.serialNumber">
+                  </div>
+               
+            </div> <br>
+            <div class="row">
+                <div class="col-md-3">
+                         <button type="button" class="btn btn-outline-info btn-md" (click)="searchROItems()" >
+                        <em class="fa fa-search"></em> Search</button>
+                        <button type="button" class="btn btn-outline-info btn-md"  (click)="resetROItems()"> Reset</button> &nbsp;
+              
+                </div>
+            </div>
+        </div>
+        <div class="card-body" style="padding: 0px;">
+            <div class="table-responsive">
+                <!--Table to De-->
+                <table class="table table-sm" aria-describedby="Raushan Kumar">
+                    <thead>
+                        <tr>
+                            <th scope="col" title="S.No.">
+                                S.No.
+                            </th>
+                            <th scope="col" title="Return Order Line Item">
+                                Return Order Line Item
+                            </th>
+                            <th scope="col" title="Product">
+                                Product
+                            </th>
+                            <th scope="col" title="Product Description">
+                                Product Description
+                            </th>
+                            <th scope="col" title="Product Serial Number">
+                                Product Serial Number
+                            </th>
+                            <th scope="col" title="Received">
+                                Received
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="d.content.length>0">
+                        <tr *ngFor="let litem of d.content;let i=index;">
+                            <td style="text-align: center;">
+                                {{i+1}}.
+                            </td>
+                            <td>
+                                <a
+                                    [routerLink]="['/productreturnorder/lineItem',litem.returnOrderLineItemId]">{{litem.returnOrderLineItemManualId}}</a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/products',litem.returnOrderProductPartcode]">{{litem.returnOrderProductPartcode}}</a>
+
+                            </td>
+                            <td>
+                                {{litem.returnOrderProductDescription}}
+                            </td>
+                            <td>
+                                {{litem.returnOrderProductSerialNumber}}
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="checkbox" [(ngModel)]="litem.received" disabled>
+                            </td>
+                            <td>
+                                <button type="button" *ngIf="data.productReturnOrderResponse.status=='Draft'" (click)="removeItem(litem.returnOrderLineItemId)"
+                                    class="btn btn-sm btn-danger"><em class="fa fa-remove"></em> </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="d.content.length==0">
+                        <tr> 
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                  
+                                  <div class="col-md-4" style="text-align: center; float: center;"> <p>Data Not Found</p></div>
+                            
+                              </td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                           </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+        </div>
+    </div>
+</div>

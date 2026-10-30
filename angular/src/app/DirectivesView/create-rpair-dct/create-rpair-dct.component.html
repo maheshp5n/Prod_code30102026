@@ -1,0 +1,334 @@
+<div style="max-height: 75vh;overflow: auto;padding: 3px 6px;">
+<div class="card">
+  <div class="card-header">
+    <span class="text-center"> Information</span>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Serial Number
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="dctreq.serialNumber" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Part Code
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="dctreq.partCode" disabled>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Description
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="description" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Bill of Material
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="dctreq.partCode" disabled>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Status
+        </div>
+        <select [(ngModel)]="dctreq.productStatus" class="form-control">
+          <option value='0' disabled>--Select-- </option>
+          <option *ngFor="let st of productStatusList;" [ngValue]="st.id">{{st.stateName}}</option>
+        </select>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Remark
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="dctreq.remarks">
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Location
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 ">
+            <ng-select *ngIf="BomList" [items]="BomList" [(ngModel)]="locationid" appendTo="body"
+              bindLabel="locationName" bindValue="locId" placeholder="Search Location..."
+              (change)="getOKProducts($event)">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                  style="background-color: rgb(49,121,146);" /> {{item.locationName}} ({{item.rawProductPartCode}}) - {{item.parent_part_code}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                  style="background-color: rgb(49,121,146);" /> {{item.locationName}} ({{item.rawProductPartCode}}) - {{item.parent_part_code}}
+              </ng-template>
+            </ng-select>
+          </div>
+
+        </div>
+        <small *ngIf="description2!=null">
+          Description: {{description2}}</small>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Raw Product Part Code
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="rawproduct"  disabled>
+
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 form-group">
+      <div class="control-label">
+        Repair Engineer
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+          <ng-select *ngIf="repairEnglist" [items]="repairEnglist" [(ngModel)]="dctreq.repariEng" appendTo="body"
+            bindLabel="fullName" bindValue="emailId" placeholder="Search Repair..."
+            >
+            <ng-template ng-label-tmp let-item="item">
+              <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                style="background-color: rgb(49,121,146);" /> 
+                {{ item.firstName}} {{item.middleName }} {{item.lastName }}
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                style="background-color: rgb(49,121,146);" />
+                {{ item.firstName}} {{item.middleName }} {{item.lastName }}
+            </ng-template>
+          </ng-select>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+    <div class="row">
+
+      <div class="col-md-2 col-sm-2 form-group">
+        <div class="control-label">
+          Quantity
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="qty">
+
+      </div>
+     
+    <div class="col-md-2">
+        <div class="control-label">
+          Av. Destination Quantity
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="avilabStockAtU.ok_quantity" disabled>
+    </div>
+
+      <div class="col-md-4 col-sm-4" *ngIf="OkProductsList.length>0" [ngClass]="isSerialReq">
+        <div class="control-label" >
+          Product Serial Number
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10" *ngIf="OkProductsList.length>0">
+
+            <ng-select *ngIf="OkProductsList" [items]="OkProductsList" [(ngModel)]="serialNumber" bindLabel=""
+              bindValue="" placeholder="Search ..." multiple="true">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                  style="background-color: rgb(49,121,146);" /> {{item}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                  style="background-color: rgb(49,121,146);" /> {{item}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <!-- <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div *ngIf="btn1">
+                <button type="button" class="border-left-0 btn btn-success"  (click)="addItem()" style="margin-top: 20px;"><em class="fa fa-plus"></em> Add</button>
+               </div>
+              <div *ngIf="!btn1">
+                <button type="button" class="border-left-0 btn btn-succcess" (click)="addItem()"><em class="fa fa-plus"></em> Add</button>
+              </div>
+            </span>
+          </div> -->
+        </div>
+
+      </div>
+      <!-- add btn -->
+      <div class="col-md-2 col-sm-2">
+        <span class="input-group-append">
+          <div>
+            <button type="button" class="border-left-0 btn btn-success"  (click)="addItem()" style="margin-top: 20px;"><em class="fa fa-plus"></em> Add</button>
+           </div>
+        </span>
+      </div>
+    </div>
+    <!--  -->
+    <div *ngIf="item.length>0" class="table-responsive">
+      <table class="table table-sm table-condensed tablerview">
+        <thead style="background-color:rgb(248, 245, 245)">
+          <tr>
+            <th>S.No.</th>
+            <th>Location</th>
+            <th> Raw Product Part Code</th>
+            <th>Description</th>
+            <th title="Quantity">Quantity</th>
+            <th title=" OK Product Serial"> OK Product Serial
+            </th>
+
+            <th> Action </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor=" let itm of item; let i=index">
+            <td>{{i+1}}</td>
+            <td>{{itm.location}}</td>
+            <td>{{itm.rawParcode}}</td>
+            <td>{{itm.description}}</td>
+            <td>{{itm.quantity}}</td>
+            <td>{{itm.serialNO}}</td>
+            <td><button class="btn btn-sm btn-danger" (click)="removeProductList(itm)"><em class="fa fa-remove"> </em>
+              </button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="card">
+  <div class="card-header">
+    Problem Master
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <label>Fault Name</label>
+        <select class="form-control" [(ngModel)]="_prob.problem" (change)="faultDDlChange()">
+          <option disabled value="">--select--</option>
+          <option *ngFor="let o of dummyProblem;" [ngValue]="o.id">{{o.fault_name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <label>Resolution</label>
+        <select class="form-control" [(ngModel)]="_prob.resulation">
+          <option disabled value="0">--Select--</option>
+          <option *ngFor="let o of resulationByProblem;" [ngValue]="o.id">{{o.resolution}}</option>
+        </select>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <button type="button" class="btn btn-success" style="margin-top: 28px;" (click)="addResulation()"><em
+            class="fa fa-plus"></em> Add</button>
+      </div>
+
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>
+                  Fault Name
+                </th>
+                <th>
+                  Resolution
+                </th>
+                <th>
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r of resulationprovided;">
+                <td>
+                  {{r.fault_name}}
+                </td>
+                <td>
+                  {{r.resolution}}
+                </td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-danger" (click)="removeResulation(r.id)"><em
+                      class="fa fa-remove"></em> </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    QC
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <label>
+          Heat Run Status
+        </label>
+        <input [(ngModel)]="dctreq.heatRunStatus" type="text" class="form-control">
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <label>
+          Fault Observed in Heat Run
+        </label>
+        <input type="text" [(ngModel)]="dctreq.faultObservedInHeatRun" class="form-control">
+
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <label>
+          Re work after fail
+        </label>
+        <input type="text" [(ngModel)]="dctreq.reworkAfterFail" class="form-control">
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <label>
+          Final Status
+        </label>
+        <input type="text" [(ngModel)]="dctreq.finalStatus" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<br>
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button type="button" (click)="cancelRDCTData()" class="btn btn-default"> <i class="fa fa-remove"></i>
+      Cancel</button>&nbsp;
+    <!-- <button type="button" (click)="postAndNew()" class="btn btn-default">Create & New</button>&nbsp; -->
+    <button type="button" (click)="postRDCT()" class="btn btn-primary"><i class="fa fa-save"></i> save </button>
+  </div>
+</div>
+
+
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">
+      <!-- ( <a href="#" routerLink="/ssa/{{ssaId}}" activateRout="active"></a>) -->
+      &nbsp;Created successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

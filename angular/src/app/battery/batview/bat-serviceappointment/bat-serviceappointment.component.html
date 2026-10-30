@@ -1,0 +1,276 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:32px;">
+                <img alt="Asset" src="assets/images/service_appointment_120.png"
+                  style="height: 32px;width:32px;background-color: rgb(126,139,228);" title="Service Appointments">
+              </td>
+              <td style="padding-left:5px;">Service Appointments </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                  <span dropdownToggle type="button" style="background-color: white;">
+                    <span style="font: size 15px;padding-right: 5px;">
+                      &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                    </span>
+                  </span>
+                  <ul class="dropdown-menu" *dropdownMenu role="menu" aria-labelledby="button-disabled-item"
+                    style="width: 115%;">
+                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                      View</li>
+                    <li role="menuitem" *ngFor="let m of dropdownsList">
+                      <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                    </li>
+                  </ul>
+                </div>&nbsp;
+                <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                  (click)="pinFilter()">
+                  <em class="fa fa-thumb-tack"></em>
+                </button>
+                <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                  <em class="fa fa-thumb-tack"></em>
+                </button>
+  
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4">
+         <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+            style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">-->
+            <!-- <button type="button" (click)="advanceSearchResult.show=!advanceSearchResult.show"><em class="fa fa-search"></em> Advance Search</button> -->
+        </div>
+        <div class="col-sm-4 col-md-4 text-right">
+          <!-- <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button class="btn btn-outline-info btn-sm" type="button" (click)="showCreateServiceAppointmentView()">New
+              Service Appointment
+            </button>
+          </div> -->
+        </div>
+      </div>
+      <br>
+      <!-- Search -->
+      <div class="row">
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advanceSearchResult.manualId" placeholder="Appointment Number">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advanceSearchResult.caseIdManual" placeholder="Case Number">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advanceSearchResult.siteIdManual" placeholder="Site" >
+        </div>
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control" [(ngModel)]="advanceSearchResult.ctype" placeholder="Case Type"> -->
+          <select class="form-control" [(ngModel)]="advanceSearchResult.caseType">
+            <option value="">Select Case Type</option>
+            <option *ngFor="let casetypelist of caseTypeList" >{{casetypelist.caseTypeName}}</option>
+          </select>
+        </div>
+      </div> <br>
+      <div class="row">
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control" placeholder="Case Reason" [(ngModel)]="advanceSearchResult.creason"> -->
+          <select class="form-control" [(ngModel)]="advanceSearchResult.caseReason">
+            <option value="">Select Case Reason</option>
+            <option *ngFor="let reslist of caseReasonForList" [ngValue]="reslist.caseReasonName"> {{reslist.caseReasonName}}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" placeholder="Circle" [(ngModel)]="advanceSearchResult.circleName">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control"  placeholder="Asset Serial No." [(ngModel)]="advanceSearchResult.assetsSerialNumber">
+        </div>
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control" [(ngModel)]="advanceSearchResult.status"> -->
+         <select  class="form-control" [(ngModel)]="advanceSearchResult.serviceAppointmentStatusName">
+           <option value="">Select Status</option>
+           <option *ngFor="let st of sastatusList">{{st.statusname}}</option>
+         </select>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control"[(ngModel)]="advanceSearchResult.cstatus"> -->
+       <select class="form-control"[(ngModel)]="advanceSearchResult.claimStatusName">
+         <option value="">Select Claim Status</option>
+         <option *ngFor="let clm of claimstatuslist" [ngValue]="clm.claimStatusName">{{clm.claimStatusName}}</option>
+       </select>
+  
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" placeholder="Service Resource" [(ngModel)]="advanceSearchResult.serviceResourceName">
+        </div>
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control" placeholder="Created date from" [(ngModel)]="advanceSearchResult.crdf"> -->
+          <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+          placeholder="Created Date From" [(ngModel)]="advanceSearchResult.createdFrom" onkeydown="return false"
+          [maxDate]="today">
+        <span class="fa fa-calendar errspan"></span>
+  
+        </div>
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control" placeholder="Created date to" [(ngModel)]="advanceSearchResult.crdt"> -->
+          <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+          placeholder="Created Date To" [(ngModel)]="advanceSearchResult.createdTo"onkeydown="return false"
+          [maxDate]="today">
+        <span class="fa fa-calendar errspan"></span>
+        </div>
+      </div> <br>
+      <div class="row">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-outline-info btn-md" (click)="getAdvanceSearchResult()"><em class="fa fa-search"></em> Search </button>
+          <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()"> Reset </button>
+        </div>
+      </div>
+    </div>
+  
+    
+    
+  
+    <div class="card-body" style="padding: 0px;background-color: white;">
+      <div class="wrap">
+        <table class="head">
+          <thead  style="background-color:rgb(248, 245, 245)">
+            <th title="S.No">S.No</th>
+            <th  *ngFor="let tb of requestTableHeaders"  (click)="getSortOrder(tb.id)" class="text-left"
+              title="{{tb.name}}">
+              <div class="row"><div class="col sm-10">{{tb.name}}</div>
+              <div class="col sm-2"><i [ngClass]="tb.icon"></i></div></div></th>
+            <!-- <th >Action</th> -->
+          </thead>
+        </table>
+      <div class="inner_table"  *ngIf="appointmentList.content.length>0">
+        <table>
+        
+          <tbody>
+            <tr *ngFor="let a of appointmentList.content ; let i = index">
+              <td data-line="S.No">
+                {{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+              <td data-line="Appointment Number"><a href="#"
+                  routerLink="/bat_serviceappointment/{{a.serviceAppointmentId}}">{{a.manualId}}</a></td>
+              <td data-line="Site ID"><a href="#" routerLink="/bat_site/{{a.siteId}}">{{a.siteIdManual}}</a></td>
+              <td data-line="Site Name"> {{a.siteName}} </td>
+              <td data-line="Assets"><a [routerLink]="['/bat_asset',encodeurlc(a.assetId)]">
+                {{a.assetsSapSerialNumber}}</a> </td>
+              <td data-line="Case ID"><a href="#" routerLink="/bat_case/{{a.caseId}}">{{a.caseIdManual}}</a></td>
+              <td data-line="Case Type"> {{a.caseTypeName}} </td>
+              <td data-line="Case Reason"> {{a.caseReasonName}} </td>
+              
+              <td data-line="Circle"> <a href="#" routerLink="/bat_circle/{{a.circleName}}"> {{a.circleName}}</a> </td>
+              <td data-line="Contact"><a href="#" routerLink="/bat_contacts/{{a.contactId}}">{{a.contactFirstName}}
+                  {{a.contactMiddleName}} {{a.contactLastName}}</a>
+              </td>
+     
+              <td data-line="Status"> {{a.serviceAppointmentStatusName}} </td>
+              <td data-line="Date of Visit"> {{a.dateOfVisit}} </td>
+              <td data-line="Claim Status"> {{a.claimStatusName}}</td>
+              <td data-line="Service Resource"><a href="#"
+                  routerLink="/bat_serviceResources/{{a.serviceResourceId}}">{{a.serviceResourceName}} </a></td>
+              <!-- <td data-line="Pending Responsibility">{{a.pendingResponsibilityName}}</td> -->
+              <td data-line="Created Date"> {{a.createDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+              <td data-line="Wcc Created">
+                <em *ngIf="a.wcc" class="tik-mark"></em>
+                <em *ngIf="!a.wcc" class="cross-mark"></em>
+                <a *ngIf="a.wcc" [routerLink]="['/bat_wcc',a.wccId]" [routerLinkActive]="['active']">{{a.wccManualId}} </a>
+              </td>
+               
+              <!-- <td class="mhide" style="width: 50;" *ngIf="rights('ServiceAppointment','edit')">
+                <div class="btn-group" dropdown placement="bottom right">
+                  <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                    <li role="menuitem">
+                      <a class="dropdown-item" *ngIf="rights('ServiceAppointment','edit')"
+                        (click)="createEditModelshow(a)">Edit </a>
+                    </li>
+                  </ul>
+                </div>
+              </td> -->
+            </tr>
+            <div style="height: 65px;"></div>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="appointmentList.content.length==0">
+        <div class="row">
+          <div class="col-md-4"> </div>
+          <div class="col-md-4"> <p>Data Not Found</p></div>
+          <div class="col-md-4"></div>
+       </div>
+   </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4" style="text-align:left">
+          Showing Page {{appointmentList.number+1}} &nbsp;of&nbsp;{{appointmentList.totalPages}}&nbsp;Total Count={{appointmentList.totalElements}}
+        </div>
+        <div class="col-sm-4">
+          <div style="text-align: center" *ngIf="!(appointmentList.first && appointmentList.last) ">
+            <a [routerLink]="['/bat_serviceappointment']" [routerLinkActive]="['active']" class="previous round btn-sm"
+              *ngIf="!appointmentList.first"
+              [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:appointmentList.number-1,size:dropdownSelected.size}">
+              &lt;
+            </a>
+            <a [routerLink]="['/bat_serviceappointment']" [routerLinkActive]="['active']" class="previous round btn-sm"
+              [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:appointmentList.number,size:dropdownSelected.size}">
+              {{appointmentList.number+1}}
+            </a>
+            <a [routerLink]="['/bat_serviceappointment']" [routerLinkActive]="['active']" class="previous round btn-sm"
+              *ngIf="!appointmentList.last"
+              [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:appointmentList.number+1,size:dropdownSelected.size}">
+              &gt;
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4" style="text-align: right;">
+          <div class="row">
+           <div class="col-md-6"></div>
+            <div  *ngIf="!(appointmentList.first && appointmentList.last) "  class="col-md-6">
+              <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off" (keypress)="onlyNumbers($event)" >
+               <button (click)=jumpPage(pagenumber)>Go</button>
+             </div>
+          </div>
+       </div>
+      </div>
+  
+     
+    </div>
+  </div>
+  
+  <div class="modal fade" bsModal #createServiceAppointmentModel="bs-modal" (onShow)="isModelShow=true"
+    (onHide)="isModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createServiceAppointmentModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- <app-create-new-service-appointments *ngIf="isModelShow" [isEditMode]="isEditMode"
+            [editServiceAppointmentData]="serviceAppointmentResponse"
+            (onServiceAppointmentCreated)="onServiceAppointmentCreated($event)" (onCancle)="cancelData()">
+          </app-create-new-service-appointments> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+  </div>

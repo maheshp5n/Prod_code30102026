@@ -1,0 +1,160 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:32px;">
+                            <img alt="Report" src="assets/images/Zone_120.png"
+                                style="height: 32px;width:32px;background-color: rgb(198, 90, 207);" title="Report">
+                        </td>
+                        <td style="padding-left:5px;">Report</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px;">
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+                autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+            </div>
+            <div class="col-sm-4 col-md-4 text-right">
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-3">
+          <input type="text" class="form-control"[(ngModel)]="advancesearch.report_name" placeholder="Report Name">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control"[(ngModel)]="advancesearch.report_description"placeholder="Description">
+          </div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-outline-info btn-md" (click)="searchReport()"><em
+                class="fa fa-search"></em>
+              Search</button>
+              <button type="button" class="btn btn-outline-info btn-md" (click)="resetSearch()">
+              Reset</button>
+          </div>
+        </div>
+    </div>
+
+    <div class="card-body" style="padding: 0px;">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th class="text-left">
+                            S.No
+                        </th>
+                        <th class="text-left">
+                            Report Name
+                        </th>
+                        <th class="text-left">
+                            Description
+                        </th>
+                        <th class="text-left">
+                            Execute
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="reports">
+                    <tr *ngFor="let r of reports|globalSearchPipe:searchitem;let i= index;">
+                        <td class="text-left">
+                            {{i+1}}
+                        </td>
+                        <td class="text-left">
+                            {{r.reportName}}
+                        </td>
+                        <td class="text-left">
+                            {{r.reportDescription}}
+                        </td>
+                        <td class="text-left">
+                            <button type="button" class="btn btn-sm btn-primary" (click)="startExecutation(r)"><em
+                                    class="fa fa-cog"></em>
+                                Execute</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" bsModal #reportsWindows="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" *ngIf="rpt">
+                <h4 class="modal-title pull-left">{{rpt.reportName}}</h4>
+                <button type="button" class="close pull-right" (click)="reportsWindows.hide()">&times;</button>
+            </div>
+            <div class="modal-body" *ngIf="rpt">
+                <div class="" style="max-height: 80vh;overflow: auto;">
+
+                    <!-- <div class="text-right" *ngIf="rptObjectList.length>0">
+                        <button type="button" class="btn btn-primary" (click)="exportToExcel()"><em
+                                class="fa fa-file-excel"></em> Export As
+                            Excel</button>
+                    </div> -->
+                    <br>
+                    <!-- <div class="table-responsive">
+                        <table #reportTable class="table table-sm" *ngIf="rptObjectList.length>0">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">S.No</th>
+                                    <th *ngFor="let h of rptObjectKey" class="text-left">
+                                        {{h}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of rptObjectList;let i=index;">
+                                    <td class="text-left">{{i+1}}</td>
+                                    <td *ngFor="let h of rptObjectKey;" [innerHTML]="r[h]" class="text-left">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="rptObjectList.length==0" class="text-center danger">
+                            NO Data found
+                        </div> -->
+                    <div *ngFor="let r of rptObjectList;">
+                        <p class="text-center" *ngFor="let h of rptObjectKey;" [innerHTML]="r[h]"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #reportParam="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" *ngIf="rpt">
+                <h4 class="modal-title pull-left">{{rpt.reportName}}</h4>
+                <button type="button" class="close pull-right" (click)="reportParam.hide()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6" *ngFor="let m of params">
+                        <label>{{m.paramDisplay}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="m.paramValue">
+                    </div>
+                </div>
+                <br>
+                <div class="text-right">
+                    <button type="button" class="btn btn-info" (click)="fetchReport()"> Fetch Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

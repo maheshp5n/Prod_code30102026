@@ -1,0 +1,449 @@
+MIME-Version: 1.0
+Date: Mon, 29 Nov 2021 14:49:22 +0530
+From: Shefali Arora <shefali@exicom.in>
+Subject: RE: RE: ESS completion status Report and some new CR
+Thread-Topic: RE: ESS completion status Report and some new CR
+To: Shagufta <shagufta@pratikshat.com>
+Cc: Ankit Agrawal <ankit@pratikshat.com>, 
+	Vineet Asthana <vineet.asthana@exicom.in>, 
+	Kalindi Rawat <kalindi@pratikshat.com>, 
+	"raushan@pratikshat.com" <raushan@pratikshat.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:m=3D"http://schema=
+s.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html=
+40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:396633787;
+	mso-list-type:hybrid;
+	mso-list-template-ids:615799620 1074331661 1074331651 1074331653 107433164=
+9 1074331651 1074331653 1074331649 1074331651 1074331653;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:=EF=83=BC;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:=EF=82=A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:=EF=82=B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:=EF=82=A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:=EF=82=B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:=EF=82=A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:640421683;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-307078766 1912360396 1074331673 1074331675 10743316=
+63 1074331673 1074331675 1074331663 1074331673 1074331675;}
+@list l1:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:54.0pt;
+	text-indent:-18.0pt;
+	mso-ansi-font-weight:bold;}
+@list l1:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:90.0pt;
+	text-indent:-18.0pt;}
+@list l1:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:126.0pt;
+	text-indent:-9.0pt;}
+@list l1:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:162.0pt;
+	text-indent:-18.0pt;}
+@list l1:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:198.0pt;
+	text-indent:-18.0pt;}
+@list l1:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:234.0pt;
+	text-indent:-9.0pt;}
+@list l1:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:270.0pt;
+	text-indent:-18.0pt;}
+@list l1:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:306.0pt;
+	text-indent:-18.0pt;}
+@list l1:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:342.0pt;
+	text-indent:-9.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-IN" link=3D"blue" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US">Dear Shagufta,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US">Thanks for details!<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US">Will check excel file &amp; get back to you soon.<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US">Also, please find below my inline comments against your queries.<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060;mso-fareast-language:EN=
+-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#002060"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#002060">Regards=
+,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#002060">Shefali=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D;mso-fareast-language:EN=
+-US"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
+=3D"EN-US"> Shagufta &lt;shagufta@pratikshat.com&gt;
+<br>
+<b>Sent:</b> Monday, 29 November, 2021 01:53 PM<br>
+<b>To:</b> Shefali Arora &lt;shefali@exicom.in&gt;<br>
+<b>Cc:</b> Ankit Agrawal &lt;ankit@pratikshat.com&gt;; Vineet Asthana &lt;v=
+ineet.asthana@exicom.in&gt;; Kalindi Rawat &lt;kalindi@pratikshat.com&gt;; =
+raushan@pratikshat.com<br>
+<b>Subject:</b> FW: RE: ESS completion status Report and some new CR<o:p></=
+o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p><i><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,sans-se=
+rif;color:tomato">=E2=80=9CExternal email. Open with Caution=E2=80=9D</span=
+></i><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quot;,sans-ser=
+if;color:tomato">
+</span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Dear Shefali<b><i><o:p></o:p></=
+i></b></span></p>
+<blockquote style=3D"border:none;border-left:solid #C2C2C2 1.5pt;padding:0c=
+m 0cm 0cm 2.0pt;margin-left:3.0pt;margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<blockquote style=3D"border:none;border-left:solid #C2C2C2 1.5pt;padding:0c=
+m 0cm 0cm 2.0pt;margin-left:3.0pt;margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span lang=3D"EN-US">PFA file with our remarks for status of&nbsp;=
+ Testing points for battery modules.<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span lang=3D"EN-US">New Requirements topic:<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span lang=3D"EN-US">1.<o:p></o:p></span></p>
+<div>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"0" style=3D"width:359.25pt;border-collapse:collapse">
+<tbody>
+<tr style=3D"height:14.4pt">
+<td width=3D"479" style=3D"width:359.0pt;border:solid windowtext 1.0pt;padd=
+ing:.75pt .75pt 0cm .75pt;height:14.4pt">
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-size:9.0pt">Addition of 2 new column at case c=
+losure Page</span><o:p></o:p></p>
+</td>
+</tr>
+<tr style=3D"height:14.4pt">
+<td width=3D"479" style=3D"width:359.0pt;border:solid windowtext 1.0pt;bord=
+er-top:none;padding:.75pt .75pt 0cm .75pt;height:14.4pt">
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-size:9.0pt">1. &quot;Customer Billing Rate&quo=
+t; --&gt; dropdown</span><o:p></o:p></p>
+</td>
+</tr>
+<tr style=3D"height:14.4pt">
+<td width=3D"479" style=3D"width:359.0pt;border:solid windowtext 1.0pt;bord=
+er-top:none;padding:.75pt .75pt 0cm .75pt;height:14.4pt">
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-size:9.0pt">2.&nbsp; &quot;Exicom Billing Rate=
+&quot; --&gt; Input box</span><o:p></o:p></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class=3D"MsoListParagraph"><span lang=3D"EN-US" style=3D"color:white">PP=
+l</span><span lang=3D"EN-US">Please provide dropdown values so our team wil=
+l be proceed ahead.<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph"><b><span lang=3D"EN-US" style=3D"color:#1F497=
+D">[SA]: will provide these values by EOD. For the time being, you can add =
+1000, 2000 &amp; 3000 for testing, as discussed Saturday as well.<o:p></o:p=
+></span></b></p>
+<p class=3D"MsoListParagraph"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span>=
+</p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span lang=3D"EN-US">2. &nbsp;Contact Phone number reused: &nbsp;a=
+s per discussion If User will be disabled then it will not able to enable i=
+n future and then only contact number can be reused
+ against this disable user. Please confirm if same will be applied for DCT =
+also.<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><b><span lang=3D"EN-US" style=3D"color:#1F497D">[SA]: below pointe=
+rs need to validate for implementation of this functionality:<o:p></o:p></s=
+pan></b></p>
+<p class=3D"MsoListParagraph" style=3D"mso-margin-top-alt:5.0pt;margin-righ=
+t:72.0pt;margin-bottom:5.0pt;margin-left:36.0pt;text-indent:-18.0pt;mso-lis=
+t:l0 level1 lfo1">
+<![if !supportLists]><span lang=3D"EN-US" style=3D"font-family:Wingdings;co=
+lor:#1F497D"><span style=3D"mso-list:Ignore">=C3=BC<span style=3D"font:7.0p=
+t &quot;Times New Roman&quot;">&nbsp;
+</span></span></span><![endif]><b><span lang=3D"EN-US" style=3D"color:#1F49=
+7D">Example</span></b><span lang=3D"EN-US" style=3D"color:#1F497D">: If use=
+r is trying to disable one contact named Shefali having 701140352 mobile nu=
+mber then,<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"mso-margin-top-alt:5.0pt;margin-righ=
+t:72.0pt;margin-bottom:5.0pt;margin-left:54.0pt;text-indent:-18.0pt;mso-lis=
+t:l1 level1 lfo2">
+<![if !supportLists]><b><span lang=3D"EN-US" style=3D"color:#1F497D"><span =
+style=3D"mso-list:Ignore">1.<span style=3D"font:7.0pt &quot;Times New Roman=
+&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span></b><![endif]><span lang=3D"EN-US" style=3D"color:#1F4=
+97D">On click of Disable button, a popup need to show to user for more clar=
+ification with below text.<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"mso-margin-top-alt:5.0pt;margin-righ=
+t:72.0pt;margin-bottom:5.0pt;margin-left:54.0pt;text-indent:-18.0pt;mso-lis=
+t:l1 level1 lfo2">
+<![if !supportLists]><b><span lang=3D"EN-US" style=3D"color:#1F497D"><span =
+style=3D"mso-list:Ignore">2.<span style=3D"font:7.0pt &quot;Times New Roman=
+&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span></b><![endif]><span lang=3D"EN-US" style=3D"color:#1F4=
+97D">Once contact is disabled then there should be no provision to enable t=
+his.<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"mso-margin-top-alt:5.0pt;margin-righ=
+t:72.0pt;margin-bottom:5.0pt;margin-left:54.0pt;text-indent:-18.0pt;mso-lis=
+t:l1 level1 lfo2">
+<![if !supportLists]><b><span lang=3D"EN-US" style=3D"color:#1F497D"><span =
+style=3D"mso-list:Ignore">3.<span style=3D"font:7.0pt &quot;Times New Roman=
+&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span></b><![endif]><span lang=3D"EN-US" style=3D"color:#1F4=
+97D">All details/records like Case, Service appoint, expense etc. will rema=
+in same even after assignment of same number to new user.<o:p></o:p></span>=
+</p>
+<p class=3D"MsoListParagraph" style=3D"mso-margin-top-alt:5.0pt;margin-righ=
+t:72.0pt;margin-bottom:5.0pt;margin-left:54.0pt;text-indent:-18.0pt;mso-lis=
+t:l1 level1 lfo2">
+<![if !supportLists]><b><span lang=3D"EN-US" style=3D"color:#1F497D"><span =
+style=3D"mso-list:Ignore">4.<span style=3D"font:7.0pt &quot;Times New Roman=
+&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span></b><![endif]><span lang=3D"EN-US" style=3D"color:#1F4=
+97D">Use trying to allocate same(701140352) mobile number to new contact na=
+med Shagufta then that contact should create.<o:p></o:p></span></p>
+<p class=3D"MsoListParagraph" style=3D"mso-margin-top-alt:5.0pt;margin-righ=
+t:72.0pt;margin-bottom:5.0pt;margin-left:54.0pt;text-indent:-18.0pt;mso-lis=
+t:l1 level1 lfo2">
+<![if !supportLists]><b><span lang=3D"EN-US" style=3D"color:#1F497D"><span =
+style=3D"mso-list:Ignore">5.<span style=3D"font:7.0pt &quot;Times New Roman=
+&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span></b><![endif]><span lang=3D"EN-US" style=3D"color:#1F4=
+97D">All records created post assignment will contain New name i.e. Shaguft=
+a.
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-right:144.0pt"><b><span lang=3D"EN-U=
+S" style=3D"color:#1F497D">Popup Text</span></b><span lang=3D"EN-US" style=
+=3D"color:#1F497D">: =E2=80=9CDo you want to disable this Record?<o:p></o:p=
+></span></p>
+<p class=3D"MsoNormal" style=3D"margin-right:144.0pt"><span lang=3D"EN-US" =
+style=3D"color:#1F497D">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; If yes, this will not be enable in future.=E2=80=9D<o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span lang=3D"EN-US">3.Case detail PDF when status is In process:-=
+ this is new requirement under CR for 15 days kindly approve this.<o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><b><span lang=3D"EN-US" style=3D"color:#1F497D">[SA]: Vineet Sir w=
+ill discuss with Ankit on this point.</span></b><span lang=3D"EN-US" style=
+=3D"color:#1F497D"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><em><b><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif">Thanks and Regards</span></b></em><span lang=3D"EN-US"><o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><em><b><span lang=3D"EN-US" style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif">Shagufta</span></b></em><span lang=3D"EN-US"><o:p></o:p></sp=
+an></p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;margin-right:72.0pt=
+;mso-margin-bottom-alt:auto;margin-left:6.0pt">
+<span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</div>
+Disclaimer:
+
+This e-mail & attachment(s) within it are for sole use of intended recipien=
+t(s) & may contain confidential & privileged information. If you are not th=
+e intended recipient, please intimate the sender by replying to this email =
+& destroy all copies & the original message. Any unauthorized review, use, =
+disclosure, dissemination, forwarding, printing or copying of this email or=
+ any action taken in reliance on this e-mail is strictly prohibited & unlaw=
+ful. The recipient acknowledges that COMPANY , its subsidiaries, associated=
+ companies or persons authorized by it (collectively "THE Group"), are unab=
+le to exercise control, ensure, guarantee the integrity of/over the content=
+s of the information contained in e-mail transmissions & further acknowledg=
+es that any views expressed in this message are those of the individual sen=
+der & no binding nature of the message shall be implied or assumed unless t=
+he sender does so expressly with due authority of THE Group.
+</body>
+</html>

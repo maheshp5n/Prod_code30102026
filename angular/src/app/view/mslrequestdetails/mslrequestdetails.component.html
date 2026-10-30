@@ -1,0 +1,286 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+
+            <td rowspan="2" style="width:35px;">
+              <img alt="MSL Request" src="assets/images/mslrqst.png"
+                style="height: auto;width:100%;background-color: rgb(91, 235, 191);" title="MSL Request">
+            </td>
+            <td style="padding-left: 5px;">
+              <span>MSL Request</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;"><span style="font-size: 15px;font-weight: bold;">{{response.manualId}}
+              </span></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+
+      </div>
+      <div class="col-md-4 text-right">
+        <div class="btn-group" *ngIf="_cFlag!='f'">
+          <button type="button" (click)="addItemModel.show()" class="btn btn-sm btn-outline-info"><i
+              class="fa fa-plus"></i>&nbsp; Add Item</button>&nbsp;
+          <button type="button" class="btn btn-sm btn-outline-info" (click)="submitForApprovalModal.show()"> Sumbit for
+            Approval</button>
+        </div>
+        <app-itemapproval-button [objectName]="'MSLRequest'" [_objectId]="response.mslId"></app-itemapproval-button>
+       
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <ul class="menue">
+        <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+        <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+      </ul>
+      <br>
+      <hr style="margin-top: 14px;">
+      <div *ngIf="vDetails">
+        <button type="button" (click)="changeInfoDisplay()"
+          style="text-align: left;background-color: lightgray;font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="infoDisplay.angleIcon"></i>Information</button>
+        <div *ngIf="infoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable">
+                    <small>Name</small>
+                  </td>
+                  <td class="wrappable">{{response.manualId}} </td>
+                </tr>
+                <tr>
+                  <td class="wrappable">
+                    <small>Warehouse</small>
+                  </td>
+                  <td class="wrappable"> <a [routerLink]="['/location',response.locationId]"> {{response.locationName}}
+                    </a> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable"><small>Owner</small>
+
+                  </td>
+                  <td class="wrappable"><a [routerLink]="['/createuser',response.mslRequestOwnerEmailId]"
+                      activateRout="active">{{response.mslRequestOwnerFirtName}}&nbsp;{{response.mslRequestOwnerMiddleName}}&nbsp;{{response.mslRequestOwnerlastName}}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Status</small>
+                  </td>
+                  <td class="wrappable"> {{response.statusName}} </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: lightgray;font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="sysinfoDisplay.angleIcon"></i>System Information</button>
+        <div *ngIf="sysinfoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable"><small>Created By</small>
+
+                  </td>
+                  <td class="wrappable"><a
+                      [routerLink]="['/createuser',response.createdByEmailId]">{{response.createdByFirstName}}&nbsp;{{response.createdByMiddleName}}&nbsp;{{response.createByLastName}}</a>,&nbsp;{{response.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable"><small>Last Modified By</small>
+                  </td>
+                  <td class="wrappable"><a
+                      [routerLink]="['/createuser',response.modifiedByEmailId]">{{response.modifiedByFirstName}}&nbsp;{{response.modifiedByMiddleName}}&nbsp;{{response.modifiedByLastName}}</a>,&nbsp;{{response.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!vDetails">
+        <div class="card">
+          <div class="card-header">
+            <table style="width: 100%;">
+              <tr>
+                <td style="width: 30px;">
+                  <img src="assets/images/mslrqst.png" style="width: 24px;height: 24px;background-color: #30d8d8"></td>
+                <td>
+                  <a>&nbsp;<strong>MSL Line Items({{mslLineItemTotal}})</strong></a>
+                </td>
+                <td *ngIf="_cFlag!='f'" class="text-right"><button type="button" (click)="addItemModel.show()"
+                    class="btn btn-sm btn-outline-info"><i class="fa fa-plus"></i> Add New </button> </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="card-body" style="padding:0px;">
+            <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+              <div class="table-responsive">
+                <table class="table table-sm table-condensed tablerview">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th title="S.No.">S.No.</th>
+                      <!-- <th title="Product Item">Product Item
+                    </th> -->
+                      <th title="Part Code">Part Code</th>
+                      <th title="Product Description">Product Description</th>
+                      <th title="New MSL">New MSL</th>
+                      <th title="New HSL">New HSL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of mslLineItem;let i=index;">
+                      <td>{{i+1}}.</td>
+                      <!-- <td></td> -->
+                      <td><a [routerLink]="['/products',item.partCode]"> {{item.partCode}}</a></td>
+                      <td>{{item.partDescription}}</td>
+                      <td>{{item.newMSL}}</td>
+                      <Td>{{item.newHSL}}</Td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+              <div style="text-align: center">
+                <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                  (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                  &#8249;
+                </a>
+
+                <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+                  {{page+1}}
+                </a>
+
+                <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                  (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                  &#8250;
+                </a>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Add Item in existing msl Request-->
+  <div class="modal fade" bsModal #addItemModel="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title pull-left">
+            Add Item : {{response.manualId}}
+          </h3>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="addItemModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4 form-group required">
+              <label class="control-label">
+                Product
+              </label>
+              <ng-select *ngIf="products" [items]="products" [(ngModel)]="_mslItemRequest.productPartCode"
+                bindLabel="productPartCode" bindValue="productPartCode" placeholder="Serch Products">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                    style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                    style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-2 form-group required">
+              <label class="control-label">
+                MSL
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="_mslItemRequest.mslQty">
+            </div>
+            <div class="col-md-2 form-group required">
+              <label class="control-label">
+                HSL
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="_mslItemRequest.hslQty">
+            </div>
+            <div class="col-md-4 text-right">
+              <button type="button" (click)="addItems()" style="margin-top: 28px;" class="btn btn-primary"><i
+                  class="fa fa-save"></i>&nbsp; Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Submit for Approval -->
+  <div class="modal fade" bsModal #submitForApprovalModal="bs-modal" [config]="{backdrop:'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="submitForApprovalModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="card card-header text-center">
+            <strong>Submit for Aproval : {{response.manualId}}</strong>
+          </div>
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <label>Remarks</label>
+              <textarea class="form-control" rows="5" [(ngModel)]="remarks"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer text-right">
+          <button type="button" class="btn btn-default" (click)="submitForApprovalModal.hide()"><i
+              class="fa fa-remove"></i> Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="submitForApproval()"> <i class="fa fa-save"></i>
+            Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+      <button type="button" class="close pull-right" (click)="popupSuccessModel.hide()"> <span> &times;</span> </button>
+    </div>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+      <button type="button" class="close pull-right" (click)="popupSuccessModel.hide()"> <span> &times;</span> </button>
+    </div>
+  </div>

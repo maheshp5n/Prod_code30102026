@@ -1,0 +1,331 @@
+<div class="card" style="overflow: hidden;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="control-label">
+                    Assign To QC
+                </div>
+                <input type="checkbox" class="largerCheckbox" name="" id="" [checked]="isChecked.isAssignQC"
+                    [(ngModel)]="isChecked.isAssignQC" (change)="getAssignQC(isChecked.isAssignQC)">
+            </div>
+            <div class="col-sm-2">
+                <div class="control-label">Item Consume</div>
+                <input type="checkbox" class="largerCheckbox" [checked]="isChecked.isProductConsume"
+                    [(ngModel)]="isChecked.isProductConsume" (change)="getProductConsume(isChecked.isProductConsume)">
+            </div>
+            <div class="col-sm-2">
+                <div class="control-label">
+                    Part Code
+                </div>
+                <span>{{jobCardResonse.productPartcode}}</span>
+            </div>
+            <div class="col-sm-2">
+                <div class="control-label">Serial Number</div>
+                <span>{{jobCardResonse.serviceOrderItemSerialNumber}}</span>
+            </div>
+            <div class="col-sm-2">
+                <div class="control-label">Assign To</div>
+                <span>{{jobCardResonse.assignedToFirstName}} {{jobCardResonse.assignedToMiddleName}}
+                    {{jobCardResonse.assignedToLastName}}</span>
+            </div>
+            <div class="col-sm-2">
+                <div class="control-label">Repair Status</div>
+                <span>{{jobCardResonse.isJobCardRepaired}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="panel" style="height: 10%;">
+            <div class="panel panel-body">
+                <div class="row">
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            QC Engineer
+                        </div>
+                        <select class="form-control" [disabled]="isChecked.showAssignEngineerBox"
+                            [(ngModel)]="btEditjobCardRequest.assignToQcEmailId">
+                            <option value="0" disabled>--Select--</option>
+                            <option *ngFor="let eng of qcEngineerList" value="{{eng.contactEmailId}}">
+                                {{eng.contactFirstName}} {{eng.cotactMiddleName}} {{eng.contactLastName}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Current Status
+                        </div>
+                        <select class="form-control" [(ngModel)]="btEditjobCardRequest.repairState"
+                            (change)="getChangeCurrentStatus()">
+                            <option value="0" disabled>--Select--</option>
+                            <option value="{{item.value}}" *ngFor="let item of repairStateList">{{item.status}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Battery Voltage Before Repair
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.batteryVoltageBef">
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Battery Voltage After Repair
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.batteryVoltageAft">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Battery AH After Repair
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.batteryAhAft">
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Cell Vmax (v)
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.cellVmax">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Cell Vmin (v)
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.cellVmin">
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            BRC Eng. Corrective Action
+                        </div>
+                        <!-- <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.correctiveAction"> -->
+                        <select type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.correctiveAction">
+                            <option value="0">--select--</option>
+                            <option *ngFor="let o of BRCMethod;" [ngValue]="o.bt_name">{{o.bt_name}}  </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            BRC Eng Resolution Method
+                        </div>
+
+                        <select type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.engResolutionMethod">
+                            <option value="0">--select--</option>
+                            <option *ngFor="let o of resolutionMethods;" [ngValue]="o.bt_name">{{o.bt_name}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label ">
+                            Material Shortage (If Any)
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.matSorteg">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group" [ngClass]="ngClassBerRemarks">
+                        <div class="control-label">
+                            BER Remark
+                        </div>
+                        <select type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.berRemarks"
+                            *ngIf="btEditjobCardRequest.repairState==1" disabled>
+                            <option value="0">--Select--</option>
+                            <option *ngFor="let o of berRemarks;" [ngValue]="o.bt_name">{{o.bt_name}}</option>
+                        </select>
+                        <select type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.berRemarks"
+                            *ngIf="btEditjobCardRequest.repairState==5||btEditjobCardRequest.repairState==0||btEditjobCardRequest.repairState==null">
+                            <option value="0">--Select--</option>
+                            <option *ngFor="let o of berRemarks;" [ngValue]="o.bt_name">{{o.bt_name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Battery Balance
+                        </div>
+                        <select type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.btBalanceAt">
+                            <option value="0">--Select--</option>
+                            <option *ngFor="let o of batteryBalanceAt;" [ngValue]="o.bt_name">{{o.bt_name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            Cell Bulged
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.cellBledge">
+                    </div>
+                    <!-- <div class="col-sm-6 form-group required ">
+                        <div class="control-label">
+                            Engineer Remarks
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.engRemarks">
+                    </div> -->
+
+                    <div class="col-sm-6 form-group required ">
+                        <div class="control-label">
+                            Engineer Remarks
+                        </div>
+                        <!-- <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.engRemarks"> -->
+                        <select type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.engRemarks" >
+                            <option value="0">--select--</option>
+                            <option *ngFor="let o of EngRemarksMethods;" [ngValue]="o.bt_name">{{o.bt_name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <div class="control-label">
+                            Observation 1
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.observation1">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <div class="control-label">
+                            Observation 2
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.observation2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <div class="control-label">
+                            Observation 3
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.observation3">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <div class="control-label">
+                            Observation 4
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.observation4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group required">
+                        <div class="control-label">
+                            File Name
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="btEditjobCardRequest.filename" disabled>
+                    </div>
+                    <div class="col-sm-2" style="margin-top: 25px;">
+                        <input type="file" name="profile" (change)="onFileSelect($event)" id="getFile1"
+                            style="display:none"/>
+                        <button class="btn btn-sm btn-outline-info"
+                            onclick="document.getElementById('getFile1').click()" type='submit'><i
+                                class="fa fa-upload"></i>&nbsp;&nbsp;Upload File</button>
+                    </div>
+                </div>
+                
+                <div class="row mt-2" *ngIf="isChecked.showProductConsumeInput ">
+                    <div class="col-md-3">
+                        <label class="reque">Part Code</label>
+                        <ng-select *ngIf="btProductList" [items]="btProductList" bindLabel="bothvalues" bindValue="id"
+                            (search)="searchBtProductList($event)" placeholder="Search Products Item"
+                            [(ngModel)]="btConsumeItemsReq.consumedProductId"
+                            (change)="getChangePartCode(btConsumeItemsReq.consumedProductId)">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(198, 172, 240);" />
+                                {{item.partCode}}<small>({{item.productType}})</small>
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="reque">Quantity</label>
+                        <input type="text" class="form-control" (keypress)="numberOnly($event)"
+                            [(ngModel)]="btConsumeItemsReq.quantity">
+                    </div>
+                    <div class="col-md-2" *ngIf="isChecked.isShowAvStock">
+                        <label>Av. Stock</label>
+                        <input type="text" class="form-control"
+                            [(ngModel)]="avilabStockAtDestination.exicomTotalOkQuantity" disabled>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 40px;">
+                        <label>Consume From Stock</label>
+                        &nbsp; <input type="checkbox" [checked]="isChecked.isProductConsume"
+                            [(ngModel)]="isChecked.isStockConsume"
+                            (change)="getConsumeFromStock(isChecked.isStockConsume)">
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <button type="button" style="margin-top: 28px;" class="btn btn-info"
+                            (click)="addItemInList()"><i class="fa fa-plus"></i>
+                            Add</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row" *ngIf="isChecked.showProductConsumeInput">
+                    <div class="col-12">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>Part Code</th>
+                                    <th>Quantity</th>
+                                    <th>Consume From Stock</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of btEditjobCardRequest.consumedItems;let i=index;">
+                                    <td style="text-align: center;">{{i+1}}</td>
+                                    <td>{{item.partCode}}</td>
+                                    <td>{{item.quantity}}</td>
+                                    <td><em *ngIf="item.consumeFromStock=='Yes'" class="tik-mark"></em> <em
+                                            *ngIf="item.consumeFromStock!='Yes'" class="cross-mark"></em></td>
+                                    <td style="text-align: center;"><button type="button" class="btn btn-sm btn-danger"
+                                            (click)="removeItem(i)"><i class="fa fa-remove"></i> </button> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <button type="button" class="btn btn-primary" (click)="updateJobCard()"><em
+                                class="fa fa-save"></em>
+                            Save</button>
+                        <button type="button" class="btn btn-default" (click)="cancelJobCard()"><em
+                                class="fa fa-remove"></em>
+                            Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--upload file-->
+<div class="modal fade" bsModal #choosenFiles="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Files</h4>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <div class="row" *ngFor="let s of fileList;let i=index">
+                    <div class="col-6">
+                        {{s.name}}
+                    </div>
+                </div>
+                <div class="modal-footer text-right">
+                    <div>
+                        <button type="button" class="btn btn-default" (click)="cancelChoosen()"><i
+                                class="fa fa-remove"></i>
+                            Cancel</button>&nbsp;
+                        <button type="submit" class="btn btn-primary" (click)="uploadFile()">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

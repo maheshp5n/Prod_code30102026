@@ -1,0 +1,250 @@
+
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="" src="assets/images/lightning_blue_profile_avatar_96.png"
+                style="width: 100%;height: auto;" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>User</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-weight: bold;">{{users.userName}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div class="btn-group"  style="padding: 10px;">
+             <!-- <button *ngIf="rights('SSA','edit')"class="btn btn-outline-info btn-sm" type="button" (click)="editSSAModel(res)">Edit</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+        <!-- </div> -->
+        <div *ngIf="vDetails"class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()" style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;" [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Account</small></td>
+                    <td class="wrappable"> <a [routerLink]="['/accounts',users.accountSapNumber]">{{users.accountName}}</a></td>
+                  </tr>
+                
+                 <tr>
+                   <td class="wrappable"><small>Designation</small></td>
+                   <td class="wrappable">{{users.contactDesignation}}</td>
+                 </tr>
+                <tr>
+                  <td class="wrappable"><small>Manager Email ID</small></td>
+                  <td class="wrappable"><a [routerLink]="['/createuser',users.managerEmailId]" (click)="goToDetails(users.managerEmailId)">{{users.managerEmailId}}</a></td>
+                </tr>
+                <tr>
+                  <td><small>Apporover Manager Email ID</small></td>
+                  <td><a [routerLink]="['/createuser',users.approverManagerEmailId]" (click)="goToDetails(users.approverManagerEmailId)">{{users.approverManagerEmailId}}</a></td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Profile Name</small></td>
+                  <td class="wrappable">{{users.profileName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Account Not Expired</small></td>
+                  <td> 
+                    <input type="checkbox" [ngModel]="users.accountNotExpired"disabled>
+                  </td>
+                </tr>
+                <tr>
+                    <td class="wrappable"><small>Creadential Not Expired</small></td>
+                    <td> 
+                      <input type="checkbox" [ngModel]="users.creadentialNonExpired"disabled>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                    <tr>
+                        <td class="wrappable" style="width:50%"><small>Name</small></td>
+                        <td class="wrappable"> <a [routerLink]="['/contacts',users.contactId]"> {{users.contactFirstName}}&nbsp;{{users.contactMiddleName}}&nbsp;{{users.contactLastName}}</a></td>
+                      </tr>
+                 
+                 <tr>
+                   <td class="wrappable"><small>Employee Code</small></td>
+                   <td class="wrappable">{{users.contactDetailsEmployeeCode}}</td>
+                 </tr>
+                <tr>
+                  <td class="wrappable"><small>Manager Name</small></td>
+                  <td class="wrappable">{{users.managerFirstName}}&nbsp;{{users.managerMiddleName}}&nbsp;{{users.managerLastName}}</td>
+                </tr>
+                <tr>
+                    <td class="wrappable"><small>Apporover Manager Name</small></td>
+                    <td class="wrappable">{{users.approverManagerFirstName}}&nbsp;{{users.approverManagerMiddleName}}&nbsp;{{users.approverManagerLastName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>User Role</small></td>
+                    <td class="wrappable">{{users.userRole}}</td>
+                  </tr>
+                  <tr>
+                      <td class="wrappable"><small>Account Not Locked</small></td>
+                      <td> 
+                        <input type="checkbox" [ngModel]="users.accountNonLocked" disabled>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td class="wrappable"><small>Enabled</small></td>
+                        <td> 
+                          <input type="checkbox" [ngModel]="users.enabled" disabled>
+                        </td>
+                      </tr>
+                 </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                      <td class="wrappable"><a
+                        [routerLink]="['/createuser',users.createdByEmailId]">{{users.createdByFirstName}}&nbsp;{{users.createdByMiddleName}}&nbsp;{{users.createdByLastName}}</a>&nbsp;,&nbsp;{{users.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/createuser',users.modifiedByEmailId]">{{users.modifiedByFirstName}}&nbsp;{{users.modifiedByMiddleName}}&nbsp;{{users.modifiedByLastName}}</a>&nbsp;,&nbsp;{{users.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails"class="card-body" style="padding: 0px;margin: 0px;">
+
+            <!-- <div class="card">
+                <div class="card-header">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="width: 30px;">
+                        <img src="assets/images/Sites.png"
+                          style="width: 24px;height: 24px;background-color: #f15050"></td>
+                      <td>
+                        <a>&nbsp; <strong>Sites({{totalSite}})</strong> </a>
+                      </td>
+    
+                    </tr>
+                  </table>
+                </div>
+    
+                <div class="card-body"*ngIf="siteList.length>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                  <div class="table-responsive" style=" background-color: white;">
+                    <table class="table table-sm table-condensed">
+                      <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                          <th class="text-left" title="S.No.">S.No.</th>
+                          <th class="text-left" title="Site ID">Site ID
+                          </th>
+                          <th class="text-left" title="District">District
+                          </th>
+                          <th class="text-left" title="Circle">Circle
+                          </th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ser of siteList;let i = index ">
+                          <td class="wrappable">{{serialNumber+i+1}}.</td>
+                          <td class="wrappable"><a [routerLink]="['/sites',ser.siteId]">
+                              {{ser.siteId}}</a></td>
+                          <td class="wrappable"> {{ser.clusterDistrict}}</td>
+                          <td class="wrappable">{{ser.circleName}}</td>
+    
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: center">
+                      <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                        (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                        &#8249;
+                      </a>
+    
+                      <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                        [ngClass]="{'active':i==page}">
+                        {{page+1}}
+                      </a>
+    
+                      <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                        (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                        &#8250;
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div>
+                <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+              </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      <!-- <strong *ngIf="message=='Updated Successfully'">Site &nbsp;Udated successfully !</strong> -->
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+  </div>

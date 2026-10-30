@@ -1,0 +1,282 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Approval" src="assets/images/approval_120.png"
+                                style="height: auto;width:100%;background-color: rgb(138, 52, 2);" title="Approval" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Approval</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;">{{approvalResponse.objectName}} </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px; visibility: hidden;">
+                    <button *ngIf="rights('Approval','edit')" class="btn btn-outline-info btn-sm"
+                        type="button">Edit</button>
+                    <!--  (click)="onClickEditApproval(approvalResponse)" -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Information
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Object</small>
+                                        </td>
+                                        <td class="wrappable">{{approvalResponse.objectName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Object Class</small>
+                                        </td>
+                                        <td>{{approvalResponse.objectClassName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Object Id Filed</small>
+                                        </td>
+                                        <td>{{approvalResponse.objectIdFiledName}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Approval Stages</small>
+                                        </td>
+                                        <td>{{approvalResponse.approvalStages}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Entry Criteria</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            {{approvalResponse.entryCreteria}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Initial Submitters</small>
+                                        </td>
+                                        <td class="wrappable">{{approvalResponse.initialSubmitters}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Business Domain</small>
+                                        </td>
+                                        <td class="wrappable">{{approvalResponse.businessDomainName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Description</small>
+                                        </td>
+                                        <td class="wrappable">{{approvalResponse.description}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Active</small>
+                                        </td>
+                                        <td>{{!approvalResponse.active}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> &nbsp;System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"> <small>Created By</small> </td>
+                                        <td class="wrappable"><a href="#"
+                                            routerLink="/createuser/{{approvalResponse.createdByEmailId}}">
+                                            {{approvalResponse.createByFirstName}}&nbsp;
+                                            {{approvalResponse.createdByMiddleName}}&nbsp;
+                                            {{approvalResponse.createByLastName}}</a>&nbsp;,&nbsp;
+                                            {{approvalResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"> <small>Last Modified By</small> </td>
+                                        <td class="wrappable"><a href="#"
+                                            routerLink="/createuser/{{approvalResponse.modifiedByEmailId}}">
+                                            {{approvalResponse.modifiedByFirstName}}&nbsp;
+                                            {{approvalResponse.modifiedByMiddleName}}&nbsp;
+                                            {{approvalResponse.modifiedByLastName}}</a>&nbsp;,&nbsp;
+                                            {{approvalResponse.lastModifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="!vDetails">
+                    <!-- add Item -->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/quotes_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);border-radius: 1mm;"
+                                            title="Approval Steps"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;
+                                            Approval Steps ({{LineItemList.length}})
+                                        </b>
+                                    </td>
+                                    <td class="text-right">
+                                        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                                            <button *ngIf="rights('Approval','create')" class="btn btn-outline-info btn-sm"
+                                                type="button" (click)="addProduct()">Add Steps</button>
+                                            <!-- <button *ngIf="rights('Quote','edit')" class="btn btn-outline-info btn-sm"
+                            type="button" (click)="openEditAll()">Edit All</button> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Step Name</th>
+                                            <th>Approval Stage</th>
+                                            <th>Approved By</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of LineItemList; let i=index">
+                                            <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                                            <td data-line="Step Name">{{c.stepName}}</td>
+                                            <td data-line="Approval Stage">{{c.approvedStage}}</td>
+                                            <td data-line="Approved By">{{c.approvedBy}}</td>
+                                            <td data-line="Action">
+                                                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                    placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li *ngIf="rights('Approval','edit')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="openEditLineItem(c.id)">Edit
+                                                            </a>
+                                                        </li>
+                                                        <li role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteLineItem(c.id)">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Product -->
+<div class="modal fade" bsModal #createaddProductModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Add Line Item</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataaddLineItem()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-add-approvel-line-item [isEditMode]="isEditMode"
+                    (onAddProductCreated)="onaddProductCreated($event)" (onAddProductCancle)="cancelDataaddLineItem()"
+                    [approvalID]="approvalId" [stages]="aprovelStages" [editAddItemData]="itemAddReq" [stpID]="stpId">
+                </app-add-approvel-line-item>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-asset">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

@@ -1,0 +1,294 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:32px;">
+                <img alt="Expense Management" src="assets/images/expense_120.png"
+                  style="height: 32px;width:32px;background-color: rgb(175, 88, 156)" title="Expense Management">
+              </td>
+              <td style="padding-left:5px;">Expenses Management</td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                    <span dropdownToggle type="button" style="background-color: white;">
+                        <span style="font: size 15px;padding-right: 5px;">
+                            &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                class="fa fa-sort-down"></i>&nbsp;
+                        </span>
+                    </span>
+                    <ul class="dropdown-menu" *dropdownMenu role="menu"
+                        aria-labelledby="button-disabled-item" style="width: 115%;">
+                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                            View</li>
+                        <li role="menuitem" *ngFor="let m of dropdownsList">
+                            <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                        </li>
+                    </ul>
+                </div>&nbsp;
+                <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+               
+            </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+        </div>
+        <div class="col-sm-4 col-md-4 text-right">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('BtExpenseManagement','create')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="createExpenseManagement()"><i class="fa fa-plus"></i>&nbsp;New</button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advancesearch.manualId" placeholder="Expense ID">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advancesearch.employee" placeholder="Employee">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advancesearch.employeeCode" placeholder="Employee Code">
+        </div>
+        <div class="col-md-3">
+          <select  class="form-control"
+          [(ngModel)]="advancesearch.expensePurposeName">
+          <option style="font-weight: bold;" disabled value="">--Purpose--</option>   
+        <option value="Case">Case</option>
+        <option value="Official" >Official</option>
+        <option value="Training" >Training</option>
+    </select>
+          <!-- <input type="text" class="form-control" [(ngModel)]="advancesearch.expensePurposeName" placeholder="Purpose"> -->
+        </div>
+      </div> <br>
+      <div class="row">
+        <div class="col-md-3">
+          <select  class="form-control"
+          [(ngModel)]="advancesearch.expenseTypeName">
+          <option style="font-weight: bold;" disabled value="">--Expense Type--</option>   
+        <option value="Tour">Tour</option>
+        <option value="Other Than Tour" >Other Than Tour</option>
+    </select>
+          <!-- <input type="text" class="form-control" [(ngModel)]="advancesearch.expenseTypeName" placeholder="Type"> -->
+        </div>
+     
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control" [(ngModel)]="advancesearch.statusName" placeholder="Status"> -->
+          <select class="form-control" [(ngModel)]="advancesearch.statusName">
+            <option value="">--Select Status--</option>
+            <option *ngFor="let list of statusList" [ngValue]="list.statusName">{{list.statusName}}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <!-- <input type="text" class="form-control" [(ngModel)]="advancesearch.documentDate" placeholder="Doc Date (YYYY-MM-DD)"> -->
+          <input type="text" class="form-control" (keydown.enter)="searchExpenc()" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" 
+          [(ngModel)]="advancesearch.documentDate" placeholder="Doc Date" onkeydown="return false"
+          [maxDate]="today">
+        <span class="fa fa-calendar errspan"></span>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-outline-info btn-md" (click)="searchExpenc()"><em
+            class="fa fa-search"></em>
+          Search</button>
+          <button type="button" class="btn btn-outline-info btn-md" (click)="resetExpenc()">
+          Reset</button>
+        </div>
+      </div> 
+    </div>
+  
+    <div class="card-body" style="padding: 0px;">
+      <div class="wrap">
+        <table class="head">
+          <thead style="background-color:rgb(248, 245, 245)">
+            <th  title="S.No">S.No</th>
+            <th  *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+          title="{{tb.name}}">
+          <div class="row">
+            <div class="col sm-10">{{tb.name}}</div>
+            <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+          </div></th>
+            <th>Action</th>
+          </thead>
+        </table>
+    <div class="inner_table"  *ngIf="expensesmanagementList.content.length>0">
+      
+      <table>
+         
+        <tbody>
+          <tr *ngFor="let c of expensesmanagementList.content | searchfilt: searchitem; let i = index">
+            <td  data-line="S.No" >{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+            <td data-line="Claim Number"><a href="#"
+                routerLink="/bat_expense/{{c.id}}">{{c.manualId}}</a>
+            </td>
+            <td data-line="Employee">
+              <a href="#" routerLink="/bat_contacts/{{c.contactId}}">
+                {{c.contactName}}
+                 <!-- {{c.contactMiddleName}} {{c.contactLastName}} -->
+              </a>
+            </td>
+            <td data-line="Employee Code">{{c.employeeCode}}
+            </td>
+            <td data-line="Expense Purpose">{{c.expensePurposeName}}
+            </td>
+            <td data-line="Expense Type">{{c.expenseTypeName}}
+            </td>
+            <td data-line="Total Expense"><i class="fa fa-inr"></i>&nbsp;{{c.totalExpense}}</td>
+            <td data-line="Amount To Disburse">{{c.netAmountToPay | currency:'INR'}}</td>
+            <td data-line="Document Date">{{c.documentDate | date:'dd-MM-yyyy'}}
+            </td>
+            <td data-line="Purpose" >{{c.purposeOfVisit}}
+            </td>
+            <td data-line="Status">{{c.statusName}}
+            </td>
+            <td data-line="Created Date">{{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+            </td>
+  
+            <td data-line="Action" >
+              <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                  <li *ngIf="rights('BtExpenseManagement','edit')" role="menuitem">
+                    <a class="dropdown-item" (click)="onClickEdit(c)">Edit </a>
+                  </li>
+                  <li role="menuitem">
+                    <a *ngIf="rights('BtExpenseManagement','edit')" class="dropdown-item" (click)="Confirm(c)">Delete</a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <div style="height: 65px;">
+  
+          </div>
+        </tbody>
+      </table>
+     </div>
+     <div *ngIf="expensesmanagementList.content.length==0">
+      <div class="row">
+        <div class="col-md-4"> </div>
+        <div class="col-md-4"> <p>Data Not Found</p></div>
+        <div class="col-md-4"></div>
+     </div>
+ </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4" style="text-align:left">
+          Showing Page {{expensesmanagementList.number+1}} &nbsp;of&nbsp;{{expensesmanagementList.totalPages}}&nbsp;Total Count={{expensesmanagementList.totalElements}}
+        </div>
+        <div class="col-sm-4">
+          <div style="text-align: center" *ngIf="!(expensesmanagementList.first && expensesmanagementList.last) ">
+            <a [routerLink]="['/bat_expense']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          *ngIf="!expensesmanagementList.first"
+                          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:expensesmanagementList.number-1,size:dropdownSelected.size}">
+                          &lt;
+                      </a>
+                      <a [routerLink]="['/bat_expense']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:expensesmanagementList.number,size:dropdownSelected.size}">
+                          {{expensesmanagementList.number+1}}
+                      </a>
+                      <a [routerLink]="['/bat_expense']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          *ngIf="!expensesmanagementList.last"
+                          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:expensesmanagementList.number+1,size:dropdownSelected.size}">
+                          &gt;
+                      </a>
+          </div>
+        </div>
+        <div class="col-sm-4" style="text-align: right;">
+          <div class="row">
+           <div class="col-md-6"></div>
+            <div  *ngIf="!(expensesmanagementList.first && expensesmanagementList.last) "  class="col-md-6">
+              <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page" size="8" autocomplete="false" autocomplete="off">
+               <button (click)=jumpPage(pagenumber)>Go</button>
+             </div>
+          </div>
+       </div>
+      </div>
+    
+    </div>
+  </div>
+  
+  <!-- New -->
+  <div class="modal fade" bsModal #createexpensesmanagementModel="bs-modal" (onShow)="isExpensesmanagementOpen=true"
+    (onHide)="isExpensesmanagementOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close"
+            (click)="createexpensesmanagementModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createexpenses-management *ngIf="isExpensesmanagementOpen" [isEditMode]="isEditMode"
+            [editexpensesmanagementData]="newexpensesmanagement"
+            (onexpensesmanagementCreated)="onexpensesmanagementCreated($event)" (onCancle)="cancelData()">
+          </app-bt-createexpenses-management>
+          <!--  (onNext)="onNext()" -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+  </div> -->
+  <div class="modal fade" bsModal #deleteExpModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-serviceAppointment">
+      <div  class="modal-dialog modal-md">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <!-- <h4 id="popupRequestforSA" class="modal-title pull-left">Delete</h4> -->
+               
+              </div>
+              <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                  <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                      <!-- <app-expense-confirm-delete [expensesmanagementID]="expensesmanagementid" (noRequestFor)="noRequestFor()" [ApprovalMessage]="approvalmessage"  (onSubmitted)="onSubmitted($event)" [URL]="baseUrl"></app-expense-confirm-delete> -->
+                      <div class="panel">
+                        <div class="panel-body" style="max-height: 70vh;overflow: auto;">
+                            <div style="text-align: center">
+                                <strong> {{approvalmessage}}
+                                  <!-- Do you want to Recieve Document ?  -->
+                    
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12 col-sm-12 text-center">
+                                    <button type="button" class="btn btn-sm btn-primary" (click)="noRequestForSure()"><i class="fa fa-remove"></i>&nbsp;
+                                      No</button>&nbsp;
+                                
+                                    <button type="button" (click)="yesRequestFor()" class="btn btn-sm btn-danger"><i class="fa fa-save"></i>&nbsp;
+                                      Yes</button>
+                                  </div>
+                        </div>
+                    </div>
+                    </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- <app-expense-confirm-delete></app-expense-confirm-delete> -->

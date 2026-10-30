@@ -1,0 +1,60 @@
+<button type="button" class="btn btn-sm btn-outline-info" (click)="showItemBox()"><em class="fa fa-plush"></em> Add
+    Items</button>
+
+<div class="modal fade" bsModal #addItem="bs-modal" (onHide)="openModels.receiveOrder=false"
+    (onShow)="openModels.receiveOrder=true" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Add Item Item :</h4>
+                <button type="button" (click)="addItem.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;width: 25px;">
+                                    <input type="checkbox" [(ngModel)]="globalcheck" [checked]="globalcheck"
+                                        (change)="globalCheckAction()">
+                                </th>
+                                <th class="text-left">
+                                    Serial Number
+                                </th>
+                                <th class="text-left">
+                                    Part code
+                                </th>
+                                <th style="text-align: left;">
+                                    Description
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of faultyproducts;let i=index;">
+                                <td style="text-align: left;width: 25px;">
+                                    <input type="checkbox" [(ngModel)]="item.selected" [checked]="item.selected">
+                                </td>
+                                <td class="text-left">
+                                    {{item.serialNumber}}
+                                </td>
+                                <td class="text-left">
+                                    {{item.partCode}}
+                                </td>
+                                <td style="text-align: left;">
+                                    {{item.partDescription}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-right">
+                    <button type="button" (click)="saveitems()" class="btn btn-dark"><em class="fa fa-save"></em>
+                        Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,446 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="panel panel-default"  >
+    <div class="panel-body" style="max-height: 75vh;overflow: auto;max-width: 80vw;" *ngIf="!editMode">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Serial Number
+                </div>
+                <ng-select *ngIf="BtassetForList" [items]="BtassetForList" bindLabel="serialNumber"
+                    bindValue="serialNumber" (search)="searchBtAsset($event)"
+                    [(ngModel)]="customerInventoryInReq.assetsSerialNumber" placeholder="Search Serial No."
+                    (change)="getProductPartByAssetId(customerInventoryInReq.assetsSerialNumber)">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.serialNumber}}
+                        -({{item.productPartCode}})
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" />
+                        <small>{{item.serialNumber}}</small>
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Part Code
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.partCode" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Stage
+                </div>
+                <select type="text" rows="3" class="form-control"
+                    [(ngModel)]="customerInventoryInReq.customerInventoryStage">
+                    <option value="0" disabled>--Select--</option>
+                    <option *ngFor="let list of stageList">{{list}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Status
+                </div>
+                <select type="text" rows="3" class="form-control"
+                    [(ngModel)]="customerInventoryInReq.customerInventoryStatus">
+                    <option value="0" disabled>--Select--</option>
+                    <option *ngFor="let list of statusList">{{list}}</option>
+                </select>
+            </div>
+            </div>
+            
+            <div class="row">             
+                <div class="col-md-6 col-sm-6 form-group ">
+                    <div class="control-label">
+                        Warehouse
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.dummayWarehouseName" >
+                </div>    
+                <div class="col-md-6 col-sm-6 form-group required">
+                    <div class="control-label">
+                        Location
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.dummayLocationName">
+                </div>
+                
+              
+    
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Contact Name
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.contactName">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Contact No
+                </div>
+                <input type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.contactNumber"
+                    (keypress)="onlyNumbers($event)" (keyup)="onKey($event)">
+            </div>
+           
+        </div>
+        <div class="row">
+          
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Receive Challan No
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.challanNumber">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Receive Challan Date
+                </div>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control"  [(ngModel)]="customerInventoryInReq.receiveChallanDate"
+                    autocomplete="off" [maxDate]="today" >
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Circle Name
+                </div>
+                <ng-select *ngIf="circleList" [items]="circleList" bindLabel="circleName" bindValue="circleName"
+                    placeholder="Search Circle..." [(ngModel)]="customerInventoryInReq.circle">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                            style="background-color: rgb(147, 75, 241);" /> {{item.circleName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                            style="background-color: rgb(147, 75, 241);" /> {{item.circleName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Customer
+                </div>
+                <input type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.accountSapNumber" >
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Customer LR Number
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.customerLrNumber">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Customer Courier Partner Name
+                </div>
+                <input type="text" rows="3" class="form-control"
+                    [(ngModel)]="customerInventoryInReq.customerCurierPartnarName">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Customer Plant
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.customerPlant">
+                    <option value="0" disabled>--Select--</option>
+                    <option *ngFor="let list of customerPlantList">{{list}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Receive Date
+                </div>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control" 
+                    autocomplete="off" [(ngModel)]="customerInventoryInReq.receiveDate"   [maxDate]="today" [minDate]="minimumDate">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Packing Condition
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.pacingCondation">
+                    <option value="0" disabled>--Select--</option>
+                    <option *ngFor="let list of packingCondtionList">{{list}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Physical Damage (If Any)
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.physicalDamage">
+                    <option value="0">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    RMA Manual Id
+                </div>
+                <ng-select *ngIf="rmaManualIdList" [items]="rmaManualIdList" bindLabel="rmaManualId"
+                    bindValue="rmaManualId" (search)="searchRma($event)"
+                    [(ngModel)]="customerInventoryInReq.rmaManualId" placeholder="Search Products Item">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.rmaManualId}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" />
+                        {{item.partCode}}<small>({{item.rmaManualId}})</small>
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Remarks(Receipt)
+                </div>
+                <textarea type="text" class="form-control" [(ngModel)]="customerInventoryInReq.remarks">
+                    </textarea>
+            </div>
+        </div>
+       
+    </div>
+    <div class="card-body" style="max-height: 75vh;overflow: auto;max-width: 80vw;" *ngIf="editMode">
+        <!-- <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Serial Number
+                </div>
+                <ng-select *ngIf="BtassetForList" [items]="BtassetForList" bindLabel="serialNumber"
+                    bindValue="serialNumber" (search)="searchBtAsset($event)"
+                    [(ngModel)]="customerInventoryInReq.assetsSerialNumber" placeholder="Search Serial No."
+                    (change)="getProductPartByAssetId(customerInventoryInReq.assetsSerialNumber)">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.serialNumber}}
+                        -({{item.productPartCode}})
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" />
+                        <small>{{item.serialNumber}}</small>
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Part Code
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.partCode" disabled>
+            </div>
+        </div> -->
+        <!-- <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Stage
+                </div>
+                <select type="text" rows="3" class="form-control"
+                    [(ngModel)]="customerInventoryInReq.customerInventoryStage">
+                    <option value="0" disabled>--Select--</option>
+                    <option *ngFor="let list of stageList">{{list}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Status
+                </div>
+                <select type="text" rows="3" class="form-control"
+                    [(ngModel)]="customerInventoryInReq.customerInventoryStatus">
+                    <option value="0" disabled>--Select--</option>
+                    <option *ngFor="let list of statusList">{{list}}</option>
+                </select>
+            </div>
+            </div> -->
+            
+            <div class="row">             
+                <!-- <div class="col-md-6 col-sm-6 form-group ">
+                    <div class="control-label">
+                        Warehouse
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.dummayWarehouseName" >
+                </div>     -->
+                <div class="col-md-6 col-sm-6 form-group required">
+                    <div class="control-label">
+                        Location
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.dummayLocationName">
+                </div>
+
+                <div class="col-md-6 col-sm-6 form-group required">
+                    <div class="control-label">
+                        Customer Plant
+                    </div>
+                    <select type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.customerPlant">
+                        <option value="0" disabled>--Select--</option>
+                        <option *ngFor="let list of customerPlantList">{{list}}</option>
+                    </select>
+                </div>
+                
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Contact Name
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.contactName">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Contact No
+                </div>
+                <input type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.contactNumber"
+                    (keypress)="onlyNumbers($event)" (keyup)="onKey($event)">
+            </div>
+           
+        </div> -->
+        <div class="row">
+          
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Receive Challan No
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.challanNumber">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Receive Challan Date
+                </div>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control" [maxDate]="today" [(ngModel)]="customerInventoryInReq.receiveChallanDate"
+                    autocomplete="off" >
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Circle Name
+                </div>
+                <ng-select *ngIf="circleList" [items]="circleList" bindLabel="circleName" bindValue="circleName"
+                    placeholder="Search Circle..." [(ngModel)]="customerInventoryInReq.circle">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                            style="background-color: rgb(147, 75, 241);" /> {{item.circleName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/circles_120.png'
+                            style="background-color: rgb(147, 75, 241);" /> {{item.circleName}}
+                    </ng-template>
+                </ng-select>
+            </div> -->
+<!-- 
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Customer
+                </div>
+                <input type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.accountSapNumber" >
+            </div> -->
+           
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Customer LR Number
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="customerInventoryInReq.customerLrNumber">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Customer Courier Partner Name
+                </div>
+                <input type="text" rows="3" class="form-control"
+                    [(ngModel)]="customerInventoryInReq.customerCurierPartnarName">
+            </div>
+        </div>
+        <div class="row">
+           
+            <!-- <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Receive Date
+                </div>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control" [minDate]="today"
+                    autocomplete="off" [(ngModel)]="customerInventoryInReq.receiveDate">
+                <span class="fa fa-calendar errspan"></span>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Packing Condition
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.pacingCondation">
+                    <option value="0" disabled>--Select--</option>
+                    <option *ngFor="let list of packingCondtionList">{{list}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Physical Damage (If Any)
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="customerInventoryInReq.physicalDamage">
+                    <option value="0">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    RMA Manual Id
+                </div>
+                <ng-select *ngIf="rmaManualIdList" [items]="rmaManualIdList" bindLabel="rmaManualId"
+                    bindValue="rmaManualId" (search)="searchRma($event)"
+                    [(ngModel)]="customerInventoryInReq.rmaManualId" placeholder="Search Products Item">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.rmaManualId}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" />
+                        {{item.partCode}}<small>({{item.rmaManualId}})</small>
+                    </ng-template>
+                </ng-select>
+            </div> -->
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Remarks(Receipt)
+                </div>
+                <textarea type="text" class="form-control" [(ngModel)]="customerInventoryInReq.remarks">
+                    </textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 text-right">
+                <button type="button" class="btn btn-default" (click)="cancelCustomerInventoryIn()"><em
+                        class="fa fa-remove"></em> Cancel</button>&nbsp;
+                <button type="button" class="btn btn-primary" (click)="saveCustomerInventoryIn()"><em
+                        class="fa fa-save"></em> Save</button>
+            </div>
+        </div>
+    </div>
+    
+</div>

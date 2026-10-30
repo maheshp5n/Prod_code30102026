@@ -1,0 +1,34 @@
+import { CommonModule } from "@angular/common";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { ModalModule } from "ngx-bootstrap";
+import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
+import { ligalEntityService } from "../../../services/ligalentity.services";
+import { Loginservices } from "../../../services/login.services";
+import { FieldValidation } from "../../../services/validation.services";
+import { AssetsService } from '../../../services/assets.services';
+import { mslRequestService } from '../../../services/mslRequest.services';
+import { TypeaheadConfig, TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ServiceResourceService } from '../../../services/serviceresource.services';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { RouterModule } from '@angular/router';
+import { BtCreateMslrequestComponent } from "./bt-create-mslrequest.component";
+
+@NgModule({
+    imports: [
+      CommonModule,
+      NgSelectModule,
+      FormsModule,
+      TypeaheadModule,
+      ModalModule,
+      NgxSpinnerModule,
+      RouterModule
+    ],
+    declarations: [BtCreateMslrequestComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [BtCreateMslrequestComponent],
+    providers: [ligalEntityService, TypeaheadConfig,Loginservices,FieldValidation,AssetsService,mslRequestService,ServiceResourceService],
+  })
+export class BtCreateMslrequestModule{
+
+}

@@ -1,0 +1,94 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<!-- <h1>Pulse - Online Tutorial Topics</h1> -->
+<!-- <p>How May I Help You</p> -->
+<div class="Card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <i  class="fa fa-question-circle" style="font-size:48px;color:black" alt="Help Guide"
+             title="Help Guide"></i>
+            </td>
+            <td style="padding-left:5px; font-size: larger; font-weight: bold;"> <span>Pulse - Online Tutorial Topics</span></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <!-- <input type="text" autocomplete="off" [(ngModel)]="searchitem"  class="form-control"
+        style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search here"> -->
+ 
+    </div>
+  </div>
+</div>
+</div>
+  <!-- <div > -->
+    <!-- <div class="row" style="background-color: #f0f3f5; border-color:  #f0f3f5; "> -->
+      
+      <!-- <div style="width: 30%; margin: auto;"  > -->
+        <!-- <input type="text" autocomplete="off" [(ngModel)]="searchitem"  class="form-control"
+          style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search here"> -->
+      <!-- </div> -->
+  <!-- </div> -->
+  <!-- <div style="line-height: 20px;">&nbsp;</div> -->
+
+
+<!-- table view -->
+<div class="card-body" style="padding: 0px; background-color: white; min-height: 500px;">
+  <div class="table-responsive mobile" style="height:100%;">
+      <table class="table  table-sm table-condensed tablerview">
+        <thead fix-head style="background-color:rgb(248, 245, 245)">
+          <th  title="S.No">S.No</th>
+          <th>Topic</th>
+          <th style="width: 30%;">Platform</th>
+        
+          <th>Stake Holder</th>
+          <th>Language</th>
+          <th>Tutorial</th>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let help of helplist.content; let i=index">
+              <td>{{serialNumber+i+1}}.</td>
+            <td>{{help.topic}}</td>
+            <td>{{help.platForm}}</td>
+            <td>{{help.stackHolder}}</td>
+            <td>{{help.lanuguage}}</td>
+            <td><a href="{{help.url}}" target="_blank">watch Now</a></td>
+          </tr>
+              <div style="height:65px;">
+        </div>
+        </tbody>
+      </table>
+   
+    </div>
+    <!-- page button  -->
+    <div style="text-align: center" *ngIf="!(helplist.first && helplist.last)">
+      <a id="prbtn" class="previous round" href="" [class.disabled]="helplist.first" *ngIf="!helplist.first"
+        (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+        &#8249;
+      </a>
+
+      <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+        {{page+1}}
+      </a>
+
+      <a id="prbtn" class="next round" href="" [class.disabled]="helplist.last" *ngIf="!helplist.last" (click)="setPageNext($event)"
+        [ngClass]="{'active':page}">
+        &#8250;
+      </a>
+    </div>
+</div>
+<!-- error model -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+role="dialog" aria-labelledby="create-asset">
+<div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <strong>{{message}}</strong>
+</div>
+</div>

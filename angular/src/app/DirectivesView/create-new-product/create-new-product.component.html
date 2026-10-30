@@ -1,0 +1,137 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Product Information</strong>
+  </div>
+  <div class="panel-body">
+
+
+    <!-- Ankur -->
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Part Code
+        </div>
+        <input *ngIf="_isEditMode == true" [(ngModel)]="newProduct.partCode" type="text" class="form-control" disabled>
+        <input *ngIf="_isEditMode == false" [(ngModel)]="newProduct.partCode" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Type
+        </div>
+
+        <select [(ngModel)]="newProduct.type" class="form-control">
+          <option value='' disabled>--select--</option>
+          <option>Product</option>
+          <option>Sub-Product</option>
+          <option>Component</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Product Family
+        </div>
+        <select [(ngModel)]="newProduct.productFamilyId" class="form-control" (change)="getproductSubFamily()">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let o of productFamily;" [ngValue]="o.id">
+            {{o.name}}</option>
+        </select>
+        <!-- <div class="input-group">
+          <input [(ngModel)]="newProduct.productFamilyId" (change)="productSelected()" (keydown)="onKeydownProduct()"
+            class="form-control" [typeahead]="productFamily" typeaheadBindTo="id"
+            typeaheadOptionField="name" [isAnimated]="true" placeholder="Search Product...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isProductSelected" (click)="productTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+        </div> -->
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Product Sub Family
+        </div>
+        <select [(ngModel)]="newProduct.subProductFamilyId" class="form-control">
+          <option value='0' disabled>--select--</option>
+          <option *ngFor="let s of productSubFamily;" [ngValue]="s.id">
+            {{s.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Price
+        </div>
+        <!-- <input type="number" onkeydown="return event.keyCode !== 69" [(ngModel)]="newProduct.price" class="form-control"
+          placeholder=""> -->
+        <input type="text" [(ngModel)]="newProduct.price" class="form-control">
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Product Description
+        </div>
+        <textarea name="" maxlength="500" id="" cols="30" rows="2" [(ngModel)]="newProduct.productDescription"
+          class="form-control"></textarea>
+      </div>
+    </div>
+
+  </div>
+  <!-- 
+  <div *ngIf="_isEditMode==true" class="panel-heading">
+    <strong>System Information</strong>
+  </div>
+  <div *ngIf="_isEditMode==true" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label" style="font-weight: bold;">
+          Created By
+        </div>
+        <div class="label">
+          {{newProduct.createdByFirstName}} {{newProduct.createdByLastName}},
+          {{newProduct.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+        </div>
+
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="control-label" style="font-weight: bold;">
+          Last Modified By
+        </div>
+        <div class="label">
+          {{newProduct.modifiedByFirstName}} {{newProduct.modifiedByLastName}},
+          {{newProduct.modifiedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div class="panel-footer"> -->
+  <div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+      <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+        Cancel</button>&nbsp;
+      <button type="button" (click)="createProduct()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+        Save</button>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <strong>{{message}}</strong> -->
+    <strong *ngIf="message=='Submitted Successfully'">Created Product ( <a href="#"
+        routerLink="/products/{{idd}}">{{idd}}</a>
+      )
+      successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

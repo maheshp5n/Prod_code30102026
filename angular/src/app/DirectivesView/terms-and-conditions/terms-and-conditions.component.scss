@@ -1,0 +1,36 @@
+.row{
+    margin-top: 5px;
+}
+label{
+    color: rgba(0, 0, 0, .75)
+}
+
+.form-group.required .control-label:before{
+    color: red;
+    content: "*"; 
+ }
+ #button-disabled-item{
+    background: none;
+    outline: none;
+    border-bottom-style: solid;
+    font-size: 18px;
+    border-bottom-width: 1px;
+}
+.table th{
+    color: rgba(0,0,0,.8);
+}
+
+body{
+    height:fit-content;
+    overflow: hidden;
+}
+
+input.largerCheckbox {
+    width: 20px; 
+    height: 20px;     
+} 
+    
+#removebtn{
+    color: red;
+    cursor: pointer;
+}

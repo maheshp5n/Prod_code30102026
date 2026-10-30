@@ -1,0 +1,187 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width: 35px;">
+              <img alt="Dashboard" src="assets/images/quotes_120.png"
+                style="height: auto;width:100%;background-color: rgb(24, 175, 74);" title="Quote Templates">
+            </td>
+            <td style="padding-left: 5px;"><span>Quote Templates</span></td>
+          </tr>
+          <tr>
+            <!-- <td style="padding-left: 5px;">
+              <div class="btn-group" dropdown>
+                <span dropdownToggle type="button" style="background-color: white;">
+                  <span *ngIf="allView" style="font: size 15px;padding-right: 5px;">
+                    &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                </span>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item" style="width: 115%;">
+                  <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST VIEWS</li>
+                  <li role="menuitem" (click)="dropdownChange('all')"><a class="dropdown-item"
+                      [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a>
+                  </li>
+                </ul>
+              </div>
+            </td> -->
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-4"><input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">
+      </div>
+      <div class="col-sm-4 col-md-4 text-right">
+        <div  *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+          <button *ngIf="rights('QuotePdfHeaderAndFooter','create')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="quoteTemplateModelShow()"><i class="fa fa-plus"></i> New </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body" style="padding: 0px">
+    <div class="wrap">
+      <table class="head">
+        <thead  style="background-color:rgb(248, 245, 245)">
+          <tr>
+            <th title="S.No">S.No.</th>
+            <th title="Name "  (click)="setOrder('templateName',1)"
+              (mouseover)="columnVisibility[1]=true" (mouseout)="columnVisibility[1]=false">
+              Name
+              <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]" style="float: right;">▲</span>
+            <!-- <th class="table-header" title="Active" (click)="setOrder('isActive',2)"
+              (mouseover)="columnVisibility[2]=true" (mouseout)="columnVisibility[2]=false">
+              Active
+              <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]" style="float: right;">▲</span>
+            </th> -->
+            <th  title="Created By" (click)="setOrder('createdBy.firstName',3)"
+              (mouseover)="columnVisibility[3]=true" (mouseout)="columnVisibility[3]=false">
+              Created By
+              <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]" style="float: right;">▲</span>
+            </th>
+            <th  title="Created Date" (click)="setOrder('createdDate',4)"
+              (mouseover)="columnVisibility[4]=true" (mouseout)="columnVisibility[4]=false">
+              Created Date
+              <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]" style="float: right;">▲</span>
+            </th>
+
+            <th class="table-header" title="Modified By" (click)="setOrder('modifiedBy.firstName',5)"
+              (mouseover)="columnVisibility[5]=true" (mouseout)="columnVisibility[5]=false">
+              Modified By
+              <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]" style="float: right;">▲</span>
+            </th>
+
+            <th class="table-header" title="Modified Date" (click)="setOrder('modifiedDate',6)"
+              (mouseover)="columnVisibility[6]=true" (mouseout)="columnVisibility[6]=false">
+              Modified Date
+              <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]" style="float: right;">▼</span>
+              <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]" style="float: right;">▲</span>
+            </th>
+            <th> Action </th>
+          </tr>
+        </thead>
+      </table>
+    <div class="inner_table">
+      <table>
+     
+        <tbody>
+          <tr  *ngFor="let a of quoteTemplateList.content | searchfilt: searchitem; let i = index">
+            <td>{{serialNumber+i+1}}.</td>
+            <td ><a href="#" routerLink="/quetetemplatetc/{{a.id}}">{{a.templateName}}</a></td>
+            <!-- <td data-line="Active"> <input type="checkbox" [ngModel]="a.active" [disabled]="true"></td> -->
+            <td> <a href="#" routerLink="/createuser/{{a.createdByEmailId}}">{{a.createdByFirstName}}&nbsp;{{a.createdByMiddleName}}&nbsp;{{a.createdByLastName}}</a>
+            </td>
+            <td  > {{a.createdDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+            <td> <a href="#"
+                routerLink="/createuser/{{a.modifiedByEmailId}}">{{a.modifiedByFirstName}}&nbsp;{{a.modifiedByMiddleName}}&nbsp;{{a.modifiedByLastName}}</a>
+            </td>
+            <td data-line="Modified Date"> {{a.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+            <td data-line="">
+              <div *ngIf="_cFlag!='f'" class="btn-group">
+                <button *ngIf="!a.active" (click)="enableDisableUser(a,true)" type="button"
+                  class="btn btn-sm btn-outline-primary"><em class="fa fa-check"></em> Enable</button>
+                <button *ngIf="a.active" (click)="enableDisableUser(a,false)" type="button"
+                  class="btn btn-sm btn-outline-danger"><em class="fa fa-remove"></em> Disable</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4" style="text-align:left">
+        Showing Page {{quoteTemplateList.number+1}} &nbsp;of&nbsp;{{quoteTemplateList.totalPages}}&nbsp;Total Count={{quoteTemplateList.totalElements}}
+      </div>
+      <div class="col-sm-4">
+        <div style="text-align: center" *ngIf="!(first && last)">
+          <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+            (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+            &#8249;
+          </a>
+    
+          <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+            {{page+1}}
+          </a>
+          <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last" (click)="setPageNext($event)"
+            [ngClass]="{'active':page}">
+            &#8250;
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-4" style="text-align: right;">
+        <div class="row">
+         <div class="col-md-6"></div>
+          <div  *ngIf="!(quoteTemplateList.first && quoteTemplateList.last) "  class="col-md-6">
+            <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+             <button (click)=jumpPage(pagenumber)>Go</button>
+           </div>
+        </div>
+     </div>
+    </div>
+   
+  </div>
+</div>
+
+
+
+
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-serviceAppointment">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #quotePDFTemplateModel="bs-modal" (onShow)="isModelShow=true"
+  (onHide)="isModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="quotePDFTemplateModel">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="quotePDFMOdel" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="quoteTemplateModelHide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-quote-pdf-template *ngIf="isModelShow" [isEditMode]="isEditMode" [editQuotePDFTemplateData]="quotePdfHeaderAndFooterResponse"
+          (onQuotePDFTemplateCreated)="onQuotePDFTemplateCreated($event)" (onCancle)="cancelData()">
+        </app-quote-pdf-template>
+      </div>
+    </div>
+  </div>
+</div>

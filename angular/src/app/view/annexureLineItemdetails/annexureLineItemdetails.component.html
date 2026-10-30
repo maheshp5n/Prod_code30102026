@@ -1,0 +1,410 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="AnnexureLineItem" src="assets/images/annexure_120.png"
+                                style="height: auto;width:100%;background-color: rgb(138, 52, 2);"
+                                title="AnnexureLineItem" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Annexure Line Item</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;">{{annexureLineItemResponse.manualId}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div class="btn-group" style="padding: 10px;">
+
+                    <button class="btn btn-outline-info btn-sm" type="button"
+                        (click)="onClickEditAnnexureLineItem(annexureLineItemResponse)">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <small>User</small>
+                <div></div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <small>Resource Type</small>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <small>Active</small>
+                <div>
+                    <div *ngIf="annexureLineItemResponse.active==true"><input type="checkbox" checked disabled></div>
+                    <div *ngIf="annexureLineItemResponse.active==false"><input type="checkbox" disabled></div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <!-- <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li> -->
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Information
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Name</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.manualId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Service Appointment</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.serviceAppointmentName}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Circle</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.circleName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Site ID</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.siteIdManual}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Case Number</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.caseIdManual}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Work Status</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.workStatus}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Rate</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.amount | currency:'INR'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Exicom Invoice Number</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.exicomInvoiceNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>
+                                    <tr>
+                                        <td>
+                                            <small>Case Number</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.caseIdManual}}</td>
+                                    </tr>
+                                    </small>
+                                    </td>
+                                    <td>{{annexureLineItemResponse.serviceCenterName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Vendor Invoice No.</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Case Type</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Annexure</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.annexureManualId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>GL Code</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.glCodeName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Customer</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Exchange/Site Name</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.siteName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Activity</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.activity}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Work Completion Date</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.workCompletionDate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Amount(With Tax)</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.amountWithTax | currency:'INR'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Exicom Invoice Date</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.exicomInvoiceDate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Vendor Invoice Date</small>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Remarks</small>
+                                        </td>
+                                        <td>{{annexureLineItemResponse.remark}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> &nbsp;System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Created By</small>
+                                            <div>
+                                                {{annexureLineItemResponse.createdByFirstName}}&nbsp;{{annexureLineItemResponse.createdByMiddleName}}&nbsp;{{annexureLineItemResponse.createdByLastName}}&nbsp;,&nbsp;{{annexureLineItemResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <small>Last Modified By</small>
+                                            <div>
+                                                {{annexureLineItemResponse.modifiedByFirstName}}&nbsp;{{annexureLineItemResponse.modifiedByMiddleName}}&nbsp;{{annexureLineItemResponse.modifiedByLastName}}&nbsp;,&nbsp;{{annexureLineItemResponse.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div *ngIf="!vDetails" class="panel-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard"
+                                            src="assets/images/annexureLineItem_120.png"
+                                            style="height: 30px;widows: 30px;background-color: lightskyblue;border-radius: 1mm;"
+                                            title="Annexure Line Items"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Annexure Line Items</b>
+                                    </td>
+                                    <td class="text-right">
+
+                                        <div class="btn-group" style="padding: 1px;">
+                                            <button class="btn btn-outline-info btn-sm" type="button"
+                                                (click)="newAnnexureLineItem()">New</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="table  table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Name</th>
+                                            <th>Service Appointment</th>
+                                            <th>Circle</th>
+                                            <th>Service Center</th>
+                                            <th>Site Name</th>
+                                            <th>Case</th>
+                                            <th>Account</th>
+                                            <th>Work Status</th>
+                                            <th>Amount</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of annexureLineItemResponseList; let i=index">
+                                            <td>{{serialNumberAnnexureLineItems+i+1}}.</td>
+                                            <td>{{c.manualId}}</td>
+                                            <td>{{c.serviceAppointmentName}}</td>
+                                            <td>{{c.circleName}}</td>
+                                            <td>{{c.serviceCenterName}}</td>
+                                            <td>{{c.siteName}}</td>
+                                            <td>{{c.caseIdManual}}</td>
+                                            <td>{{c.accountName}}</td>
+                                            <td>{{c.workStatus}}</td>
+                                            <td>{{c.amount}}</td>
+                                            <td>{{c.createdDate | date:'dd-MM-yyyy'}}</td>
+                                            <td style="width: 50;">
+                                                <div class="btn-group" dropdown placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="openEditAnnexureLineItem(c)">Edit
+                                                            </a>
+                                                        </li>
+                                                        <li role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteAnnexureLineItemrtunityLineItem(c.id)">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="text-align: center">
+                                <a id="pag" class="previous round" href="" [class.disabled]="firstAnnexureLineItem"
+                                    *ngIf="!firstAnnexureLineItem" (click)="setPagePreviousAnnexureLineItem($event)"
+                                    [ngClass]="{'active':pageAnnexureLineItem}">
+
+                                    &#8249;
+                                </a>
+                                <a id="pag" class="nav-link active" href="" (click)="setPageAnnexureLineItem($event)"
+                                    [ngClass]="{'active':i==pageAnnexureLineItem}">
+                                    {{pageAnnexureLineItem+1}}
+                                </a>
+                                <a id="pag" class="next round" href="" [class.disabled]="lastAnnexureLineItem"
+                                    *ngIf="!lastAnnexureLineItem" (click)="setPageNextAnnexureLineItem($event)"
+                                    [ngClass]="{'active':pageAnnexureLineItem}">
+                                    &#8250;
+                                </a></div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" bsModal #createAnnexureLineItemModel="bs-modal" (onShow)="isAnnexureLineItemOpen=true"
+        (onHide)="isAnnexureLineItemOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-account">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="create-account" class="modal-title pull-left">{{headingAnnexureLineItem}}</h4>
+                    <button type="button" class="close pull-right" aria-label="Close"
+                        (click)="createAnnexureLineItemModel.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                    <app-create-annexureLineItem *ngIf="isAnnexureLineItemOpen"
+                        [isEditModeAnnexure]="isEditModeAnnexureLineItem"
+                        [editAnnexureLineItemData]="annexureLineItemRequest"
+                        (onAnnexureLineItemCreated)="onAnnexureLineItemCreated($event)" (onCancle)="cancelData()">
+                    </app-create-annexureLineItem>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+        role="dialog" aria-labelledby="create-asset">
+        <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{message}}</strong>
+        </div>
+    </div>

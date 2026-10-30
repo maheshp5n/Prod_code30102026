@@ -1,0 +1,95 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold">Dispatch Details </span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Dispatch Mode
+                </div>
+                <!-- <input type="text" [(ngModel)]="dispatchRequest.dispatchMode" class="form-control"> -->
+                <select [(ngModel)]="dispatchRequest.dispatchMode" class="form-control">
+                    <option value="0" disabled>--Select--</option>
+                    <option value="Courier"> Courier </option>
+                    <option value="By Hand"> By Hand </option>
+                    <option value="Transport"> Transport </option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Dispatcher Name
+                </div>
+                <input type="text" value="{{dispatchRequest.dispatcherName}}" class="form-control " disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Shippment No
+                </div>
+                <input type="text" [(ngModel)]="dispatchRequest.dispatchShipmentNo" class="form-control ">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Delivery Challan (Issue)
+                </div>
+                <input type="text" [(ngModel)]="dispatchRequest.sapDeleveryChallanNumber" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    POD Number
+                </div>
+                <input type="text" [(ngModel)]="dispatchRequest.podNumber" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Dispatched Date
+                </div>
+                <input type="text" [(ngModel)]="dispatchRequest.dispatchDate" class="form-control" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today"
+                    [dateCustomClasses]="dateCustomClasses" autocomplete="off">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Remarks
+                </div>
+                <textarea type="text" [(ngModel)]="dispatchRequest.dispatchRemark" class="form-control"
+                    rows="2"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreate()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-customer">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">
+            <!-- Customer ( <a href="#"
+        routerLink="/accounts/{{this.createAccount.sampAccountNumber}}">{{this.createAccount.sampAccountNumber}}</a>
+      ) -->
+            Created successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>

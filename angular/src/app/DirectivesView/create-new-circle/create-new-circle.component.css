@@ -1,0 +1,48 @@
+.row {
+  margin-top: 10px;
+}
+label {
+  color: rgba(0, 0, 0, 0.75);
+}
+.form-group.required .control-label:before {
+  color: red;
+  content: "*";
+}
+#button-disabled-item {
+  background: none;
+  outline: none;
+  border-bottom-style: solid;
+  font-size: 18px;
+  border-bottom-width: 1px;
+}
+.table th {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+body {
+  height: fit-content;
+  overflow: hidden;
+}
+/* 
+input[type=checkbox]
+{
+  -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2); 
+  transform: scale(2);
+  padding: 10px;
+  color: blue;
+}
+
+.checkboxtext
+{
+  font-size: 110%;
+  display: inline;
+} */
+/* 
+.control-label {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: rgb(73, 73, 73);
+  font-size: small;
+} */

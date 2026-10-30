@@ -1,0 +1,300 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+<div class="card" style="overflow: hidden;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-2">
+              <div class="control-label">
+                In house Inventory
+              </div>
+             <input type="checkbox" class="largerCheckbox" [(ngModel)]="faultySearch.inhouseInventory"  name="" id="">
+            
+            </div>
+            <div class="col-sm-2">
+              <div class="control-label">Customer Inventory</div>
+              <input type="checkbox" class="largerCheckbox" [(ngModel)]="faultySearch.customerInventory" >
+            </div>
+            <div class="col-sm-2">
+               <input type="text" class="form-control" placeholder="Lot No." [(ngModel)]="faultySearch.lotNo">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Part Code" [(ngModel)]="faultySearch.partCode">
+             </div>
+            <div>
+                <button type="button" class="btn btn-md btn-outline-info" (click)="getAdvanceSearchResult()"><em class="fa fa-search"></em> Search</button>
+        &nbsp;&nbsp;<button type="button" class="btn btn-md btn-outline-info" (click)="resetsearch()"> Reset</button>
+        <div class="total" style="font-weight: bolder;">Total :  {{this.faultyProduct.length}}</div>
+            </div>
+          </div>
+         
+
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div class="wrap" style=" max-height: 250px; overflow-y: auto; overflow-x: auto;">
+            <table class="head">
+                <thead>
+                        <th style="width: 35px;">
+                            <input type="checkbox" [(ngModel)]="globalcheck"  (change)="chckGlobalCheck()" > S.No.</th>
+  
+                            <th scope="col" *ngFor="let tb of requestTableHeaders" 
+                            title="{{tb.name}}">
+                            <div class="row">
+                              <div class="col-10">{{tb.name}}</div>
+                              <!-- <div class="col sm-2"><i [ngClass]="tb.icon"></i></div> -->
+                             </div>
+                           </th>
+                </thead>
+            </table>
+           
+         <div class="inner_table"  *ngIf="faultyProduct.length>0" >
+            <table>
+                <tbody>
+                    <tr *ngFor="let item of faultyProduct;let i=index;">
+                        <td style="width:35px;">
+                            <input type="checkbox" (change)="countfaultyProduct(i+1)" [(ngModel)]="item.selected"> {{i+1}}
+                        </td>
+
+                        <td>
+                            {{item.itemSerialNumber}}
+                        </td>
+                        
+                        <td>
+                            {{item.partCode}}
+                        </td>
+                        <td>
+                            {{item.partCodeDescription}}
+                        </td>
+                       
+                        <td>
+                            {{item.productStatus}}
+                        </td>
+                        <td>{{item.lotNo}}</td>
+                        <td>{{item.remarks}}</td>
+                        <td>{{item.modifiedDate |date:'dd-MM-yyyy'}}</td>
+
+                        <td >
+                            <input type="checkbox" [checked]="item.isCustomerInventory" disabled>
+                        </td>
+                    </tr>
+            
+                </tbody>
+            </table>
+         </div>
+         <div *ngIf="faultyProduct.length==0">
+            <div class="row">
+               <div class="col-md-4"> </div>
+               <div class="col-md-4"> <p>Data Not Found</p></div>
+            <div class="col-md-4"></div>
+            </div>
+    
+          
+        </div>
+        <!-- <div style="height:65px; background-color: burlywood;" >
+      
+        </div> -->
+        </div>
+
+    <!-- </div> -->
+    <div class="row" *ngIf="this.faultyCounter.length!=0" style="margin-left:10px; margin-top:10px; font-weight: bolder;">
+        <div class="col-9 ">
+
+            Selected Items
+        </div>
+        <div class="col-3 ">
+
+            Total Selected Items : {{this.totalitemCount}}
+        </div>
+    </div>
+    <span *ngIf="this.faultyCounter.length!=0" >
+        <hr style=" font-weight: bolder;">
+    </span>
+    <div class="card-body" style="padding: 0px; margin-left:10px;width:1047px; max-height: 200px;  overflow-y: auto;">
+    <div class="col-12" *ngIf="this.faultyCounter.length!=0" class="wrap" style=" max-height: 200px; overflow-y: auto; " >
+        <table style="border: 2px solid #eee; padding:2px">
+            <thead style=" padding: 5px;">
+                <tr>
+                  <th style="width: 30px;" class="table-header">  S.No.  </th>
+                  <th  style="width: 50px;"class="table-header" > Part Code </th>
+                  <th style="width: 50px;" class="table-header">Total Serial No </th>
+                
+                </tr>
+              </thead>
+        </table>
+       
+     <div class=""  >
+        <table>
+            <tbody >
+                <tr  *ngFor="let counter of  newUniqueList; index as i" >
+                    <td style="width: 30px;">
+                        {{i+1}}
+                    </td>
+                    <td  style="width: 50px;">
+                  {{counter.faultypartCode}}
+                    </td>
+                    <td  style="width: 50px;" >           
+                     {{counter.totalSerialCount}}
+                    </td>
+                  </tr>
+        
+            </tbody>
+        </table>
+     </div>
+     </div>
+    
+    <!-- <div style="height:65px; background-color: burlywood;" >
+  
+    </div> -->
+    </div>
+    <!-- <div style="margin: 10px;"> 
+        <button  type="button" (click)="viewTotalCount()"  class="btn btn-sm btn-primary">&nbsp;
+        View Total Count</button>
+    </div> -->
+    <div class="panel" style="height: 10%;">
+        <div class="panel panel-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <!-- <label>Repair Center</label> -->
+                    <div class="control-label">
+                        Repair Center
+                    </div>
+                    <select [(ngModel)]="serviceOrder.repairCenter" class="form-control">
+                        <option value="0" disabled>--Select--</option>
+                        <option *ngFor="let o of repariCenters" [value]="o.locationId">{{o.warehouseName}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <!-- <label>
+                        Shipping Mode </label> -->
+                        <div class="control-label">
+                            Shipping Mode
+                        </div>
+                    <select [(ngModel)]="serviceOrder.shippingMode" class="form-control">
+                        <option value="0" disabled>--Select--</option>
+                        <option value="Courier">Courier</option>
+                        <option value="ByHand">ByHand</option>
+                        <option value="Transport">Transport</option>
+                    </select>
+                </div>
+            </div>
+        
+            <div class="row">
+        
+                <div class="col-sm-6 form-group">
+                    <div class="control-label">
+                        Shipping To Name<em class="fa fa-info-circle" style="padding-left: 10px;" 
+                        tooltip="Courier Company name/Person name"></em>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="serviceOrder.shipToName">
+                </div>
+        
+                <div class="col-sm-6 form-group">
+                <div class="control-label">
+                    Tracking Number
+                    <em class="fa fa-info-circle" style="padding-left: 10px;"
+                     tooltip="Courier Tacking Number/Person Mobile Number"></em>
+                </div>
+                    <input type="text" class="form-control" [(ngModel)]="serviceOrder.trackingNumber">
+                </div>
+        
+            </div>
+            <div class="row">
+        
+                <div class="col-sm-12 text-right">
+                    <button type="button" class="btn btn-primary" (click)="createServiceOrder()"><em class="fa fa-save"></em>
+                        Save</button>
+                    <button type="button" class="btn btn-default" (click)="doCancel()"><em class="fa fa-remove"></em>
+                        Cancel</button>
+                </div>
+  
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+
+
+  <!-- View Total Count -->
+  <div class="modal fade" bsModal #viewTotalCountModel="bs-modal"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left" style="font-weight: bolder;">View Total Count</h4>
+          <button type="button" class="close pull-right" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <!-- Total Count List with table -->
+        <div class="row">
+         <div class="col-md-12">
+             <!-- <div  class="card-body" style="overflow: auto;">
+                <div class="col-md-3 ">
+                </div>
+                <div class="col-md-9 text-right">
+             <div class="row" >
+                <div class="col-md-12  text-right"> <div >Total Count : </div>
+            </div>
+
+                </div> 
+            </div>  
+        </div> -->
+        <div style="line-height: 5px;">&nbsp;</div>
+        
+        <div class="table-responsive mobile">
+          <table class="table  table-sm table-condensed tablerview">
+            <thead>
+              <tr >
+                <th>  S.No.  </th>
+                <th class="table-header" > Part Code </th>
+                <th class="table-header" title="Customer Name">Total Serial No </th>
+              
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let counter of  newUniqueList; index as i" >
+                <td >
+                    {{i+1}}
+                </td>
+                <td>
+              {{counter.faultypartCode}}
+                </td>
+                <td>           
+                 {{counter.totalSerialCount}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+     
+        
+        <div class="row">
+          <div class="col-md-12 col-sm-12 text-right">
+              <!-- <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+                  Cancel</button>&nbsp; -->
+      
+              <button  type="button" (click)="viewTotalCountModel.hide()"  class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+                  Close</button>
+          </div>
+      </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+         
+   
+        </div>
+      </div>
+    </div>
+  
+
+

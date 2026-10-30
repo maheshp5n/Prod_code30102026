@@ -1,0 +1,370 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+
+<div class="panel" style="margin-left: 15px;margin-top: 15px;margin-right: 15px">
+  <div classs="panel panel-default">
+    <div class="panel-heading" style="background-color:rgb(240, 240, 240)">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-1" style="padding-top: 13px;margin-right: 0px">
+              <img _ngcontent-c5="" alt="Dashboard" src="assets/images/productlineitems_120.png"
+                style="height: 32px;width:32px;background-color: rgb(199, 164, 68);border-radius: 1mm;"
+                title="Dashboard">
+            </div>
+
+            <div class="col-lg-10" style="margin-left: 0px;">
+              <div class="row" style="padding-top: 10px;">
+                <span>Product Line Item</span>
+              </div>
+              <div class="row">
+                <span style="font-size:18px;font-weight: bold;">xxxx</span>
+              </div>
+            </div>
+          </div>
+        </div>`
+        <div class="col-md-6 col-sm-6 text-right">
+          <div class="btn-group">
+            <button type="button" (click)="onClickEdit()" class="btn btn-default">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <small>Product Description</small>
+          <div>
+            <a>
+              Prog. PCA ACIF Card M1000 V27.10
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="panel" style="margin-left: 15px;margin-right: 15px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="panel-body">
+        <ul class="menue">
+          <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <!-- <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li> -->
+        </ul>
+        <br>
+        <hr style="margin-top: 14px;">
+      </div>
+      <div *ngIf="vDetails" class="panel-body">
+        <button type="button" (click)="changeInfoDisplay()"
+          style="text-align: left;background-color: lightgray;font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="infoDisplay.angleIcon"></i>Information</button>
+        <div *ngIf="infoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <small>Serial Number</small>
+                    <div>xxxx</div>
+                  </td>
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Part Code</small>
+                    <div> xxxx</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Location</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Status</small>
+                    <div>xxxx</div>
+                  </td>
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Product Request Line Item</small>
+                    <div> xxxx</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Product Transfer</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Remark</small>
+                    <div>xxxx</div>
+                  </td>
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Reason for Rejection, BER or Scrap</small>
+                    <div> xxxx</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Mark For Transfer</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Received Date</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <small>Product Item</small>
+                    <div>xxxx</div>
+                  </td>
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Product Description</small>
+                    <div> xxxx</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Product Type</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Product State</small>
+                    <div>xxxx</div>
+                  </td>
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Return Order Line Item</small>
+                    <div> xxxx</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Case Number</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Repair Remark</small>
+                    <div>xxxx</div>
+                  </td>
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Scrap Date</small>
+                    <div> xxxx</div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Customer Inventory</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+                <tr>
+                  <td>
+                    <small>Unique</small>
+                    <div>
+                      xxxx
+                    </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: lightgray;font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="sysinfoDisplay.angleIcon"></i>System Information</button>
+        <div *ngIf="sysinfoDisplay.open" class="row">
+
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr class="fixedHeader">
+                  <td>
+                    <small>Created By</small>
+                    <div><a>xxxx</a>,
+                      xxxx </div>
+                  </td>
+
+                  <td class="text-right edit-inactive"> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table">
+              <tbody>
+                <tr class="fixedHeader">
+                  <td><small>Last Modified By</small>
+                    <div><a>xxxx</a>,
+                      xxxx
+                    </div>
+                  </td>
+                  <td class="text-right edit-inactive"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- <div *ngIf="!vDetails" class="panel-body">
+        <p>waiting for instructions.......</p>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #createProductLineItemsModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createProductLineItemsModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-productlineitems [isEditMode]="isEditMode" [editProductLineItemsData]="newproductLineItems"
+          (onProductLineItemsCreated)="onProductLineItemsCreated($event)" (onCancle)="cancelData()">
+        </app-create-new-productlineitems>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+</div> -->
+
+<!-- 
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+
+  <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+  <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+    class="alert alert-danger center center-block" style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+
+</div> -->
+
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

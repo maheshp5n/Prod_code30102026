@@ -1,0 +1,550 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Annexure" src="assets/images/annexure_120.png"
+                                style="height: auto;width:100%;background-color: rgb(138, 52, 2);" title="Annexure" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Annexure</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;">{{annexureResponse.manualId}} </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+                    <button *ngIf="rights('Annexure','edit')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="onClickEditAnnexure(annexureResponse)">Edit</button>
+                    <button *ngIf="rights('Annexure','create') || rights('Annexure','edit')"
+                        class="btn btn-outline-info btn-sm" type="button" (click)="confirmationPopup.show()">Create
+                        PDF</button>
+                    <button *ngIf="rights('Annexure','edit') || rights('Annexure','edit')"
+                        class="btn btn-outline-info btn-sm" type="button" (click)="submitForApproval()">
+                        Submit for Approval</button>
+                </div>
+                        <app-itemapproval-button [objectName]="'Annexure'" [_objectId]="annexureResponse.id"></app-itemapproval-button>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <small>User</small>
+                <div></div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <small>Resource Type</small>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <small>Active</small>
+                <div>
+                    <div *ngIf="annexureResponse.active==true"><input type="checkbox" checked disabled></div>
+                    <div *ngIf="annexureResponse.active==false"><input type="checkbox" disabled></div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Information
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Name</small>
+                                        </td>
+                                        <td class="wrappable">{{annexureResponse.manualId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Vendor Name</small>
+                                        </td>
+                                        <td><a [routerLink]="['/createuser',annexureResponse.vendorEmailId]"
+                                                [routerLinkActive]="'active'">
+                                                {{annexureResponse.vendorFirstName}}
+                                                {{annexureResponse.vendorMiddleName}}
+                                                {{annexureResponse.vendorLastName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Invoice Number</small>
+                                        </td>
+                                        <td class="wrappable">{{annexureResponse.invoiceNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable">
+                                            <small>Line Item Count</small>
+                                        </td>
+                                        <td class="wrappable">{{annexureResponse.lineItemCount}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Service Center</small>
+                                        </td>
+                                        <td class="wrappable">{{annexureResponse.serviceCenterName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Submitted Date</small>
+                                        </td>
+                                        <td>{{annexureResponse.submittedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable">
+                                            <small>Approved By Commercial</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            {{annexureResponse.approvedByCommercialDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Invoice Recieved</small>
+                                        </td>
+                                        <td><input *ngIf="annexureResponse.invoiceReceived" type="checkbox" checked
+                                                disabled>
+                                            <input *ngIf="!annexureResponse.invoiceReceived" type="checkbox" disabled>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Owner</small>
+                                        </td>
+                                        <td>
+                                            <a [routerLink]="['/createuser',annexureResponse.ownerEmailId]"
+                                                [routerLinkActive]="'active'">
+                                                {{annexureResponse.ownerFirstName}} {{annexureResponse.ownerMiddleName}}
+                                                {{annexureResponse.ownerLastName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Vendor Code</small>
+                                        </td>
+                                        <td class="wrappable">{{annexureResponse.vendorCode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Invoice Date</small>
+                                        </td>
+                                        <td>{{annexureResponse.invoiceDate | date:'dd-MM-yyyy'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Total Amount</small>
+                                        </td>
+                                        <td class="wrappable">{{annexureResponse.totalAmount | currency:'INR'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Circle Manager</small>
+                                        </td>
+                                        <td><a [routerLink]="['/createuser',annexureResponse.circleManagerEmailId]"
+                                                [routerLinkActive]="'active'">
+                                                {{annexureResponse.circleManagerFirstName}}
+                                                {{annexureResponse.circleManagerMiddleName}}
+                                                {{annexureResponse.circleManagerLastName}}
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Approved By Circle Date</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            {{annexureResponse.approvedByCircleDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable">
+                                            <small>Approval Status</small>
+                                        </td>
+                                        <td class="wrappable">{{annexureResponse.approvalStatusName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> &nbsp;System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable">
+                                            <small>Created By</small>
+                                            <div>
+                                                <a [routerLink]="['/createuser',annexureResponse.createdByEmailId]"
+                                                    [routerLinkActive]="'active'">{{annexureResponse.createdByFirstName}}&nbsp;{{annexureResponse.createdByMiddleName}}&nbsp;{{annexureResponse.createdByLastName}}&nbsp;</a>,&nbsp;{{annexureResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable">
+                                            <small>Last Modified By</small>
+                                            <div>
+                                                <a [routerLink]="['/createuser',annexureResponse.modifiedByEmailId]"
+                                                    [routerLinkActive]="'active'">{{annexureResponse.modifiedByFirstName}}&nbsp;{{annexureResponse.modifiedByMiddleName}}&nbsp;{{annexureResponse.modifiedByLastName}}&nbsp;</a>,&nbsp;{{annexureResponse.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!vDetails" class="panel-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/annexure_120.png"
+                                            style="height: 30px;widows: 30px;background-color: lightskyblue;border-radius: 1mm;"
+                                            title="Annexure Line Items"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Annexure Line Items ({{totalAnnexureLineitems}})</b>
+                                    </td>
+                                    <td class="text-right">
+
+                                        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                                            <button class="btn btn-outline-info btn-sm" type="button"
+                                                (click)="newAnnexureLineItem()">
+                                                <i class="fa fa-plus"></i>&nbsp;New</button>
+                                            <!-- <button *ngIf="rights('Annexure','edit')"
+                                                class="btn btn-outline-info btn-sm" type="button"
+                                                (click)="submitForApproval()">
+                                                Submit for Approval</button> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Name</th>
+                                            <th>Service Appointment</th>
+                                            <th>Circle</th>
+                                            <th>Service Center</th>
+                                            <th>Site Name</th>
+                                            <th>Case</th>
+                                            <th>Account</th>
+                                            <th>Work Status</th>
+                                            <th>Amount</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of annexureLineItemResponseList; let i=index">
+                                            <td data-line="S. No." class="mhide">{{serialNumberAnnexureLineItems+i+1}}.
+                                            </td>
+                                            <td data-line="Name">
+                                                <a href="" routerLink="annexureLineItem/{{c.id}}">
+                                                    {{c.manualId}}
+                                                </a>
+                                            </td>
+                                            <td data-line="Service Appointment">
+                                                <a href="#"
+                                                    routerLink="/serviceappointment/{{c.serviceAppointmentId}}">{{c.serviceAppointmentName}}</a>
+                                            </td>
+                                            <td data-line="Circle" class="mhide">
+                                                <!-- <a href="#" routerLink="/circles/{{c.circleName}}"></a> -->
+                                                {{c.circleName}}
+                                            </td>
+                                            <td data-line="Service Center" class="mhide">
+                                                <!-- <a href="#"
+                                                    routerLink="/legalentity/{{c.serviceCenterId}}"></a> -->
+                                                {{c.serviceCenterName}}
+                                            </td>
+                                            <td data-line="Site Name" class="mhide">
+                                                <a href="#" routerLink="/sites/{{c.siteId}}">{{c.siteName}}</a>
+                                            </td>
+                                            <td data-line="Case">
+                                                <a href="#" routerLink="/cases/{{c.caseId}}">{{c.caseIdManual}}</a>
+                                            </td>
+                                            <td data-line="Account" class="mhide"><a href="#"
+                                                    routerLink="/accounts/{{c.accountSapNumber}}">{{c.accountName}}</a>
+                                            </td>
+                                            <td data-line="Work Status" class="mhide">{{c.workStatus}}</td>
+                                            <td data-line="Amount">{{c.amount | currency:'INR'}}</td>
+                                            <td data-line="Created Date" class="mhide">
+                                                {{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </td>
+                                            <td data-line="Action" class="mhide" style="width: 50;">
+                                                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                    placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li *ngIf="rights('Annexure','edit')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="openEditAnnexureLineItem(c)">Edit
+                                                            </a>
+                                                        </li>
+                                                        <!-- <li *ngIf="rights('Annexure','delete')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteAnnexurertunityLineItem(c.id)">Delete</a>
+                                                        </li> -->
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="text-align: center" *ngIf="!(firstAnnexure && lastAnnexure)">
+                                <a id="pag" class="previous round" href="" [class.disabled]="firstAnnexure"
+                                    *ngIf="!firstAnnexure" (click)="setPagePreviousAnnexureLineItem($event)"
+                                    [ngClass]="{'active':pageAnnexureLineItem}">
+
+                                    &#8249;
+                                </a>
+                                <a id="pag" class="nav-link active" href="" (click)="setPageAnnexureLineItem($event)"
+                                    [ngClass]="{'active':i==pageAnnexureLineItem}">
+                                    {{pageAnnexureLineItem+1}}
+                                </a>
+                                <a id="pag" class="next round" href="" [class.disabled]="lastAnnexure"
+                                    *ngIf="!lastAnnexure" (click)="setPageNextAnnexureLineItem($event)"
+                                    [ngClass]="{'active':pageAnnexureLineItem}">
+                                    &#8250;
+                                </a></div>
+                        </div>
+                    </div>
+
+
+                    <!-- 2 App Hist-->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/approval_history.png"
+                                            style="height: 30px;widows: 30px;background-color: lightskyblue;border-radius: 1mm;"
+                                            title="Annexure Line Items"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Approval History({{approvalHistoryList.length}})</b>
+                                    </td>
+                                    <!-- <td class="text-right">
+
+                                        <div class="btn-group" style="padding: 1px;">
+                                            <button class="btn btn-outline-info btn-sm" type="button"
+                                                (click)="newAnnexureLineItem()">
+                                                <i class="fa fa-plus"></i>New</button>
+                                            <button *ngIf="rights('Annexure','edit')"
+                                                class="btn btn-outline-info btn-sm" type="button"
+                                                (click)="submitForApproval()">
+                                                Submit for Approval</button>
+                                        </div>
+                                    </td> -->
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Approval Step</th>
+                                            <th>Assigned Date</th>
+                                            <th>Assigned To</th>
+                                            <th>Action</th>
+                                            <th>Approved Date</th>
+                                            <th>Previous Remarks</th>
+                                            <th>Remark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of approvalHistoryList; let i=index">
+                                            <td data-line="S. No." class="mhide">{{serialNumberAnnexureLineItems+i+1}}.
+                                            </td>
+                                            <td data-line="Approval Step"> {{c.stageName}} </td>
+                                            <td data-line="Assigned Date">
+                                                {{c.assignedDate | date:'dd-MM-yyyy HH:mm:ss'}} </td>
+                                            <td data-line="Assigned To">
+                                                <a [routerLink]="['/createuser',c.assignedToEmailId]"
+                                                    [routerLinkActive]="'active'"> {{c.assignedToFirstName}}
+                                                    {{c.assignedToMiddleName}}
+                                                    {{c.assignedToLastName}}
+                                                </a>
+                                            </td>
+                                            <td data-line="Action"> {{c.action}} </td>
+                                            <td data-line="Approved Date">
+                                                {{c.approvedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                            <td data-line="Previous Remarks"> {{c.previousRemarks}} </td>
+                                            <td data-line="Remark"> {{c.remark}} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2 ends -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createAnnexureModel="bs-modal" (onShow)="isAnnexureOpen=true"
+    (onHide)="isAnnexureOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{headingAnnexure}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createAnnexureModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <app-create-annexure *ngIf="isAnnexureOpen" [isEditMode]="isEditMode"
+                    [editAnnexureData]="annexureRequest" (onAnnexureCreated)="onAnnexureCreated($event)"
+                    (onCancle)="cancelData()">
+                </app-create-annexure>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createAnnexureLineItemModel="bs-modal" (onShow)="isAnnexureLineItemOpen=true"
+    (onHide)="isAnnexureLineItemOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{headingAnnexureLineItem}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="createAnnexureLineItemModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <app-create-annexureLineItem *ngIf="isAnnexureLineItemOpen"
+                    [isEditModeAnnexure]="isEditModeAnnexureLineItem"
+                    [editAnnexureLineItemData]="annexureLineItemRequest"
+                    (onAnnexureLineItemCreated)="onAnnexureLineItemCreated($event)" (onCancle)="cancelData()">
+                </app-create-annexureLineItem>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-asset">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>
+
+<!--Confirmation Popup-->
+<div class="modal fade" bsModal #confirmationPopup='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" style="text-align: center;">
+            <button type="button" style="color: red; size: 200%;text-align: right;" class="close pull-right"
+                aria-label="Close" (click)="confirmationPopup.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <div class="control-label">
+                    Do you want to procees with PDf Creation?
+                </div>
+                <br>
+                <!-- <div class="col-md-1 col-sm-1"></div> -->
+                <div class="col-md-5 col-sm-5">
+                    <button class="btn btn-md btn-success" (click)="createPDF()" style="border-radius: 2;">Yes
+                        <!-- -->
+                    </button>
+                </div>
+                <div class="col-md-2 col-sm-2"></div>
+                <div class="col-md-5 col-sm-5">
+                    <button class="btn btn-md btn-danger" style="border-radius: 2;"
+                        (click)="confirmationPopup.hide()">No
+                    </button>
+                </div>
+                <!-- <div class="col-md-1 col-sm-1"></div> -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Re-Assign Job Card</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Repair Engineer
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <select class="form-control" [(ngModel)]="reAssignJobCardRequest.reAssignTo">
+                        <option value="0" disabled>--Select--</option>
+                        <option *ngFor="let eng of repairEngList" value="{{eng.contactEmailId}}">
+                            {{eng.contactFirstName}} {{eng.cotactMiddleName}} {{eng.contactLastName}}</option>
+                    </select>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelReAssign()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postReassign()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Re-Assign
+        </button>
+    </div>
+</div>

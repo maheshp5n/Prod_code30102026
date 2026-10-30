@@ -1,0 +1,88 @@
+<div>
+    <div class="card-body">
+        <span>Destination</span>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <select type="text" class="form-control form-control-md" [(ngModel)] ="createBtProductReturnReq.returnOrderDestinationLocationId" (change)="getLocationId(createBtProductReturnReq.returnOrderDestinationLocationId)">
+                 <option value="0">--Select--</option>
+                 <option *ngFor = "let loc of locationForList" [ngValue]="loc.locationId">{{loc.locationName}}</option>
+            </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <strong>
+            Product Return Items
+        </strong>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S.N.</th>
+                <th scope="col">Part Code</th>
+                <th scope="col">Product Type</th>
+                <th scope="col">Exicom Faulty</th>
+                <th scope="col">Customer Faulty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let item of productReturnItemsList;let i=index" >
+                <td style="text-align: center;">{{i+1}}</td>
+                <td>{{item.productPartcode}}</td>
+                <td>{{item.productType}}</td>               
+                <td><input type="text"  class="form-control" (keypress)="numberOnly($event)"  [(ngModel)]="item.exicomTotalFaultyQuantity"></td>             
+                <td style="text-align: center;"><input type="text" (keypress)="numberOnly($event)" class="form-control" [(ngModel)]="item.customerTotalFaultyQuantity"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="card">
+    <div class="card-header">
+        <strong>Shipment Details</strong>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">
+                    Shipping Mode
+                </label>
+                <select class="form-control" [(ngModel)]="createBtProductReturnReq.returnOrderShippingMode">
+                    <option value="select" disabled>Select</option>
+                    <option value="Courier">Courier</option>
+                    <option value="ByHand">ByHand</option>
+                    <option value="Transport">Transport</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group required" >
+                <label class="control-label">Ship To Name </label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Company Name / Person Name"></em>
+                <input type="text" class="form-control" autocomplete="off"  [(ngModel)]="createBtProductReturnReq.returnOrderShiptoName" >
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Tracking Number</label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Tracking Number / Person Mobile Number"></em>
+                <input type="text" class="form-control" autocomplete="off"  [(ngModel)]="createBtProductReturnReq.returnOrderTrackingNumber"  >
+            </div>
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Expected Delivery Date</label>
+                <input type="text" onkeydown="return false" bsDatepicker [dateCustomClasses]="dateCustomClasses"[(ngModel)]="createBtProductReturnReq.returnOrderDate" 
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+                    [minDate]="today" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="button" (click)="cancelProductReturn()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>
+        <button type="button"  class="btn btn-primary" (click)="saveProductReturn()"><i class="fa fa-save"></i>
+            Save</button>
+    </div>
+</div>

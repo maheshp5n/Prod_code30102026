@@ -1,0 +1,94 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <strong>
+            Requested Item Details
+        </strong>
+    </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Part Code</th>
+            <th scope="col">Required Quantity</th>
+            <th scope="col">Issued Quantity</th>
+            <th scope="col">In Hand Quantity</th>           
+            <th scope="col">Issuing Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor ="let item of prTransferItemRes">
+            <td style="text-align: center;">{{item.partCode}}</td>
+            <td>{{item.quantityRequired}}</td>
+            <td>{{item.quantityIssued}}</td>      
+            <!-- <td>{{item.okItems.okQuantityOnHand}}</td> -->
+             <td>5</td>
+            <td style="text-align: center;"><input type="text" [(ngModel)]="item.quantityToBeIssued"></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div class="card">
+    <div class="card-header">
+        <strong>Shipment Details</strong>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">
+                    Shipping Mode
+                </label>
+                <select class="form-control" [(ngModel)]="btPTransferReq.shippingMode">
+                    <option value="select">Select</option>
+                    <option value="Courier">Courier</option>
+                    <option value="ByHand">By Hand</option>
+                    <option value="Transport">Transport</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Ship To Name </label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Company Name / Person Name"></em>
+                <input type="text" class="form-control" [(ngModel)]="btPTransferReq.shippingToName"
+                    autocomplete="off">
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Tracking Number</label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Tracking Number / Person Mobile Number"></em>
+                <input type="text" class="form-control" [(ngModel)]="btPTransferReq.trackingNumber"
+                    autocomplete="off">
+            </div>
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Expected Delivery Date</label>
+                <input type="text"onkeydown="return false" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', adaptivePosition: true}" class="form-control"
+                    [minDate]="today" [(ngModel)]="btPTransferReq.actualDeliveryDate" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="button" (click)="cancelTransfer()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>
+        <button type="button" (click)="transferItems()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Transfer</button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #alertModal="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="text-center" style="margin-left: 20%;margin-right: 20%;">
+        <strong>
+            <alert [type]="alertstypes.type">
+                <span [innerHTML]="alertstypes.message"></span>
+                <button type="button" (click)="alertModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </alert>
+        </strong>
+    </div>
+</div>

@@ -1,0 +1,511 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Manage Inventory" src="assets/images/custom47_120.png"
+                                style="height: auto;width:100%;background-color: green;" title="Manage Inventory" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Repair Engineer</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;">{{inventory.receivingName}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4">
+            </div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+                    <button *ngIf="rights('BRCRepairInventoryReceiveRepairItem','create')" class="btn btn-outline-info btn-sm" type="button" (click)="receiveFromEngView(inventory)">
+                        <i class="fa fa-plus"></i> Repair </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color:  rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> Information
+                    </button>
+                    <!--  <div *ngIf="addressDisplay.open" class="row"> -->
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;">
+                                            <small>Name</small>
+                                        </td>
+                                        <td class="wrappable"> {{inventory.receivingName}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> Asset Serial Number</small> </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/assets/{{inventory.assetsSerialNumber}}">
+                                                {{inventory.assetsSerialNumber}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Warehouse</small> </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/warehouse/{{inventory.warehouse}}">
+                                                {{inventory.warehouse}} </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Part Code</small> </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/products/{{inventory.productPartCode}}">
+                                                {{inventory.productPartCode}} </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Warranty Status</small> </td>
+                                        <td class="wrappable"> {{inventory.warrantyStatus}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Complain Lock Status</small> </td>
+                                        <td class="wrappable">{{inventory.complaintStatus}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Invoice Number</small> </td>
+                                        <td class="wrappable">{{inventory.invoiceNumber}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Invoice Date </small> </td>
+                                        <td class="wrappable"> {{inventory.invoiceDate | date:'dd-MM-yyyy'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;">
+                                            <small>Customer</small>
+                                        </td>
+                                        <td class="wrappable">{{inventory.customerAccountName}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Inventory</small> </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/products/{{inventory.productPartCode}}">
+                                                {{inventory.productPartCode}} </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Legal Entity </small> </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/legalentity/{{inventory.legalEntityId}}">
+                                                {{inventory.legalEntityName}} </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Product Description </small> </td>
+                                        <td class="wrappable"> {{inventory.productDescription}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Case </small> </td>
+                                        <td class="wrappable"> <a href="#" routerLink="/cases/{{inventory.caseId}}">
+                                                {{inventory.caseDetailsManualId}} </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Site ID</small> </td>
+                                        <td class="wrappable"><a href="#" routerLink="/sites/{{inventory.siteId}}">
+                                                {{inventory.siteManualId}} </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Contact Name</small> </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/contacts/{{inventory.contactId}}">
+                                                {{inventory.contactFirstName}}&nbsp;{{inventory.contactmiddleName}}&nbsp;{{inventory.contactLastName}}</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeAddressDisplay()"
+                        style="text-align: left;background-color:  rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="addressDisplay.angleIcon"></i> Battery Receipt Details </button>
+                    <div *ngIf="addressDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;">
+                                            <small>Alter Serial Number</small>
+                                        </td>
+                                        <td class="wrappable"> {{inventory.alterSerialNumber}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> RJIL Challan Date</small> </td>
+                                        <td class="wrappable">
+                                            {{inventory.rjilChallanDate | date:'dd-MM-yyyy '}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Packing Condition</small> </td>
+                                        <td class="wrappable"> {{inventory.packingConditionName}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Physical Damage If Any </small> </td>
+                                        <td class="wrappable"> {{inventory.physicalDamageIfAny}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Battery Voltage Before Repair</small> </td>
+                                        <td class="wrappable"> {{inventory.batteryVoltageBefoureRepair}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Status</small> </td>
+                                        <td class="wrappable"> {{inventory.brcRepairStatusName}} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;">
+                                            <small>Challan Number</small>
+                                        </td>
+                                        <td class="wrappable"> {{inventory.challanNumber}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Location</small> </td>
+                                        <td class="wrappable"> {{inventory.locationStateOrCircle}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Receive Date</small> </td>
+                                        <td class="wrappable"> {{inventory.receivedDate | date:'dd-MM-yyyy '}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Fault Observed(Receipt)</small> </td>
+                                        <td class="wrappable">{{inventory.faultObservedName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Remarks(Receipt)</small> </td>
+                                        <td class="wrappable"> {{inventory.remarks}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changePurchaseDisplay()"
+                        style="text-align: left;background-color:  rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="purchaseDisplay.angleIcon"></i> Engineer Repair Details</button>
+                    <div *ngIf="purchaseDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;">
+                                            <small>Engineer</small>
+                                        </td>
+                                        <td class="wrappable"> <a href="#"
+                                                routerLink="/serviceResource/{{inventory.engineerId}}">
+                                                {{inventory.engineerName}} </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> Engineer Issued Date </small> </td>
+                                        <td class="wrappable">
+                                            {{inventory.engineerIssuedDate | date:'dd-MM-yyyy '}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Battery Voltage After Repair </small> </td>
+                                        <td class="wrappable"> {{inventory.battryVoltageAfterRepair}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>BRC Eng. Corrective Action </small> </td>
+                                        <td class="wrappable">{{inventory.battryEngCorrectiveAction}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Battery Balance At </small></td>
+                                        <td class="wrappable"> {{inventory.battryBalanceAtName}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>BER Remarks </small> </td>
+                                        <td class="wrappable"> {{inventory.brcBERRemarksName}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Cell Bulged </small> </td>
+                                        <td>{{inventory.cellBulged}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"> <small>Type</small> </td>
+                                        <td class="wrappable"> {{inventory.repairTypeName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Repair Date</small> </td>
+                                        <td class="wrappable"> {{inventory.repariDate | date:'dd-MM-yyyy '}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Battery AH After Repair </small> </td>
+                                        <td class="wrappable">{{inventory.battryAHAfterRepair}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>BRC Engineer Remarks </small> </td>
+                                        <td class="wrappable">{{inventory.battryEngRemarks}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> SLA Bucket</small> </td>
+                                        <td class="wrappable">{{inventory.sla}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Material Shortage(If Any)</small> </td>
+                                        <td class="wrappable">{{inventory.materialSortage}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>BRC Eng. Resolution Method </small> </td>
+                                        <td class="wrappable">
+                                            <ol>
+                                                <li *ngFor="let resolution of resolutionMehod">
+                                                    {{resolution.resolutionMethodName}}
+                                                </li>
+                                            </ol>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color:  rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> Dispatch Details</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"> <small>Dispatched Date</small> </td>
+                                        <td class="wrappable"> {{inventory.dispatchDate | date:'dd-MM-yyyy '}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> Dispatched Mode </small> </td>
+                                        <td class="wrappable">{{inventory.dispatchMode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> Pod Number </small> </td>
+                                        <td class="wrappable">{{inventory.podNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> Shippment Number </small> </td>
+                                        <td class="wrappable">{{inventory.dispatchShipmentNo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"> <small>Delivery Challan
+                                                (Issue)</small> </td>
+                                        <td class="wrappable"> {{inventory.sapDeleveryChallanNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> Dispatcher Name </small> </td>
+                                        <td class="wrappable">{{inventory.dispatcherName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small> Dispatch Remarks </small> </td>
+                                        <td class="wrappable">{{inventory.dispatchRemark}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeAmcDisplay()"
+                        style="text-align: left;background-color:  rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="amcDisplay.angleIcon"></i> System Information</button>
+                    <div *ngIf="amcDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"> <small>Created By</small> </td>
+                                        <td class="wrappable"><a
+                                                href="#" routerLink="/createuser/{{inventory.createdByEmailId}}">{{inventory.createdByFirstName}}&nbsp;{{inventory.createdByMiddleName}}&nbsp;{{inventory.createdByLastName }}</a>&nbsp;,&nbsp;{{inventory.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"> <small>Last Modified By</small> </td>
+                                        <td class="wrappable"><a
+                                                href="#" routerLink="/createuser/{{inventory.modifiedByEmailid}}">{{inventory.modifiedByFirstName}}&nbsp;{{inventory.modifiedByMiddleName}}&nbsp;{{inventory.modifiedByLastName}}</a>&nbsp;,&nbsp;{{inventory.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!vDetails" class="card-body" style="padding: 0px;margin: 0px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;"><img src="assets/images/custom47_120.png"
+                                            style="width: 24px;height: 24px;background-color: green"> </td>
+                                    <td><a href="#" routerLink="/batteryinventoryconsumption"
+                                            style="font-weight: bold;color: black;">
+                                            Repair Inventories ({{totalconsumed}}) </a>
+                                    </td>
+                                    <td *ngIf="_cFlag!='f'" class="text-right">
+                                        <button *ngIf="rights('BRCRepairInventoryReceiveRepairItem','create')" type="button" (click)="showProductConsumedView(inventory)"
+                                            class="btn btn-sm btn-outline-info">
+                                            <i class="fa fa-plus"></i> New </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div *ngIf="consumedList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+                            <div class="table-responsive mobile" style="height: 100%;">
+                                <table class="table table-sm table-condensed tablerview">
+                                    <thead style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th title="S.No" style="width:50px;">S.No.</th>
+                                            <th title="Part Code" scope="col" class="text-left">Part Code</th>
+                                            <th title="Quantity" scope="col" class="text-left">Quantity</th>
+                                            <!-- <th title="Material Issue Date" scope="col" class="text-left">Material Issue
+                                                Date</th>
+                                            <th title="Faulty Submission Date" scope="col" class="text-left">Faulty
+                                                Submission Date</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of consumedList; let i=index">
+                                            <td data-line="S.No" class="mhide">{{consumeSerial+i+1}}.</td>
+                                            <td data-line="Part Code" scope="col" class="text-left"><a href="#"
+                                                    routerLink="/products/{{c.productPartCode}}">{{c.productPartCode}}</a>
+                                            </td>
+                                            <td data-line="Quantity" scope="col" class="text-left">{{c.quantity}} </td>
+                                            <!-- <td scope="col" class="text-left">
+                                                {{c.materialIssueDate | date:'dd-MM-yyyy '}}</td>
+                                            <td scope="col" class="text-left">
+                                                {{c.faultySubmissionDate | date:'dd-MM-yyyy '}}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <div style="text-align: center" *ngIf="!(consumeFirst && consumeLast)">
+                                    <a id="prbtn" class="previous round" href="" [class.disabled]="consumeFirst"
+                                        *ngIf="!consumeFirst" (click)="setPagePreviousConsume($event)"
+                                        [ngClass]="{'active':consumePage}">
+                                        &#8249;
+                                    </a>
+                                    <a id="prbtn" class="nav-link active" href="" (click)="setPageConsume($event)"
+                                        [ngClass]="{'active':i==consumePage}">
+                                        {{consumePage+1}}
+                                    </a>
+                                    <a id="prbtn" class="next round" href="" [class.disabled]="consumeLast"
+                                        *ngIf="!consumeLast" (click)="setPageNextConsume($event)"
+                                        [ngClass]="{'active':consumePage}">
+                                        &#8250;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-inventory">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>
+<div class="modal fade" bsModal #ReceivFromEngModel="bs-modal" (onShow)="isReceivFromEngModel=true"
+    (onHide)="isReceivFromEngModel=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-receivefromEng">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-assignToEng" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="receiveFromEngModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-receive-from-eng *ngIf="isReceivFromEngModel" [isEditMode]="isEditMode"
+                    [editEngData]="brcRepairInventoryReceiveItemRequest"
+                    (onReceiveFromEngCreated)="onReceiveFromEngCreated($event)" (onCancle)="cancelDataReceiveFromEng()">
+                </app-receive-from-eng>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #ProductConsumedModel="bs-modal" (onShow)="isProductConsumedModel=true"
+    (onHide)="isProductConsumedModel=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-product consumed">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-product consumed" class="modal-title pull-left">New Product Consumed</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="productConsumedModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <app-inventroy-product-consumed *ngIf="isProductConsumedModel" [isEditMode]="isEditMode"
+                    [editInventoryConsumedData]="consumedResponse"
+                    (onProductConsumedCreated)="onProductConsumedCreated($event)"
+                    (onCancle)="cancelDataProductConsumed()">
+                </app-inventroy-product-consumed>
+            </div>
+        </div>
+    </div>
+</div>

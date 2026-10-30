@@ -1,0 +1,797 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">General Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Appointment Number 
+        </div>
+        <input [(ngModel)]="serviceAppointmentResponse.appointmentManualId" type="text" class="form-control" disabled>
+      </div>
+      <div *ngIf="false" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Owner
+        </div>
+        <input type="text" *ngIf="_isEditMode==false" class="form-control"
+          value="{{loginData.firstName}} {{loginData.middleName}} {{loginData.lastName}}" disabled>
+        <input type="text" *ngIf="_isEditMode==true" class="form-control"
+          value="{{serviceAppointmentResponse.ownerFirstName}} {{serviceAppointmentResponse.ownerMiddleName}} {{serviceAppointmentResponse.ownerLastName}}"
+          disabled>
+      </div>
+      <div *ngIf="_isEditMode==false" class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Case
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="caseList" [items]="caseList" [(ngModel)]="serviceAppointmentResponse.caseManualId"
+              bindLabel="caseManualId" bindValue="caseId" placeholder="Search Cases...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                  style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                  style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" *ngIf="rights('BtCase','create')" class="border-left-0"
+                  (click)="addNewCase()"></i></div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Case
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.caseManualId}}" class="form-control" disabled>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Service Resource
+        </div>
+        <input type="text"  [(ngModel)]="serviceAppointmentResponse.serviceResourceName"  class="form-control" disabled>
+      </div>
+      
+      <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Contact
+        </div>
+        <input  value="{{serviceAppointmentResponse.contactFirstName}} {{serviceAppointmentResponse.contactMiddleName
+        }} {{serviceAppointmentResponse.contactLastName}}" type="text" class="form-control" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+         Site 
+        </div>
+        <input disabled type="text" [(ngModel)]="serviceAppointmentResponse.siteIdManual" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required ">
+        <div class="control-label">
+        Site Name
+        </div>
+        <input disabled type="text" [(ngModel)]="serviceAppointmentResponse.siteName" class="form-control">
+      </div>
+    </div>
+
+    <div *ngIf="false" class="row">
+      <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Account
+        </div>
+        <div>
+          <input type="text" value="{{serviceAppointmentResponse.accountName}}" class="form-control" disabled>
+        </div>
+      </div>
+      <div *ngIf="_isEditMode==false" class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Case
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="caseList" [items]="caseList" [(ngModel)]="serviceAppointmentResponse.caseId"
+              bindLabel="caseManualId" bindValue="caseId" placeholder="Search Cases...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                  style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                  style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewCase()"></i></div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Caller Name
+        </div>
+        <input type="text"
+          value="{{serviceAppointmentResponse.contactFirstName}} {{serviceAppointmentResponse.contactMiddleName}} {{serviceAppointmentResponse.contactLastName}}"
+          class="form-control" disabled>
+      </div>
+    </div>
+    <div *ngIf="false" class="row">
+      <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Case
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.caseIdManual}}" class="form-control" disabled>
+      </div>
+      <div *ngIf="_isEditMode==false" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Site
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.siteIdManual}}" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Parent Record
+        </div>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+    <div *ngIf="false" class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Case Type
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.caseType}}" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Case Reason
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.caseReasonName}}" class="form-control" disabled>
+      </div>
+    </div>
+
+    <div *ngIf="false" class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Site
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.siteIdManual}}" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Site Name
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.siteName}}" class="form-control" disabled>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="serviceAppointmentResponse.caseReasonName=='Installation'" class="row">
+      <div [ngClass]="assetreq">
+        <div class="control-label">
+          Equipment Serial No
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <ng-select *ngIf="assetList" [items]="assetList"
+              [(ngModel)]="serviceAppointmentResponse.assetsSapSerialNumber" bindLabel="serialNumber"
+              (search)="getAssetsListSmall($event)" bindValue="assetId" placeholder="Search Assets..."
+              (change)="changeSerialNumber(serviceAppointmentResponse.assetsSapSerialNumber)">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                  style="background-color: rgb(49,121,146);" /> {{item.serialNumber}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                  style="background-color: rgb(49,121,146);" /> {{item.serialNumber}}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Equipment Part Code
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <input type="text" class="form-control"  value ="{{serviceAppointmentResponse.productPartCode}}" disabled>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required ">
+        <div class="control-label">
+          Fault Observed
+        </div>
+        <textarea [(ngModel)]="serviceAppointmentResponse.faultObserve" type="text" class="form-control"
+          rows="2"></textarea>
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Punch Points(Exicom)
+        </div>
+        <textarea [(ngModel)]="serviceAppointmentResponse.punchPointExicom" type="text" class="form-control"
+          rows="2"> </textarea>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Punch Points(Customer)
+        </div>
+        <textarea [(ngModel)]="serviceAppointmentResponse.punchPointCustomer" type="text" class="form-control"
+          rows="2"> </textarea>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Date Of Visit
+        </div>
+
+        <input [disabled]="isSchENG"  type="text" onkeydown="return false"class="form-control" bsDatepicker  [dateCustomClasses]="dateCustomClasses" 
+        [(ngModel)]="serviceAppointmentResponse.visitDate"
+          [bsConfig]="{dateInputFormat: 'YYYY-MM-DD',adaptivePosition: true}"
+          [maxDate]="today" [minDate]="_datetoday3" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Status
+        </div>
+        <select [disabled]="isSchENG" [(ngModel)]="serviceAppointmentResponse.serviceAppointmentStatusId" (change)="isStatus(serviceAppointmentResponse.serviceAppointmentStatusId)" class="form-control" >
+          <option *ngFor="let o of statusList" [value]="o.statusId">{{o.statusName}}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="false" class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Customer Rep Name
+        </div>
+        <input [disabled]="isSchENG" type="text" [(ngModel)]="serviceAppointmentResponse.customerRepresentativeName"
+          value="{{caseResponse.callCenterRepFirstName}} {{caseResponse.callCenterRepLastName}}" class="form-control"
+          disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Customer Rep Mobile
+        </div>
+        <input [disabled]="isSchENG" type="text" [(ngModel)]="serviceAppointmentResponse.customerRepresentativeContact" class="form-control"
+          disabled>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Customer Signoff-Name
+        </div>
+        <input [disabled]="isSchENG" type="text" class="form-control" [(ngModel)]="serviceAppointmentResponse.acknowledgedByName">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Customer Signoff-Number
+        </div>
+        <input [disabled]="isSchENG" type="text" [(ngModel)]="serviceAppointmentResponse.acknowledgedByPhone" class="form-control"
+          (keypress)="onlyNumbers($event)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Pending Responsibility
+        </div>
+        <select [disabled]="isSchENG" [(ngModel)]="serviceAppointmentResponse.pendingResponsibilityId" class="form-control">
+          <option *ngFor="let o of pendingResList" [value]="o.pendingResponsibilityId">{{o.pendingResponsibilityName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6 col-sm-6 form-group required" *ngIf="serviceAppointmentResponse.pendingResponsibilityId==1">
+        <div class="control-label">
+          Exicom Bucket Reason
+        </div>
+        <input [disabled]="isSchENG" type="text" [(ngModel)]="serviceAppointmentResponse.pendingResource" class="form-control">
+      </div>
+
+
+      <div class="col-md-6 col-sm-6 form-group required" *ngIf="serviceAppointmentResponse.pendingResponsibilityId==2">
+        <div class="control-label">
+       Customer Bucket Reason
+        </div>
+
+        <select [disabled]="isSchENG" [(ngModel)]="serviceAppointmentResponse.customerBucketReasonId" class="form-control">
+          <option value='0' selected disabled> --Select--</option>
+          <option *ngFor="let o of btPendingReasonValue" [ngValue]="o.id">
+            {{o.pendingReasonValue}}</option>
+        </select>
+        <!-- <input type="text" [(ngModel)]="serviceAppointmentResponse.customerRepresentativeContact" class="form-control"> -->
+      </div>
+      <!-- <div class="col-md-6 col-sm-6 form-group  ">
+        <div class="control-label">
+          Service Payout
+        </div>
+        <select [disabled]="isSchENG" [(ngModel)]="serviceAppointmentResponse.servicePayoutId" class="form-control"  type ="Number">
+          <option value="0">--Select--</option>
+          <option *ngFor="let o of servicePayOUtList" [value]="o.id">{{o.name}}
+          </option>
+        </select>
+      </div> -->
+    </div>
+    <div class="row">
+
+    
+
+   
+
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          RMA Required &nbsp;
+          <input  type="checkbox" style="margin-top: 25px;" [disabled]="disableRma || this.isSchENG==true" [(ngModel)]="serviceAppointmentResponse.rmaCreated">
+        </div>
+      </div>    
+
+
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+       Address
+        </div>
+        <input [disabled]="isSchENG" type="text" [(ngModel)]="serviceAppointmentResponse.address" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+     
+      <div class="col-md-12 col-sm-6 form-group ">
+          <div class="control-label">
+            Remarks
+          </div>
+          <textarea [disabled]="isSchENG" [(ngModel)]="serviceAppointmentResponse.remark" row="2" class="form-control"></textarea>
+        </div>
+    </div>
+ 
+  
+    <div class="row" style="display:none;">
+      <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6">
+        <div class="control-label">
+          Closed From Plate Form
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="serviceAppointmentResponse.closedFromPlatform">
+      </div>
+    </div>
+  </div>
+
+     <!--  For SCH Only new requirment for battery only -->
+     <!-- *ngIf="foSCHonly" -->
+     <div class="panel-heading" *ngIf="(rights('BtSchUseOnlyDetails','create'))">
+      <span class="text-center" style="font-weight: bold">SCH Use Only</span>
+    </div>
+    <div class="panel-body" *ngIf="(rights('BtSchUseOnlyDetails','create'))">
+
+
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Site Visit Charge
+          </div>
+          <input type="text" [(ngModel)]="serviceAppointmentResponse.customerRate" (keypress)="keyPressNumbersWithDecimal($event)" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required ">
+          <div class="control-label">
+            Customer Spare Charges
+            <input type="text" [(ngModel)]="serviceAppointmentResponse.customerBillingRate"  (keypress)="keyPressNumbersWithDecimal($event)" class="form-control">
+          </div>
+       
+        </div>
+      </div>
+       
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+           Corrective Action
+          </div>
+          <input type="text" [(ngModel)]="serviceAppointmentResponse.correctiveAction" class="form-control">
+        </div>
+
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Billing  Required &nbsp;
+            <input  type="checkbox" style="margin-top: 25px;"[(ngModel)]="serviceAppointmentResponse.billingRequired">
+          </div>
+        </div>   
+        
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 col-sm-6 form-group required ">
+          <div class="control-label">
+            Resolution Method
+          </div>
+          <select [(ngModel)]="serviceAppointmentResponse.resolutionMethodId" (change)="resolutionMethodChnage(serviceAppointmentResponse.resolutionMethodId)" class="form-control"  type ="Number">
+            <option disabled value="0">--Select--</option>
+            <option *ngFor="let o of btResolutionMethod" [value]="o.id">{{o.resolutionMethodValue}}
+            </option>
+          </select>
+        </div>
+
+        <div  *ngIf="serviceAppointmentResponse.resolutionMethodId==1" class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+          Spare Part Name
+          </div>
+          <input type="text" [(ngModel)]="serviceAppointmentResponse.sparePart" class="form-control">
+        </div>
+
+      </div>
+
+     
+  
+     
+       
+      <div  *ngIf="serviceAppointmentResponse.resolutionMethodId==1" class="row">
+        <div class="col-md-6 col-sm-6 form-group required ">
+          <div class="control-label">
+            Spare Part Replaced
+          </div>
+          <select [(ngModel)]="serviceAppointmentResponse.sparePartReplaced" class="form-control"  type ="Number">
+            <option value="">--Select--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        
+        
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Spare Part Quantity
+          </div>
+          <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="serviceAppointmentResponse.sparePartQuantity" class="form-control">
+        </div>
+        </div>
+        
+        <div  *ngIf="serviceAppointmentResponse.resolutionMethodId==1" class="row">
+        <div class="col-md-6 col-sm-6 form-group required ">
+          <div class="control-label">
+            Spare Replace From
+          </div>
+          <select [(ngModel)]="serviceAppointmentResponse.sparePartReplacedFrom" class="form-control"  type ="Number">
+            <option disabled value="">--Select--</option >
+            <option value="Exicom">Exicom</option>
+            <option value="Customer">Customer</option>
+          </select>
+        </div>
+
+      </div>
+
+    
+  
+      <div class="row">
+        <div class="col-md-5 col-sm-5 form-group ">
+          <div class="control-label"style="font-weight: bold">
+            Solution Type
+          </div>
+          <div class="list-group">
+            <select [(ngModel)]="problem" multiple="multiple" (dblclick)="moveRight(problem)" class="form-control"
+              size="10">
+              <option *ngFor=" let problem of AllProblemList" [ngValue]="problem">{{problem.solutionValue}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2 form-group text-center " style="margin-top: 5%">
+          <button class="btn" (click)="moveRight(problem)"><i class="fa fa-caret-right fa-2x" style="size:5px;"></i></button><br><br>
+          <button class="btn" (click)="moveLeft(problem)"><i class="fa fa-caret-left fa-2x"></i></button>
+        </div>
+  
+        <div class="col-md-5 col-sm-5 form-group required">
+          <div class="control-label" style="font-weight: bold">
+            Solution Imparted
+          </div>
+          <div class="list-group">
+            <select (dblclick)="moveLeft(problem)" [(ngModel)]="problem"
+             multiple="multiple" class="form-control" size="10">
+              <option *ngFor=" let problem of problemOccured" [ngValue]="problem">{{problem.solutionValue}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+     
+    </div>
+
+  <div *ngIf="false" class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Claim Details </span>
+  </div>
+  <div *ngIf="false" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Service Resource
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.serviceResourceName}}" class="form-control" disabled>
+        <div style="font:100; color: red;">{{noMatchServiceResource}}</div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Circle Manager
+        </div>
+        <input type="text"
+          value="{{serviceAppointmentResponse.circleManagerContactFirstName}} {{serviceAppointmentResponse.circleManagerContactLastName}}"
+          class="form-control" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Circle
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.circleName}}" class="form-control" disabled>
+      </div>
+      <div *ngIf="_isEditMode==false" class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Approved By Finance
+        </div>
+        <div>
+          <input type="checkbox" class="largerCheckbox" [ngModel]="serviceAppointmentResponse.isApprovedByFinance">
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Service Center
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.serviceCenterName}}" class="form-control" disabled>
+      </div>
+    </div>
+
+    <div *ngIf="_isEditMode==true" class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Open SA Count
+        </div>
+        <input type="text" class="form-control" value="{{serviceAppointmentResponse.openSACount}}" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Open SA Status
+        </div>
+        <div><img title="Open SA Status"
+            [src]="serviceAppointmentResponse.sastatus==true? 'assets/images/flag_red.gif':'assets/images/flag_green.gif' ">
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="_isEditMode==true" class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Employee Code
+        </div>
+        <input type="text" class="form-control" value="{{serviceAppointmentResponse.employeeCode}}" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Grade
+        </div>
+        <input type="text" class="form-control" value="{{serviceAppointmentResponse.grade}}" disabled>
+      </div>
+    </div>
+
+    <div *ngIf="_isEditMode==true" class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Business Place
+        </div>
+        <input type="text" class="form-control" value="{{serviceAppointmentResponse.businessPlace}}" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Fixed Payout
+        </div>
+        <input type="text" class="form-control" value="{{serviceAppointmentResponse.fixedPayout}}" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div *ngIf="_isEditMode==true">
+          <div class="control-label">
+            Cost Center / WBS Element
+          </div>
+          <input type="text" class="form-control" value="{{serviceAppointmentResponse.costCenter}}" disabled>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Claim Status
+        </div>
+        <select [(ngModel)]="serviceAppointmentResponse.claimStatusId" class="form-control">
+          <option value='0'>--None--</option>
+          <option *ngFor="let o of claimStatusList" [value]="o.claimStatusId">{{o.claimStatusName}}</option>
+
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div *ngIf="_isEditMode==true">
+          <div class="control-label">
+            Approved By Finance
+          </div>
+          <div>
+            <input type="checkbox" class="largerCheckbox" [ngModel]="serviceAppointmentResponse.isApprovedByFinance">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Approved By Finance Date
+        </div>
+        <input type="text" value="{{serviceAppointmentResponse.approvedByFinance}}" class="form-control" disabled>
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="false" class="panel-heading">
+    <span class="text-center" style="font-weight: bold">System Information</span>
+  </div>
+  <div *ngIf="false" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label" style="font-weight: bold;">
+          Created By
+        </div>
+        {{serviceAppointmentResponse.createdByFirstName}} {{serviceAppointmentResponse.createdByLastName}}
+        {{serviceAppointmentResponse.createdDate | date:'yyyy-MM-dd HH:mm:ss'}}
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label" style="font-weight: bold;">
+          Last Modified By
+        </div>
+        {{serviceAppointmentResponse.modifiedByFirstName}} {{serviceAppointmentResponse.modifiedByLastName}}
+        {{serviceAppointmentResponse.modifiedDate | date:'yyyy-MM-dd HH:mm:ss'}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label" style="font-weight: bold">
+          Earliest Start Permitted
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Date
+          </div>
+          <input type="text" value="{{serviceAppointmentResponse.earliestStartPermittedDate | date:'yyyy-MM-dd'}}"
+            class="form-control" disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Time
+          </div>
+          <input type="text" value="{{serviceAppointmentResponse.earliestStartPermittedTime}}" class="form-control"
+            disabled>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label" style="font-weight: bold">
+          Due Date
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Date
+          </div>
+          <input type="text" value="{{serviceAppointmentResponse.dueDate | date:'yyyy-MM-dd'}}" class="form-control"
+            disabled>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Time
+          </div>
+          <input type="text" value="{{serviceAppointmentResponse.dueTime}}" class="form-control" disabled>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+      Cancel</button>&nbsp;
+    <button type="button" (click)="postCreateServiceAppointment()" class="btn btn-primary"><i class="fa fa-save"></i>
+      Save
+    </button>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createCaseModel="bs-modal" (onShow)="isCaseModelShow=true"
+  (onHide)="isCaseModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> New Case </h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createCaseModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-createcase *ngIf="isCaseModelShow" [isEditMode]="isEditMode" [editEntityData]="caseResponse"
+          (onCaseCreated)="onCaseCreated($event)" (onCancle)="cancelDatacase()"></app-createcase>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #createProductModel="bs-modal" (onShow)="isProductModelShow=true"
+  (onHide)="isProductModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">New Product</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createProductModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-product *ngIf="isProductModelShow" [isEditMode]="isEditMode" [editProductData]="createProduct"
+          (onProductCreated)="onProductCreated($event)" (onCancle)="cancelDataProd()">
+        </app-create-new-product>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #createAssetModel="bs-modal" (onShow)="isAssetModelShow=true"
+  (onHide)="isAssetModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-asset">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-asset" class="modal-title pull-left">New Asset</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createAssetModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-createasset *ngIf="isAssetModelShow" [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+          (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelDataAsset()"></app-createasset>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-serviceappointment">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'"> Service Appointment ( <a href="#"
+        routerLink="/bat_serviceappointment/{{this.tempId}}">{{this.tempManual}}</a>
+      )
+      Created successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

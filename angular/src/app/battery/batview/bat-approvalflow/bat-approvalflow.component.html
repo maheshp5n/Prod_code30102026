@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-4">
+                <table style="width: 100%;">
+                    <tr>
+                      <td rowspan="2" style="width: 35px;">
+                        <img alt="Dashboard" src="assets/images/account_120.png"
+                          style="height: auto;width:100%;background-color: rgb(198, 172, 240);" title="Battary Approval Flow">
+                      </td>
+                      <td style="padding-left: 5px;"><h4>Battery Approval Details</h4></td>
+                    </tr>
+                    <tr>
+                  </tr>
+                </table>  
+            </div>
+            <div class="col-8 text-right">
+                <button type="button" (click)="editapprovalflow.show()" class="btn btn-outline-primary btn-sm"><em class="fa fa-edit"></em> Edit</button>
+                <button type="button" (click)="stapes.show()" class="btn btn-outline-primary btn-sm"><em class="fa fa-plus"></em> New Approval Steps</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body" *ngIf="approvalFlowdetails">
+        <div class="row">
+            <div class="col-4">
+                <label>Name</label><br>
+                <span>{{approvalFlowdetails.object_name}}</span>
+            </div>
+            <div class="col-4">
+                <label>Active</label><br>
+                <em *ngIf="approvalFlowdetails.active" class="tik-mark"></em>
+            </div>
+            <div class="col-4">
+                <label>
+                    Description
+                </label><br>
+                {{approvalFlowdetails.description}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-body">
+    <ul class="menue">
+        <li title="Details"><a [routerLink]="['/batapprovalflow',approvalFlowdetails.id,'details']"  [routerLinkActive]="['active']">Details</a></li>
+        <li title="Releted"><a [routerLink]="['/batapprovalflow',approvalFlowdetails.id,'releted']" [routerLinkActive]="['active']">Releted</a></li>
+      </ul>
+      <br>
+      <hr style="margin-top: 14px;">
+      <router-outlet></router-outlet>
+</div>
+
+
+
+<div class="modal fade" bsModal #editapprovalflow="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" (onShow)="openWindow.editapprovalflow=true" (onHide)="openWindow.editapprovalflow=false" role="dialog">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label>Edit Approval Flow</label>
+            <button (click)="editapprovalflow.hide()" class="cls-btn"> <em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bat-approval-credit *ngIf="openWindow.editapprovalflow" [approvalflowdata]="approvalFlowdetails" (onCancel)="editapprovalflow.hide()" (onSave)="onEditApprovalSave()"></app-bat-approval-credit>
+        </div>
+    </div>
+</div>
+<div *ngIf="approvalFlowdetails" class="modal fade" bsModal #stapes="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" (onShow)="openWindow.nweapprovalstapes=true" (onHide)="openWindow.nweapprovalstapes=false" role="dialog">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label>New Approval Steps ({{approvalFlowdetails.object_class_name}})</label>
+            <button (click)="stapes.hide()" class="cls-btn"><em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-bat-approval-stapecred (onCancel)="stapes.hide()" [approvaldetails]="approvalFlowdetails" (onSave)="onStapeCreated()"></app-bat-approval-stapecred>
+        </div>
+    </div>
+</div>

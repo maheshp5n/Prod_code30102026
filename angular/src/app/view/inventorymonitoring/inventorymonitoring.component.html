@@ -1,0 +1,20 @@
+<div class="m-card">
+   
+    <div class="m-card-title">
+        <a class="m-card-menue" [routerLink]="['/inventorymonitoringandplanning','stocksummary']" [routerLinkActive]="'m-card-menue-selected'">PAN India Stock Status-Summary</a>        
+        <span class="m-card-menue-spacer"></span>
+        <a class="m-card-menue" [routerLink]="['/inventorymonitoringandplanning','threshhold']" [routerLinkActive]="'m-card-menue-selected'">Manage Inventory Threshold</a>
+        <span class="m-card-menue-spacer"></span>
+        <a class="m-card-menue" [routerLink]="['/inventorymonitoringandplanning','stocks']" [routerLinkActive]="'m-card-menue-selected'">Inventory-Monitoring and Planing</a>
+        <span class="m-card-menue-spacer"></span>
+        <a class="m-card-menue" href="#" (click)="false">{{currentDateTime|date:'dd-MMM-yy hh:mm:ss aa'}}</a>
+        
+    </div>
+    <div class="clearfix"></div>
+    <div style="margin: 10px 10px;">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>

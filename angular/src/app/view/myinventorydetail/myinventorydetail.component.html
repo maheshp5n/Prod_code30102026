@@ -1,0 +1,182 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Location" src="assets/images/location_120.png"
+                                style="height: auto;width:100%;;background-color: rgb(20, 155, 53);" title="Location" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span> My Warehouse</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;"> Inventory</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+               <!-- <input type="text" class="form-control" placeholder="Search from current list"
+                    [(ngModel)]="search.gserch" style="width: 60%;float: left;">-->
+                <!-- <button type="button" class="btn btn-sm btn-outline-dark" style="float: right;"
+                    (click)="search.advancesearch=!search.advancesearch"><em class="fa fa-search"></em> Advance
+                    Search</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-body" >
+    <div class="row">
+        <div class="col-md-3">
+            <label>
+                Part Code
+            </label>
+            <input type="text" [(ngModel)]="search.partCode" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label>
+                Serial Number
+            </label>
+            <input type="text" [(ngModel)]="search.serialNumber" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label>
+                Description
+            </label>
+            <input type="text" [(ngModel)]="search.description" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label>
+                Status
+            </label>
+            <select class="form-control" [(ngModel)]="search.state">
+                <option value="0" disabled>--Select--</option>
+                <option value="1">Ok</option>
+                <option value="2">Faulty</option>
+                <option value="3">Scrap</option>
+                <option value="4">Rejected</option>
+                <option value="5">BER</option>
+                <option value="6">DOA</option>
+            </select>
+        </div> <br>
+        
+    </div> <br>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="button" (click)="getSerchResult()" class="btn btn-outline-info btn-md"><em
+                    class="fa fa-search"></em>Search</button>
+                    <button type="button" (click)="reset()" class="btn btn-outline-info btn-md">Reset</button>
+                    <button type="button" class="btn btn-md btn-outline-info" (click)="exportToExcel()"><em class="fa fa-excel"></em>  Export To Excel</button>
+        </div>
+        <div class="col-md-3" style="padding: right;">
+            <!-- <button type="button" class="btn btn-sm btn-outline-info" (click)="exportToExcel()"><em class="fa fa-excel"></em>  Export To Excel</button> -->
+        </div>
+    </div>
+</div>
+
+<div class="card card-body p0" style="padding: 0px;">
+    <div  #datatable class="wrap">
+        <table class="head">
+            <thead style="background-color:rgb(248, 245, 245)">
+                <th  title="S.No">S.No</th>
+                <th *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+                title="{{tb.name}}">
+               <div class="row"> 
+                   <div class="col sm-10">{{tb.name}}</div>
+                   <div class=" col sm-2">  <i [ngClass]="tb.icon"></i></div>
+               </div>
+                </th>
+              </thead>
+        </table>
+        <div class="inner_table" >
+            <table >
+                <tbody>
+                     <tr *ngFor="let item of searchResult|globalSearchPipe:search.gserch;let i = index ">
+                         <td>{{(serialNumber) +(i+1)}}.</td>
+                         <td><button type="button" *ngIf="openWindow.userValid&&item.productType!='Component'&&item.serialNumber!=null" class="btn btn-sm btn-outline-warning" (click)="onPartcodeEditClick(item)"><em class="fa fa-edit"></em> PCR Request</button> {{item.partCode}}</td>
+                         <td>{{item.productDescription}}</td>
+                         <td>{{item.productType}}</td>
+                         <td>{{item.quantityOnHand}}</td>
+                         <td>{{item.okQty}}</td>
+                         <td>{{item.faultyQty}}</td>
+                         <td>{{item.scrapQty}}</td>
+                         <td>{{item.rejectedQty}}</td>
+                         <td>{{item.customerInventoryQty}}</td>
+                         <td>{{item.berQty}}</td>
+                         <td>{{item.serialNumber}}</td>
+                         <td><em *ngIf="item.customerInventory" class="tik-mark"></em> <em *ngIf="!item.customerInventory"
+                                 class="cross-mark"></em></td>
+                         <td>
+                             <div *ngIf="item.productType!='Component'&&item.serialNumber!=null">
+                                 <select [(ngModel)]="item.serialNumberStateId">
+                                     <option value="1" disabled>Ok</option>
+                                     <option value="2">Faulty</option>
+                                     <option value="6">DOA</option>
+                                     <option value="3" disabled>Scrap</option>
+                                     <option value="4" disabled>Rejected</option>
+                                     <option value="5" disabled>BER</option>
+                                 </select>
+                                 <input type="text" placeholder="Remarks" [(ngModel)]="item.remarks" >
+                                 <button type="button" (click)="chagneStatus(item)">Change</button>
+                             </div>
+     
+                         </td>
+                     </tr>
+                 </tbody>
+             </table>
+        </div>
+      
+    </div>
+    <div class="row">
+        <div class="col-sm-4" style="text-align:left">
+            Showing Page {{pageReuslt.number+1}} &nbsp;of&nbsp;{{pageReuslt.totalPages}}&nbsp;Total Count={{pageReuslt.totalElements}}
+          </div>
+        <div class="col-sm-4">
+            <div *ngIf="!(pageReuslt.first && pageReuslt.last)" class="text-center">
+                <a class="btn btn-sm btn-success" [routerLink]="['/myinventory']" *ngIf="!pageReuslt.first"
+                    [queryParams]="{page:queryparameter.page-1,size:queryparameter.size}" style="border-radius: 100%;"> <em
+                        class="fa fa-angle-left"></em>
+                </a>
+                <a class="btn btn-sm btn-success" [routerLink]="['/myinventory']"
+                    [queryParams]="{page:queryparameter.page,size:queryparameter.size}"
+                    style="border-radius: 100%;">{{pageReuslt.number+1}}
+                </a>
+                <a class="btn btn-sm btn-success" [routerLink]="['/myinventory']" *ngIf="!pageReuslt.last"
+                    [queryParams]="{page:queryparameter.page+1,size:queryparameter.size}" style="border-radius: 100%;"> <em
+                        class="fa fa-angle-right"></em>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4" style="text-align: right;">
+            <div class="row">
+             <div class="col-md-6"></div>
+              <div  *ngIf="!(pageReuslt.first && pageReuslt.last) "  class="col-md-6">
+                <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+                 <button (click)=jumpPage(pagenumber)>Go</button>
+               </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #newpartcodechangeWindow="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" (onShow)="openWindow.newpartcodechange=true" role="dialog">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label>Partcode change</label>
+            <button (click)="newpartcodechangeWindow.hide()" class="cls-btn"> <em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-myinventorychange *ngIf="openWindow.newpartcodechange" [reqData]="openWindow.data" (onClose)="newpartcodechangeWindow.hide()" (onSave)="onPartcodechangeSave()"></app-myinventorychange>
+        </div>
+    </div>
+</div>

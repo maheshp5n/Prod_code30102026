@@ -1,0 +1,172 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div classs="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:32px;">
+                            <img alt="Zone" src="assets/images/Zone_120.png"
+                                style="height: 32px;width:32px;background-color: rgb(198, 90, 207);" title="SSA">
+                        </td>
+                        <td style="padding-left:5px;">Customer Inventory</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px;">
+                            <div class="btn-group" dropdown>
+                                <span dropdownToggle type="button" style="background-color: white;">
+                                    <span style="font: size 15px;padding-right: 5px;">
+                                        &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                            class="fa fa-sort-down"></i>&nbsp;
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" *dropdownMenu role="menu"
+                                    aria-labelledby="button-disabled-item" style="width: 115%;">
+                                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                                        VIEWS</li>
+                                    <li role="menuitem" *ngFor="let m of dropdownsList">
+                                        <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+                autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+            </div>
+            <div class="col-sm-4 col-md-4 text-right">
+                <label class="btn btn-sm btn-outline-info"><em class="fa fa-upload"></em>
+                    <input type="file" style="display: none;" #inputfile (change)="customerInventoryINUpload($event)">
+                    Customer Inventory IN
+                </label>
+                <label class="btn btn-sm btn-outline-info"><em class="fa fa-upload"></em>
+                    <input type="file" style="display: none;" #outputFile (change)="customerInventoryOUt($event)">
+                    Customer Inventory OUT
+                </label>
+                <br>
+                <button type="button" class="btn btn-sm btn-outline-info" (click)="templateDownload('in')"><em
+                        class="fa fa-download"></em> In
+                    Template</button>
+                <button type="button" class="btn btn-sm btn-outline-info" (click)="templateDownload('out')"><em
+                        class="fa fa-download"></em> Out
+                    Template</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="contactSearch.partCode" placeholder="Part Code">
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="contactSearch.serialNumber" placeholder="Serial Number">
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="contactSearch.customerName" placeholder="Customer Name">
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="contactSearch.circle_name" placeholder="Circle Name">
+              </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="contactSearch.remarks" placeholder="Remarks">
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" [(ngModel)]="contactSearch.lotNo" placeholder="Lot No">
+              </div>
+              <div class="col-md-3">
+                <button  type="button" class="btn btn-outline-info btn-md" (click)="advanceSearch()" ><em class="fa fa-search"></em> Search</button>
+                <button  type="button" class="btn btn-outline-info btn-md" (click)="advanceSearch()" >Reset</button>
+              </div>
+
+        </div>
+    </div>
+    <div class="card-body" style="padding: 0px; background-color: white;">
+        <div class="wrap" >
+            <table class="head">
+                <thead  style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                        <th *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+                            title="{{tb.name}}">
+                            <div class="row">
+                                <div class="col sm-10">  {{tb.name}}</div>
+                                <div class="col sm-2"> <i [ngClass]="tb.icon"></i></div>
+                            </div>
+                            </th>
+                    </tr>
+                </thead>
+            </table>
+       <div class="inner_table"  *ngIf="pagedata.content.length>0">
+        <table >
+              
+            <tbody>
+                <tr *ngFor="let item of pagedata.content ; let i=index;">
+                    <td>{{serialNumber+i+1}}.</td>
+                    <td><a [routerLink]="['/accounts',item.customerSapNumber]" [routerLinkActive]="['active']">
+                            {{item.customerName}}</a></td>
+                    <td>{{item.productSerialNumebr}} </td>
+                    <td><a [routerLink]="['/products',item.productPartcode]" [routerLinkActive]="['active']">
+                            {{item.productPartcode}}</a> </td>
+                    <td>{{item.productDescription}}</td>
+                    <td>{{item.productType}}</td>
+                    <td><a [routerLink]="['/circle',item.circle]" [routerLinkActive]="'active'"> {{item.circle}}</a>
+                    </td>
+                    <td>{{item.inChallanDate|date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.inChallNumber}}</td>
+                    <td>{{item.inDocketNumber}}</td>
+                    <td>{{item.inStateName}}</td>
+                    <td>{{item.receiveDate|date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.remarks}}</td>
+                    <td>{{item.lotNo}}</td>
+                    <td><em *ngIf="item.returnd" class="tik-mark"></em> </td>
+                    <td>{{item.returnDate|date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.warrantyStatus}}</td>
+                    <td>{{item.dispatchChallanNumber}}</td>
+                    <td>{{item.dispatchDate|date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.dispatchDocketNumber}}</td>
+                    <td></td>
+
+                </tr>
+            </tbody>
+        </table>
+       </div>
+       <div *ngIf="pagedata.content.length==0">
+        <div class="row">
+           <div class="col-md-4"> </div>
+           <div class="col-md-4"> <p>Data Not Found</p></div>
+           <div class="col-md-4"></div>
+        </div>
+       </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align:left">
+                Showing Page {{pagedata.number+1}} &nbsp;of&nbsp;{{pagedata.totalPages}}&nbsp;Total Count={{pagedata.totalElements}}
+              </div>
+              <div class="col-sm-4">
+                <div class="text-center" *ngIf="!(pagedata.first && pagedata.last)">
+                    <button type="button" class="btn btn-success" style="border-radius: 100%;"
+                        (click)="goToPrevious(pagedata.number)" *ngIf="!pagedata.first">&lt;</button>
+                    <button type="button" class="btn btn-success" style="border-radius: 100%;">{{pagedata.number+1}}</button>
+                    <button type="button" class="btn btn-success" style="border-radius: 100%;"
+                        (click)="goToNext(pagedata.number)" *ngIf="!pagedata.last">&gt;</button>
+                </div>
+              </div>
+              <div class="col-sm-4" *ngIf="pagedata.content.length>0" style="text-align: right;">
+                <div class="row">
+                 <div class="col-md-6"></div>
+                  <div   class="col-md-6">
+                    <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+                     <button (click)=jumpPage(pagenumber)>Go</button>
+                   </div>
+                </div>
+             </div>
+        </div>
+      
+    </div>
+</div>

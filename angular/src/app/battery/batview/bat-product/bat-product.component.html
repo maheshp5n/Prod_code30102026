@@ -1,0 +1,226 @@
+<!-- Developed by Ankur Saxena -->
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:32px;">
+              <img alt="Products" src="assets/images/product_120.png"
+                style="height: 32px;width:32px;background-color: rgb(49,121,146);" title="Products">
+            </td>
+            <td style="padding-left:5px;">Products</td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <div class="btn-group" dropdown>
+                <span dropdownToggle type="button" style="background-color: white;">
+                  <span style="font: size 15px;padding-right: 5px;">
+                    &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                  </span>
+                </span>
+                <ul class="dropdown-menu" *dropdownMenu role="menu" aria-labelledby="button-disabled-item"
+                  style="width: 115%;">
+                  <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                    View</li>
+                  <li role="menuitem" *ngFor="let m of dropdownsList">
+                    <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                  </li>
+                </ul>
+              </div>&nbsp;
+              <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+              </button>
+              <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+              </button>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-4 col-md-4">
+        <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+      </div>
+      <div class="col-sm-4 col-md-4 text-right">
+        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+          <button *ngIf="rights('BtProducts','create')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="showCreateProductView()"><i class="fa fa-plus"></i>&nbsp;New</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="advancesearch.partCode" placeholder="Part Code">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="advancesearch.productFamily" placeholder="Product Family">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="advancesearch.productSubFamily"
+          placeholder="Product Sub Family">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="advancesearch.productType" placeholder="Type">
+      </div>
+
+
+    </div><br>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="advancesearch.productDescription"
+          placeholder="Description">
+      </div>
+
+      <div class="col-md-3">
+        <button type="button" class="btn btn-outline-info btn-md" (click)="searchProduct()"><em
+            class="fa fa-search"></em>
+          Search</button>
+        <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()">
+          Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" style="padding: 0px;">
+    <div class="wrap">
+      <table class="head">
+        <thead style="background-color:rgb(248, 245, 245)">
+          <th title="S.No">S.No</th>
+          <th *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)" title="{{tb.name}}">
+            <div class="row">
+              <div class="col sm-10"> {{tb.name}}</div>
+              <div class="col sm-2"> <i [ngClass]="tb.icon"></i></div>
+            </div>
+          </th>
+          <th>Action</th>
+        </thead>
+      </table>
+      <div class="inner_table">
+        <table>
+
+          <tbody>
+            <tr *ngFor="let c of productList.content; let i=index">
+              <td>{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+              <td data-line="Part Code"><a [routerLink]="['/bat_product', c.id]"
+                  [routerLinkActive]="'active'">{{c.partCode}}</a>
+              </td>
+
+              <td data-line="Product Family">{{c.productFamilyName}} </td>
+
+              <td data-line="Product Sub Family">
+
+                {{c.subProductFamilyName}}
+
+              </td>
+
+              <td data-line="Type">{{c.productType}}
+              </td>
+
+              <td data-line="Price">
+                <i class="fa fa-inr"></i>
+                {{c.productPrice}}
+
+              </td>
+
+              <td data-line="Product Description">{{c.productDescription}}
+              </td>
+              <td data-line="Created Date">
+                {{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+              </td>
+
+              <td data-line="Action">
+                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                  <!-- <button type="button" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-disabled-item"> -->
+                  <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+
+                  <ul class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="button-disabled-item">
+                    <li role="menuitem">
+                      <a *ngIf="rights('BtProducts','edit')" class="dropdown-item" (click)="onClickEdit(c.id)">Edit
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            <div style="height: 65px;">
+
+            </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4" style="text-align:left">
+        Showing Page {{productList.number+1}} &nbsp;of&nbsp;{{productList.totalPages}}&nbsp;Total
+        Count={{productList.totalElements}}
+      </div>
+      <div class="col-sm-4">
+        <div style="text-align: center" *ngIf="!(productList.first && productList.last) ">
+          <a [routerLink]="['/bat_product']" [routerLinkActive]="['active']" class="previous round btn-sm"
+            *ngIf="!productList.first"
+            [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:productList.number-1,size:dropdownSelected.size}">
+            &lt;
+          </a>
+          <a [routerLink]="['/bat_product']" [routerLinkActive]="['active']" class="previous round btn-sm"
+            [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:productList.number,size:dropdownSelected.size}">
+            {{productList.number+1}}
+          </a>
+          <a [routerLink]="['/bat_product']" [routerLinkActive]="['active']" class="previous round btn-sm"
+            *ngIf="!productList.last"
+            [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:productList.number+1,size:dropdownSelected.size}">
+            &gt;
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-4" style="text-align: right;">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div *ngIf="!(productList.first && productList.last) " class="col-md-6">
+            <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="size" autocomplete="off" (keypress)="onlyNumbers($event)" >
+            <button (click)=jumpPage(pagenumber)>Go</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- New -->
+<div class="modal fade" bsModal #createProductModel="bs-modal" (onShow)="isProductOpen=true"
+  (onHide)="isProductOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createProductModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-bt-creteproduct *ngIf="isProductOpen" [isEditMode]="isEditMode" [editProductData]="newProduct"
+          (onProductCreated)="onProductCreated($event)" (onCancle)="cancelData()"></app-bt-creteproduct>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

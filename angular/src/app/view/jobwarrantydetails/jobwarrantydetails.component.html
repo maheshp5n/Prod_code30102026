@@ -1,0 +1,249 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="panel" style="margin-left: 15px;margin-top: 15px;margin-right: 15px">
+    <div class="panel-heading" style="background-color: rgb(240, 240, 240)">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <table>
+                    <tr>
+                        <td><img src="assets/images/custom43_120.png"
+                                style="height: 32px;width:32px;background-color: lightblue;" alt="Job Warranty"
+                                title="Job Warranty"></td>
+                        <td style="padding: 3px;">
+                            <small>Job Warranty </small>
+                            <h4 style="margin: 0px;">{{asset.serialNumber}}</h4>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6 col-sm-6 text-right" style="color: rgb(89, 89, 245);">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-default" (click)="createEditModelshow(asset)">
+                        Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="panel" style="margin-left: 15px;margin-right: 15px">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <!-- <div class="panel panel-default"> -->
+            <div class="panel-body">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 14px;">
+                <div *ngIf="vDetails" class="panel-body">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: lightgray;font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> Information
+                    </button>
+                    <!--  <div *ngIf="addressDisplay.open" class="row"> -->
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Job Warranty Name</small>
+                                            <div>{{asset.serialNumber}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Asset</small>
+                                            <div><a href="#" routerLink="/accounts/{{asset.accountSapNumber}}">
+                                                    {{asset.accountName}}</a>
+                                            </div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Part code</small>
+                                            <div>{{asset.productFamailyName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Product Discription</small>
+                                            <div>{{asset.productFamailyName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Serial No</small>
+                                            <div>{{asset.productFamailyName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Job warranty start date</small>
+                                            <div>{{asset.productFamailyName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Job Warranty Days Mannual</small>
+                                            <div>{{assetResponse.productPartCode}} </div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Case</small>
+                                            <div>{{asset.productDescription}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Job Warranty Expiry Date </small>
+                                            <div>{{asset.productSubProductName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Faulty serial no</small>
+                                            <div>{{asset.productSubProductName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Job Warranty Days</small>
+                                            <div>{{asset.productSubProductName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Job Warranty Status</small>
+                                            <div>{{asset.productSubProductName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color: lightgray;font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Created By</small>
+                                            <div>{{asset.createdByFirstName}} {{asset.createdByLastName }}
+                                                {{asset.createdDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Last Modified By</small>
+                                            <div>{{asset.modifyedByFirstName}} {{asset.modifyedByLastName}}
+                                                {{asset.modifyedDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!vDetails" class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;"><img src="assets/images/custom47_120.png"
+                                            style="width: 24px;height: 24px;background-color: green"> </td>
+                                    <td><a href="#" routerLink="/assets" style="font-weight: bold;color: black;">
+                                            Manage Inventory (0) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;"><img src="assets/images/custom47_120.png"
+                                            style="width: 24px;height: 24px;background-color: green"> </td>
+                                    <td><a href="#" routerLink="/assets" style="font-weight: bold;color: black;">
+                                            Available Stock (0) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;"><img src="assets/images/custom60_120.png"
+                                            style="width: 24px;height: 24px;background-color: brown"> </td>
+                                    <td><a href="#" routerLink="/assets" style="font-weight: bold;color: black;">
+                                            Sub Product Inventory History (0) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createAcountModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <app-create-jobwarranty [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+                    (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()">
+                </app-create-jobwarranty>
+            </div>
+        </div>
+    </div>
+</div>

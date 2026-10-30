@@ -1,0 +1,431 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <span class="text-center">Case Information</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          
+          <div class="row">
+            <div class="col-md-12 form-group required">
+              <div class="control-label">
+                Case Number
+              </div>
+              
+            </div>
+            
+          </div>
+
+          <div class="row">
+              <div class="col-md-12 form-group required">
+                <div class="control-label">
+                    Type
+                </div>
+                <select  class="form-control">
+                  <option value="">--None--</option>
+                  <option value="Mr.">Exceptional</option>
+                  <option value="Ms.">Installation</option>
+                  <option value="Mrs.">Under AMC</option>
+                  <option value="Dr.">Dr.</option>
+                  <option value="Prof.">Prof.</option>
+                </select>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group has-feedback ">
+              <div class="control-label">
+                Contact Name 
+              </div>
+              <input  type="text" class="form-control"
+                style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search Contacts...">
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group required">
+              <div class="control-label">
+                  Call Center Rep Name
+              </div>
+              <input  type="text" class="form-control"              
+              style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search Contacts...">
+            </div>
+          </div>
+      </div>
+
+        <div class="col-md-6 col-sm-6">
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="control-label">
+                Case Owner
+              </div>
+                Vishnu Rebba
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group form-control">
+              <div class="control-label">
+                Case Reason
+              </div>
+              <select  class="form-control">
+                <!-- <option *ngFor="let o of _types" [ngValue]="o.type">{{o.type}}</option> -->
+                <option value="">--None--</option>
+                <option value="Mr.">/Exceptional</option>
+                <option value="Ms.">Man Power </option>
+                <option value="Mrs.">Paid Repair</option>  
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="control-label">
+                Date of Visit
+              </div>
+              <input  type="date" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-heading">
+      <span class="text-center">Additional Information </span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+            
+          <div class="row">
+                <div class="col-md-12 form-group required">
+                  <div class="control-label">
+                    Status
+                  </div>
+                  <select  class="form-control">
+                    <!-- <option *ngFor="let o of _types" [ngValue]="o.type">{{o.type}}</option> -->
+                    <option value="">--None--</option>
+                    <option value="Mr.">Rejected</option>
+                    <option value="Ms.">Closed </option>  
+                  </select>
+                  <a class="slds-button dep-trigger" type="button"  (click)="createNewCaseModel.show()" 
+                    data-aura-rendered-by="3695:0" 
+                      data-toggle="modal" data-target="#editDependencies">
+              View All Dependencies
+                  </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 form-group required">
+                  <div class="control-label">
+                    Case Origin
+                  </div>
+                  <select  class="form-control">
+                    <!-- <option *ngFor="let o of _types" [ngValue]="o.type">{{o.type}}</option> -->
+                    <option value="">--None--</option>
+                    <option value="Mr.">Phone</option>
+                    <option value="Ms.">Email </option>  
+                  </select>                  
+                </div>
+            </div>
+    
+    
+          <div class="row">
+            <div class="col-md-12 form-group required">
+              <div class="control-label">
+                  Pending Responsibility
+              </div>
+              <input  type="text" class="form-control">
+            </div>
+          </div>          
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-md-12 form-group required">
+                  <div class="control-label">
+                    Stage
+                  </div>
+                  <select  class="form-control">
+                    <!-- <option *ngFor="let o of _types" [ngValue]="o.type">{{o.type}}</option> -->
+                    <option value="">--None--</option>
+                    <option value="Mr.">Open</option>  
+                  </select>
+                  <a class="slds-button dep-trigger" type="button"  (click)="createNewCaseModel.show()" 
+                    data-aura-rendered-by="3695:0" 
+                      data-toggle="modal" data-target="#editDependencies">
+                    View All Dependencies
+                  </a>                  
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 form-group required">
+                  <div class="control-label">
+                    Priority
+                  </div>
+                  <select  class="form-control">
+                    <!-- <option *ngFor="let o of _types" [ngValue]="o.type">{{o.type}}</option> -->
+                    <option value="">--None--</option>
+                    <option value="Mr.">High</option>
+                    <option value="Ms.">Medium </option>  
+                  </select>                  
+                </div>
+            </div>   
+
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-heading">
+      <span class="text-center">Site Detail </span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-md-12 form-group required ">
+                  <div class="control-label">
+                    Account Name 
+                  </div>
+                  <input  type="text" class="form-control"
+                    style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search Accounts...">
+                  </div>
+            </div>  
+            <div class="row">
+                <div class="col-md-12 form-group has-feedback ">
+                  <div class="control-label">
+                    Site ID 
+                  </div>
+                  <input  type="text" class="form-control"
+                    style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search Sites...">
+                  </div>
+            </div> 
+            <div class="row">
+                <div class="col-md-12 form-group has-feedback ">
+                  <div class="control-label">
+                    Asset 
+                  </div>
+                  <input  type="text" class="form-control"
+                    style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search Assets...">
+                  </div>
+            </div>       
+        </div>        
+      </div>
+    </div>
+
+    <div class="panel-heading">
+      <span class="text-center">Customer PO and Invoice Detail </span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="control-label">
+                 PO No
+              </div>
+              <input  type="text" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="control-label">
+                Invoice No
+              </div>
+              <input  type="date" class="form-control">
+            </div>
+          </div>          
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="control-label">
+                 PO Date
+              </div>
+              <input  type="date" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="control-label">
+                Invoice Date
+              </div>
+              <input  type="date" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-heading">
+        <span class="text-center">Vendor Invoice Detail </span>
+    </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <div class="control-label">
+                    Vendor Invoice No.
+                </div>
+                <input  type="text" class="form-control">
+              </div>
+            </div>                      
+          </div>
+  
+          <div class="col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <div class="control-label">
+                   Vendor Invoice Date
+                </div>
+                <input  type="date" class="form-control">
+              </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel-heading">
+          <span class="text-center">Problem Description</span>
+      </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="row">
+                    <div class="form-group">
+                       <div class="control-label" style="padding-left: 3%; font-weight: bold">
+                          Problem Reported
+                       </div> <br>               
+                        <div class="col-md-5 form-group">
+                          <div class="control-label" >
+                              Available
+                          </div>
+                          <div class="subject-info-box-1">                      
+                              <select multiple="multiple" id='lstBox1' class="form-control" rows="10">
+                                <option value="ajax">Ajax</option>
+                                <option value="jquery">jQuery</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="mootool">MooTools</option>
+                                <option value="prototype">Prototype</option>
+                                <option value="dojo">Dojo</option>
+                              </select>                      
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="margin-top: 5%">
+                          <div class="subject-info-arrows text-center" >
+                              <input type="button" id="btnRight" value=">" class="btn btn-default" /><br />
+                              <input type="button" id="btnLeft" value="<" class="btn btn-default" /><br />
+                          </div>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <div class="control-label" >
+                                Chosen
+                            </div>
+                            <div class="subject-info-box-2">
+                              <textarea  class="form-control" rows="10"></textarea>
+                                <!-- <select multiple="multiple" id='lstBox2' class="form-control">
+                                  <option value="asp">ASP.NET</option>
+                                  <option value="c#">C#</option>
+                                  <option value="vb">VB.NET</option>
+                                  <option value="java">Java</option>
+                                  <option value="php">PHP</option>
+                                  <option value="python">Python</option>
+                                </select> -->
+                              </div>
+                        </div>
+                    </div>
+                </div>    
+                                  
+            </div>
+    
+            <div class="col-md-6 col-sm-6">
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <div class="control-label">
+                     Vendor Invoice Date
+                  </div>
+                  <input  type="date" class="form-control">
+                </div>
+              </div>            
+            </div>
+          </div>
+        </div> 
+    
+  </div>
+  
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default">
+            Cancel</button>&nbsp;
+          <button type="button"  class="btn btn-default">
+            Save & New</button>&nbsp;
+          <button type="button"  class="btn btn-primary"> Save
+          </button>
+        </div>
+      </div>
+<div class="modal fade" bsModal #createNewCaseModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+role="dialog" aria-labelledby="create-account" >
+  <div class="modal-dialog modal-lg" style="width: 600px;padding-left: 2%;padding-right: 2%; margin-top: 10%">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h4 id="create-account" class="modal-title text-center">Edit Dependencies</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="createNewCaseModel.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" >
+
+ 
+  <div class=" panel panel-body" style=" color: grey;font-family: Verdana, Geneva, Tahoma, sans-serif">
+    <div class="row" style="padding-left: 2%;padding-right: 2%; margin-top: 2%">
+      <div class="col-md-6 col-sm-6">
+        <div class="row">
+          <div class="col-md-12 form-group ">
+            <div class="control-label">
+              Product
+            </div>
+            <select class="form-control">
+              <!-- <option *ngFor="let o of _types" [ngValue]="o.type">{{o.type}}</option> -->
+              <option value="">--None--</option>
+              <option value="Mr.">Power Systems</option>
+              </select>            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 form-group ">
+            <div class="control-label">
+              Product Sub Family
+            </div>
+            <select class="form-control">
+              <!-- <option *ngFor="let o of _types" [ngValue]="o.type">{{o.type}}</option> -->
+              <option value="">--None--</option>
+            </select>            
+          </div>
+        </div>        
+      </div>      
+    </div>
+    <div class="panel-footer">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button"  class="btn btn-default">
+            Cancel</button>&nbsp;
+          <button type="button" class="btn btn-primary">
+            Apply</button>&nbsp;
+          </div>
+      </div>
+    </div>
+  </div>       
+    
+    
+    </div>
+    </div>
+  </div>
+</div>
+
+
+      
+    
+      

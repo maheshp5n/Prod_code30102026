@@ -1,0 +1,292 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="Lodging" src="assets/images/contact_120.png"
+                  style="height: auto;width:100%;background-color: rgb(91, 235, 191);border-radius: 1mm;"
+                  title="Lodging" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Lodging</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{lodgingExpenseResponse.manualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('BtLodgingExpense','edit')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="onClickEditLodging(lodgingExpenseResponse.id)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-3">
+          <small>Expense Management</small>
+          <div>
+            <a [routerLink]="['/bat_expense', lodgingExpenseResponse.btExpenseManagementId]"
+              [routerLinkActive]="'active'">
+              {{lodgingExpenseResponse.btExpenseManagementManualId}}
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <small>Business Domain</small>
+          <div>
+            {{lodgingExpenseResponse.businessDomainName}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card" style="margin-top: 10px;">
+  
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 15px;">
+  
+          <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Lodging Information
+            </button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Expense Management</small>
+                      </td>
+                      <td><a href="#" routerLink="/bat_expense/{{lodgingExpenseResponse.btExpenseManagementId}}">
+                          {{lodgingExpenseResponse.btExpenseManagementManualId}}
+                        </a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>From Date/Time</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.fromTime}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>To Date/Time</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.toTime}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>City Name</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.cityName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>City Category Name</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.cityCategory}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Other City</small>
+                      </td>
+                      <td>
+                        {{lodgingExpenseResponse.otherCity}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Remarks</small>
+                      </td>
+                      <td>
+                        {{lodgingExpenseResponse.remark}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Business Domain</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.businessDomainName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Company Paid</small>
+                      </td>
+                      <td> <input *ngIf="lodgingExpenseResponse.isComapnyPaid==true" type="checkbox" checked disabled>
+                        <input *ngIf="lodgingExpenseResponse.isComapnyPaid==false" type="checkbox" disabled></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Hotel Name</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.hotelName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Approved Amount</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.approvedAmount | currency:'INR'}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Self Arrangement</small>
+                      </td>
+                      <td> <input *ngIf="lodgingExpenseResponse.isSelfArrangement==true" type="checkbox" checked disabled>
+                        <input *ngIf="lodgingExpenseResponse.isSelfArrangement==false" type="checkbox" disabled></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Bill No</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.billNo}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Amount</small>
+                      </td>
+                      <td>{{lodgingExpenseResponse.amount | currency:'INR'}}</td>
+                    </tr>
+  
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+            <button type="button" (click)="sysInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+            <div *ngIf="sysinfoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/bat_user', lodgingExpenseResponse.createdByEmailId]"
+                        [routerLinkActive]="'active'">
+                        {{lodgingExpenseResponse.createdByName}}&nbsp;
+                       </a>,&nbsp;
+                      {{lodgingExpenseResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class=" col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/bat_user', lodgingExpenseResponse.modifiedByEmailId]"
+                        [routerLinkActive]="'active'">
+                        {{lodgingExpenseResponse.modifiedByName}}&nbsp;
+                        </a>,&nbsp;
+                      {{lodgingExpenseResponse.modifiedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!vDetails">
+            <div>
+              <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="modal fade" bsModal #createLodgingModel="bs-modal" (onShow)="isLodgingOpen=true"
+    (onHide)="isLodgingOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">Edit Lodging</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createLodgingModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-create-lodging *ngIf="isLodgingOpen" [isEditModeLodging]="isEditModeLodging"
+            [editLodgingData]="lodgingExpenseRequest" (onLodgingCreated)="onLodgingCreated($event)"
+            (onCancleLodging)="cancelLodging()">
+          </app-bt-create-lodging>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!--   
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+  
+    <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+    <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+      class="alert alert-danger center center-block" style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+  </div> -->

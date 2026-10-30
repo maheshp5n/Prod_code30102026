@@ -1,0 +1,125 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="padding:0px;">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <label class="reque">Source Warehouse</label>
+                <ng-select *ngIf="locationForList" [items]="locationForList" bindLabel="locationName"
+                    bindValue="locationId" placeholder="Search Location" [(ngModel)]="_lprequest.sourceLocationId">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/location_120.png'
+                            style="background-color: #4BC076;" />&nbsp; {{item.locationName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-6">
+                <label>Destination Warehouse</label>
+                <span class="form-control">
+                    {{_location.locationName}}
+                </span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <label>Expected Date</label>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control"
+                    [(ngModel)]="_lprequest.needByDateTime" [minDate]="today" autocomplete="off">
+                    <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-6">
+                <label>Description</label>
+                <textarea type="text" class="form-control" [(ngModel)]="_lprequest.descirption"></textarea>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-12">
+                <label>Need By Date</label>
+            </div>
+        </div>-->
+
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="reque">Part Code</label>
+                <ng-select *ngIf="productItemList" [items]="productItemList" bindLabel="bothvalues" bindValue="productPartCode" (search)="searchProducts($event)"
+                    [(ngModel)]="_lpitems.productPartCode" (change)="getAvilableStock($event)"
+                    placeholder="Search Products Item">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}} <small>({{item.productDescription}})</small>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}<small>({{item.productDescription}})</small>
+                    </ng-template>
+                </ng-select>
+
+                <small *ngIf="partcodeDescription!=null">Description: {{partcodeDescription}}</small>
+            </div>
+            <div class="col-md-2">
+                <label class="reque">Quantity</label>
+                <input type="text" class="form-control" [(ngModel)]="_lpitems.requestQuantity">
+            </div>
+            <div class="col-md-2">
+                <label>Av. Source </label>
+                <input type="text" class="form-control" [(ngModel)]="avilableStockAtSource.ok_quantity" disabled>
+            </div>
+            <div class="col-md-2">
+                <label>Av. Destination</label>
+                <input type="text" class="form-control" [(ngModel)]="avilabStockAtU.ok_quantity" disabled>
+            </div>
+            <div class="col-md-2 text-right">
+                <button type="button" style="margin-top: 28px;" (click)="addItemToList()" class="btn btn-info"><i
+                        class="fa fa-plus"></i>
+                    Add</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Part code</th>
+                            <th>Quantity</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of _lprequest.lileItems;let i=index;">
+                            <td style="text-align: center;">{{i+1}}</td>
+                            <td>{{item.productPartCode}}</td>
+                            <td>{{item.requestQuantity}}</td>
+                            <td style="text-align: center;"><button type="button" class="btn btn-sm btn-danger"
+                                    (click)="removeItem(i)"><i class="fa fa-remove"></i> </button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="button" class="btn btn-default" (click)="cancled()"><i class="fa fa-remove"></i>&nbsp;Cancel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="saveProductRequest()"><i
+                class="fa fa-save"></i>&nbsp;Save </button>
+    </div>
+</div>
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div [ngClass]="alertMessage.alertClass" style="width:40%; text-align: center">
+        <strong>{{alertMessage.alertMessage}}!</strong>
+        <button class="close pull-right" (click)="popupSuccessModel.hide()"> <span>&times;</span> </button>
+    </div>
+</div>

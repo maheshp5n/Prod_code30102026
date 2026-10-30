@@ -1,0 +1,139 @@
+<button type="button" (click)="displaybutton.info=!displaybutton.info"
+    style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displaybutton.info?'fa fa-angle-down':'fa fa-angle-right'"></i> &nbsp;General Information
+
+</button>
+<div class="row" *ngIf="serviceOrderDetails&&displaybutton.info">
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <td style="width: 50%;">
+                        <small>From Warehouse</small>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/bat_warehouse',serviceOrderDetails.serviceOrderSourceLocationId]"
+                            [routerLinkActive]="'active'">{{serviceOrderDetails.serviceOrderSourceLocationName}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <small>
+                            Total Items
+                        </small>
+
+                    </td>
+                    <td>
+                        {{serviceOrderDetails.searviceOrderTotalNumberOfItem}}
+                    </td>
+                </tr>              
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <td style="width: 50%;">
+                        <small>Repair Center</small>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/bat_warehouse',serviceOrderDetails.serviceOrderRepairCenterLocationId]"
+                            [routerLinkActive]="'active'">{{serviceOrderDetails.serviceOrderRepairCenterLocationName}}</a>
+                    </td>
+                </tr>             
+            </tbody>
+        </table>
+    </div>
+</div>
+<button type="button" (click)="displaybutton.shippingInfo=!displaybutton.shippingInfo"
+    style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+    [ngClass]="displaybutton.shippingInfo?'fa fa-angle-down':'fa fa-angle-right'"></i> &nbsp;Shipping Information
+</button>
+<div class="row" *ngIf="serviceOrderDetails&&displaybutton.shippingInfo">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>Shipping Name</small>
+                </td>
+                <td>
+                    {{serviceOrderDetails.serviceOrderShippingTo}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Tracking Number
+                    </small>
+                </td>
+                <td>
+                    {{serviceOrderDetails.searviceOrderTrackingNumber}}
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Total Received
+                    </small>
+                </td>
+                <td>
+                    {{serviceOrderDetails.searviceOrderTotalNumberOfItemReceived}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Shipping Mode</small>
+                </td>
+                <td>
+                    {{serviceOrderDetails.searviceOrderShippingMode}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+
+<button type="button" (click)="displaybutton.sys=!displaybutton.sys"
+    style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displaybutton.sys?'fa fa-angle-down':'fa fa-angle-right'"></i> &nbsp;System Information
+
+</button>
+<div class="row" *ngIf="serviceOrderDetails&&displaybutton.sys">
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                <td class="wrappable">
+                    <a href="#" routerLink="/bat_user/{{serviceOrderDetails.searviceOrderCreatedByEmailId}}">
+                    {{serviceOrderDetails.createdByFirstName}}&nbsp;
+                    {{serviceOrderDetails.createdByMiddleName}}&nbsp;
+                    {{serviceOrderDetails.createdByLastName}}&nbsp;,&nbsp;</a>
+                    {{serviceOrderDetails.searviceOrderCreatedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                <td class="wrappable">
+                    <a href="#" routerLink="/bat_user/{{serviceOrderDetails.lastModifiedByEmailD}}">
+                    {{serviceOrderDetails.lastModifiedByFirstName}}&nbsp;
+                    {{serviceOrderDetails.lastModifiedByMiddleName}}&nbsp;
+                    {{serviceOrderDetails.lastModifiedByLastName}}&nbsp;,&nbsp;</a>
+                    {{serviceOrderDetails.serviceOrderLastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

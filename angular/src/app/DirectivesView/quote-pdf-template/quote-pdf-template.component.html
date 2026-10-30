@@ -1,0 +1,304 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Header </span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div>
+                    <div class="control-label">
+                        Logo
+                    </div>
+                    <div id="actions" class="logoSize">
+                        <img src="{{quotePdfHeaderAndFooterResponse.logo}}" alt="" id="center">
+                        <!-- <pdf-viewer [src]="quotePdfHeaderAndFooterResponse.logo" [render-text]="true"
+                            style="height: auto;width: 100%;" id="center">
+                        </pdf-viewer> -->
+                    </div>
+                    <div class="row" style="padding-top: 2px;">
+                        <div class="col-md-4 col-sm-8 form-group">
+                            <input multiple type="file" (change)="onFileSelect($event)" name="profile" id="getFile"
+                                accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                        </div>
+                        <div class="col-md-4 col-sm-4 form-group text-right">
+                            <button class="btn btn-md btn-primary" onclick="document.getElementById('getFile').click()"
+                                (click)="onSubmit()" type='submit' style="display:none"><i
+                                    class=" fa fa-upload"></i>&nbsp;&nbsp; Upload</button>
+                            <button class="btn btn-sm btn-primary" (click)="onSubmit()"><i class="fa fa-upload"></i>
+                                Upload</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="control-label">
+                        Signature
+                    </div>
+                    <div id="actions" class="logoSize">
+                        <img src="{{quotePdfHeaderAndFooterResponse.signature}}" alt="" id="center">
+                        <!-- <pdf-viewer [src]="quotePdfHeaderAndFooterResponse.signature" [render-text]="true"
+                            style="height: auto;width: 100%;" id="center">
+                        </pdf-viewer> -->
+                    </div>
+                    <div class="row" style="padding-top: 2px;">
+                        <div class="col-md-4 col-sm-4 form-group">
+                            <input multiple type="file" (change)="onFileSelectSignature($event)" name="profile"
+                                id="getFile1" accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                        </div>
+                        <div class="col-md-4 col-sm-4 form-group text-right">
+                            <button class="btn btn-md btn-primary" onclick="document.getElementById('getFile1').click()"
+                                (click)="onSubmit()" type='submit' style="display:none"><i
+                                    class=" fa fa-upload"></i>&nbsp;&nbsp; Upload</button>
+                            <button class="btn btn-sm btn-primary " (click)="onSubmitSignature()"><i
+                                    class="fa fa-upload"></i> Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Template
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.templateName" type="text"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Company
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.companyName" type="text"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Address Line1
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.addressLine1" type="text"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group">
+                        <div class="control-label">
+                            Address Line2
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.addressLine2" type="text"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 form-group required">
+                        <div class="control-label">
+                            City
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.city" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-4 col-sm-4 form-group required">
+                        <div class="control-label">
+                            Postal code
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.pincode" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-4 col-sm-4 form-group required">
+                        <div class="control-label">
+                            State
+                        </div>
+                        <select [(ngModel)]="quotePdfHeaderAndFooterResponse.stateName" class="form-control">
+                            <option value="0" disabled>--Select--</option>
+                            <option *ngFor="let ob of stateList" [value]="ob.stateName">{{ob.stateName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            CIN
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.cin" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Document Number
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.documentNumber" type="text"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Telephone
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.telephone" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            GST Number
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.gstNumber" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Website
+                        </div>
+                        <input [(ngModel)]="quotePdfHeaderAndFooterResponse.website" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Footer </span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group required">
+                <div class="control-label">
+                    Footer Line-1
+                </div>
+                <textarea [(ngModel)]="quotePdfHeaderAndFooterResponse.footerline1" type="text" rows="2"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="control-label">
+                    Footer Line-2
+                </div>
+                <textarea [(ngModel)]="quotePdfHeaderAndFooterResponse.footerline2" type="text" rows="2"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="control-label">
+                    Footer Line-3
+                </div>
+                <textarea [(ngModel)]="quotePdfHeaderAndFooterResponse.footerline3" type="text" rows="2"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="control-label">
+                    Footer Line-4
+                </div>
+                <textarea [(ngModel)]="quotePdfHeaderAndFooterResponse.footerline4" type="text" rows="2"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+                <div class="control-label">
+                    Footer Line-5
+                </div>
+                <textarea [(ngModel)]="quotePdfHeaderAndFooterResponse.footerline5" type="text" rows="2"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Active
+                </div>
+                <input type="checkbox" [(ngModel)]="quotePdfHeaderAndFooterResponse.active" class="largerCheckbox">
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-6 form-group">
+                        <div class="control-label">
+                                Apply to States
+                       </div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-4 col-sm-4 form-group required">
+                        <div class="control-label">
+                            Buisness Domain Id
+                        </div>
+                        <select [(ngModel)]="quotePdfHeaderAndFooterResponse.businessDomainId" class="form-control">
+                            <option value="0" disabled>--Select--</option>
+                            <option *ngFor="let domain of buisnessDomain" [value]="domain.businessDomainId">{{domain.businessDomainName}}</option>
+                        </select>
+                    </div>
+            <div class="col-md-4 col-sm-4 form-group required">
+                <div class="control-label">
+                    Country
+                </div>
+                <select [(ngModel)]="quotePdfHeaderAndFooterResponse.conuntryId"
+                    (change)="billingState(quotePdfHeaderAndFooterResponse.conuntryId)" class="form-control">
+                    <option value='0' disabled>--Select--</option>
+                    <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">{{o.countryName}}</option>
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-4 form-group required">
+                <div class="control-label">
+                    State
+                </div>
+                <ng-select *ngIf="_billingState" [items]="_billingState"
+                    [(ngModel)]="quotePdfHeaderAndFooterResponse.stateList"  bindLabel="stateName" bindValue="stateId"
+                    placeholder="Search State..." [multiple]="true">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.stateName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(105, 241, 219);" /> {{item.stateName}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreate()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="popupSuccessModel">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'"> Quote Template ( <a href="#"
+                routerLink="/quetetemplatetc/{{this.tempId}}">{{this.tempManual}}</a>
+            )
+            Created successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>
+<div class="modal fade" bsModal #fileUploadPopUpModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="fileUploadPopUpModel">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="fileUploadPopUpClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Files have been uploaded successfully'">{{message}}</strong>
+        <strong *ngIf="message!='Files have been uploaded successfully'">{{message}}</strong>
+    </div>
+</div>

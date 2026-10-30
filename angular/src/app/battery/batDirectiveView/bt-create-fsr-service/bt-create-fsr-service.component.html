@@ -1,0 +1,989 @@
+<div class="panel panel-default scroller" #pannelHide style="max-height: 75vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">General Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label required">
+          Case Number
+        </div>
+        <input type="text" class="form-control" name="casenumber" [(ngModel)]="SAResponse.caseManualId" disabled>
+
+      </div>
+      <!-- <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Case
+        </div>
+
+        <ng-select *ngIf="caseList" [items]="caseList" bindLabel="caseManualId" bindValue="caseId"
+          placeholder="Search Cases..." name="caseId" [(ngModel)]="bt_caseGeneralINFO.caseId"
+          (change)="changecaseNumber(bt_caseGeneralINFO.caseId)">
+          <ng-template ng-label-tmp let-item="item">
+            <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+              style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+              style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+          </ng-template>
+        </ng-select>
+
+      </div> -->
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label required">
+          Customer Name
+        </div>
+        <input type="text" class="form-control" name="customerName"
+          [(ngModel)]="bt_caseGeneralINFO.contactPersonFirstName" disabled>
+
+      </div>
+      <!-- <div  class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Case
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-sm-10">
+              <ng-select *ngIf="caseList" [items]="caseList"  
+                bindLabel="caseManualId" bindValue="caseId" placeholder="Search Cases...">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                    style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                    style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                <div><i [ngClass]="faPlus" *ngIf="rights('CaseDetails','create')" class="border-left-0"
+                    (click)="addNewCase()"></i></div>
+              </span>
+            </div>
+          </div>
+        </div> -->
+      <!-- <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Case
+          </div>
+          <input type="text" value="{{serviceAppointmentResponse.caseIdManual}}" class="form-control" disabled>
+        </div> -->
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Circle / State
+        </div>
+        <div>
+          <input type="text" class="form-control" name="circle" [(ngModel)]="bt_caseGeneralINFO.circle" disabled>
+        </div>
+      </div>
+      <!-- <div  class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Case
+          </div>
+          <div class="row">
+            <div class="col-md-10 col-sm-10">
+              <ng-select *ngIf="caseList" [items]="caseList"  
+                bindLabel="caseManualId" bindValue="caseId" placeholder="Search Cases...">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                    style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                    style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <span class="input-group-append">
+                <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewCase()"></i></div>
+              </span>
+            </div>
+          </div>
+        </div> -->
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          CMP
+        </div>
+        <input type="text" class="form-control" name="cmp" [(ngModel)]="bt_caseGeneralINFO.cMP" disabled>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Site ID
+        </div>
+        <input type="text" class="form-control" name="siteId" [(ngModel)]="bt_caseGeneralINFO.siteManualId" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Site Name
+        </div>
+        <input type="text" class="form-control" name="siteName" [(ngModel)]="bt_caseGeneralINFO.siteName" disabled>
+      </div>
+      <!-- <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label">
+            Parent Record
+          </div>
+          <input type="text" class="form-control">
+        </div> -->
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Case Logged By
+        </div>
+        <input type="text" class="form-control" name="createdByFirstName"
+          [(ngModel)]="bt_caseGeneralINFO.createdByFirstName" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Contact Number
+        </div>
+        <input type="text" (keypress)="mobileValidation($event)" class="form-control" name="caseLoggedByContactNo"
+          [(ngModel)]="bt_caseGeneralINFO.contactPersonContactNo" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Contact Person at site
+        </div>
+        <input type="text" class="form-control" name="conatctPersonAtSite"
+          [(ngModel)]="btCreateFsr.contactPersonAtSite">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Site Engineer Contact Number
+        </div>
+        <input type="text" class="form-control" name="siteEngContactNo" [(ngModel)]="btCreateFsr.contactPersonAtSiteNo"
+          (keypress)="onlyNumbers($event)" minlength=10 maxlength=10 required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Date of Case Generated
+        </div>
+        <input type="text" class="form-control" name=" createdDate" [ngModel]="bt_caseGeneralINFO.createdDate" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label ">
+          Date of Site Visit
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="bt_caseGeneralINFO.dateOfSiteVisit" bsDatepicker
+          [bsValue]="(_visitDate)" [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD' }" [maxDate]="today"
+          [minDate]="_datetoday3" [dateCustomClasses]="dateCustomClasses" autocomplete="off" onkeydown="return false">
+        <!-- <input type="text" class="form-control" [(ngModel)]="btCreateFsr.dateOfiteVisit" bsDatepicker
+          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" [minDate]="dateOfCaseGen"
+          [dateCustomClasses]="dateCustomClasses" autocomplete="off" (bsValueChange)="onVisitDatechange($event)"> -->
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+    </div>
+
+
+
+    <div class="row" *ngIf="!_isCommisionFsr">
+      <div class="col-md-12 col-sm-12 form-group required ">
+        <div class="control-label">
+          Fault Reported By Customer
+        </div>
+        <div class="col-md-12 col-sm-12 form-control faultyList">
+          <ol style="padding-left:12px;font-size: small;">
+            <li *ngFor="let p of bt_caseGeneralINFO.faultObservedByCustomer">
+              {{p.problemName}}
+            </li>
+          </ol>
+        </div>
+        <!-- <textarea type="text" name="faultyReportByCustomer" disabled [(ngModel)]="bt_caseGeneralINFO.faultObservedByCustomer"
+          class="form-control" rows="2"></textarea> -->
+      </div>
+      <!-- <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Corrective Actions
+          </div>
+          <textarea   type="text" class="form-control"
+            rows="2"> </textarea>
+        </div> -->
+    </div>
+
+
+    <div class="panel-heading">
+      <strong>SITE OBSERVATION </strong>
+    </div>
+    <div class="panel-body">
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Site Type
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.btSiteType">
+            <option value='0' selected disabled> --Select--</option>
+            <option *ngFor="let o of btSiteType" [ngValue]="o.id">
+              {{o.siteTypeName}}</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Site Environmental Conditions
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.btSiteEnvironmentalConditions">
+            <option value='0' selected disabled> --Select--</option>
+            <option *ngFor=" let o of btSiteEnvCondition" [ngValue]="o.id">
+              {{o.sitevalue}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Earthing Status (V)
+          </div>
+          <input type="text" name="earthingStatus" [(ngModel)]="btCreateFsr.earthigStatus"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+          <!-- <select class="form-control">
+            <option value='' selected disabled> --Select--</option>
+            <option *ngFor="let o of _zoneDetailsForList">
+                {{o.zoneName}}</option> -->
+          <!-- </select> -->
+
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Cooling Method
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.btCoolingMethod">
+            <option value='0' selected disabled> --Select--</option>
+            <option *ngFor="let o of btCollingMethod" [ngValue]="o.id">
+              {{o.coolingValue}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Ambient Temperature (Deg C)
+          </div>
+          <input type="text" name="ambientTem" [(ngModel)]="btCreateFsr.ambientTemp"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Power Plant Make
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.btPowerPlantMake">
+            <option value='0' selected disabled> --Select--</option>
+            <option *ngFor="let o of btPowerPlantMake" [ngValue]="o.id">
+              {{o.powerValue}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Total Equipment DC Load (Amp.)
+          </div>
+          <input type="text" name="totalEqDcLoad" [(ngModel)]="btCreateFsr.totalEquipmentDcLoad"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Active Rectifiers
+          </div>
+          <input type="text" name="activeRectifiers" [(ngModel)]="btCreateFsr.activeRectifiers"
+            (keypress)="numberOnly($event)" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            SMPS To CBMS Vol Gap
+          </div>
+          <input type="text" name="smpsVolGap" [(ngModel)]="btCreateFsr.smpsToCbmsVolGap"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            CBMS To Bat Vol Gap
+          </div>
+          <input type="text" [(ngModel)]="btCreateFsr.cbmsToBatVolGap" name="cbmsVolGap"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            DC Voltage (V)
+          </div>
+          <input type="text" name="dcLoadCurrent" [(ngModel)]="btCreateFsr.dcLoadCurrent"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Max Module Temp (Deg C)
+          </div>
+          <input type="text" [(ngModel)]="btCreateFsr.maxModuleTemp" name="maxModuleTemp"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+      </div>
+
+      <div class="row" *ngIf="_isCommisionFsr">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Commission Scope
+          </div>
+          <select class="form-control" [(ngModel)]="fsrcommisionReq.commissionScope">
+            <option value='' selected disabled> --Select--</option>
+            <option value="O&M"> O&M</option>
+            <option value="Project"> Project </option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label required">
+            Installation Status
+          </div>
+          <select class="form-control" [(ngModel)]="fsrcommisionReq.installtionStatus">
+            <option value='' selected disabled> --Select--</option>
+            <option value="Completed"> Completed</option>
+            <option value="Incompleted"> Incompleted </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="_isCommisionFsr">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Charge Voltage
+          </div>
+          <input type="text" name="smpsVolGap" [(ngModel)]="btCreateFsr.chargeVoltage"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Float Voltage
+          </div>
+          <input type="text" [(ngModel)]="btCreateFsr.floatVoltage" name="cbmsVolGap"
+            (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="panel-heading">
+      <strong>ASSET MASTER UPDATE </strong>
+    </div>
+    <div class="panel-body">
+
+      <!-- table SA List -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body" style="overflow: auto;">
+            <div class="table-responsive mobile">
+              <div class="tableHeight" style="margin-bottom: 70px;">
+                <table class="table  table-sm table-condensed tablerview">
+                  <thead>
+                    <tr>
+                      <th>S.No.</th>
+                      <th>Equipment
+                        Type
+                      </th>
+                      <th class="table-header" title="Case Number"> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Equipment Sr.
+                        No. &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</th>
+                      <th class="table-header" title="Customer Name"> &nbsp;&nbsp;Model Number &nbsp;&nbsp;</th>
+                      <th class="table-header" style="min-width: 200px;"> &nbsp;&nbsp;Part Code &nbsp;&nbsp;</th>
+                      <th class="table-header" title="Customer Name">Software Version</th>
+                      <th class="table-header" title="Case Reason" *ngIf="_isCommisionFsr"> &nbsp;&nbsp;&nbsp; SOC
+                        &nbsp;&nbsp;&nbsp; </th>
+                      <th class="table-header" title="Activity Price List" *ngIf="_isCommisionFsr"> &nbsp;&nbsp;&nbsp;
+                        SOH &nbsp;&nbsp;&nbsp;</th>
+                      <th class="table-header" title="Case Type">Warranty Status</th>
+                      <th class="table-header" title="Case Reason">Installation Date</th>
+                      <th class="table-header" title="Circle">Current Condition </th>
+
+                      <!-- <th class="table-header" title="Service Resources"> Service Resources</th> -->
+                      <th class="table-header" title="Amount">Action</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        1.
+                      </td>
+                      <td>
+                        CBMS
+
+                      </td>
+                      <td>
+
+
+                        <!-- <ng-select [items]="_productList"  class="custom-class" name="PartCodeCBMS" bindLabel="bothvalues" bindValue="productManualId"
+                        [(ngModel)]="cbmsRowObj.Part_Code" placeholder="Search Products..."
+                        (change)="getProductByIdCbms(cbmsRowObj.Part_Code)" (search)="searchProducts($event)">
+                        <ng-template   ng-label-tmp let-item="item">
+                          <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(49,121,146);" /> {{item.productManualId}}
+                        </ng-template>
+                        <ng-template  ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                          <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(49,121,146);" />
+                          {{item.productManualId}}<small>({{item.productDescription}})</small>
+                        </ng-template>
+                      </ng-select> -->
+
+                       <ng-select [items]="cbmsAssetList" class="custom-class" 
+  name="PartCodeCBMS" 
+  bindLabel="asstPartCode" 
+  bindValue="serialNumber"
+  [(ngModel)]="cbmsRowObj.Equipment_Sr_No"
+  placeholder="Search Equipment..."
+  (change)="onCbmsNASelect($event)"
+  (search)="searchProductsCbms($event)">
+  <ng-template ng-label-tmp let-item="item">
+    <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+      style="background-color: rgb(49,121,146);" /> {{item.serialNumber}}
+  </ng-template>
+  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+    <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+      style="background-color: rgb(49,121,146);" />
+    {{item.serialNumber}}<small>({{item.productDescription}})</small>
+  </ng-template>
+</ng-select>
+
+
+                      </td>
+                      <td> <input type="text" class="form-control" name="Model_NumberCBMS"
+                          [(ngModel)]="cbmsRowObj.Model_Number" disabled>
+                      </td>
+
+                      <td> <input type="text" name="Part_Code" class="form-control" name="Software_VersionCBMS"
+                          [(ngModel)]="cbmsRowObj.Part_Code" disabled>
+                      </td>
+
+
+                     <td> <input type="text" class="form-control" 
+    (keypress)="keyPressNumbersWithDecimal($event)"
+    name="Software_VersionCBMS" 
+    [(ngModel)]="cbmsRowObj.Software_Version"
+    [disabled]="cbmsNA">
+</td>
+                      <td *ngIf="_isCommisionFsr"> 
+  <input type="text" class="form-control" name="SOCCBMS"
+    [(ngModel)]="cbmsRowObj.SOC"
+    [disabled]="cbmsNA">
+</td>
+                   <td *ngIf="_isCommisionFsr">
+  <input type="text" class="form-control" name="SOHCBMS" 
+    [(ngModel)]="cbmsRowObj.SOH"
+    [disabled]="cbmsNA">
+</td>
+                      <td>
+                        <input type="text" class="form-control" name="Warranty_StatusCBMS"
+                          [(ngModel)]="cbmsRowObj.Warranty_Status" disabled>
+
+
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" name="Installation_DateCBMS"
+                          [(ngModel)]="cbmsRowObj.Installation_Date" disabled>
+                      </td>
+                      <td>
+  <select class="form-control" name="currentConditioncbms"
+    [(ngModel)]="cbmsRowObj.Current_Condition"
+    [disabled]="cbmsNA">
+    <option value="3" selected disabled> --Select--</option>
+    <option value="0">Ok</option>
+    <option value="1">Faulty</option>
+  </select>
+</td>
+                      <td>
+                        <div class="col-md-2 col-sm-2">
+
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <!----- Battery row tr  start   -------- -->
+
+                    <tr *ngFor=" let addBatteryRow of addBatteryrow; let Srno = index; let j = index; ">
+                      <td>
+                        {{Srno+1+1}}.
+
+                      </td>
+                      <td>
+                        Battery {{j+1}}
+
+                      </td>
+                      <td>
+
+                        <ng-select [items]="assetList" class="custom-class" name="PartCodeCBMS" bindLabel="asstPartCode"
+                          bindValue="serialNumber" [(ngModel)]="addBatteryRow.Equipment_Sr_No"
+                          placeholder="Search Equipment..."
+                          (change)="assetSelected(addBatteryRow.Equipment_Sr_No,Srno,$event)"
+                          (search)="searchProducts($event)">
+                          <ng-template ng-label-tmp let-item="item">
+                            <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                              style="background-color: rgb(49,121,146);" /> {{item.serialNumber}}
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                            <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                              style="background-color: rgb(49,121,146);" />
+                            {{item.serialNumber}}<small>({{item.productDescription}})</small>
+                          </ng-template>
+                        </ng-select>
+
+
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" name="Model_Number"
+                          [(ngModel)]="addBatteryRow.Model_Number" disabled>
+
+                      </td>
+                      <!-- <td >  -->
+
+                      <td> <input type="text" name="Part_Code" class="form-control" name="Software_Version"
+                          [(ngModel)]="addBatteryRow.Part_Code" disabled>
+                      </td>
+                      <!-- <ng-select [items]="addBatteryrow[j].Equipment_Sr_No_Arr"  class="custom-class"  name="Equipment_Sr_No" bindLabel="bothvalues" bindValue="serialNumber"
+                        [(ngModel)]="addBatteryRow.Equipment_Sr_No" placeholder="Search Products..."
+                        (search)="searchProducts($event)" (change)="btAssetDetails(addBatteryRow.Equipment_Sr_No,Srno,$event)">
+                        <ng-template ng-label-tmp let-item="item">
+                      {{item.serialNumber}}
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                       
+                          {{item.serialNumber}}<small>({{item.productDescription}})</small>
+                        </ng-template>
+                      </ng-select> -->
+
+                      <!-- </td> -->
+
+                      <td> <input type="text" class="form-control" name="Software_Version"
+                          (keypress)="keyPressNumbersWithDecimal($event)" [(ngModel)]="addBatteryRow.Software_Version">
+                      </td>
+                      <td *ngIf="_isCommisionFsr"> <input type="text" class="form-control"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" name="SOC"
+                          [(ngModel)]="addBatteryRow.SOC">
+                      </td>
+                      <td *ngIf="_isCommisionFsr">
+                        <input type="text" class="form-control" name="SOH"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" [(ngModel)]="addBatteryRow.SOH">
+
+                      </td>
+
+                      <td>
+                        <input type="text" class="form-control" name="Warranty_Status"
+                          [(ngModel)]="addBatteryRow.Warranty_Status" disabled>
+                        <!-- <select class="form-control" [(ngModel)]="addBatteryRow.Warranty_Status">
+                        <option value="" selected disabled> --Select--</option>
+                        <option value="Under_Warranty">
+                          Under Warranty</option>
+                        <option value="Without_Warranty">
+                          Without Warranty</option>
+                      </select>  -->
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" name="Installation_Date"
+                          [(ngModel)]="addBatteryRow.Installation_Date" disabled>
+                      </td>
+                      <td>
+                        <!-- <input type="text"  class="form-control"  name="Current_Condition{{j}" [(ngModel)]="addBatteryRow.Current_Condition" > -->
+                        <select class="form-control" [(ngModel)]="addBatteryRow.Current_Condition"
+                          (change)="addFaultyBatteryRow()">
+                          <option value="3" selected disabled> --Select--</option>
+                          <option value="0">
+                            Ok</option>
+                          <option value="1">
+                            Faulty</option>
+                        </select>
+
+                      </td>
+                      <td *ngIf="j==0">
+                        <div class="col-md-2 col-sm-2">
+                          <span class="input-group-append">
+                            <div><i *ngIf="disabledAddbtn" [ngClass]="faPlus" (click)="addBattery(j)"
+                                class="border-left-0"></i></div>
+                          </span>
+                        </div>
+                      </td>
+                      <td *ngIf="j>0">
+
+                        <div class="col-md-2 col-sm-2">
+                          <span class="input-group-append">
+                            <div><i [ngClass]="faMinus" (click)="removeBattery(j)"></i></div>
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!---------- //Battery row tr  end ---------->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="btrow.length>0">
+      <div class="panel-heading" *ngIf="!_isCommisionFsr">
+        <strong>FAULTY ASSET PARAMETERS </strong>
+      </div>
+      <div class="panel-body" *ngIf="!_isCommisionFsr">
+
+        <!-- table SA List -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-body" style="overflow: auto;">
+              <div class="table-responsive mobile">
+                <table class="table  table-sm table-condensed tablerview">
+                  <thead>
+                    <tr>
+                      <th>S.No.</th>
+                      <th>&nbsp;&nbsp;Equipment
+                        Type&nbsp;&nbsp;
+                      </th>
+                      <th class="table-header"> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Vol &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                      </th>
+                      <th class="table-header" title="Customer Name"> &nbsp;&nbsp;&nbsp; SOC &nbsp;&nbsp;&nbsp;</th>
+                      <th class="table-header" title="Case Number"> &nbsp; &nbsp;&nbsp;SOH &nbsp;&nbsp; &nbsp;</th>
+                      <th class="table-header" title="Customer Name"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Active Alarms
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </th>
+                      <th class="table-header" title="Case Reason"> Problem Since (Date)
+                      </th>
+                      <th class="table-header" title="Activity Price List">Min Cell Voltage (v) Value</th>
+                      <th class="table-header" title="Case Type">Max Cell Voltage (v) Value</th>
+                      <th class="table-header" title="Case Reason">Vol Gap (mV) </th>
+                      <th class="table-header" title="Circle">Battery Temp </th>
+                      <th class="table-header" title="Circle">Last Cycle Del (Ah)</th>
+                      <th class="table-header" title="Circle"> &nbsp; &nbsp; &nbsp; Log Status &nbsp; &nbsp; &nbsp;</th>
+                      <th class="table-header" title="Circle">Battery Required At BRC </th>
+
+                      <!-- <th class="table-header" title="Service Resources"> Service Resources</th> -->
+                      <!-- <th class="table-header" title="Amount">Action</th> -->
+
+                    </tr>
+                  </thead>
+                  <tbody>
+
+
+
+                    <!-- ---------------------------------------Faulty row Start -------------------------------------------------------->
+
+                    <tr>
+                      <td>
+                        1.
+                      </td>
+                      <td>
+                        <select class="form-control" [(ngModel)]="selectedBattery" (change)="selectFalultyBettery()">
+                          <option value='20' selected> --Select--</option>
+                          <option *ngFor="let o of btrow" [ngValue]="o.id">
+                            {{o.equipmentType}}</option>
+                        </select>
+
+                      </td>
+                      <td> <input type=" text" [(ngModel)]="addFaultyBatteryObj.vol" name="Vol"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+
+                      </td>
+                      <td> <input type="text" [(ngModel)]="addFaultyBatteryObj.SOC" name="SOC"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+                      </td>
+                      <td> <input type="text" [(ngModel)]="addFaultyBatteryObj.SOH" name="SOH"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+                      </td>
+
+                      <td>
+                        <!-- <input type="text"  [(ngModel)]="addFaultyBatteryObj.activeAlarms"  name="activeAlerms" (keypress)="keyPressNumbersWithDecimal($event)" class="form-control"> -->
+                        <select class="form-control" [(ngModel)]="addFaultyBatteryObj.activeAlarms">
+                          <option value='0' selected disabled> --Select--</option>
+                          <option *ngFor="let o of btActiveAlarm" [ngValue]="o.id">
+                            {{o.activeAlarmValue}}</option>
+                        </select>
+                      </td>
+                      <td>
+                        <!-- <input type="date"  [(ngModel)]="addFaultyBatteryObj.problemSince"  name="problemSince" (keypress)="keyPressNumbersWithDecimal($event)" class="form-control"> -->
+
+                        <input type="text" class="form-control" [(ngModel)]="addFaultyBatteryObj.problemSince"
+                          bsDatepicker [bsValue]="(_visitDate)" [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD' }"
+                          [dateCustomClasses]="dateCustomClasses" autocomplete="off" onkeydown="return false">
+
+                      </td>
+                      <td>
+                        <input type="text" [(ngModel)]="addFaultyBatteryObj.minCellVol" name="minCellVol"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+
+                      </td>
+                      <td> <input type="text" [(ngModel)]="addFaultyBatteryObj.maxCellVol" name="maxCellVol"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+                      </td>
+                      <td> <input type="text" [(ngModel)]="addFaultyBatteryObj.volGap" name="valGap"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" class="form-control">
+                      </td>
+                      <td> <input name="batteryTemp" [(ngModel)]="addFaultyBatteryObj.batteryTemp"
+                          (keypress)="isNumberKeyOnlyOneDecimal($event,$event)" type="text" class="form-control">
+                      </td>
+                      <td> <input type="text" [(ngModel)]="addFaultyBatteryObj.lastCycleDel" name="lastCycleDel"
+                          class="form-control">
+                      </td>
+                      <td>
+                        <!-- <input type="text" class="form-control"> -->
+                        <select class="form-control" [(ngModel)]="addFaultyBatteryObj.logStatus">
+                          <option value="" selected disabled> --Select--</option>
+                          <option value="Yes">
+                            Yes</option>
+                          <option value="No">
+                            No</option>
+                        </select>
+                      </td>
+                      <td>
+                        <!-- <input type="text" class="form-control"> -->
+
+                        <select class="form-control" [(ngModel)]="addFaultyBatteryObj.betteryReqBRC">
+                          <option value="" selected disabled> --Select--</option>
+                          <option value="Yes">
+                            Yes</option>
+                          <option value="No">
+                            No</option>
+                        </select>
+                      </td>
+                      <!-- <td><div class="col-md-2 col-sm-2">
+                          <span class="input-group-append">
+                            <div><i [ngClass]="faMinus"  class="border-left-0" ></i></div>
+                          </span>
+                        </div></td> -->
+                    </tr>
+                    <!-- Faulty row End -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel-heading">
+      <strong>OBSERVATION </strong>
+    </div>
+    <div class="panel-body">
+      <div class="row" *ngIf="!_isCommisionFsr">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Fault Observed By Exicom Engineer
+          </div>
+          <textarea type="text" [(ngModel)]="btCreateFsr.faultObservedByExicomEng" name="faultyObservation"
+            class="form-control" rows="2"> </textarea>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required ">
+          <div class="control-label ">
+            Corrective Actions In Detail
+          </div>
+          <textarea type="text" [(ngModel)]="btCreateFsr.correctiveActionInDetails" name="CorrActionDetail"
+            class="form-control" rows="2"> </textarea>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!_isCommisionFsr">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Resolution Method
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.btResolutionMethod">
+            <option value='0' selected disabled> --Select--</option>
+            <option *ngFor="let o of btResolutionMethod" [ngValue]="o.id">
+              {{o.resolutionMethodValue}}</option>
+          </select>
+
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Solution Imparted
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.btSolutionImparted">
+            <option value='0' selected disabled> --Select--</option>
+            <option *ngFor="let o of btSolutionImparted" [ngValue]="o.id">
+              {{o.solutionValue}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label " *ngIf="!_isCommisionFsr">
+            Case Status
+          </div>
+          <div class="control-label " *ngIf="_isCommisionFsr">
+            COMM Status
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.caseStatus" (change)="caseStatusChange()">
+            <option value='' selected disabled> --Select--</option>
+
+            <!-- <option *ngFor="let o of _zoneDetailsForList">
+                    {{o.zoneName}}</option> -->
+            <option value="Completed">
+              Completed
+            </option>
+            <option value="Incompleted">
+              Incompleted</option>
+
+          </select>
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label ">
+            Pending Bucket (If Any)
+          </div>
+          <select class="form-control" (change)="pendingBucketIf()" [disabled]="_caseStatusVal" name="pendingBucketIF"
+            [(ngModel)]="btCreateFsr.pendingBucket">
+            <option value='' selected disabled> --Select--</option>
+
+            <option value="Exicom">
+              Exicom
+            </option>
+            <option value="Customer">
+              Customer</option>
+          </select>
+
+
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label  ">
+            Pending Reason
+          </div>
+          <select *ngIf="reasonDropdown" [(ngModel)]="btCreateFsr.btPendingReasonCustomerBucket"
+            [disabled]="_caseStatusVal" class="form-control">
+            <option value='0' selected disabled> --Select--</option>
+            <option *ngFor="let o of btPendingReasonValue" [ngValue]="o.id">
+              {{o.pendingReasonValue}}</option>
+          </select>
+          <div *ngIf="reasonText">
+            <input type="text" [(ngModel)]="btCreateFsr.pendingReasonExicomBucket" [disabled]="_caseStatusVal"
+              name="pendingBucketIF" class="form-control">
+          </div>
+          <div *ngIf="pendingBucketdemo==true">
+            <input type="text" disabled name="pendingBucketdemo" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label ">
+            Engineer Name
+          </div>
+          <!-- <div class="control-label " >
+            Customer Name
+          </div> -->
+          <input type="text" name="engName" [(ngModel)]="btCreateFsr.complainAttendByEngName" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label required">
+            Exicom Engineer Number
+          </div>
+          <!-- <div class="control-label required" >
+            Customer Number
+          </div> -->
+          <input type="text" name="engMobile" [(ngModel)]="btCreateFsr.engNumber" (keypress)="onlyNumbers($event)"
+            minlength=10 maxlength=10 required class="form-control">
+        </div>
+
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label ">
+            Observation 1
+          </div>
+
+          <input type="text" name="observation1" [(ngModel)]="btCreateFsr.observation1" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Observation 2
+          </div>
+
+          <input type="text" name="observation2" [(ngModel)]="btCreateFsr.observation2" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group ">
+          <div class="control-label ">
+            Observation 3
+          </div>
+
+          <input type="text" name="observation3" [(ngModel)]="btCreateFsr.observation3" class="form-control">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group">
+          <div class="control-label">
+            Observation 4
+          </div>
+
+          <input type="text" name="observation4" [(ngModel)]="btCreateFsr.observation4" class="form-control">
+        </div>
+      </div>
+
+      <!-- <div class="row" *ngIf="_isCommisionFsr">
+        <div class="col-md-6 form-group">
+          <div class="control-label">
+            COMM STATUS
+          </div>
+          <select class="form-control" [(ngModel)]="btCreateFsr.commStatus">
+            <option value='' selected disabled> --Select--</option>
+
+            <option value="Completed">
+              Completed
+            </option>
+            <option value="Incompleted">
+              Incompleted</option>
+
+          </select>
+        </div>
+        </div> -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12 form-group ">
+          <div class="control-label ">
+            Remarks (If Any)
+          </div>
+          <!-- <div class="control-label "  *ngIf="reasonDropdown">
+               Remarks (If Any)
+            </div> -->
+          <textarea type="text" maxlength="3000" name="custRemaks" [(ngModel)]="btCreateFsr.customerRemark"
+            class="form-control" rows="2"> </textarea>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-12 col-sm-12 form-group ">
+          <div class="control-label" *ngIf="reasonDropdown">
+            Customer Remarks If Any
+          </div>
+          <div class="control-label" *ngIf="!reasonDropdown">
+            EXICOM ENG REMARKS IF ANY
+          </div>
+          <textarea type="text" maxlength="3000" name="custRemaks" [(ngModel)]="btCreateFsr.customerRemark"
+            class="form-control" rows="2"> </textarea>
+        </div>
+      </div>
+     -->
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 text-right">
+          <button type="button" class="btn btn-sm btn-default " (click)="cancelData()"><i
+              class="fa fa-remove"></i>&nbsp;
+            Cancel</button>&nbsp;
+
+          <button type="button" (click)="createCircle()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+            Save</button>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>

@@ -1,0 +1,1060 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table>
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Service Appointment" src="assets/images/service_appointment_120.png"
+                                style="height: auto;width:100%;background-color: rgb(126,139,228);"
+                                title="Service Appointment" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Service Appointment</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span
+                                style="font-size:15px;font-weight: bold;">{{appointment.serviceAppointmentManulaId}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-2 col-md-2"></div>
+            <div class="col-sm-6 col-md-6" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+                        <!-- Assign To -->
+                    <button  class="btn btn-outline-info btn-sm" (click)="assignTo()"
+                    type="button">  Assign To</button>&nbsp;
+ 
+                    <button *ngIf="rights('CaseDetails','edit')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="reAssignAppointmentView(appointment)"><i class="fa fa-plus"></i> Re-Assign
+                    </button>&nbsp;
+                    
+
+                    <!-- <button *ngIf="rights('ServiceAppoinmentProductConsumed','create')"
+                        class="btn btn-outline-info btn-sm" type="button"
+                        (click)="productConsumedModelShow(appointment.serviceAppointmentId,appointment.serviceAppointmentManulaId)">
+                        <i class="fa fa-plus"></i> Add Product Consumed</button>&nbsp; -->
+
+                    <button *ngIf="reAssignbtn" class="btn btn-outline-info btn-sm" type="button" (click)="requestForSA()">
+                        <i class="fa fa-plus"></i> Request for SA</button>&nbsp;
+                        <!-- Sa MAP Open
+                        <button *ngIf="canMapview" class="btn btn-outline-info btn-sm" type="button" (click)="mapModel.show()">
+                           View On MAP</button>&nbsp;
+                         close map -->
+
+                    <button *ngIf="rights('ServiceAppointment','edit')" class="btn btn-outline-info btn-sm"
+                        type="button" (click)="createEditModelshow(appointment)"> Edit</button>&nbsp;
+                        <input multiple type="file" name="profile" (change)="onFileSelect($event)"
+                        id="getFile" style="display:none"
+                        accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                    <button *ngIf="FSRUploadbtn" class="btn btn-outline-info btn-sm"
+                        onclick="document.getElementById('getFile').click()" type='submit'><i
+                            class="fa fa-upload"></i> Upload FSR</button> &nbsp;
+                            <!-- Self Assign Btn -->
+                            <!-- <button *ngIf="rights('ServiceAppointment','edit')" class="btn btn-outline-info btn-sm" (click)="assignToSelf()"
+                            type="button"> Self Assign</button>&nbsp; -->
+                            <!-- pdf generate -->
+                            <button *ngIf="canMapview" class="btn btn-outline-info btn-sm" type="button" 
+                            (click)="confirmationPopup.show()">Download SA</button>&nbsp;
+                </div>
+                <app-itemapproval-button [objectName]="'ServiceAppointment'"
+                    [_objectId]="appointment.serviceAppointmentId"></app-itemapproval-button>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <small>Case Number </small>
+                <div><a href="#" routerLink="/cases/{{appointment.caseId}}">{{appointment.caseIdManual}}
+                    </a></div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <small>Case Reason</small>
+                <div> {{appointment.caseReason}} </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <small>Appointment Number</small>
+                <div> {{appointment.serviceAppointmentManulaId}} </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <small>Status</small>
+                <div>
+                    {{appointment.serviceAppointmentStatusName}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i>&nbsp;General Information
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small>Appointment Number</small></td>
+                                        <td> {{appointment.serviceAppointmentManulaId}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td><small>Account</small></td>
+                                        <td class="wrappable">
+                                            <a href="#"
+                                                routerLink="/accounts/{{appointment.accountSapNumber}}">{{appointment.accountName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Case</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/cases/{{appointment.caseId}}">{{appointment.caseIdManual}}
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Case Type</small></td>
+                                        <td class="wrappable">{{appointment.caseType}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Site</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/sites/{{appointment.siteId}}">{{appointment.siteName}} </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Asset Serial Number</small></td>
+                                        <td><a [routerLink]="['/assets',encodeurl(appointment.assetsSapSerialNumber)]">{{appointment.assetsSapSerialNumber}}
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Fault Observed</small></td>
+                                        <td class="wrappable">{{appointment.faultObserved}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Punch Points(Exicom)</small></td>
+                                        <td class="wrappable">{{appointment.punchPointExiom}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Date Of Visit</small></td>
+                                        <td class="wrappable">{{appointment.visitDate | date:'dd-MM-yyyy'}}</td>
+                                    </tr>
+                                    <!-- <tr style="visibility: none;">
+                                        <td class="wrappable"><small>Customer Rep. Name</small></td>
+                                        <td class="wrappable">{{appointment.customerRepresentativeName}}</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="wrappable"><small>Customer Signoff-Name</small></td>
+                                        <td>{{appointment.acknowledgedByName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Pending Responsibility</small></td>
+                                        <td class="wrappable">{{appointment.pendingResponsibilityName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Remarks</small></td>
+                                        <td class="wrappable">{{appointment.remark}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small>Owner</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/createuser/{{appointment.ownerEmailId}}">{{appointment.ownerFirstName}}&nbsp;{{appointment.ownerMiddleName}}&nbsp;{{appointment.ownerLastName}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Customer Name</small></td>
+                                        <td><a href="#"
+                                                routerLink="/contacts/{{appointment.contactId}}">{{appointment.contactFirstName}}&nbsp;{{appointment.contactMiddleName}}&nbsp;{{appointment.contactLastName}}</a>
+                                        </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td class="wrappable"> <small>Customer Contact</small> </td>
+                                        <td>{{appointment.contactPhoneNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Case Reason</small></td>
+                                        <td class="wrappable">{{appointment.caseReason}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Site Name</small></td>
+                                        <td class="wrappable">{{appointment.siteIdManual}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Asset Part Code</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/products/{{appointment.assetsPartCode}}">{{appointment.assetsPartCode}}
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Asset description</small></td>
+                                        <td class="wrappable">{{appointment.assetDescription}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Corrective Actions</small></td>
+                                        <td class="wrappable">{{appointment.correctiveActions}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Punch Points(Customer)</small></td>
+                                        <td class="wrappable">{{appointment.punchPointCustomer}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Customer Signoff-Number</small></td>
+                                        <td class="wrappable">{{appointment.acknowledgedByPhone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Status</small></td>
+                                        <td class="wrappable">{{appointment.serviceAppointmentStatusName}}</td>
+                                    </tr>
+                                    <!-- <tr style="visibility: none;">
+                                        <td class="wrappable"><small>Customer Rep. Mobile</small></td>
+                                        <td class="wrappable">{{appointment.customerRepresentativeContact}}</td>
+                                    </tr> -->
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- e -siganature -->
+<button type="button" (click)="eSignatureDisplay()"
+style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+    [ngClass]="esignDisplay.angleIcon"></i>&nbsp; Customer E-Signature</button>
+<div *ngIf="esignDisplay.open" class="row">
+<div *ngIf="imageSource!=NULL" class="col-md-12 col-sm-12" >
+   <img [src]= "imageSource"  alt="Image Source" 
+   style="height:100px; width: 100px;">
+  </div>
+  <div *ngIf="imageSource==NULL" class="col-md-12 col-sm-12" >
+  &nbsp; &nbsp;&nbsp; {{messageofEsign}}
+  </div>
+</div>
+<!--  close e-signature -->
+
+                    <button type="button" (click)="changeAddressDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left">
+                        <i style="font-size: 18px;" [ngClass]="addressDisplay.angleIcon"></i>&nbsp;Claim
+                        Details</button>
+                    <div *ngIf="addressDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small> Service Resource</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/serviceResource/{{appointment.serviceResourceId}}">{{appointment.serviceResourceName}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small> Circle</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/circles/{{appointment.circleName}}">{{appointment.circleName}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Employee Code</small></td>
+                                        <td class="wrappable">{{appointment.employeeCode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Business Place</small></td>
+                                        <td class="wrappable">{{appointment.businessPlace}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Cost Center/WBS Element</small></td>
+                                        <td class="wrappable">{{appointment.costCenter}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Approved By Finance</small></td>
+                                        <td class="wrappable"><input type="checkbox" class="largerCheckbox"
+                                                [ngModel]="appointment.approvedByFinanceCheck"
+                                                [checked]="appointment.approvedByFinanceCheck" [disabled]="true"> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small> Circle Manager</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/contacts/{{appointment.circleManagerContactId}}">
+                                                {{appointment.circleManagerContactFirstName}}&nbsp;{{appointment.circleManagerContactMiddleName}}&nbsp;{{appointment.circleManagerContactLastName }}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Service Center</small></td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/legalentity/{{appointment.serviceCenterId}}">{{appointment.serviceCenterName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td class="wrappable"><small>Open SA Status</small></td>
+                                        <td class="wrappable"><img title="Open SA Status"
+                                                [src]="appointment.sstatus==true? 'assets/images/flag_red.gif':'assets/images/flag_green.gif' ">
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="wrappable"><small>Grade</small></td>
+                                        <td class="wrappable">{{appointment.grade}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Fixed Payout</small></td>
+                                        <td class="wrappable">{{appointment.fixedPayout}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Claim Status</small></td>
+                                        <td class="wrappable">{{appointment.claimStatusName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Approved By Finance Date</small></td>
+                                        <td class="wrappable">
+                                            {{appointment.approvedByFinance | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                        <!--  ratiing info -->
+                        <button type="button" (click)="ratingSystemDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="ratingDisplay.angleIcon"></i>&nbsp;Rating Information</button>
+                    <div *ngIf="ratingDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable"><small>Customer Rating</small></td>
+                                        <td>
+                                            <span [style.color]="appointment.customerRating>=1? 'yellow': 'grey'" class = "fa fa-star"></span>  
+                                            <span [style.color]="appointment.customerRating>=2? 'yellow': 'grey'" class = "fa fa-star"></span>
+                                            <span [style.color]="appointment.customerRating>=3? 'yellow': 'grey'" class = "fa fa-star"></span>
+                                            <span [style.color]="appointment.customerRating>=4? 'yellow': 'grey'" class = "fa fa-star"></span>
+                                            <span [style.color]="appointment.customerRating>=5? 'yellow': 'grey'" class = "fa fa-star"></span>
+                                        </td>
+                                    </tr>
+                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                   
+                                    <tr>
+                                        <td class="wrappable"><small>Customer Remarks</small></td>
+                                        <td>{{appointment.customerRemarks}} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                        <!-- rating info close -->
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i>&nbsp;System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;">
+                                            <small>Created By</small>
+                                        </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/createuser/{{appointment.createByEmailId}}">{{appointment.createdByFirstName}}&nbsp;{{appointment.createdByMiddleName}}&nbsp;{{appointment.createdByLastName}}</a>&nbsp;,&nbsp;{{appointment.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                    <tr style="display: none;">
+                                        <td class="wrappable"><small>Earliest Start Permitted</small></td>
+                                        <td class="wrappable">
+                                            {{appointment.earliestStartPermittedDate | date:'dd-MM-yyyy'}}&nbsp;&nbsp;{{appointment.earliestStartPermittedTime}}
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td class="wrappable"><small>TFLAG</small></td>
+                                        <td class="wrappable">{{appointment.tFlag}}</td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;">
+                                            <small>Last Modified By</small>
+                                        </td>
+                                        <td class="wrappable"><a href="#"
+                                                routerLink="/createuser/{{appointment.modifiedByEmailId}}">{{appointment.modifiedByFirstName}}&nbsp;{{appointment.modifiedByMiddleName}}&nbsp;{{appointment.modifiedByLastName}}</a>&nbsp;,&nbsp;{{appointment.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                    <tr style="display: none;">
+                                        <td class="wrappable"><small>Due Date</small></td>
+                                        <td class="wrappable">
+                                            {{appointment.dueDate | date:'dd-MM-yyyy'}}&nbsp;&nbsp;{{appointment.dueTime}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+               
+                    
+                </div>
+                <div *ngIf="!vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/service_resource_120.png"
+                                            style="width: 24px;height: 24px;background-color: lightskyblue">
+                                    </td>
+                                    <td>
+                                        <a href="#" routerLink="/serviceResource"
+                                            style="font-weight: bold;color: black;">
+                                            Assigned
+                                            Resources ({{totalServiceResources}}) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div *ngIf="serviceResourceList.length>0" class="card-body"
+                            style="margin-bottom: 0px;padding: 0px;">
+                            <div class="table-responsive mobile" style="height: 100%;">
+                                <table class="table table-sm table-condensed tablerview">
+                                    <thead style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th title="S.No" style="width:50px;">S.No.</th>
+                                            <th title="Employee Id" scope="col" class="text-left"> Employee Id
+                                            </th>
+                                            <th title="Service Resource Name" scope="col" class="text-left">Service
+                                                Resource Name </th>
+                                            <!-- <th scope="col" class="text-left">Action</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let resource of serviceResourceList;let i=index">
+                                            <td data-line="S.No" class="mhide">{{serviceResourceSerial+i+1}}.</td>
+                                            <td data-line="Employee Id" scope="col" class="text-left">
+                                                {{resource.employeeCode}}</td>
+                                            <td data-line="Service Resource" scope="col" class="text-left"><a href="#"
+                                                    routerLink="/serviceResource/{{resource.serviceResourceId}}">{{resource.name}}</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center" *ngIf="!(serviceResourceFirst && serviceResourceLast)">
+                                    <a id="prbtn" class="previous round" href="" [class.disabled]="serviceResourceFirst"
+                                        *ngIf="!serviceResourceFirst" (click)="setPagePreviousServiceResource($event)"
+                                        [ngClass]="{'active':serviceResourcePage}">
+                                        &#8249;
+                                    </a>
+                                    <a id="prbtn" class="nav-link active" href=""
+                                        (click)="setPageServiceResource($event)"
+                                        [ngClass]="{'active':i==serviceResourcePage}">
+                                        {{serviceResourcePage+1}}
+                                    </a>
+                                    <a id="prbtn" class="next round" href="" [class.disabled]="serviceResourceLast"
+                                        *ngIf="!serviceResourceLast" (click)="setPageNextServiceResource($event)"
+                                        [ngClass]="{'active':serviceResourcePage}">
+                                        &#8250;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="BatteryFSRList.length>0" class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/custom61_120.png"
+                                            style="width: 24px;height: 24px;background-color: rgb(218, 86, 86)"> </td>
+                                    <td>
+                                        <a href="#" routerLink="/batteryFSRCBMS"
+                                            style="font-weight: bold;color: black;">
+                                            Battery FSR CBMS & Li-ION Battery ({{totalBFSR}}) </a></td>
+                                    <td *ngIf="_cFlag!='f'" class="text-right">
+                                        <button *ngIf="rights('BatteryFSR','create')" type="button"
+                                            class="btn btn-sm btn-outline-info" (click)="BFSRNew()">
+                                            <i class="fa fa-plus"></i> New </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="card-body"
+                            style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                            <div class="table-responsive mobile" style="background-color: white;height: 100%;">
+                                <table class="table table-sm table-condensed">
+                                    <thead style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th title="S.No" style="width:50px;">S.No.</th>
+                                            <th title="Battery FSR ID" class="text-left">Battery FSR ID
+                                            </th>
+                                            <th title="Case ID" class="text-left">Case ID
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let btr of BatteryFSRList ;let i=index">
+                                            <td data-line="S.No" class="mhide">{{serialNumber+i+1}}.</td>
+                                            <td data-line="Battery FSR"> <a href="#"
+                                                    routerLink="/batteryFSRCBMS/{{btr.id}}"
+                                                    activateRout="active">{{btr.manualId}} </a> </td>
+                                            <td data-line="Case ID"><a
+                                                    [routerLink]="['/cases',btr.caseId]">{{btr.caseManualId}}</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center" *ngIf="!(firstFSR && lastFSR)">
+                                    <a id="prbtn" class="previous round" href="" [class.disabled]="firstFSR"
+                                        *ngIf="!firstFSR" (click)="setPagePrevious($event)"
+                                        [ngClass]="{'active':pageFSR}">
+                                        &#8249;
+                                    </a>
+
+                                    <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                                        [ngClass]="{'active':i==pageFSR}">
+                                        {{pageFSR+1}}
+                                    </a>
+
+                                    <a id="prbtn" class="next round" href="" [class.disabled]="lastFSR" *ngIf="!lastFSR"
+                                        (click)="setPageNext($event)" [ngClass]="{'active':pageFSR}">
+                                        &#8250;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/product_consumed_120.png"
+                                            style="width: 24px;height: 24px;background-color: rgb(83, 182, 243)">
+                                    </td>
+                                    <td>
+                                        <a style="font-weight: bold;color: black;">
+                                            Products Consumed ({{totalconsumed}}) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div *ngIf="consumedList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+                            <div class="table-responsive mobile" style="height: 100%;">
+                                <table class="table table-sm table-condensed tablerview">
+                                    <thead style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th title="S.No" style="width:50px;">S.No.</th>
+                                            <th title="Part Code" scope="col" class="text-left">Part Code</th>
+                                            <th title="Quantity" scope="col" class="text-left">Quantity</th>
+                                            <th title="Consumed Type" scope="col" class="text-left">Consumed Type</th>
+                                            <th title="Ok Serial Number" scope="col" class="text-left">OK Serial Number
+                                            </th>
+                                            <th title="Faulty Part code" scope="col" class="text-left">Faulty Partcode</th>
+                                            <th title="Faulty Serial Number" scope="col" class="text-left">Faulty Serial
+                                                Number</th>
+                                            <th title="Remarks" scope="col" class="text-left">Remarks</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let ob of consumedList;let i=index">
+                                            <td data-line="S.No" class="mhide"> {{consumedSerial+i+1}}.
+                                            </td>
+                                            <td data-line="Part Code" scope="col" class="text-left"><a href="#"
+                                                    routerLink="/products/{{ob.partCode}}"> {{ob.partCode}}
+                                                </a>
+                                            </td>
+                                            <td data-line="Quantity" scope="col" class="text-left">{{ob.consumedQty}}
+                                            </td>
+                                            <td data-line="Consumed Type" scope="col" class="text-left">
+                                                {{ob.consumedType}}</td>
+                                            <td data-line="Faulty Serial Number" class="text-left">{{ob.okSerialNumber}}
+                                            </td>
+                                            <td data-line="Faulty Partcode" class="text-left">{{ob.faultyPartcode}}</td>
+                                            <td data-line="OK Serial Number" class="text-left">{{ob.faultySerialNumber}}
+                                            </td>
+                                            <td data-line="Remarks" scope="col" class="text-left wrappable">
+                                                {{ob.remark}}</td>
+                                                
+                                            <td data-line="Action" class="mhide" style="width: 50;">
+                                                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                    placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li  role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteProConsumed(ob.id)">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center" *ngIf="!(consumedFirst && consumedLast)">
+                                    <a id="prbtn" class="previous round" href="" [class.disabled]="consumedFirst"
+                                        *ngIf="!consumedFirst" (click)="setPagePreviousConsumed($event)"
+                                        [ngClass]="{'active':consumedPage}">
+                                        &#8249;
+                                    </a>
+                                    <a id="prbtn" class="nav-link active" href="" (click)="setPageConsumed($event)"
+                                        [ngClass]="{'active':i==consumedPage}">
+                                        {{consumedPage+1}}
+                                    </a>
+                                    <a id="prbtn" class="next round" href="" [class.disabled]="consumedLast"
+                                        *ngIf="!consumedLast" (click)="setPageNextConsumed($event)"
+                                        [ngClass]="{'active':consumedPage}">
+                                        &#8250;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/approval_120.png"
+                                            style="width: 24px;height: 24px;background-color: yellowgreen">
+                                    </td>
+                                    <td>
+                                        <a style="font-weight: bold;color: black;">
+                                            Approval History ({{approvalHistoryList.length}}) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div *ngIf="approvalHistoryList.length>0" class="card-body"
+                            style="margin-bottom: 0px;padding: 0px;">
+                            <div class="table-responsive mobile" style="height: 100%;">
+                                <table class="table table-sm table-condensed tablerview">
+                                    <thead style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th title="S.No" style="width:50px;">S.No.</th>
+                                            <th title="Approval stage" scope="col" class="text-left"> Approval Stage
+                                            </th>
+                                            <th title="Assigned Date" scope="col" class="text-left"> Assigned Date
+                                            </th>
+                                            <th title="Assigned To" scope="col" class="text-left"> Assigned To
+                                            </th>
+                                            <th title="Action" scope="col" class="text-left"> Action
+                                            </th>
+                                            <th title="Approval Date" scope="col" class="text-left"> Approval Date
+                                            </th>
+                                            <th title="Remarks" scope="col" class="text-left"> Remarks
+                                            </th>
+                                            
+                                            <!-- <th scope="col" class="text-left">Action</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let ob of approvalHistoryList;let i=index">
+                                            <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                                            <td data-line="Approval Stage" scope="col" class="text-left">{{ob.stageName}}</td>
+                                            <td data-line="Assigned Date" scope="col" class="text-left">
+                                                {{ob.assignedDate | date:'dd-MM-yyyy'}}</td>
+                                            <td data-line="Assigned To" scope="col" class="text-left">
+                                                <a href="#" routerLink="/createuser/{{ob.assignedToEmailId}}">
+                                                    {{ob.assignedToFirstName}}&nbsp;{{ob.assignedToMiddleName}}&nbsp;{{ob.assignedToLastName}}
+                                                </a>
+                                            </td>
+                                            <td data-line="Action" scope="col" class="text-left">
+                                                {{ob.action}}</td>
+                                            <td data-line="Approval Date" scope="col" class="text-left">
+                                                {{ob.approvedDate | date:'dd-MM-yyyy'}}</td>
+                                            <td data-line="Remarks" scope="col" class="text-left">
+                                                {{ob.remark}}</td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/file_120.png"
+                                            style="width: 24px;height: 24px;background-color: rgb(7, 144, 230)">
+                                    </td>
+                                    <td>
+                                        <a style="font-weight: bold;color: black;">
+                                            Files ({{fileUploadList.length}}) </a>
+                                    </td>
+                                    <td class="text-right">
+                                        <!-- <input multiple type="file" name="profile" (change)="onFileSelect($event)"
+                                            id="getFile" style="display:none"
+                                            accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                                        <button class="btn btn-outline-info btn-sm"
+                                            onclick="document.getElementById('getFile').click()" type='submit'><i
+                                                class="fa fa-upload"></i>&nbsp;&nbsp;File
+                                            Upload</button> -->
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div *ngIf="fileUploadList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+                            <div class="table-responsive mobile" style="height: 100%;">
+                                <table class="table table-sm table-condensed tablerview">
+                                    <thead style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th title="S.No" style="width:50px;">S.No.</th>
+                                            <th title="File Name" scope="col" class="text-left"> File Name
+                                            </th>
+                                            <th title="File Size" scope="col" class="text-left"> File Size
+                                            </th>
+                                            <th title="Created Date" scope="col" class="text-left"> Created Date
+                                            </th>
+                                            <th *ngIf="rights('ServiceAppointment','edit')">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let ob of fileUploadList;let i=index">
+                                            <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                                            <td data-line="File Name" class="wrappable"><a [routerLink]=""
+                                                    (click)="filePreview(ob.fileDownloadUri,ob.fileName)"
+                                                    activateRout="active">{{ob.fileName}}</a>
+                                            </td>
+                                            <td *ngIf="(ob.fileSize/1024)/1024 < 1" data-line="File Size" scope="col"
+                                                class="text-left">
+                                                {{ (ob.fileSize/1024) | number: '1.0-1'}} KB</td>
+                                            <td *ngIf=" (ob.fileSize/1024)/1024 >=1" data-line="File Size" scope="col"
+                                                class="text-left">
+                                                {{ (ob.fileSize/1024)/1024 | number: '1.0-1'}} MB</td>
+                                            <td data-line="Created Date" scope="col" class="text-left">
+                                                {{ob.createdDate | date:'dd-MM-yyyy'}}
+                                            </td>
+                                            <td *ngIf="rights('ServiceAppointment','edit')">
+                                                <button  (click)="DeletAttachment(ob.id)"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createServiceAppointmentModel="bs-modal" (onShow)="isEditModelShow=true"
+    (onHide)="isEditModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-appointment">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-appointment" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="createServiceAppointmentModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-create-new-service-appointments *ngIf="isEditModelShow" [isEditMode]="isEditMode"
+                  [casereason]="caseReason" [editServiceAppointmentData]="serviceAppointmentResponse"
+                    (onServiceAppointmentCreated)="onServiceAppointmentCreated($event)" (onCancle)="cancelData()">
+                </app-create-new-service-appointments>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #productConsumedModel="bs-modal" (onShow)="isProductConsumedModelShow=true"
+    (onHide)="isProductConsumedModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="productConsumed">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-appointment" class="modal-title pull-left"> New Product Consumed</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="productConsumedModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-serviceappointment-productconsumed *ngIf="isProductConsumedModelShow" [isEditMode]="isEditMode"
+                    [editServiceAppointmentData]="serviceAppointmentProductConsumedRequest"
+                    (onProductConsumedCreated)="onProductConsumedCreated($event)"
+                    (onCancle)="cancelDataProductConsumed()">
+                </app-serviceappointment-productconsumed>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- create BFSR model -->
+<div class="modal fade" bsModal #createBFSRModel="bs-modal" (onShow)="iscreateBFSRModelShow=true"
+    (onHide)="iscreateBFSRModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelBFSRModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-createbattery-fsrcbmslilonbattery *ngIf="iscreateBFSRModelShow" [isEditMode]="isEditMode"
+                    [editAccountData]="BFSRres" (onBFSRCreated)="onBFSRCreated($event)"
+                    (onCancle)="cancelBFSRModelhide()" [problemReportedArray]="problemReportedDetails">
+                </app-createbattery-fsrcbmslilonbattery>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Assign To Model -->
+
+
+<div class="modal fade" bsModal #assingToServiceAppointmentModel="bs-modal"
+    (onShow)="isReassingAppointmentModelShow=true" (onHide)="isAssingAppointmentModelShow=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-assign-to-appointment">
+    <div class="modal-dialog modal-md modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-appointment" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="assingToServiceAppointmentModelHide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- <div class="modal-body">
+                <app-reassign-service-appointment *ngIf="isReassingAppointmentModelShow" [isEditMode]="isEditMode"
+                    [editReassignAppointmentData]="serviceAppointmentReAssignRequest"
+                    (onReassignAppointmentCreated)="onReassignAppointmentCreated($event)"
+                    (onCancle)="cancelDataReassignAppointment()">
+                </app-reassign-service-appointment>
+            </div> -->
+            <div class="modal-body">
+            <app-assign-to-service-appointment   *ngIf="isAssingAppointmentModelShow"
+
+             [serviceResourseListVendor]="serviceResourseVendor" [serviceAppointmentId]="appointment.serviceAppointmentId"
+             (onAssignToAppointmentCreated)="onAssignToAppointmentCreated($event)"
+             (canceled)="cancelAssignToAppointment()">
+            </app-assign-to-service-appointment>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Assing To -->
+<div class="modal fade" bsModal #reAssingServiceAppointmentModel="bs-modal"
+    (onShow)="isReassingAppointmentModelShow=true" (onHide)="isReassingAppointmentModelShow=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-reassign-appointment">
+    <div class="modal-dialog modal-lg modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-appointment" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="reAssingServiceAppointmentModelHide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-reassign-service-appointment *ngIf="isReassingAppointmentModelShow" [isEditMode]="isEditMode"
+                    [editReassignAppointmentData]="serviceAppointmentReAssignRequest"
+                    (onReassignAppointmentCreated)="onReassignAppointmentCreated($event)"
+                    (onCancle)="cancelDataReassignAppointment()">
+                </app-reassign-service-appointment>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupRequestforSA="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="popupRequestforSA">
+    <div class="modal-dialog modal-lg modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="popupRequestforSA" class="modal-title pull-left"> Request for SA</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="popupRequestforSA.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                <div style="text-align: center">
+                    <strong> Do you want to request for SA ? </strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 form-group required">
+                        <div class="control-label">
+                          Remark
+                        </div>
+                        <textarea class="form-control" rows="2" [(ngModel)]="remarks" (keypress)="onlyNumbers($event)"></textarea>
+                      </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" (click)="noRequestForSA()"> No
+                </button>
+                <button class="btn btn-danger" type="button" (click)="yesRequestForSA()">
+                    Yes </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--search result-->
+<div class="modal fade" bsModal #fileUploadModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-md modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h4>{{uploadFilesLength}} Files selected for Upload</h4> -->
+                <h4>File Upload</h4>
+                <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="fileUploadModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button> -->
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                <!-- <div class="row">
+            <div class="col-6">File Name</div>
+            <div class="col-6">Action</div>
+          </div> -->
+                <div class="row" *ngFor="let s of fileList;let i=index">
+                    <!-- <div class="col-2">
+              {{i+1}}
+            </div> -->
+                    <div class="col-6">
+                        {{s.name}}
+                    </div>
+                    <div class="col-6 text-right">
+                        <a style="font-weight: bolder; text-align: center;color: blue;" (click)="removeFile(s.name)">Remove</a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-right">
+                <button class="btn btn-sm btn-default" (click)="closeUploadFiles()"><i class="fa fa-remove"></i>
+                    Close</button>
+                <button class="btn btn-sm btn-primary" (click)="onSubmit()"><i class="fa fa-upload"></i> Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #filePreviewModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h4>{{uploadFilesLength}} Files selected for Upload</h4> -->
+                <h4>{{fileName}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="filePreviewModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+                <img src="{{imageUrl}}" alt="" style="height: auto;width: 100%;">
+                <pdf-viewer [src]="imageUrl" [render-text]="true" style="height: auto;width: 100%;">
+                </pdf-viewer>
+            </div>
+            <div class="modal-footer text-right">
+                <button class="btn btn-sm btn-default" (click)="filePreviewModel.hide()"><i class="fa fa-remove"></i>
+                    Close</button>
+                <button class="btn btn-sm btn-primary" (click)="saveFile()"><i class="fa fa-download"></i>
+                    Download</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MAP  -->
+<div class="modal fade" bsModal #mapModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h4>{{uploadFilesLength}} Files selected for Upload</h4> -->
+                <h4>MAP View</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="mapModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 100vh;overflow: auto;">
+              <agm-map [latitude]="appointment.latitude" [longitude]="appointment.longitude"  >
+                <agm-marker (mouseOver)="window.open()" (mouseOut)="window.close()" [latitude]="appointment.latitude"
+                  [longitude]="appointment.longitude">
+                  <agm-info-window #window>
+                    <h6>Longitude: {{appointment.longitude}}</h6>
+                    <h6>Latitude: {{appointment.latitude}}</h6>
+                    <h6>Address: {{appointment.address}}</h6>
+                  </agm-info-window>
+                </agm-marker>
+              </agm-map>
+              
+            </div>
+  
+        </div>
+    </div>
+</div>
+
+<!-- pdf confirmation -->
+<div class="modal fade" bsModal #confirmationPopup='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content" style="text-align: center;">
+        <div class="modal-body">
+          <div class="control-label">
+            Do you want to procees with PDf Creation?
+          </div>
+          <br>
+          <div class="col-md-5 col-sm-5">
+            <button class="btn btn-md btn-success" style="border-radius: 2;" (click)="createPDF()">Yes
+            </button>
+          </div>
+          <div class="col-md-2 col-sm-2"></div>
+          <div class="col-md-5 col-sm-5">
+            <button class="btn btn-md btn-danger" style="border-radius: 2;" (click)="confirmationPopup.hide()">No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

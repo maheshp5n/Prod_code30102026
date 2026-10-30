@@ -1,0 +1,81 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Information</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Name
+                </div>
+                <input *ngIf="_isEditMode==true" [(ngModel)]="newcircles.circleName" type="text" class="form-control"
+                    disabled>
+                <input *ngIf="_isEditMode==false" [(ngModel)]="newcircles.circleName" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Zone
+                </div>
+                <select [(ngModel)]="newcircles.zoneName" class="form-control">
+                    <option value='' selected disabled>--select--</option>
+                    <option *ngFor="let o of _zoneDetailsForList">
+                        {{o.zoneName}}</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Country
+                </div>
+                <select [(ngModel)]="newcircles.countryCode" class="form-control">
+                    <option value='' disabled>--select--</option>
+                    <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">
+                        {{o.countryName}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6">
+               <div class="control-label">
+                Legal Entity
+               </div>
+                    <ng-select *ngIf="leaglEntityList" [items]="leaglEntityList"
+                        [(ngModel)]="newcircles.legalEntity" bindLabel="legalEntityName" bindValue="legalEntityId"
+                        placeholder="Search Legal Entity">
+                        <ng-template ng-label-tmp let-item="item">
+                            <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                                style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                            <img height="15" alt="" width="15" src='/assets/images/ligalEntity.png'
+                                style="background-color: rgb(105, 241, 219);" /> {{item.legalEntityName}}
+                        </ng-template>
+                    </ng-select>          
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+        <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+            Cancel</button>&nbsp;
+
+        <button type="button" (click)="createCircle()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+            Save</button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">Circle ( <a href="#"
+                routerLink="/circles/{{tempId}}">{{tempId}}</a>
+            )
+            created successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>

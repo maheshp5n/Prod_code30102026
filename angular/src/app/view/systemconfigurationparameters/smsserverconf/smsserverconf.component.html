@@ -1,0 +1,214 @@
+<div class="text-right">
+    <button type="button" (click)="smsServerSetting.show()" class="btn btn-primary"><em class="fa fa-plus"></em> New Server</button>
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table-sm m-table">
+        <thead>
+            <tr>
+               <th class="text-left">
+                   URL
+               </th>
+               <th>
+                   Method
+               </th>
+               <th>
+                   Active
+               </th>
+               <th>
+                   Last Modified
+               </th>
+               <th class="text-left">
+                   Modified By
+               </th>
+               <th>
+                   Action
+               </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of smsSettings">
+                <td>
+                    {{t.url}}
+                </td>
+                <td>
+                    {{t.method}}
+                </td>
+                <td>
+                    <em *ngIf="t.active" class="tik-mark"></em>
+                
+                </td>
+                <td>
+                    {{t.modifiedDate|date:'dd-MM-yyyy hh:mm aa'}}
+                </td>
+                <td>
+                    {{t.modifiedByfirstName}} {{t.modifiedByMiddleName}} {{t.modifiedByLastName}}
+                </td>
+                <td class="text-center">
+                    <button type="button" (click)="updateEnableDisable(t.id,!t.active)" *ngIf="t.active" class="btn btn-sm btn-outline-danger"><em class="fa fa-remove"></em> Disable</button>
+                    <button type="button" (click)="updateEnableDisable(t.id,!t.active)" *ngIf="!t.active" class="btn btn-sm btn-outline-primary"><em class="fa fa-check"></em> Enable</button>
+                    <button type="button" (click)="showsmsSettingDetails(t.id)" class="btn btn-sm btn-outline-dark"><em class="fa fa-edit"></em> Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" bsModal #smsServerSetting="bs-modal" tabindex="-1" (onHide)="onHide()" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title pull-left">
+                    New Sms Server
+                </h5>
+                <button type="button" (click)="smsServerSetting.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid" style="max-height: 65vh;overflow: auto;">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label>
+                                URL
+                            </label>
+                            <input type="url" class="form-control" [(ngModel)]="nsmsSetting.url">
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                Method
+                            </label>
+                            <select class="form-control" [(ngModel)]="nsmsSetting.method">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>
+                                Headers
+                            </label>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Key
+                                        </th>
+                                        <th>
+                                            Value
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let h of nsmsSetting.headers">
+                                        <td>
+                                            {{h.keyName}}
+                                        </td>
+                                        <td>
+                                            {{h.keyValue}}
+                                        </td>
+                                        <td>
+                                            <button type="button" (click)="removeHeader(h.keyName)" class="btn btn-sm"><em class="fa fa-remove"></em> </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="header.keyName">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="header.keyValue">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary" (click)="addHeaders()"><em class="fa fa-plus"></em> Add</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-md-7">
+                            <label>
+                                Parameter
+                            </label>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Key
+                                        </th>
+                                        <th>
+                                            Type
+                                        </th>
+                                        <th>
+                                            Value
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let h of nsmsSetting.params">
+                                        <td>
+                                            {{h.keyName}}
+                                        </td>
+                                        <td>
+                                            {{h.paramType}}
+                                        </td>
+                                        <td>
+                                            {{h.keyValue}}
+                                        </td>
+                                        <td>
+                                            <button type="button" (click)="removeParam(h.keyName)" class="btn btn-sm"><em class="fa fa-remove"></em> </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="param.keyName">
+                                        </td>
+                                        <td>
+                                            <select class="form-control form-control-sm" [(ngModel)]="param.paramType">
+                                                <option value="static">Static</option>
+                                                <option value="dyna">Dynamic</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="param.keyValue">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary" (click)="addParams()"><em class="fa fa-plus"></em> Add</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="text-right">
+                    <button type="button" (click)="savesmsSetting()" class="btn btn-primary"><em class="fa fa-save"></em> Save</button>
+                    <button type="button" (click)="smsServerSetting.hide()" class="btn btn-default"><em class="fa fa-remove"></em> Cancel</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #alertModal="bs-modal" tabindex="-1" role="dialog">
+    <div class="" style="margin: 20%;">
+        <alert [type]="alertTypeDetails.type">
+            <span [innerHTML]="alertTypeDetails.message"></span>
+            <button type="button" (click)="alertModal.hide()" class="close pull-right">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </alert>
+    </div>
+</div>

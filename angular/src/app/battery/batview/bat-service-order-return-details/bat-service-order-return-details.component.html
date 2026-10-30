@@ -1,0 +1,225 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Service Order Return Details
+                        </td>
+                    </tr>
+                    <tr *ngIf="soreturndetails">
+                        <td style="padding-left:5px;">
+                            <strong>{{soreturndetails.sorManualId}}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-8 text-right">
+                <a type="button" class="btn btn-sm btn-outline-info" href="/bt/api/packinglist/{{soreturndetails.sorId}}?type=SOR"
+              target="_blank"><em class="fa fa-download"></em>&nbsp;Packaging PDF</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+                <label>
+                    Source
+                </label>
+                <br>
+                <span>{{soreturndetails.sourceLoccationName}}</span>
+            </div>
+            <div class="col-3">
+                <label>
+                    Destination
+                </label>
+                <br>
+                <span>
+                    {{soreturndetails.destinationLocationName}}
+                </span>
+            </div>
+            <div class="col-3">
+                <label>Total Item Returned</label>
+                <br>
+                {{soreturndetails.sorTotalNumberOfQuantityReturned}}
+            </div>
+
+            <div class="col-3">
+                <label>Total Item Received</label>
+                <br>
+                {{soreturndetails.sorTotalNumberOfQuantityReceived}}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="menue">
+
+                    <li><a [ngClass]="navigationMenue.details.ngclass"
+                            [routerLink]="['/batsoreturn',serviceorderreturnid]"
+                            [queryParams]="{view:'details'}">Details</a>
+                    </li>
+                    <li><a [ngClass]="navigationMenue.releted.ngclass"
+                            [routerLink]="['/batsoreturn',serviceorderreturnid]"
+                            [queryParams]="{view:'related'}">Related</a>
+                    </li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" *ngIf="navigationMenue.details.view">
+                <ng-container *ngFor="let sg of detailssigment;">
+                    <button type="button" (click)="changeButtonDisplay(sg)"
+                        style="text-align: left;background-color: lightgray;font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><em style="font-size: 18px;"
+                            [ngClass]="sg.icon"></em> &nbsp;{{sg.name}}
+                    </button>
+                    <div class="" *ngIf="sg.expended">
+                        <div class="row">
+                            <div class="col-6" *ngFor="let item of sg.itemstodisplay;">
+                                <table class="table table-sm" style="width: 100%;margin: 0px;">
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>{{item.name}}</small>
+                                        </td>
+                                        <td style="width: 50%;">
+                                            <ng-container *ngIf="item.type&&item.type=='merge'">
+                                                <span *ngFor="let d of item.mergeproperty;let i=index;">
+                                                    <ng-container *ngIf="i!=0"> {{item.delimeter}} </ng-container>
+                                                    <ng-container *ngIf="d.type&&d.type=='date'">
+                                                        {{soreturndetails[d.binding]|date:'dd-MMM-yyyy h:mm a'}}
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!d.type">
+                                                        {{soreturndetails[d.binding]}}
+                                                    </ng-container>
+
+                                                </span>
+                                            </ng-container>
+                                            <ng-container *ngIf="item.type&&item.type=='merge_link'">
+                                                <a [routerLink]="['/'+item.link,soreturndetails[item.linkid]]"
+                                                    [routerLinkActive]="['active']">
+                                                    <span *ngFor="let d of item.mergeproperty;let i=index;">
+                                                        <ng-container *ngIf="i!=0"> {{item.delimeter}} </ng-container>
+                                                        <ng-container *ngIf="d.type&&d.type=='date'">
+                                                            {{soreturndetails[d.binding]|date:'dd-MMM-yyyy h:mm a'}}
+                                                        </ng-container>
+                                                        <ng-container *ngIf="!d.type">
+                                                            {{soreturndetails[d.binding]}}
+                                                        </ng-container>
+
+                                                    </span>
+                                                </a>
+                                            </ng-container>
+                                            <ng-container *ngIf="item.type&&item.type=='text'">
+                                                <span>{{soreturndetails[item.propertieBinding]}}</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="item.type&&item.type=='date'">
+                                                <span>{{soreturndetails[item.propertieBinding]|date:item.dateFormat}}</span>
+                                            </ng-container>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+            </div>
+            <div class="col-12" *ngIf="navigationMenue.releted.view">
+                <div class="card" *ngIf="items">
+                    <div class="card-header">
+                        <strong>Items (<span *ngIf="items.totalElements>8">8+</span> <span
+                                *ngIf="items.totalElements<=8">{{items.totalElements}}</span>)</strong>
+                    </div>
+                    <div class="card-body m-0 p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm" title="SO Return Order Details.. ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="text-align: left;">
+                                            S.No.
+                                        </th>
+                                        <th scope="col" *ngFor="let item of tableHeader;" (click)="changeOrder(item)"
+                                            style="text-align: left;">
+                                            {{item.titleName}} <em style="float: right;" [ngClass]="item.icon"></em>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of items.content;let i=index">
+                                        <td data-line="S.No" style="text-align: left;">
+                                            {{(pageinfo.page*pageinfo.size)+ (i+1)}}
+                                        </td>
+                                        <td style="text-align: left;" *ngFor="let ite of tableHeader">
+                                            <ng-container *ngIf="ite.type&&ite.type=='link'">
+                                                <a [routerLink]="['/'+ite.linkurl,item[ite.linkid]]">
+                                                    {{item[ite.propertiesBinding]}} </a>
+                                            </ng-container>
+                                            <ng-container *ngIf="ite.type&&ite.type=='date'">
+                                                {{item[ite.propertiesBinding]|date:ite.dateformat}}
+                                            </ng-container>
+                                            <ng-container *ngIf="ite.type&&ite.type=='bool'">
+                                                <em *ngIf="item[ite.propertiesBinding]" class="tik-mark"></em>
+                                                <em *ngIf="!item[ite.propertiesBinding]" class="cross-mark"></em>
+                                                <!-- {{item[ite.propertiesBinding]|date:ite.dateformat}} -->
+                                            </ng-container>
+                                            <ng-container *ngIf="!ite.type">
+                                                {{item[ite.propertiesBinding]}}
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div *ngIf="items.content.length==0">
+                            <div class="row">
+                                <div class="col-md-4"> </div>
+                                <div class="col-md-4">
+                                    <p>Data Not Found</p>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4" style="text-align:left">
+                                Showing Page {{items.number+1}} &nbsp;of&nbsp;{{items.totalPages}}&nbsp;Total
+                                Count={{items.totalElements}}
+                            </div>
+                            <div class="col-12 text-center" *ngIf="!(items.first && items.last) ">
+                                <a class="btn btn-sm btn-success" [routerLink]="['/batsoreturn',serviceorderreturnid]"
+                                    [queryParams]="{page:((pageinfo.page-1)),size:pageinfo.size,order:pageinfo.order,orderBy:pageinfo.orderBy}"><em
+                                        class="fa fa-arrow-left"></em> </a>
+                                <a class="btn btn-sm btn-success" [routerLink]="['/batsoreturn',serviceorderreturnid]"
+                                    [queryParams]="{page:(pageinfo.page+1),size:pageinfo.size,order:pageinfo.order,orderBy:pageinfo.orderBy}"><em
+                                        class="fa fa-arrow-right"></em> </a>
+
+                                <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8"
+                                    (keypress)="onlyNumbers($event)" autocomplete="off">
+                                <button (click)="jumpPage(pagenumber)">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

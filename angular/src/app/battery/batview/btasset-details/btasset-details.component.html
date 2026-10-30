@@ -1,0 +1,645 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="margin-bottom: 10px;">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:33px;">
+              <img alt="Asset" src="assets/images/product_120.png"
+                style="height: auto;width:100%;background-color: rgb(49,121,146);" title="Asset" />
+            </td>
+            <td style="padding-left: 5px;">
+              <span>Asset Serial Number</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;">{{asset.serialNumber}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-4 col-md-4">
+      </div>
+      <div class="col-sm-4 col-md-4" style="text-align: right;">
+        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+          <!-- <button class="btn btn-outline-info btn-sm" *ngIf="rights('CaseDetails','create')" type="button"
+              (click)="createCaseModelshow(asset.serialNumber)"><i class="fa fa-plus"></i>&nbsp; New Case</button> -->
+          <button class="btn btn-outline-info btn-sm" *ngIf="rights('BtCase','create')" type="button"
+            (click)="createCaseModelshow(asset.id)"><i class="fa fa-plus"></i>&nbsp; New Case
+          </button>
+          <button class="btn btn-outline-info btn-sm" *ngIf="rights('BtAssets','edit')" type="button"
+            (click)="createEditModelshow(asset.id)">Edit</button>
+          <!-- <button class="btn btn-outline-info btn-sm" *ngIf="rights('Assets','edit')" type="button"
+              (click)="createPRCModelshow(asset)">Create Pre-Reg-Case</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <small>Account</small>
+    <div><a href="#" routerLink="/bat_account/{{asset.accountSapNumber}}">{{asset.accountName}}</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top: 10px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+          <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 15px;">
+        <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Asset Information
+          </button>
+          <!--  <div *ngIf="addressDisplay.open" class="row"> -->
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Asset Serial Number</small>
+                    </td>
+                    <td class="wrappable">{{asset.serialNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Account</small>
+                    </td>
+                    <td class="wrappable"><a href="#"
+                        routerLink="/bat_account/{{asset.accountSapNumber}}">{{asset.accountName}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Product Family</small>
+                    </td>
+                    <td class="wrappable">{{asset.productFamilyName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Site ID</small>
+                    </td>
+                    <td class="wrappable"><a href="#" routerLink="/bat_site/{{asset.siteId}}">{{asset.siteManualId}}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Primary Account</small>
+                    </td>
+                    <td class="wrappable">
+                      <a href="#"
+                        routerLink="/bat_account/{{asset.primaryAccountSapNumber}}"></a>{{asset.primaryAccountName}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Warranty</small>
+                    </td>
+                    <td class="wrappable">{{asset.Warranty}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Remarks</small>
+                    </td>
+                    <td class="wrappable">{{asset.remarks}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Part Code</small>
+                    </td>
+                    <td class="wrappable"><a href="#"
+                        routerLink="/bat_product/{{asset.productID}}">{{asset.productPartCode}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Asset Description</small>
+                    </td>
+                    <td class="wrappable">{{asset.productDescription}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Product Sub Family</small>
+                    </td>
+                    <td class="wrappable">{{asset.productSubProductName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Circle</small>
+                    </td>
+                    <td class="wrappable"><a href="#"
+                        routerLink="/bat_circle/{{asset.circleName}}">{{asset.circleName}}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Exchange/Site Name</small>
+                    </td>
+                    <td class="wrappable">{{asset.siteName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Plant</small>
+                    </td>
+                    <td class="wrappable">{{asset.plant}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Status</small>
+                    </td>
+                    <td class="wrappable">{{asset.assetsStatusName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changePurchaseDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="purchaseDisplay.angleIcon"></i> &nbsp;Delivery Details</button>
+          <div *ngIf="purchaseDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>PO No</small>
+                    </td>
+                    <td class="wrappable">{{asset.purchaseOrderNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>SAP Delivery Document No</small>
+                    </td>
+                    <td class="wrappable">{{asset.sapDeliveryDocumentNumber}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>PO Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.purchaseOrderDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>SAP Material Document No</small>
+                    </td>
+                    <td class="wrappable">{{asset.sapMaterialDocumentNumber}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeWarrantyDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="warrantyDisplay.angleIcon"></i> &nbsp;Warranty Details</button>
+          <div *ngIf="warrantyDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Delivery Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.purchaseDate | date:'dd-MM-yyyy'}} </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Warranty from DOD(months)</small>
+                    </td>
+                    <td class="wrappable">{{asset.warrantyFromDateOfDeliveryInMonth}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>DOD Expiration Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.dateOfDeliveryExpiryDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Warranty Expiry Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.warrantyExpiryDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Install Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.installDate | date:'dd-MM-yyyy'}} </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Warranty from Installation Date(months)</small>
+                    </td>
+                    <td class="wrappable">{{asset.warrantyFromDateOfInstallationInMonth}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Install Expiry Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.installExpiryDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>Warranty Status</small>
+                    </td>
+                    <td class="wrappable">
+                      <img title="Warranty Expiry Status"
+                        [src]="asset.warrantyExpiryDate==null? 'assets/images/flag_gray.png': asset.isWarrantyExist==1? 'assets/images/flag_green.gif' : 'assets/images/flag_red.gif' ">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeAmcDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="amcDisplay.angleIcon"></i> &nbsp;AMC Details</button>
+          <div *ngIf="amcDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>AMC PO No</small>
+
+                    </td>
+                    <td class="wrappable">{{asset.amcPurchaseOrderNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>AMC Start Date</small>
+
+                    </td>
+                    <td class="wrappable">{{asset.amcStartDate | date:'dd-MM-yyyy'}} </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>AMC Period (months)</small>
+
+                    </td>
+                    <td class="wrappable">{{asset.amcPeriod}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>AMC PO Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.amcPurchaseOrderDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>AMC Expiry Date</small>
+                    </td>
+                    <td class="wrappable">{{asset.amcExpiryDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable">
+                      <small>AMC Status</small>
+                    </td>
+                    <td class="wrappable">
+                      <img title="AMC Expiry Information"
+                        [src]="asset.amcExpiryDate==null? 'assets/images/flag_gray.png' : asset.isAMCWarrantyExist==1? 'assets/images/flag_green.gif' : 'assets/images/flag_red.gif' ">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" (click)="changeSystemDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="systemDisplay.angleIcon"></i> &nbsp;System Information</button>
+          <div *ngIf="systemDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Created By</small>
+                    </td>
+                    <td class="wrappable"><a href="#"
+                        routerLink="/createuser/{{asset.createdByEmailId}}">{{asset.creatrdByName}}</a>,&nbsp;{{asset.createdDate
+                      | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Last Modified By</small>
+                    </td>
+                    <td class="wrappable" style="width: 50%;"><a href="#"
+                        routerLink="/createuser/{{asset.modifiedByEmailId}}">{{asset.modifiedByName}}&nbsp;</a>{{asset.modifiedDate
+                      | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!vDetails" class="card-body" style="padding: 0px;margin: 0px;">
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/case_120.png" style="width: 24px;height: 24px;background-color: #F2CF5B">
+                  </td>
+                  <td>
+                    <a href="#" routerLink="/cases" style="font-weight: bold;color: black;">&nbsp;Cases
+                      ({{totalCases}})
+                    </a>
+                  </td>
+                  <td *ngIf="totalCases>0" class="text-right">
+                    <!-- <a [routerLink]="['/details_of_all_view',sapId,'cmponentprc','assetprc']" [queryParams]="{cmponentprc:assetColumnsprc,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a>  -->
+                    <a [routerLink]="['/details_of_all_view',sapId,'cmponent','assetCase']"
+                      [queryParams]="{cmponent:assetColumnsCasee,page:page}" target="_blank"
+                      class="btn btn-sm btn-outline-info"> View All </a>
+
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div *ngIf="casesList.content.length>0" class="card-body" style="padding:0px;margin: 0px;">
+              <div class="table-responsive mobile" style="height: 100%;">
+                <table class="table table-sm table-condensed tablerview">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th title="S.No" style="width:50px;">S.No.</th>
+                      <th title="Case Number" scope="col" class="text-left">Case Number</th>
+                      <th title="Type" scope="col" class="text-left">Type</th>
+                      <th title="Case Reason" scope="col" class="text-left">Case Reason</th>
+                      <th title="Status" scope="col" class="text-left">Status</th>
+                      <th scope="col" class="text-left">Pre-Registration Case</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of casesList.content;let i=index">
+                      <td data-line="S.No" class="mhide">{{caseSerial+i+1}}.</td>
+                      <td data-line="Case Number" scope="col" class="text-left"><a href="#"
+                          routerLink="/bat_case/{{c.id}}">{{c.manualId}}</a></td>
+                      <td data-line="Type" scope="col" class="text-left">{{c.caseTypeName}}</td>
+                      <td data-line="Case Reason" scope="col" class="text-left">{{c.caseReasonName}}</td>
+                      <td data-line="Status" scope="col" class="text-left">{{c.statusName}} </td>
+                      <td class="wrappable" data-line="PRC"> <a href="" routerLink="/bat_prc/{{c.prcId}}">
+                          {{c.prcManualId}}</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr>
+                <!-- <div style="text-align: center" *ngIf="!(caseFirst && caseLast)">
+                    <a id="prbtn" class="previous round" href="" [class.disabled]="caseFirst" *ngIf="!caseFirst"
+                      (click)="setPagePrevious($event)" [ngClass]="{'active':casePage}">
+                      &#8249;
+                    </a>
+                    <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                      [ngClass]="{'active':i==casePage}">
+                      {{casePage+1}}
+                    </a>
+                    <a id="prbtn" class="next round" href="" [class.disabled]="caseLast" *ngIf="!caseLast"
+                      (click)="setPageNext($event)" [ngClass]="{'active':casePage}">
+                      &#8250;
+                    </a>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Brc record -->
+          <!--Add by pawan-->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/relationship_120.png"
+                      style="width: 24px;height: 24px;background-color: #ecd762">
+                  </td>
+                  <td>
+                    <a>&nbsp;<strong>BRC Cases({{totalBrcCases}})</strong> </a>
+                  </td>
+                  <td *ngIf="totalBrcCases>5" class="text-right">
+                    <a [routerLink]="['/details_of_all_view',sapId,'cmponent','assetbrc']"
+                      [queryParams]="{cmponent:brcCaseHeader,page:page}" target="_blank"
+                      class="btn btn-sm btn-outline-info"> View All </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body" *ngIf="brcCaseList.content.length>0"
+              style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div class="table-responsive mobile" style="background-color: white">
+                <table class="table table-sm table-condensed">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th class="text-left">S.No.</th>
+                      <th class="text-left" title="Case ID">BRC Case
+                      </th>
+                      <th class="text-left" title="Type">Challan Number
+                      </th>
+                      <th class="text-left" title="Case Reason">BRC Case Stage
+                      </th>
+                      <th class="text-left" title="Status">BRC Case Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of brcCaseList.content ;let i=index">
+                      <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+                      <td class="wrappable" data-line="BRC Case"><a
+                          [routerLink]="['/bat_brc',item.customerInventoryInId]">{{item.customerInventoryInManualId}}</a></td>
+                      <td class="wrappable" data-line="Challan Number">{{item.customerInventoryInChallanNumber}}</td>
+                      <td class="wrappable" data-line="BRC Case Stage">{{item.customerInventoryInStage}}</td>
+                      <td class="wrappable" data-line="BRC Case Status">{{item.customerInventoryInStatus}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- close Brc -->
+          <!-- prc record -->
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/relationship_120.png"
+                      style="width: 24px;height: 24px;background-color: #ecd762">
+                  </td>
+                  <td>
+                    <a>&nbsp;<strong>Pre-Registration Cases({{prcdata.totalElements}})</strong> </a>
+                  </td>
+                  <td *ngIf="prcdata.totalElements>5" class="text-right">
+                    <!-- <a [routerLink]="['/details_of_all_view',sapId,'cmponentprc','assetprc']" [queryParams]="{cmponentprc:assetColumnsprc,page:page}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a>  -->
+                    <a [routerLink]="['/details_of_all_view',sapId,'cmponent','assetprc']"
+                      [queryParams]="{cmponent:assetColumnsprc,page:page}" target="_blank"
+                      class="btn btn-sm btn-outline-info"> View All </a>
+
+                  </td>
+
+                </tr>
+              </table>
+            </div>
+
+            <div class="card-body" *ngIf="prcdata.content.length>0"
+              style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div class="table-responsive mobile" style="background-color: white">
+                <table class="table table-sm table-condensed">
+                  <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                      <th class="text-left">S.No.</th>
+                      <th class="text-left" title="Case ID">Pre-Registration Case
+                      </th>
+                      <th class="text-left" title="Type">Type
+                      </th>
+                      <th class="text-left" title="Case Reason">Case Reason
+                      </th>
+                      <th class="text-left" title="Status">Action
+                      </th>
+                      <th class="text-left">Case Number</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let pr of prcdata.content ;let i=index">
+                      <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+                      <td class="wrappable" data-line="Prc ID"><a
+                          [routerLink]="['/bat_prc',pr.prcCaseId]">{{pr.prcCaseManualId}}</a></td>
+                      <td class="wrappable" data-line="Type">{{pr.caseTypeName}}</td>
+                      <td class="wrappable" data-line="Case Reason">{{pr.caseReasonName}}</td>
+                      <td class="wrappable" data-line="Action">{{pr.lastAction}}</td>
+                      <td class="wrappable" data-line="case"> <a href="" routerLink="/bat_case/{{pr.caseId}}">
+                          {{pr.caseManualId}}</a></td>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+          <!-- close prc -->
+          <div class="panel panel-default" style="display: none;">
+            <div class="panel-heading">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;"><img src="assets/images/relationship_120.png"
+                      style="width: 24px;height: 24px;background-color: #3c97dd"> </td>
+                  <td><a href="#" routerLink="/assets" style="font-weight: bold;color: black;"> Asset History (0) </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+          </div>
+          <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createAssetModel="bs-modal" (onShow)="isModelShow=true" (onHide)="isModelShow=false"
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-bt-createasset *ngIf="isModelShow" [isEditMode]="isEditMode" [editAssetData]="assetResponse"
+          (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()"></app-bt-createasset>
+        <!-- <app-createasset *ngIf="isEditModelShow" [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+            (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()"></app-createasset> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #createCaseModel="bs-modal" (onShow)="isDCTCaseModelShow=true"
+  (onHide)="isDCTCaseModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> {{heading}} </h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createCaseModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <app-btcreatecase *ngIf="isDCTCaseModelShow" [isEditMode]="isEditMode" [AssetSerial]="caseRes"
+          [assetWarretyCheck]="assetWarrety" (onCaseCreated)="onCaseCreated($event)" (onCancle)="cancelDatacase()">
+        </app-btcreatecase>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Create PRC -->
+<div class="modal fade" bsModal #createPRCModel="bs-modal" (onShow)="isDCTCaseModelShow=true"
+  (onHide)="isDCTCaseModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> {{heading}} </h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="prcModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <app-case-create-pre-regis *ngIf="isDCTCaseModelShow" [isEditMode]="isEditMode" [editEntityData]="res"
+          [AssetSerial]="res"  [assetWarretyCheck]="assetWarrety"   (onCaseCreated)="onCaseCreated($event)" (onCancle)="prcModelhide()"></app-case-create-pre-regis> -->
+      </div>
+    </div>
+  </div>
+</div>

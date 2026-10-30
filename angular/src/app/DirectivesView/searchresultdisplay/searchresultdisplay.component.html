@@ -1,0 +1,32 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="" *ngFor="let o of tblNames">
+    <div class="card" *ngIf="result[o].length>0">
+        <div class="card-header">
+            <strong>{{o}} ({{result[o].length}})</strong> 
+        </div>
+        <div class="card-body">
+           <div class="table-responsive" style="overflow: auto;">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th *ngFor="let m of getObjKey(result[o][0])">
+                            {{m}}
+                        </th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr *ngFor="let t of result[o]">
+                        <td *ngFor="let m of getObjKey(result[o][0])" [innerHTML]="t[m]"></td>
+                    </tr>
+                </tbody>
+                 
+            </table>
+           </div>
+        </div>
+    </div>
+    
+</div>

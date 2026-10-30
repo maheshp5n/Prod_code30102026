@@ -1,0 +1,246 @@
+<div class="panel panel-default" style="max-height: 70vh; overflow: auto;">
+  <div class="panel-body">
+    <div *ngIf="_isEditModeLodging" class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Name</div>
+        <input [(ngModel)]="lodgingRequest.manualId" type="text" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">Expenses Report</div>
+        <input [(ngModel)]="lodgingRequest.expenseManagementManualId" type="text" class="form-control" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label">From Date</div>
+        <input [(ngModel)]="lodgingRequest.fromDate" type="text" class="form-control"  onkeydown="return false"bsDatepicker
+          [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+      <!-- <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">From Date</div>
+        <input [(ngModel)]="lodgingRequest.fromDate" type="text" placeholder="Datepicker" class="form-control"
+          bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" [maxDate]="today"
+          [dateCustomClasses]="dateCustomClasses">
+      </div> -->
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label"> From Time</div>
+        <select [(ngModel)]="lodgingRequest.fromTime" class="form-control">
+          <option value="select" disabled>--select--</option>
+          <option *ngFor="let t of timeList" [value]="t.time">{{t.time}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label">To Date</div>
+        <input [(ngModel)]="lodgingRequest.toDate" type="text" class="form-control" onkeydown="return false" bsDatepicker
+          [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" autocomplete="off">
+        <span class="fa fa-calendar errspan"></span>
+      </div>
+      <div class="col-md-3 col-sm-3 form-group required">
+        <div class="control-label"> To Time</div>
+        <select [(ngModel)]="lodgingRequest.toTime" class="form-control">
+          <option value="select" disabled>--select--</option>
+          <option *ngFor="let t of timeList" [value]="t.time">{{t.time}}
+          </option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          City
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="cityList" [items]="cityList" [(ngModel)]="lodgingRequest.cityName" bindLabel="cityName"
+              bindValue="cityName" placeholder="Search City...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/city_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.cityName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/city_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.cityName}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewCity()"></i></div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Other City</div>
+        <input [(ngModel)]="lodgingRequest.otherCity" type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Self Arrangement
+          <em class="fa fa-info-circle" style="padding-left: 10px;" tooltip="Select if hotel is not taken"></em>
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input [(ngModel)]="lodgingRequest.selfArrangement" type="checkbox" class="largerCheckbox" (change)="selfArrangements($event)">
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Company Paid</div>
+        <input [(ngModel)]="lodgingRequest.comapnyPaid" type="checkbox" class="largerCheckbox"(change)="CompanyPaid($event)">
+      </div>
+    </div>
+
+    <div class="row">
+      <div [ngClass]="classRequiredHotel">
+        <div class="control-label">Hotel Name</div>
+        <input [(ngModel)]="lodgingRequest.hotelName" id="dis1" type="text" class="form-control">
+
+      </div>
+      <div [ngClass]="classRequiredBillNo">
+        <div class="control-label">Bill No.</div>
+        <input [(ngModel)]="lodgingRequest.billNo" id="dis2" type="text" class="form-control">
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div [ngClass]="classRequiredAmount">
+        <div class="control-label">Amount
+        </div>
+        <input [(ngModel)]="lodgingRequest.amount" id="dis3" type="text"(keypress)="onlyNumbersForRs($event)" class="form-control">
+      </div>
+      <div *ngIf="_isEditModeLodging" class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          City Category
+        </div>
+        <select [(ngModel)]="lodgingRequest.cityCategoryId" class="form-control">
+          <option value="0">--select--</option>
+          <option *ngFor="let o of cityCategory" [ngValue]="o.cityCategoryId">{{o.cityCatagoryName}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Remarks</div>
+        <textarea [(ngModel)]="lodgingRequest.remark" name="" class="form-control" id="" cols="30" rows="2"
+          maxlength="1000"></textarea>
+      </div>
+    </div>
+
+    <div class="row" style="display: none;">
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">Approved Amount</div>
+        <input [(ngModel)]="lodgingRequest.approvedAmount" type="text" (keypress)="onlyNumbersForRs($event)" class="form-control">
+      </div>
+    </div>
+ <div class="row">
+  <div class="col-md-6 col-sm-6 form-group">
+    <div class="control-label">Grade</div>
+  <a  [routerLink]="[]" (click)="OpnGrade(boardingName)"> {{boardingName}}</a>
+
+  </div>
+  <div class="col-md-6 col-sm-6 form-group" *ngIf="_isEditModeLodging">
+<div class="control-label">Amount to Disburse</div>
+<input type="text" [(ngModel)]="lodgingRequest.amountToDisbursed"(keypress)="onlyNumbersForRs($event)" class="form-control">
+  </div>
+ </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-right">
+    <button type="button" class="btn btn-default" (click)="cancelLodging()"><i class="fa fa-remove"></i>&nbsp;
+      Cancel</button>&nbsp;
+    <button type="button" class="btn btn-primary" (click)="createLodging()"><i class="fa fa-save"></i>&nbsp;
+      Save</button>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>
+
+<!-- City Starts-->
+<div class="modal fade" bsModal #createCityModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">New City</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createCityModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="min-height: 500px;overflow: auto;padding-left: 2mm">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span class="text-center" style="font-weight: bold">Information</span>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-4 col-sm-4 form-group ">
+                <div class="control-label">
+                  City
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="cityDetailsReq.cityName">
+                <!-- <select [(ngModel)]="cityDetailsReq.cityName" class="form-control">
+                  <option value="0">--select--</option>
+                  <option *ngFor="let o of cityList" [ngValue]="o.cityName">{{o.cityName}}</option>
+                </select> -->
+              </div>
+              <div class="col-md-4 col-sm-4 form-group ">
+                <div class="control-label">
+                  City Category
+                </div>
+                <select [(ngModel)]="cityDetailsReq.cityCategoryId" class="form-control">
+                  <option value="0">--select--</option>
+                  <option *ngFor="let o of cityCategory" [ngValue]="o.cityCategoryId">{{o.cityCatagoryName}}</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button type=" button" class="btn btn-default" (click)="cancelCity()">
+              Cancel</button>&nbsp;
+            <button type="button" class="btn btn-primary" (click)="postCity()">
+              Save
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- City Ends-->
+<!-- bodingLodging_Details Model    by shagufta-->
+
+<div class="modal fade" bsModal #borloddtailModel="bs-modal" 
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="borloddtailModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-boding-lodging-da-detail [BordingRes]="response"></app-boding-lodging-da-detail>
+      </div>
+    </div>
+  </div>
+</div>

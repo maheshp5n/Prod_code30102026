@@ -1,0 +1,465 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="margin-bottom: 10px;">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:33px;">
+              <img alt="SSA" src="assets/images/Zone_120.png"
+                style="height: auto;width:100%;background-color: rgb(198, 90, 207);" title="SSA" />
+            </td>
+            <td style="padding-left: 5px;">
+              <span>Invoice</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;">{{venInvRes.vendorName}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-2 col-md-2"></div>
+      <div class="col-sm-6 col-md-6 text-right" style="text-align: right;">
+        <a class="btn btn-sm btn-outline-info" target="_blank" href="api/vendorinvoice/vendorinvoicepdf/{{venInvRes.invoiceId}}"> PDF </a>
+        <button type="button" class="btn btn-sm btn-outline-info" (click)="editInvoiceModal()"
+          *ngIf="rights('VendorInvoiceDetails','edit')&&(venInvRes.invoiceStatusId==3||venInvRes.invoiceStatusId==5||venInvRes.invoiceStatusId==6 || venInvRes.invoiceStatusId==10)"><em
+            class="fa fa-edit"></em> Edit </button>
+        <div class="btn-group" style="padding: 10px;">
+<!-- commercial head on id 1 when status is submitted-->
+          <button class="btn btn-outline-info btn-sm"
+            *ngIf="rights('VendorInvoiceGrn','create')&&(venInvRes.invoiceStatusId==1 || venInvRes.invoiceStatusId==9)" type="button"
+            (click)="forCommercial()">
+            Update GRN</button>
+        </div>
+        <div class="btn-group">
+<!-- finance when status is approved by commerical head is 2 -->
+          <button class="btn btn-outline-info btn-sm"
+            *ngIf="rights('VendorInvoiceSap','create')&&(venInvRes.invoiceStatusId==7)" type="button"
+            (click)="sapUpdate()">
+            Update SAP</button>
+        </div>
+        <!-- when status is draft -->
+        <button type="button" class="btn btn-sm btn-outline-info" *ngIf="venInvRes.invoiceStatusId==6"
+          (click)="submitForApproval()"><em class="fa fa-check"></em> Submit For
+          Approval</button>
+        <app-itemapproval-button [objectName]="'VendorInvoiceDetails'" [_objectId]="venInvRes.invoiceId">
+        </app-itemapproval-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom: 10px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+          <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 14px;">
+        <!-- </div> -->
+        <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Vendor Code</small></td>
+                    <td><a [routerLink]="['/contacts',venInvRes.vendorContactId]" [routerLinkActive]="['active']">
+                        {{venInvRes.invoiceVendorId}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Entity Name</small></td>
+                    <td>{{venInvRes.vendorName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small> Invoice Request Number</small></td>
+                    <td>{{venInvRes.invoiceManualId}}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>PO Number</small></td>
+                    <td>{{venInvRes.poNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>WCC Number</small></td>
+                    <td><a [routerLink]="['/wcc',venInvRes.wccDetailsId]">{{venInvRes.wccManualId}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Status</small></td>
+                    <td>{{venInvRes.invoiceStatus}}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Cirlce Name</small></td>
+                    <td *ngIf="serviceappointmentList.length>0">{{serviceappointmentList[0].circleName}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Service Entry Number</small></td>
+                    <td>{{venInvRes.entrySheetNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>GL Code</small></td>
+                    <td>{{venInvRes.glCode}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>SAP Document Number</small></td>
+                    <td>{{venInvRes.sapNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;"><small>Internal Service Code</small> </td>
+                    <td>{{venInvRes.internalServiceCode}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Tax Amount</small>
+                    </td>
+                    <td>
+                      {{venInvRes.invoiceTaxAmount|currency:'INR'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Vendor Invoice Date</small></td>
+                    <td>{{venInvRes.vendorInvoiceDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Vendor Invoice Number</small></td>
+                    <td>{{venInvRes.vendorInvoiceNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Vendor Invoice Copy</small></td>
+                    <td><a (click)="downloadFile(fileName)" style="cursor: pointer;"><em class="fa fa-download"></em>
+                        {{fileName}}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>PO Date</small></td>
+                    <td>{{venInvRes.poDate | date:'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Remark</small></td>
+                    <td>{{venInvRes.invoiceRemarks}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Owner Email ID</small></td>
+                    <td> <a [routerLink]="['/createuser',venInvRes.invoiceOnwerEmailId]">
+                        {{venInvRes.invoiceOnwerEmailId}}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Cost Center</small></td>
+                    <td>{{venInvRes.poCostCentre}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>GRN Date</small></td>
+                    <td>{{venInvRes.grnDate}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>GRN Number</small></td>
+                    <td>{{venInvRes.grnNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;"><small>SAP Posting Date</small></td>
+                    <td>
+                      {{venInvRes.sapDate|date:'dd-MM-yyyy'}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Invoice Taxable Amount</small>
+                    </td>
+                    <td>
+                      {{venInvRes.invoiceAmount|currency:'INR'}}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="wrappable" style="width: 50%;">
+                      <small>Total Amount</small>
+                    </td>
+                    <td>
+                      {{venInvRes.invoiceTotalAmount|currency:'INR'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <button type="button" (click)="sysInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                    <td class="wrappable"><a
+                        [routerLink]="['/createuser',venInvRes.invoiceCreatedByEmailId]">{{venInvRes.createdByFirstName}}&nbsp;{{venInvRes.createdByMiddleName}}&nbsp;{{venInvRes.createdByLastName}}</a>&nbsp;,&nbsp;{{venInvRes.invoiceCreatedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                    <td class="wrappable"><a
+                        [routerLink]="['/createuser',venInvRes.invoiceLastModifiedEmailId]">{{venInvRes.lastModifiedByFirstName}}&nbsp;{{venInvRes.lastModifiedByMiddleName}}&nbsp;{{venInvRes.lastModifiedByLastName}}</a>&nbsp;,&nbsp;{{venInvRes.invoiceLastModifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails" class="card-body" style="padding: 0px;margin: 0px;">
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/service_appointment_120.png"
+                      style="width: 24px;height: 24px;background-color: #934cf1" alt="" title="Service Appointment">
+                  </td>
+                  <td><a>&nbsp; <strong> Service Appointment({{serviceappointmentList.length}}) </strong></a></td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body" style="padding: 0px;">
+              <div class="table-responsive">
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th>
+                        S.No.
+                      </th>
+                      <th>
+                        Appointment Number
+                      </th>
+                      <th>
+                        Close Date
+                      </th>
+                      <th>Case Number</th>
+                      <th>Customer Name </th>
+                      <th>Case Type </th>
+                      <th>Case Reason </th>
+                      <th>Circle</th>
+                      <th>Activity Price Description </th>
+                      <th>PO Number
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of serviceappointmentList;let i=index;">
+                      <td>{{i+1}}</td>
+                      <td><a [routerLink]="['/serviceappointment',item.service_appointment_id]"
+                          [routerLinkActive]="'active'">{{item.appointmentNumber}}</a> </td>
+                      <td>{{item.caseCloseDate|date:'dd-MM-yyyy'}}</td>
+                      <td>{{item.caseId}}</td>
+                      <td>{{item.customerName}}</td>
+                      <td>{{item.caseType}}</td>
+                      <td>{{item.caseReason}}</td>
+                      <td>{{item.circleName}}</td>
+                      <td>{{item.activityProceListDescription}}</td>
+                      <td>{{item.poNumber}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/Sites.png" style="width: 24px;height: 24px;background-color: #f15050">
+                  </td>
+                  <td>
+                    <a>&nbsp; <strong>Approval History({{historyList.length}})</strong> </a>
+                  </td>
+
+                </tr>
+              </table>
+            </div>
+
+            <div *ngIf="historyList.length>0" class="card-body"
+              style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive mobile">
+                  <table class="table table-sm">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S.No</th>
+                        <th class="text-left" title="Approvel Stage"> Approval Stage
+                        </th>
+                        <th class="text-left" title="Assigned Date">Assigned Date
+                        </th>
+                        <th class="text-left" title="Assigned To"> Assigned To
+                        </th>
+                        <th class="text-left" title="Action">Action</th>
+                        <th class="text-left" title="Approved Date">Approved Date</th>
+
+                        <th class="text-left" title="Remarks">Remarks
+                        </th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let hlist of historyList;let i=index ">
+                        <td class="mhide" data-line="S.No." style="width:50px;">{{i+1}}.</td>
+                        <td data-line="Approvel Stage" class="wrappable">{{hlist.stageName}}</td>
+                        <td class="wrappable text-left" data-line="Assigned Date">
+                          {{hlist.assignedDate | date:'dd-MM-yyyy'}}</td>
+                        <td class="wrappable" data-line="Assigned To">
+                          <a [routerLink]="['/createuser',hlist.assignedToEmailId]">
+                            {{hlist.assignedToFirstName}}&nbsp;{{hlist.assignedToMiddleName}}&nbsp;{{hlist.assignedToLastName}}</a>
+                        </td>
+                        <td class="wrappable" data-line="Action">{{hlist.action}}</td>
+                        <td class="wrappable" data-line="Approved date">{{hlist.approvedDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td class="wrappable text-left" data-line="Remarks">{{hlist.remark}}</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <table>
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/document.png"
+                      style="width: 24px;height: 24px;background-color:rgb(119,179,212)">
+                  </td>
+                  <td>
+                    <strong>Invoice
+                      Copy</strong>
+                  </td>
+                </tr>
+              </table>
+
+            </div>
+            <div class="card-body">
+              <pdf-viewer *ngIf="isPdf(venInvRes.invoiceCopyUrl)" [src]="venInvRes.invoiceCopyUrl" [render-text]="true"
+                style="display: block;">
+              </pdf-viewer>
+              <div class="table-responsive">
+                <img *ngIf="!isPdf(venInvRes.invoiceCopyUrl)" [src]="venInvRes.invoiceCopyUrl"
+                  style="width: auto;height: 100%;" alt="">
+              </div>
+
+            </div>
+          </div>
+          <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- VENDOR IVNOCIE EDIT -->
+<div class="modal fade" bsModal #createInvoiceModel="bs-modal" (onShow)="modelOpen.invoiceModal=true"
+  (onHide)="modelOpen.invoiceModal=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Edit Invoice {{venInvRes.invoiceManualId}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelInvoiceData()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-editvendorinvoice *ngIf="modelOpen.invoiceModal" [vendorInvocieDetails]="venInvRes"
+          (onCancel)="createInvoiceModel.hide()" (onInvoiceUpdated)="onInvoiceUpdated()">
+        </app-editvendorinvoice>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- commercial window display -->
+
+<div class="modal fade" bsModal #commercialModel="bs-modal" (onShow)="modelOpen.grnModal=true"
+  (onHide)="modelOpen.grnModal=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelCommercial()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-commercial-vendor-invoice *ngIf="modelOpen.grnModal" [isEditMode]="false" [editGRNData]="comreq"
+          (onGRNupdate)="onGRNupdate($event)" (onCancel)="cancelCommercial()" [venInvoiceID]="venInvoiceId">
+        </app-commercial-vendor-invoice>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- update SAP window -->
+<div class="modal fade" bsModal #SAPUpdateModel="bs-modal" (onShow)="modelOpen.sapModal=true"
+  (onHide)="modelOpen.sapModal=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelSAP()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-update-sap-number *ngIf="modelOpen.sapModal" [isEditMode]="false" [venInvoiceID]="venInvoiceId"
+          (onCancleSAP)="cancelSAP()" (onSAPUpdate)="onSAPUpdate($event)"></app-update-sap-number>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <!-- <strong *ngIf="message=='Updated Successfully'">Site &nbsp;Udated successfully !</strong> -->
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

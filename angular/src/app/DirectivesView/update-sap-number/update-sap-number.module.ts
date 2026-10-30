@@ -1,0 +1,28 @@
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule, BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Loginservices } from '../../services/login.services';import { NgSelectModule } from '@ng-select/ng-select';
+import { UpdateSapNumberComponent } from './update-sap-number.component';
+import { VendorInvoiceService } from '../../services/vendorinvoice.services';
+
+@NgModule({
+    imports: [
+      CommonModule,
+      FormsModule,ReactiveFormsModule,
+      ModalModule,
+      NgxSpinnerModule,
+      RouterModule,NgxSpinnerModule, BsDatepickerModule.forRoot(),
+      TimepickerModule.forRoot(),NgSelectModule,
+  
+    ],
+    declarations: [UpdateSapNumberComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
+    exports: [UpdateSapNumberComponent],
+    providers: [NgxSpinnerService, Loginservices,DatePipe,VendorInvoiceService]
+  })
+export class SAPNumberModule{
+
+}

@@ -1,0 +1,252 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div classs="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:32px;">
+              <img alt="Legal_Entity" src="assets/images/ligalEntity.png"
+                style="height: 32px;width:32px;background-color: rgb(91, 235, 191);" title="Legal_Entity">
+            </td>
+            <td style="padding-left:5px;">Legal Entity</td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <div class="btn-group" dropdown>
+                  <span dropdownToggle type="button" style="background-color: white;">
+                      <span style="font: size 15px;padding-right: 5px;">
+                          &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                              class="fa fa-sort-down"></i>&nbsp;
+                      </span>
+                  </span>
+                  <ul class="dropdown-menu" *dropdownMenu role="menu"
+                      aria-labelledby="button-disabled-item" style="width: 115%;">
+                      <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                          VIEWS</li>
+                      <li role="menuitem" *ngFor="let m of dropdownsList">
+                          <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                      </li>
+                  </ul>
+              </div>&nbsp;
+              <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+              (click)="pinFilter()">
+              <em class="fa fa-thumb-tack"></em>
+          </button>
+          <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+              <em class="fa fa-thumb-tack"></em>
+          </button>
+             
+          </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-4 col-md-4">
+        <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+        autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+      </div>
+      <div class="col-sm-4 col-md-4 text-right">
+        <div class="btn-group" *ngIf="_cFlag!='f'"style="padding: 10px;">
+          <button class="btn btn-sm btn-outline-info" type="button" *ngIf="rights('LegalEntity','create')" (click)="showCreateLegalEntityView()"> <i class="fa fa-plus"></i>&nbsp;New </button>
+        </div>
+      </div>
+    </div> <br>
+    <!-- search -->
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="advancesearch.legalEntityName" placeholder="legal entity name">
+      </div>
+      <div class="col-md-3">
+        <!-- <input type="text" class="form-control" [(ngModel)]="advancesearch.type" placeholder="type"> -->
+        <select class="form-control" [(ngModel)]="advancesearch.type">
+          <option value=""> Select Type</option>
+          <option *ngFor=" let lgtyp of LgTyoeforList" [ngValue]="lgtyp.typeName">{{lgtyp.typeName}}</option>
+          <!-- <option value="Repair Center">Repair Center</option>
+          <option value="Service Center">Service Center</option> -->
+        </select>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-outline-info btn-md" (click)="searchLeg()"><em
+            class="fa fa-search"></em>
+          Search</button>
+          <button type="button" class="btn btn-outline-info btn-md" (click)="searchreset()">
+          Reset</button>
+      </div>
+    
+    </div>
+      </div>
+</div>
+  <!-- ==========cardBody= -->
+  <div *ngIf="showHide" class="panel panel-default" id="cardChart"
+    style="width: 20%;height:40px;border:groove; background-color: white; float: right;">
+    <div class="panel-header">
+    </div>
+    <div class="panel-heading" style="background-color:white;">Chart <button class=" btn fa"
+        (click)="changeShowStatus()" style="float: right;background-color: white; font-size:15px">&#xf00d;</button>
+    </div>
+    <div class="panel-body">
+
+
+      <p>This list doesn'nt have any chart</p>
+      <button class="btn btn-group text-center" style="float:center;margin-right: 10px;"> New Chart</button>
+
+      <!-- <a href="#" class="card-link">Card link</a>
+  <a href="#" class="card-link">Another link</a> -->
+    </div>
+  </div>
+  <div *ngIf="showFilter" class="panel panel-default" id="filter"
+    style="width: 20%;height:40px;border:groove; background-color: white; float: right;">
+    <div class="panel-header">
+    </div>
+    <div class="panel-heading" style="background-color:white;">Filter <button class=" btn fa"
+        (click)="changeShowFilter()" style="float: right;background-color: white; font-size:15px">&#xf00d;</button>
+    </div>
+    <div class="panel-body">
+
+      <div style="border: groove;">
+        Filter by owner
+        <p>All Accounts</p>
+      </div>
+
+
+    </div>
+    <div class="panel-footer" style="background-color:white; margin-bottom:3px;">
+      <a href="#">Add filter</a><a href="#" style="float:right">Remove All</a>
+    </div>
+  </div> 
+  <div class="card-body" style="padding: 0px; background-color:white;">
+    <div  class="wrap" >
+      <table class="head">
+        <thead style="background-color:rgb(248, 245, 245)">
+          <th  title="S.No">S.No</th>
+          <th  *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+           title="{{tb.name}}">
+           <div class="row">
+             <div class="col sm-10">{{tb.name}}</div>
+             <div class="col sm-2"> <i [ngClass]="tb.icon"></i></div>
+           </div>
+           </th>
+          <th>Action</th>
+        </thead>
+      </table>
+   <div class="inner_table"*ngIf="recent.content.length>0">
+    <table >
+      <tbody>
+        <tr *ngFor="let rect of recent.content |searchfilt: searchitem; let i = index ">
+          <td data-line="S.No">{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+          <td data-line="Name" > <a href="#" routerLink="/legalentity/{{rect.legalentityId}}" activateRout="active">{{rect.legalEntityName}}</a>
+       </td>
+         <td data-line="Type">{{rect.legalEntityTypeName}}</td>
+          <td data-line="Fixed Pay Out">{{rect.legalEntiytFixedLayou}}</td>
+          <td data-line="Created date">{{rect.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+          <td data-line="Action">
+            <div class="btn-group" dropdown  placement="bottom right">
+             <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+
+              <ul *ngIf="rights('LegalEntity','edit')" class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                <li role="menuitem">
+                  <a class="dropdown-item"  (click)="createLegalENtityModelshow(rect)">Edit </a>
+                </li>
+               </ul>
+            </div>
+          </td>
+        </tr>
+
+        <div style="height:65px;">
+
+          </div>
+      </tbody>
+    </table>
+   </div>
+   <div *ngIf="recent.content.length==0">
+    <div class="row">
+       <div class="col-md-4"> </div>
+       <div class="col-md-4"> <p>Data Not Found</p></div>
+       <div class="col-md-4"></div>
+    </div>
+   </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-sm-4" style="text-align:left">
+        Showing Page {{recent.number+1}} &nbsp;of&nbsp;{{recent.totalPages}}&nbsp;Total Count={{recent.totalElements}}
+      </div>
+      <div class="col-sm-4">
+        <div style="text-align: center" *ngIf="!(recent.first && recent.last) ">
+          <a [routerLink]="['/legalentity']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!recent.first"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:recent.number-1,size:dropdownSelected.size}">
+                        &lt;
+                    </a>
+                    <a [routerLink]="['/legalentity']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:recent.number,size:dropdownSelected.size}">
+                        {{recent.number+1}}
+                    </a>
+                    <a [routerLink]="['/legalentity']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!recent.last"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:recent.number+1,size:dropdownSelected.size}">
+                        &gt;
+                    </a>
+        </div>
+      </div>
+      <div class="col-sm-4" style="text-align: right;" *ngIf="recent.content.length>0">
+        <div class="row">
+         <div class="col-md-6"></div>
+          <div  *ngIf="!(recent.first && recent.last) "  class="col-md-6">
+            <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+             <button (click)=jumpPage(pagenumber)>Go</button>
+           </div>
+        </div>
+     </div>
+    </div>
+ 
+
+  <div *ngIf="!table" class="container">
+
+    <div class="row">
+      <tr class="col-lg-4" *ngFor="let tbl of tabledata">
+
+        <div class="panel col-lg-6" style=" width:25rem;background-color: white;">
+          <div class="panel-header">{{tbl.legalEntityName}}</div>
+          <div class="panel-body">
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </tr>
+    </div>
+  </div>
+</div>
+<!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+ role="dialog" aria-labelledby="create-account">
+
+
+
+ <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+   style="width:40%; text-align: center">
+   <strong>{{message}} !</strong>
+ </div>
+ <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+   style="width:40%; text-align: center">
+   <strong>{{message}} !</strong>
+ </div>
+</div>
+<div class="modal fade" bsModal #createAcountModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> {{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cancelData()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-createlegalentity [isEditMode]="isEditMode" [editEntityData]="req" (onEntityCreated)="onEntityCreated($event)" (onCancle)="cancelData()">
+        </app-createlegalentity>
+      </div>
+    </div>
+  </div>
+</div>

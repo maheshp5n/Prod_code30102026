@@ -1,0 +1,258 @@
+<app-header [navbarBrandRouterLink]="['/home']" [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/images/logo.png', width: 89, height: 25, alt: 'Exicom'}"
+  [navbarBrandMinimized]="{src: 'assets/icons/logo3.png', width: 30, height: 30, alt: 'Exicom'}"
+  [sidebarToggler]="'lg'" [asideMenuToggler]="false" [mobileAsideMenuToggler]=false>
+  <ul class="nav navbar-nav ml-auto mr-auto">
+    <li class="nav-item">
+      <div class="input-group mt-1">
+        <input type="text" class="form-control" [(ngModel)]="searchKyeString" placeholder="Search Assets,Sites,Accounts"
+          aria-label="Recipient's username" (keydown.enter)="adsearchResultShow()" aria-describedby="basic-addon2" autocomplete="off">
+        <div class="input-group-append">
+          <!-- <button class="btn btn-outline-secondary" (click)="searchDetails()" type="button"><em
+              class="fa fa-search"></em></button> -->
+        </div>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="adsearchResultShow()" type="button"><em
+              class="fa fa-search"></em>Search</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav ml-auto">
+    <li class="nav-item d-md-down-none dropdown" dropdown placement="bottom right">
+      <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle
+        (click)="readAllNotification()"><i class="icon-bell"></i><span class="badge badge-pill badge-danger"
+          *ngIf="numberOfNotification>0">{{numberOfNotification}}</span></a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+
+        <div class="dropdown-header text-center"><strong>Notification</strong></div>
+
+        <a class="dropdown-item" style="cursor: pointer;"
+          *ngFor="let pnl of previousNotificationsList;let i = index;"><i class="fa fa-shield"></i>
+          <span (click)="notificationNavigation(pnl.notificationActionUrl,pnl.notificationId)"
+            *ngIf="!pnl.notificationRead"><strong>{{pnl.notificationMessage}}</strong> </span>
+          <span (click)="notificationNavigation(pnl.notificationActionUrl,pnl.notificationId)"
+            *ngIf="pnl.notificationRead">{{pnl.notificationMessage}}</span>
+        </a>
+      </div>
+    </li>
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+        dropdownToggle (click)="false">
+        <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="raushan@pratikshat.com" />
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <div class="dropdown-item text-center"><strong>{{loginData.firstName}}&nbsp;{{loginData.lastName}}</strong>
+        </div>
+        <div class="dropdown-header text-center"><strong>Vertical</strong></div>
+        <a class="dropdown-item" style="cursor: pointer;" (click)="getNavigation(2)"><i class="fa fa-shield"></i>
+          DCT</a>
+          <a class="dropdown-item" style="cursor: pointer;" (click)="getNavigation(1)"><i class="fa fa-shield"></i>
+            ESS</a>
+        <div class="dropdown-header text-center"><strong>Settings</strong></div>
+
+        <a class="dropdown-item" style="cursor: pointer;" (click)="changePass.show()"><i class="fa fa-shield"></i>
+          Change Password</a>
+        <a class="dropdown-item" style="cursor: pointer;" (click)="doLogout()"><i class="fa fa-lock"></i> Logout</a>
+      </div>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar [fixed]="true" [display]="'lg'">
+    <!--<input type="text" [(ngModel)]="navsearch" style="background-color: none;background: none;outline: none;">-->
+    <app-sidebar-nav [navItems]="navItems|recursive:navsearch" [perfectScrollbar] [disabled]="sidebarMinimized">
+    </app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <div class="container-fluid" style="padding:10px;">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <app-aside [fixed]="false" [display]="false">
+  </app-aside>
+
+</div>
+
+<!-- Popup for Password Change-->
+<div class="modal fade" bsModal #changePass="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" style="font-weight: bolder; text-align: center">Change
+          Password</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="changePass.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body modal-md">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 form-group required">
+            <div class="control-label">
+              Old Password
+            </div>
+
+            <input [(ngModel)]="_changePasswordModel.oldPassword" type="password" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 form-group required">
+            <div class="control-label">
+              New Password
+            </div>
+
+            <input [(ngModel)]="_changePasswordModel.newPassword" type="password" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 form-group required">
+            <div class="control-label">
+              Confirm Password
+            </div>
+
+            <input [(ngModel)]="_changePasswordModel.confirmPassword" type="password" class="form-control">
+          </div>
+          <!-- <label style="color: red;"
+            *ngIf="_changePasswordModel.newPassword!=_changePasswordModel.confirmPassword">{{message}}</label> -->
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 text-right">
+            <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i
+                class="fa fa-remove"></i>&nbsp;
+              Cancel</button>&nbsp;
+
+            <button type="button" (click)="changePassword()" class="btn btn-sm btn-primary"><i
+                class="fa fa-save"></i>&nbsp;
+              Change Password</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- pass changed -->
+<div class="modal fade" bsModal #passChanged="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+
+      <!-- Modal body -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="passChanged.hide()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="text-align: center">
+        {{message}}
+
+        <div class="text-right">
+          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"
+            (click)="passChanged.hide()">Close</button>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+
+
+    </div>
+  </div>
+</div>
+
+<!--search result-->
+<div class="modal fade" bsModal #searchResult='bs-modal' (onHide)="globalSearch=[]" [config]="{backdrop:'static'}"
+  role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>{{globalSearch.length}} Search Result found</h4>
+      </div>
+      <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+        <div class="row">
+          <div class="col-6">Object Name</div>
+          <div class="col-6">Search Keyword</div>
+        </div>
+        <div class="row" *ngFor="let s of globalSearch;">
+          <div class="col-6">
+
+            {{s.objectName}}
+          </div>
+          <div class="col-6">
+
+            <a (click)="searchResult.hide()" href="#{{s.objectDetailsUrl}}">{{s.searchString}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer text-right">
+        <button class="btn btn-sm btn-primary" (click)="searchResult.hide()"><i class="fa fa-remove"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #adsearchResult='bs-modal' (onHide)="adSearch=false" (onShow)="adSearch=true"
+  [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Global Search Result</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="adsearchResult.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+        <app-searchresultdisplay *ngIf="adSearch" [searchKey]="searchKyeString"></app-searchresultdisplay>
+        <div class="modal-footer text-right">
+          <button class="btn btn-sm btn-primary" (click)="adsearchResult.hide()"><i class="fa fa-remove"></i>
+            Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" bsModal #customerInventoryBulk='bs-modal' (onHide)="adSearch=false" (onShow)="adSearch=true"
+  [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>BULK UPLOAD FINAL REPORT</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="customerInventoryBulk.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+        <div class="table-responsive">
+          <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th *ngFor="let o of customerInventoryDataKeys">
+                    {{o}}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of customerInventoryData">
+                  <td *ngFor="let o of customerInventoryDataKeys">
+                    {{c[o]}}
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-usernote></app-usernote>

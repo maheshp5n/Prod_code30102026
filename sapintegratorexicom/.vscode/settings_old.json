@@ -1,0 +1,18 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/raushan/java_m_libs/activation.jar",
+        "/home/raushan/java_m_libs/java-mail-1.4.4.jar",
+        "/home/raushan/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.1.0.jre8/mssql-jdbc-6.1.0.jre8.jar",
+        "/home/raushan/java_m_libs/apache-log4j-2.17.1-bin/log4j-api-2.17.1.jar",
+        "/home/raushan/java_m_libs/apache-log4j-2.17.1-bin/log4j-core-2.17.1.jar",
+        "/home/raushan/.m2/repository/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar"
+    ],
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-1.8",
+            "path": "/usr/lib/jvm/java-8-openjdk-amd64",
+            "default": true
+        }
+    ]
+}

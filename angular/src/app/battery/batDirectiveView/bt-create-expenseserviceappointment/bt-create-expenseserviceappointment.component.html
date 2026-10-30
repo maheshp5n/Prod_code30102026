@@ -1,0 +1,107 @@
+  <!-- table SA List -->
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div  class="card-body" style="overflow: auto;">
+        <div class="col-md-3 "></div>
+        <div class="col-md-9 text-right"> <div class="row" >
+            <div class="col-md-6"> <div *ngIf="!_isEditModeExpSA">Total Amount : {{exp.totalExp}}</div></div>
+
+            <div class="col-md-6">Cost Center : 
+                <!-- <select  class="form-control-sm" [(ngModel)]="exp.costCenter">
+                    <option value='' selected disabled>--select--</option>
+                    <option *ngFor="let c of expcostCenter">
+                        {{c.costCenterAndGlCode}}</option>
+                </select> -->
+                {{exp.costCenter}}
+                
+            </div>
+            
+        </div>  </div>
+        <div style="line-height: 5px;">&nbsp;</div>
+        
+        <div class="table-responsive mobile">
+          <table class="table  table-sm table-condensed tablerview">
+            <thead>
+              <tr>
+                <th *ngIf="!_isEditModeExpSA"></th>
+                <th>  S.No.  </th>
+                <th class="table-header" > Service Appointment Number</th>
+                <th class="table-header" title="Customer Name">Case Number</th>
+                <th class="table-header" title="Case Number">Site Name</th>
+                <th class="table-header" title="Customer Name">Circle  </th>
+                <!-- <th class="table-header" title="Case Reason"> Claim Amount    </th> -->
+               
+
+                <!-- <th class="table-header" title="Service Resources"> Service Resources</th> -->
+                <!-- <th class="table-header" title="Amount">Action</th> -->
+            
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exp of expClaim; index as i" >
+                <td *ngIf="!_isEditModeExpSA">
+                    <input  type="checkbox"  [(ngModel)]="exp.isChecked" (change)="checkedfield(exp,$event)">
+
+                </td>
+                <td>
+                {{i+1}}.
+                
+                </td>
+                <td >      <a href="" routerLink="/bat_serviceappointment/{{exp.btServiceAppointmentId}}">    
+                    {{exp.btServiceAppointmentManualId}}  </a>
+
+                </td>
+                <td>  <a href="#" routerLink="/bat_case/{{exp.caseId}}"
+                  activateRout="'active'">
+                              {{exp.caseManualId}}</a>
+                </td>
+                <td>      <a href="#" routerLink="/bat_site/{{exp.siteId}}"
+                  activateRout="'active'">
+                          {{exp.siteName}}
+                          </a>
+                </td>
+               
+                <td>         <a href="#" routerLink="/bat_circle/{{exp.circleName}}"
+                  activateRout="'active'">      
+                    {{exp.circleName}}</a>
+                </td>
+                <!-- <td>              
+                    <input  type="text" class="form-control" [(ngModel)]="exp.claimAmount" (keyup)="checkedfield(exp,$event.target)" (keypress)="onlyNumbersForRs($event)">
+                </td> -->
+            
+                <!-- <td><div class="col-md-2 col-sm-2">
+                  <span class="input-group-append">
+                    <div><i [ngClass]="faMinus"  class="border-left-0" ></i></div>
+                  </span>
+                </div></td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+     
+        
+        <div class="row">
+          <div class="col-md-12 col-sm-12 text-right">
+              <!-- <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+                  Cancel</button>&nbsp; -->
+      
+              <button *ngIf="expClaim.length!=0" type="button"  (click)="claimAmount()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>&nbsp;
+                  Claim</button>
+          </div>
+      </div>
+
+      <div *ngIf="expClaim.length==0">
+        <div class="row">
+          <div class="col-md-4"> </div>
+          <div class="col-md-4"> <p>Data Not Found</p></div>
+          <div class="col-md-4"></div>
+      </div>
+ </div>
+
+
+      </div>
+    </div>
+  </div>

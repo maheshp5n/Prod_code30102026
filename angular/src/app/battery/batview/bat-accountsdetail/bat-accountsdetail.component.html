@@ -1,0 +1,566 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="Account" src="assets/images/account_120.png"
+                  style="height: auto;width:100%;background-color: rgb(198, 172, 240);" title="Account" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Account</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{account.accountName}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div *ngIf="_cFlag!='f'">
+            <div *ngIf="rights('Accounts','edit')" class="btn-group" style="padding: 10px;">
+              <button class="btn btn-outline-info btn-sm" type="button"
+                (click)="createEditModelshow(account)">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <small>Phone</small>
+          <div>{{account.phone}}</div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <small>Billing Address</small>
+          <div *ngIf="isBillingStreet">
+            {{account.billingAddress}}&nbsp;{{account.billingStreet}}&nbsp;{{account.billingCity}}&nbsp;{{account.billingSteateName}}&nbsp;
+            {{account.billingPincode}}&nbsp;{{account.billingcountryName}}
+          </div>
+          <div *ngIf="!isBillingStreet">
+            {{account.billingAddress}}&nbsp;{{account.billingCity}}&nbsp;{{account.billingSteateName}}&nbsp;
+            {{account.billingPincode}}&nbsp;{{account.billingcountryName}}
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <small>Owner</small>
+          <div>
+            <a href="#" routerLink="/bat_user/{{account.accountOwner}}">
+              {{account.accountOwnerFirstName}}&nbsp;{{account.accountOwnerMiddleName}}&nbsp;{{account.accountOwnerLastName}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li>
+              <a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a>
+            </li>
+            <li>
+              <a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a>
+            </li>
+          </ul>
+          <br>
+          <hr style="margin-top: 15px;">
+          <div *ngIf="vDetails" class="card-body" style="padding: 0px;margin: 0px;">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> Account Information
+            </button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;">
+                        <small>Account Name</small>
+                      </td>
+                      <td class="wrappable">{{account.accountName}} </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>Type</small> </td>
+                      <td class="wrappable">{{account.accountTypeName}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>Description</small> </td>
+                      <td class="wrappable">{{account.description}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>Category</small> </td>
+                      <td class="wrappable">{{account.accountCatagoryName}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>Parent Account</small> </td>
+                      <td class="wrappable"><a href="#" routerLink="/bat_account/{{account.parentAccountSapNumber}}">
+                          {{account.parentAccountName}}</a> </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"> <small>Email</small> </td>
+                      <td class="wrappable"> {{account.emailid }}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>SAP Customer Number</small> </td>
+                      <td class="wrappable">{{account.sampAccountNumber}} </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> Owner</small> </td>
+                      <td class="wrappable">
+                        <a href="#" routerLink="/bat_user/{{account.accountOwner}}">
+                          {{account.accountOwnerFirstName}}&nbsp;{{account.accountOwnerMiddleName}}&nbsp;{{account.accountOwnerLastName}}
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>Phone</small> </td>
+                      <td class="wrappable"> {{account.phone}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>Parent Customer</small> </td>
+                      <td class="wrappable"> {{account.parentCustomerName}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+            <button type="button" (click)="changeAddressDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left">
+              <i style="font-size: 18px;" [ngClass]="addressDisplay.angleIcon"></i> Billing Address Information</button>
+  
+            <div *ngIf="addressDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"> <small> Address</small> </td>
+                      <td class="wrappable"> {{account.billingAddress}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> Street</small> </td>
+                      <td class="wrappable"> {{account.billingStreet}} </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> City</small> </td>
+                      <td class="wrappable">{{account.billingCity}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"> <small> Country</small> </td>
+                      <td class="wrappable">{{account.billingcountryName }} </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small>State</small> </td>
+                      <td class="wrappable"> {{account.billingSteateName}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> Pincode</small> </td>
+                      <td class="wrappable">{{account.billingPincode}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <button type="button" (click)="changeAddressDisplay1()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left">
+              <i style="font-size: 18px;" [ngClass]="addressDisplay1.angleIcon"></i> Shipping Address Information</button>
+  
+            <div *ngIf="addressDisplay1.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"> <small> Address</small> </td>
+                      <td class="wrappable">{{account.shippingAddress}} </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> Street</small> </td>
+                      <td class="wrappable">{{account.shippingStreet}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> City</small> </td>
+                      <td class="wrappable">{{account.shippingCity}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"> <small> Country</small> </td>
+                      <td class="wrappable"> {{account.shippingCountryName }}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> State</small> </td>
+                      <td class="wrappable"> {{account.shippingStateName}}</td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"> <small> Pincode</small> </td>
+                      <td class="wrappable"> {{account.shippingPincode}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+            <button type="button" (click)="changeSystemDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="systemDisplay.angleIcon"></i> System Information</button>
+            <div *ngIf="systemDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"> <small>Created By</small> </td>
+                      <td class="wrappable"> <a href="#"
+                          routerLink="/bat_user/{{account.createdById}}">{{account.createdByFirstName}}&nbsp;{{account.createdByMiddleName}}&nbsp;{{account.createdByLastName }}</a>&nbsp;,
+                        {{account.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"> <small>Last Modified By</small> </td>
+                      <td class="wrappable"> <a href="#"
+                          routerLink="/bat_user/{{account.modifiyedById}}">{{account.modifiyedFirstName}}&nbsp;
+                          {{account.modifiyedMiddleName}}&nbsp;{{account.modifiyedLastName}}</a>&nbsp;,
+                        {{account.modifiyedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!vDetails" class="card-body" style="padding: 0px;margin: 0px;">
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img src="assets/images/relationship_120.png"
+                        style="width: 24px;height: 24px;background-color: #3c97dd"> </td>
+                    <td>
+                      <a href="#" routerLink="/bat_contacts" style="font-weight: bold;color: black;"> Contacts
+                        ({{totalContacts}}) </a>
+                    </td>
+                    <td  *ngIf="contactsList.length>5" class="text-right">
+                      <!-- <button *ngIf="rights('ContactDetails','create')" type="button" class="btn btn-sm btn-outline-info"> View All </button> -->
+                         <a [routerLink]="['/details_of_all_view',sapId,'cmponent','contact']" [queryParams]="{cmponent:contactColumns,page:contactPage}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> 
+
+                      <button *ngIf="rights('ContactDetails','create')" type="button"
+                        (click)="showCreateContactView(account)" class="btn btn-sm btn-outline-info">
+                        <i class="fa fa-plus"></i> New Contact</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div *ngIf="contactsList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+                <div class="table-responsive mobile" style="height: 100%;">
+                  <table class="table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th title="S.No" style="width:50px;">S.No.</th>
+                        <th title="Name" scope="col" class="text-left">Name</th>
+                        <th title="Department" scope="col" class="text-left">Department</th>
+                        <th title="Email" scope="col" class="text-left">Email</th>
+                        <th title="Phone Number" scope="col" class="text-left">Phone Number</th>
+                        <th title="Contact Number" scope="col" class="text-left">Contact Number</th>
+                        <!-- <th scope="col" class="text-left"> Action </th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of contactsList; let i=index">
+                        <td data-line="S.No" class="mhide">{{contactSerial+i+1}}.</td>
+                        <td data-line="Name" scope="col" class="text-left"><a href="#"
+                            routerLink="/bat_contacts/{{c.contactid}}">
+                            {{c.contactFirstName}} {{c.contactMiddleName}} {{c.contactLastName}}</a></td>
+                        <td data-line="Department" scope="col" class="text-left">{{c.contactDepartment}}</td>
+                        <td data-line="Email" scope="col" class="text-left">{{c.contactEmailId}}</td>
+                        <td data-line="Phone Number" scope="col" class="text-left">{{c.contactPhoneNumber}} </td>
+                        <td data-line="Contact Number" scope="col" class="text-left">{{c.contactMobileNumber}} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr>
+                  <div style="text-align: center" *ngIf="!(contactFirst && contactLast)">
+                    <a id="prbtn" class="previous round" href="" [class.disabled]="contactFirst" *ngIf="!contactFirst"
+                      (click)="setPagePreviousContact($event)" [ngClass]="{'active':contactPage}">
+                      &#8249;
+                    </a>
+                    <a id="prbtn" class="nav-link active" href="" (click)="setPageContact($event)"
+                      [ngClass]="{'active':i==contactPage}">
+                      {{contactPage+1}}
+                    </a>
+                    <a id="prbtn" class="next round" href="" [class.disabled]="contactLast" *ngIf="!contactLast"
+                      (click)="setPageNextContact($event)" [ngClass]="{'active':contactPage}">
+                      &#8250;
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img src="assets/images/custom13_120.png"
+                        style="width: 24px;height: 24px;background-color: #df6184">
+                    </td>
+                    <td>
+                      <a href="#" routerLink="/bat_site" style="font-weight: bold;color: black;"> Sites
+                        ({{totalSites}})
+                      </a>
+                    </td>
+                    <td *ngIf="sitesList.length>5" class="text-right">
+                      <a [routerLink]="['/details_of_all_view',sapId,'cmponent','siteacc']" [queryParams]="{cmponent:sitecolumn,page:sitePage}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> 
+                      
+                      <button *ngIf="rights('SiteDetails','create')" type="button" (click)="createShowModal(account)"
+                      class="btn btn-sm btn-outline-info">
+                      <i class="fa fa-plus"></i> New Site</button>
+                    </td>
+                  
+                  </tr>
+                </table>
+              </div>
+              <div *ngIf="sitesList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+                <div class="table-responsive mobile" style="height: 100%;">
+                  <table class="table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th title="S.No" style="width:50px;">S.No.</th>
+                        <th title="Site ID" scope="col" class="text-left">Site ID</th>
+                        <th title="cluster/District" scope="col" class="text-left">Cluster/District</th>
+                        <th title="Exchange/Site Name" scope="col" class="text-left">Exchange/Site Name </th>
+                        <th title="Infra ID" scope="col" class="text-left">Infra ID</th>
+                        <!-- <th scope="col" class="text-left"> Action </th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let s of sitesList; let i=index">
+                        <td data-line="S.No" class="mhide">{{siteSerial+i+1}}.</td>
+                        <td data-line="Site ID" scope="col" class="text-left"><a href="#" routerLink="/bat_site/{{s.siteId}}"
+                            activateRout="active">{{s.siteManualId}}</a>
+                        </td>
+                        <td data-line="cluster/District" scope="col" class="text-left">{{s.clusterDistrict}}</td>
+                        <td data-line="Exchange/Site Name" scope="col" class="text-left">{{s.siteName}} </td>
+                        <td data-line="Infra ID" scope="col" class="text-left">{{s.infraId}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr>
+                  <div style="text-align: center" *ngIf="!(siteFirst && siteLast)">
+                    <a id="prbtn" class="previous round" href="" [class.disabled]="siteFirst" *ngIf="!siteFirst"
+                      (click)="setPagePreviousSites($event)" [ngClass]="{'active':sitePage}">
+                      &#8249;
+                    </a>
+  
+                    <a id="prbtn" class="nav-link active" href="" (click)="setPageSites($event)"
+                      [ngClass]="{'active':i==sitePage}">
+                      {{sitePage+1}}
+                    </a>
+  
+                    <a id="prbtn" class="next round" href="" [class.disabled]="siteLast" *ngIf="!siteLast"
+                      (click)="setPageNextSites($event)" [ngClass]="{'active':sitePage}">
+                      &#8250;
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img src="assets/images/case_120.png" style="width: 24px;height: 24px;background-color: #F2CF5B">
+                    </td>
+                    <td>
+                      <a href="#" routerLink="/bat_case" style="font-weight: bold;color: black;"> Cases
+                        ({{totalCases}})
+                      </a>
+                    </td>
+                    <!-- *ngIf="casesList.length>5" -->
+                    <td *ngIf="casesList.length>5" class="text-right">
+                      <a [routerLink]="['/details_of_all_view',sapId,'cmponent','caseAcc']" [queryParams]="{cmponent:caseColumnAcc,page:casePage}" target="_blank" class="btn btn-sm btn-outline-info"> View All </a> 
+
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div *ngIf="casesList.length>0" class="panel-body" style="margin-bottom: 0px;padding: 0px;">
+                <div class="table-responsive mobile" style="height: 100%;">
+                  <table class="table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th title="S.No" style="width:50px;">S.No.</th>
+                        <th title="Case Number" scope="col" class="text-left">Case Number</th>
+                        <th title="Type" scope="col" class="text-left">Type</th>
+                        <th title="Case Reason" scope="col" class="text-left">Case Reason</th>
+                        <th title="Status" scope="col" class="text-left">Status</th>
+                        <!-- <th scope="col" class="text-left">Action</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of casesList;let i=index">
+                        <td data-line="S.No" class="mhide">{{caseSerial+i+1}}.</td>
+                        <td data-line="Case Number" scope="col" class="text-left"><a href="#"
+                            routerLink="/bat_case/{{c.caseId}}">{{c.caseManualId}}</a></td>
+                        <td data-line="Type" scope="col" class="text-left">{{c.caseTypeName}}</td>
+                        <td data-line="Case Reason" scope="col" class="text-left">{{c.caseReasonName}}</td>
+                        <td data-line="Status" scope="col" class="text-left">{{c.caseStatusName}} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr>
+                  <div style="text-align: center" *ngIf="!(caseFirst && caseLast)">
+                    <a id="prbtn" class="previous round" href="" [class.disabled]="caseFirst" *ngIf="!caseFirst"
+                      (click)="setPagePreviousCase($event)" [ngClass]="{'active':casePage}">
+                      &#8249;
+                    </a>
+                    <a id="prbtn" class="nav-link active" href="" (click)="setPageCase($event)"
+                      [ngClass]="{'active':i==casePage}">
+                      {{casePage+1}}
+                    </a>
+                    <a id="prbtn" class="next round" href="" [class.disabled]="caseLast" *ngIf="!caseLast"
+                      (click)="setPageNextCase($event)" [ngClass]="{'active':casePage}">
+                      &#8250;
+                    </a>
+                  </div>
+                </div>
+                <!-- <div class="text-right">
+                  <a [routerLink]="['/accounts',account.sampAccountNumber,'case']" [routerLinkActive]="['active']">View
+                    All</a>
+                </div> -->
+              </div>
+            </div>
+            <div>
+              <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #createAcountModel="bs-modal" (onShow)="openModules.createAccountOpen=true"
+    (onHide)="openModules.createAccountOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createaccount *ngIf="openModules.createAccountOpen" [isEditMode]="isEditMode"
+            [editAccountData]="createAccount" (onAccountCreated)="onAccountCreated($event)" (onCancle)="cancelData()">
+          </app-bt-createaccount>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #createContactModel="bs-modal" (onShow)="openModules.contactCreate=true"
+    (onHide)="openModules.contactCreate=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createContactModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createcontacts *ngIf="openModules.contactCreate" [isEditMode]="isEditMode" [editContactData]="newcontact"
+            (onContactCreated)="onContactCreated($event)" (onCancle)="cancelData1()">
+          </app-bt-createcontacts>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #createSitesModel="bs-modal" (onShow)="openModules.createSite=true"
+    (onHide)="openModules.createSite=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createSitesModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <app-bt-createsite [isEditMode]="isEditMode" [editEntityData]="res" (onSiteCreated)="onSiteCreated($event)"
+            (onCancle)="cancelData2()"></app-bt-createsite>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" bsModal #createCaseModel="bs-modal" (onShow)="openModules.createCase=true"
+    (onHide)="openModules.createCase=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left"> {{heading}} </h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createCaseModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <app-btcreatecase *ngIf="openModules.createCase" [isEditMode]="isEditMode" [editEntityData]="caseRes"
+            (onCaseCreated)="onCaseCreated($event)" (onCancle)="cancelDatacase()"></app-btcreatecase>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+  </div> -->

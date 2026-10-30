@@ -1,0 +1,261 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:32px;">
+                <img alt="Asset" src="assets/images/product_120.png"
+                  style="height: 32px;width:32px;background-color: rgb(49,121,146);" title="Asset">
+              </td>
+              <td style="padding-left:5px;">Asset</td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                  <div class="btn-group" dropdown>
+                      <span dropdownToggle type="button" style="background-color: white;">
+                          <span style="font: size 15px;padding-right: 5px;">
+                              &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                  class="fa fa-sort-down"></i>&nbsp;
+                          </span>
+                      </span>
+                      <ul class="dropdown-menu" *dropdownMenu role="menu"
+                          aria-labelledby="button-disabled-item" style="width: 115%;">
+                          <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                              View</li>
+                          <li role="menuitem" *ngFor="let m of dropdownsList">
+                              <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                          </li>
+                      </ul>
+                  </div>&nbsp;
+                  <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                  (click)="pinFilter()">
+                  <em class="fa fa-thumb-tack"></em>
+              </button>
+              <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                  <em class="fa fa-thumb-tack"></em>
+              </button>
+              </td>
+          </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4">
+       </div>
+        <div class="col-sm-4 col-md-4 text-right">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('BtAssets','create')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="showCreateAccountView()"> <i class="fa fa-plus"></i> New Asset</button>&nbsp;&nbsp;
+              <!-- bulk upload -->
+              <input type="file" name="profile" (change)="onFileSelect($event)" id="getFile" style="display:none"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            <button  *ngIf="rights('BtAssetsAmcdetails','create')" class="btn btn-sm btn-outline-info" onclick="document.getElementById('getFile').click()"
+              type='submit'><i class="fa fa-upload"></i>&nbsp;&nbsp;AMC Update</button>
+          </div>
+          <!-- download template link div -->
+          <div class="row" *ngIf="_cFlag!='f'">
+            <div class="col-md-4 col-md-4"></div>
+            <div class="col-md-4 col-md-4"></div>
+            <div class="col-md-4 col-sm-4">
+              <small><a [routerLink]="[]" *ngIf="rights('BtAssetsAmcdetails','create')"  (click)="getTemplateExcel()"><i
+                  class="fa fa-download"></i>&nbsp;Download Template</a></small>
+            </div>
+          </div>
+  
+        </div>
+      </div> <br>
+      <!-- <div class="card-body"> -->
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="searchContent.serialNumber"  placeholder=" Assets Serial Number" style="border-color:rgb(8, 190, 214);">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="searchContent.siteName" placeholder="Site Name" style="border-color:rgb(8, 190, 214);">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="searchContent.productPartCode" placeholder="Product Part Code" style="border-color:rgb(8, 190, 214);">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="searchContent.accountName" placeholder="Account" style="border-color:rgb(8, 190, 214);">
+          </div>
+      
+        </div>
+        <br>
+        <div class="row">
+      
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="searchContent.circleName" placeholder="Circle" style="border-color:rgb(8, 190, 214);">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="searchContent.productDescription" placeholder="Description" style="border-color:rgb(8, 190, 214);">
+          </div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-outline-info btn-md" (click)="advanceSearch()" style="float: left;"><i class="fa fa-search"></i> Search</button>
+            <button type="button" class="btn btn-outline-info btn-md" (click)="restsearch()" style="float: left;"> Reset</button>
+          </div>
+        </div>
+    </div>
+  
+  
+  
+    <div class="card-body" style="padding: 0px;background-color: white;">
+      <div class="wrap" >
+        <table class="head" >
+          <thead style="background-color:rgb(248, 245, 245)" >
+            <th >S.No</th>
+            <th  *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+             title="{{tb.name}}" >
+             <div class="row">
+               <div class="col-10">{{tb.name}}</div><div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+              </div>
+            </th>
+            <th >Action</th>
+          </thead>
+        
+         
+       
+        
+        </table>
+        <div class="inner_table">
+         <table>
+       
+          <tbody>
+           
+            <tr *ngFor="let a of assetList.content; let i = index ">
+              <td data-line="S.No" >{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+              <td data-line="Asset Serial Number" ><a [routerLink]="['/bat_asset',a.id]"> {{a.serialNumber}}
+                </a>
+              </td>
+              <td data-line="Site Id" ><a href="#" routerLink="/bat_site/{{a.siteId}}"> {{a.siteManualId}} </a>
+              </td>
+  
+              <td  data-line="Account Name"><a href="#" routerLink="/bat_account/{{a.accountSapNumber}}">{{a.accountName}}</a>
+              </td>
+  
+              <td data-line="Part Code"><a href="#" routerLink="/bat_product/{{a.productID}}">{{a.productPartCode}}</a>
+              </td>
+              <td data-line="Circle"><a href="#" routerLink="/bat_circle/{{a.circleName}}">{{a.circleName}}</a>
+              </td>
+              <td  data-line="Product Family">{{a.productFamilyName}}</td>
+              <td  data-line="Asset Description" >{{a.productDescription}}</td>
+              <td  data-line="Warranty Status">
+                <img title="Warranty Expiry Status"
+                  [src]="a.warrantyExpiryDate==null? 'assets/images/flag_gray.png': a.isWarrantyExist==1? 'assets/images/flag_green.gif' : 'assets/images/flag_red.gif' ">
+              
+                </td>
+  
+              <td  data-line="AMC Status" >
+                <img title="AMC Expiry Information"
+                  [src]="a.amcExpiryDate==null? 'assets/images/flag_gray.png' : a.isAMCWarrantyExist==1? 'assets/images/flag_green.gif' : 'assets/images/flag_red.gif' ">
+            </td>
+              <!-- <td data-line="Created Date" >{{a.createDate | date:'dd-MM-yyyy HH:mm:ss'}}</td> -->
+  
+              <td data-line="" >
+                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                 <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                     <ul class="dropdown-menu dropleft" role="menu" aria-labelledby="button-disabled-item">
+                    <li role="menuitem">
+                      <a class="dropdown-item" *ngIf="rights('BtAssets','edit')" (click)="createEditModelshow(a)">Edit </a>
+                    </li>
+                   </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+              <div style="height: 65px;"></div>
+           
+        </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4" style="text-align:left">
+         
+          Showing Page {{assetList.number+1}} &nbsp;of&nbsp;{{assetList.totalPages}}&nbsp;Total Count={{assetList.totalElements}}
+         </div>
+       
+        <div class="col-md-4" style="text-align: center" *ngIf="!(assetList.first && assetList.last) ">
+          <a [routerLink]="['/bat_asset']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!assetList.first"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:assetList.number-1,
+                          size:dropdownSelected.size}">
+                        &lt;
+                    </a>
+                    <a [routerLink]="['/bat_asset']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:assetList.number,size:dropdownSelected.size}">
+                        {{assetList.number+1}}
+                    </a>
+                    <a [routerLink]="['/bat_asset']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!(assetList.number+1== assetList.totalPages)"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:assetList.number+1,size:dropdownSelected.size}">
+                        &gt;
+                    </a>
+                    
+        </div>
+  <div class="col-sm-4" style="text-align: right;">
+     <div class="row">
+      <div class="col-md-6"></div>
+       <div class="col-md-6">
+         <input type="text"[(ngModel)]="pagenumber" (keypress)="onlyNumbersForRs($event)" placeholder="Enter Page"size="8" autocomplete="off" (keypress)="onlyNumbersForRs($event)">
+          <button (click)=jumpPage(pagenumber)>Go</button>
+        </div>
+     </div>
+  </div>
+       
+        
+      </div>
+     
+    </div>
+  </div>
+  
+  <div class="modal fade" bsModal #createAssetModel="bs-modal" (onShow)="isModelShow=true" (onHide)="isModelShow=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-asset">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-asset" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createAssetModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createasset  *ngIf="isModelShow" [isEditMode]="isEditMode"  [editAssetData]="assetResponse" 
+          (onAssetCreated)="onAssetCreated($event)"(onCancle)="cancelData()"></app-bt-createasset>
+          <!-- <app-createasset *ngIf="isModelShow" [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+            (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()"></app-createasset> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- bulk upload file choosen -->
+  
+  <div class="modal fade" bsModal #choosenFiles="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">Files</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelChoosen()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;">
+          <div class="row" *ngFor="let s of fileList;let i=index">
+            <div class="col-6">
+              {{s.name}}
+            </div>
+          </div>
+          <div class="modal-footer text-right">
+            <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+              <div>
+                <button type="button" class="btn btn-default" (click)="cancelChoosen()"><i class="fa fa-remove"></i>
+                  Cancel</button>&nbsp;
+                <button type="submit" class="btn btn-primary">Upload</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

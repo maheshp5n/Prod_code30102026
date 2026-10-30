@@ -1,0 +1,87 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Service Center
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <ng-select *ngIf="legalEntityList" [items]="legalEntityList" appendTo="body"
+                            [(ngModel)]="serviceAppointmentReAssignRequest.serviceCenterId" bindLabel="legalEntityName"
+                            bindValue="legalEntityId" placeholder="Search Legal Entities..." (change)="getServiceResForList(serviceAppointmentReAssignRequest.serviceCenterId)">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/LigalEntity.png'
+                                    style="background-color: rgb(91, 235, 191);" /> {{item.legalEntityName}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/LigalEntity.png'
+                                    style="background-color: rgb(91, 235, 191);" /> {{item.legalEntityName}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <!-- <div class="col-md-2 col-sm-2">
+                          <span class="input-group-append">
+                            <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAsset()"></i></div>
+                          </span>
+                        </div> -->
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Service Resource
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <ng-select *ngIf="resourceList" [items]="resourceList" appendTo="body"
+                            [(ngModel)]="serviceAppointmentReAssignRequest.serviceResourceId" bindLabel="name"
+                            bindValue="serviceResourceId" placeholder="Search Contacts...">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/service_resource_120.png'
+                                    style="background-color: lightskyblue" /> {{item.name}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/service_resource_120.png'
+                                    style="background-color: lightskyblue" /> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <!-- <div class="col-md-2 col-sm-2">
+                              <span class="input-group-append">
+                                <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAsset()"></i></div>
+                              </span>
+                            </div> -->
+                </div>                
+            </div>
+        </div>
+        <div class="row"></div>
+        <div class="row"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreate()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Re-Assign
+        </button>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-productConsumed">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">
+            Created successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>

@@ -1,0 +1,301 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Account Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Account Name
+        </div>
+        <input [(ngModel)]="parentAccount.accountName" type="text" class="form-control">
+      </div>
+      <div *ngIf="false" class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Account Owner
+        </div>
+        <input type="text" class="form-control"
+          value="{{loginData.firstName}} {{loginData.middleName}} {{loginData.lastName}}" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          SAP Customer No
+        </div>
+        <input [(ngModel)]="parentAccount.sampAccountNumber" type="text" class="form-control">
+      </div>
+    </div>
+    <div * ngIf="false" class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div *ngIf="false" class="control-label">
+          Parent Account
+        </div>
+        <div *ngIf="false" class="row">
+          <div class="col-md-12 col-sm-12">
+            <ng-select *ngIf="accountForList" [items]="accountForList"
+              [(ngModel)]="parentAccount.parentAccountSapNumber" bindLabel="accountName" bindValue="sapAccountNumber"
+              placeholder="Search Parent Accounts...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          SAP Customer No
+        </div>
+        <input [(ngModel)]="parentAccount.sampAccountNumber" type="text" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Parent Customer
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="customerList" [items]="customerList" [(ngModel)]="parentAccount.parentCustomerId"
+              bindLabel="customerName" bindValue="customerId" placeholder="Search Parent Customers...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.customerName}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                  style="background-color: rgb(198, 172, 240);" /> {{item.customerName}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" *ngIf="rights('CustomerDeatils','create')" class="border-left-0"
+                  (click)="createCustomerModelshow()"></i></div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Category
+        </div>
+        <select [(ngModel)]="parentAccount.accountCategoryId" class="form-control">
+          <option value='0' disabled>--Select--</option>
+            <option *ngFor="let o of btCategory;" [ngValue]="o.businessDomainId">{{o.businessDomainName}}</option>
+          </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Type
+        </div>
+        <select [(ngModel)]="parentAccount.accountTypeId" class="form-control">
+          <option value='0' disabled>--Select--</option>
+          <option *ngFor="let o of _types" [ngValue]="o.accountTypeId">{{o.accountTypeName}}</option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Phone
+        </div>
+        <input [(ngModel)]="parentAccount.phone" (keypress)="onlyNumbers($event)"  (keyup)="onKey($event)"  type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Email
+        </div>
+        <input [(ngModel)]="parentAccount.emailid" type="text" class="form-control" />
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Description
+        </div>
+        <textarea [(ngModel)]="parentAccount.description" class="form-control" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Billing Address </span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Address
+        </div>
+        <input type="text" [(ngModel)]="parentAccount.billingAddress" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Street
+        </div>
+        <input type="text" [(ngModel)]="parentAccount.billingStreet" class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          City
+        </div>
+        <input [(ngModel)]="parentAccount.billingCity" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Country
+        </div>
+        <select [(ngModel)]="parentAccount.billingCountryId" (change)="billingState(parentAccount.billingCountryId)"
+          class="form-control">
+          <option value='0' disabled>--Select--</option>
+          <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId" selected>{{o.countryName}} </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required ">
+        <div class="control-label">
+          State/Province
+        </div>
+        <select [(ngModel)]="parentAccount.billingStateId" type="text" class="form-control">
+          <option value='0' disabled>--Select--</option>
+          <option *ngFor="let o of _billingState;" [value]="o.stateId">{{o.stateName}}</option>
+        </select>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Zip/Postal Code
+        </div>
+        <input [(ngModel)]="parentAccount.billingPincode" type="text" class="form-control" maxlength="6" (keyup)="cantStartWithZero(parentAccount.billingPincode)" (keypress)="numberOnly($event)">
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <span class="text-center" style="font-weight: bold">Shipping Address
+        </span>&nbsp;
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <input type="checkbox" [(ngModel)]="parentAccount.shippingAsBilling" class="largerCheckbox"
+          (change)="sameAsBillingAddress($event)" checked> &nbsp;
+        <span class="text-center" style="font-weight: bold;padding-right: 2% "> ( Same As Billing Address)
+        </span>&nbsp;
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Address
+        </div>
+        <input [(ngModel)]="parentAccount.shippingAddress" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Street
+        </div>
+        <input type="text" [(ngModel)]="parentAccount.shippingStreet" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          City
+        </div>
+        <input [(ngModel)]="parentAccount.shippingCity" type="text" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Country
+        </div>
+        <select [(ngModel)]="parentAccount.shippingCountryId" (change)="shippingState(parentAccount.shippingCountryId)"
+          class="form-control">
+          <option value='0'>--None--</option>
+          <option *ngFor="let o of _countryDetails;" [ngValue]="o.conuntryId">{{o.countryName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          State/Province
+        </div>
+        <select [(ngModel)]="parentAccount.shippingStateId" type="text" class="form-control">
+          <option value='0'>--None--</option>
+          <option *ngFor="let o of _shippingState;" [value]="o.stateId">{{o.stateName}}</option>
+        </select>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group  ">
+        <div class="control-label">
+          Zip/Postal Code
+        </div>
+        <input [(ngModel)]="parentAccount.shippingPincode" type="text" class="form-control" maxlength="6" (keyup)="cantStartWithZero(parentAccount.shippingPincode)" (keypress)="numberOnly($event)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+      Cancel</button>&nbsp;
+    <!-- <button type="button" (click)="postCreateAccountAndNew(sampAccountNumber)" class="btn btn-default"><i class="fa fa-save"></i>
+        Save & New</button>&nbsp; -->
+    <button type="button" (click)="postCreateAccount(parentAccount.sampAccountNumber)" class="btn btn-primary"><i
+        class="fa fa-save"></i>
+      Save
+    </button>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-customer">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'">Account ( <a href="#"
+        routerLink="/accounts/{{this.parentAccount.sampAccountNumber}}">{{this.parentAccount.sampAccountNumber}}</a>
+      )
+      Created successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>
+<div class="modal fade" bsModal #createCustomerModel="bs-modal" (onShow)="isCustomerModelShow=true"
+  (onHide)="isCustomerModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-customer">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left"> New Parent Customer</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createCustomerModelhide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-bt-create-parent-customer *ngIf="isCustomerModelShow" [isEditMode]="isEditMode" [editAccountData]="parentcustomer"
+        (onAccountCreated)="onParentCustomerCreated($event)" (onCancle)="cancelDataCustomer()"></app-bt-create-parent-customer>
+
+        <!-- <app-create-customer *ngIf="isCustomerModelShow" [isEditMode]="isEditMode" [editAccountData]="parentcustomer"
+          (onAccountCreated)="onParentCustomerCreated($event)" (onCancle)="cancelDataCustomer()"></app-create-customer> -->
+      </div>
+    </div>
+  </div>
+</div>

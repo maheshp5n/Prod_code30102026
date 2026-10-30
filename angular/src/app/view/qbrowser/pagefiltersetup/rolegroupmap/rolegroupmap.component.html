@@ -1,0 +1,31 @@
+<hr>
+<h4>Role Group Setting</h4>
+<table>
+    <thead>
+        <tr>
+            <th class="text-left">
+                Role Name
+            </th>
+            <th>
+                Group
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let r of roles">
+            <td class="text-left">
+                {{r.authorities}}
+            </td>
+            <td>
+                <select [(ngModel)]="r.role_group_id">
+                    <option>--Select--</option>
+                    <option *ngFor="let o of roleGroups" [ngValue]="o.id">{{o.group_name}}</option>
+                </select>
+            </td>
+            <td>
+                <button type="button" (click)="udpateRoleGroup(r)">Change</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

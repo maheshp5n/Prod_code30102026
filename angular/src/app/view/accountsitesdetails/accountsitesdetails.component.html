@@ -1,0 +1,101 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Case" src="assets/images/caseImg.png"
+                                style=" height:auto; width:100%;background-color: rgb(246, 232, 105);" title="Case">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Account Case Details</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span *ngIf="accountdetail"
+                                style="font-size:15px;font-weight: bold;">{{accountdetail.accountName}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body m-0 p-0">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th *ngFor="let t of tblheader;let i=index;" (click)="sortOrder(i)">
+                        {{t.name}} <span *ngIf="i==queryparam.clm"><em *ngIf="queryparam.sort=='desc'"
+                                class="fa fa-angle-down"></em><em *ngIf="queryparam.sort=='asc'"
+                                class="fa fa-angle-up"></em> </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="casedetails">
+                <tr *ngFor="let item of casedetails.content;let i=index;">
+                    <td>
+                        {{(queryparam.size*queryparam.page)+(i+1)}}
+                    </td>
+                    <td>
+                        <a [routerLink]="['/cases',item.caseId]" [routerLinkActive]="['active']">
+                            {{item.caseManualId}}</a>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/sites',item.siteId]" [routerLinkActive]="['active']">{{item.siteName}}</a>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/assets',item.assetsSerialNumber]" [routerLinkActive]="['active']">
+                            {{item.assetsSerialNumber}}</a>
+
+                    </td>
+                    <td>
+                        {{item.caseTypeName}}
+                    </td>
+                    <td>
+                        {{item.caseReasonName}}
+                    </td>
+                    <td>
+                        {{item.caseStatusName}}
+                    </td>
+                    <td>
+                        {{item.caseStageName}}
+                    </td>
+                    <td>
+                        {{item.createdDate}}
+                    </td>
+                    <td>
+                        {{item.closedDate}}
+                    </td>
+                    <td>
+                        {{item.serviceResourceName}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center" *ngIf="casedetails&&accountsapnumber">
+            <a class="btn btn-sm btn-success" [routerLink]="['/accounts',accountsapnumber,'case']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page-1,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;" *ngIf="!casedetails.first"> <em class="fa fa-angle-left"></em> </a>
+            <a class="btn btn-sm btn-success" [routerLink]="['/accounts',accountsapnumber,'case']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;"> {{queryparam.page+1}} </a>
+            <a class="btn btn-sm btn-success" [routerLink]="['/accounts',accountsapnumber,'case']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page+1,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;" *ngIf="!casedetails.last"> <em class="fa fa-angle-right"></em> </a>
+            <br>
+        </div>
+    </div>
+</div>

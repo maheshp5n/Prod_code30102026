@@ -1,0 +1,157 @@
+MIME-Version: 1.0
+Date: Fri, 29 Oct 2021 17:32:40 +0530
+From: "ankit@pratikshat.com" <ankit@pratikshat.com>
+Subject: FWD: FW: SA Expense Logic
+Thread-Topic: FW: SA Expense Logic
+To: "kalindi@pratikshat.com" <kalindi@pratikshat.com>, 
+	Shagufta <shagufta@pratikshat.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<blockquote class=3D"threadBlockQuote" style=3D"border-left: 2px solid #C2C=
+2C2; padding-left: 3px; margin-left: 4px;">--------- Original Message -----=
+----
+<div>Subject: FW: SA Expense Logic<br />From: "Shefali Arora" &lt;shefali@e=
+xicom.in&gt;<br />Date: 10/29/21 3:38 pm<br />To: "ankit@pratikshat.com" &l=
+t;ankit@pratikshat.com&gt;<br />Cc: "Vineet Asthana" &lt;vineet.asthana@exi=
+com.in&gt;, "Manoj Kumar Maurya" &lt;manoj.maurya@exicom.in&gt;<br /><br />=
+<!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060; mso-fareast-language: EN-US;">Dear Ankit,<=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060; mso-fareast-language: EN-US;">&nbsp;</span=
+></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060; mso-fareast-language: EN-US;">Please map t=
+rail mail mentioned cost centre in the expense module.</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060; mso-fareast-language: EN-US;">&nbsp;</span=
+></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060; mso-fareast-language: EN-US;">&nbsp;</span=
+></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060;">&nbsp;</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060;" lang=3D"EN-US">Regards,</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #002060;" lang=3D"EN-US">Shefali</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size: 11.0pt; font-family: 'Cali=
+bri',sans-serif; color: #1f497d; mso-fareast-language: EN-US;">&nbsp;</span=
+></p>
+<div>
+<div style=3D"border: none; border-top: solid #E1E1E1 1.0pt; padding: 3.0pt=
+ 0cm 0cm 0cm;">
+<p class=3D"MsoNormal"><strong><span style=3D"font-size: 11.0pt; font-famil=
+y: 'Calibri',sans-serif;" lang=3D"EN-US">From:</span></strong><span style=
+=3D"font-size: 11.0pt; font-family: 'Calibri',sans-serif;" lang=3D"EN-US"> =
+Shiv Kumar Yadav &lt;shiv.kyadav@exicom.in&gt; <br /> <strong>Sent:</strong=
+> Monday, 6 September, 2021 07:43 PM<br /> <strong>To:</strong> Shefali Aro=
+ra &lt;shefali@exicom.in&gt;<br /> <strong>Subject:</strong> RE: SA Expense=
+ Logic</span></p>
+</div>
+</div>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoPlainText"><strong>Dear Ma'am,</strong></p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">We have expense through expense management module=
+ and no Fixed Payout option is required.</p>
+<p class=3D"MsoPlainText">All expenses is through expense management module=
+ and will be actual as per claim.<br /> In case of any Visit claim Field te=
+am must add Service appointment Number and Expense details will be uploaded=
+ to Appointment Number page also. Duplicity check will also be there.</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText" style=3D"margin-bottom: 12.0pt;"><strong>Flow of =
+Expense </strong></p>
+<p class=3D"MsoPlainText">Eng --&gt; SCH /Team Lead --&gt; RSH/Store Head/ =
+Commercial Head/ HO Team --&gt; HOD--&gt; Finance</p>
+<p class=3D"MsoPlainText"><br /> <strong>Cost Centre for Expense Module :</=
+strong></p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<ul style=3D"margin-top: 0cm;" type=3D"disc">
+<li class=3D"MsoNormal" style=3D"mso-list: l1 level1 lfo3;"><span style=3D"=
+font-size: 11.0pt; font-family: 'Calibri',sans-serif; mso-fareast-language:=
+ EN-US;">Battery-Service Direct OW / 2142022000</span></li>
+<li class=3D"MsoNormal" style=3D"mso-list: l1 level1 lfo3;"><span style=3D"=
+font-size: 11.0pt; font-family: 'Calibri',sans-serif; mso-fareast-language:=
+ EN-US;">Battery-Service In Direct UW / 2142021020</span></li>
+<li class=3D"MsoNormal" style=3D"mso-list: l1 level1 lfo3;"><span style=3D"=
+font-size: 11.0pt; font-family: 'Calibri',sans-serif; mso-fareast-language:=
+ EN-US;">RIL SMR UPG / 1042101031</span></li>
+<li class=3D"MsoNormal" style=3D"mso-list: l1 level1 lfo3;"><span style=3D"=
+font-size: 11.0pt; font-family: 'Calibri',sans-serif; mso-fareast-language:=
+ EN-US;">UPS Services Indirect UW / 2142112000</span></li>
+<li class=3D"MsoNormal" style=3D"mso-list: l1 level1 lfo3;"><span style=3D"=
+font-size: 11.0pt; font-family: 'Calibri',sans-serif; mso-fareast-language:=
+ EN-US;">UPS Services Direct OW / 2142112010</span></li>
+</ul>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">Expense management module will same as per existi=
+ng SFDC Module.</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText"><span style=3D"mso-fareast-language: EN-IN;" lang=
+=3D"EN-US">-----Original Message-----<br /> From: Shefali Arora &lt;<a href=
+=3D"mailto:shefali@exicom.in">shefali@exicom.in</a>&gt; <br /> Sent: 04 Sep=
+tember 2021 16:50<br /> To: Shiv Kumar Yadav &lt;<a href=3D"mailto:shiv.kya=
+dav@exicom.in">shiv.kyadav@exicom.in</a>&gt;<br /> Subject: FW: SA Expense =
+Logic</span></p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">Please confirm this also.</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">-----Original Message-----</p>
+<p class=3D"MsoPlainText">From: Ankit Kumar &lt;<a href=3D"mailto:ankit.kum=
+ar@pratikshat.com"><span style=3D"color: windowtext; text-decoration: none;=
+">ankit.kumar@pratikshat.com</span></a>&gt;</p>
+<p class=3D"MsoPlainText">Sent: Saturday, 4 September, 2021 03:41 PM</p>
+<p class=3D"MsoPlainText">To: Shefali Arora &lt;<a href=3D"mailto:shefali@e=
+xicom.in"><span style=3D"color: windowtext; text-decoration: none;">shefali=
+@exicom.in</span></a>&gt;</p>
+<p class=3D"MsoPlainText">Cc: Raushan Kumar &lt;<a href=3D"mailto:raushan@p=
+ratikshat.com"><span style=3D"color: windowtext; text-decoration: none;">ra=
+ushan@pratikshat.com</span></a>&gt;; <a href=3D"mailto:ankit@pratikshat.com=
+"><span style=3D"color: windowtext; text-decoration: none;">ankit@pratiksha=
+t.com</span></a>; <a href=3D"mailto:shagufta@pratikshat.com"><span style=3D=
+"color: windowtext; text-decoration: none;">shagufta@pratikshat.com</span><=
+/a></p>
+<p class=3D"MsoPlainText">Subject: SA Expense Logic</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">&ldquo;External email. Open with Caution&rdquo;</=
+p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">Dear shefali</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">Please provide the logic of SA Expense and&nbsp; =
+GL Code and Cost Center code also mapping between GL code and Cost center c=
+ode for the same.</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">Thanks &amp; Regards</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+<p class=3D"MsoPlainText">Ankit kumar</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
+</div>
+Disclaimer: This e-mail &amp; attachment(s) within it are for sole use of i=
+ntended recipient(s) &amp; may contain confidential &amp; privileged inform=
+ation. If you are not the intended recipient, please intimate the sender by=
+ replying to this email &amp; destroy all copies &amp; the original message=
+. Any unauthorized review, use, disclosure, dissemination, forwarding, prin=
+ting or copying of this email or any action taken in reliance on this e-mai=
+l is strictly prohibited &amp; unlawful. The recipient acknowledges that CO=
+MPANY , its subsidiaries, associated companies or persons authorized by it =
+(collectively "THE Group"), are unable to exercise control, ensure, guarant=
+ee the integrity of/over the contents of the information contained in e-mai=
+l transmissions &amp; further acknowledges that any views expressed in this=
+ message are those of the individual sender &amp; no binding nature of the =
+message shall be implied or assumed unless the sender does so expressly wit=
+h due authority of THE Group.</div>
+</blockquote>

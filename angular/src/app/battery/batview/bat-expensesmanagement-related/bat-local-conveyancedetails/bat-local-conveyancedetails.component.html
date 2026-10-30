@@ -1,0 +1,298 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="LocalConveyance" src="assets/images/contact_120.png"
+                  style="height: auto;width:100%;background-color: rgb(91, 235, 191);border-radius: 1mm;"
+                  title="Local Conveyance" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Local Conveyance</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{localConveyanceExpenseResponse.manualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('BtLocalConveyanceExpense','edit')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="onClickEditLocalConveyance(localConveyanceExpenseResponse.id)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-3">
+          <small>Expense Management</small>
+          <div>
+            <a [routerLink]="['/bat_expense', localConveyanceExpenseResponse.btExpenseManagementId]"
+              [routerLinkActive]="'active'">
+              {{localConveyanceExpenseResponse.btExpenseManagementManualId}}
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <small>Business Domain</small>
+          <div>
+            {{localConveyanceExpenseResponse.businessDomainName}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card" style="margin-top: 10px;">
+  
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 15px;">
+  
+          <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Local Conveyance Information
+            </button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Expense Management</small>
+                      </td>
+                      <td><a href="#"
+                          routerLink="/bat_expense/{{localConveyanceExpenseResponse.btExpenseManagementId}}">
+                          {{localConveyanceExpenseResponse.btExpenseManagementManualId}}
+                        </a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Mode Of Travel</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.modeOfTravelName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Own Conveyance</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.ownConveyanceName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Distance</small>
+                      </td>
+                      <td>
+                        {{localConveyanceExpenseResponse.distance}}
+                      </td>
+                    </tr>
+                    <!-- <tr>
+                      <td>
+                        <small>Company Paid</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.companyPaid}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Fare</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.fare}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Approved Amount</small>
+                      </td>
+                      <td>
+                        {{localConveyanceExpenseResponse.approvedAmount | currency:'INR'}}
+                      </td>
+                    </tr> -->
+                    <tr>
+                      <td>
+                        <small>Amount</small>
+                      </td>
+                      <td>
+                        {{localConveyanceExpenseResponse.amount | currency:'INR'}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>Remarks</small>
+                      </td>
+                      <td>
+                        {{localConveyanceExpenseResponse.remark}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td style="width: 50%;">
+                        <small>Business Domain</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.businessDomainName}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>From Place</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.fromPlace}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <small>To Place</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.toPlace}}</td>
+                    </tr>
+                 
+                  
+                   
+                    <tr>
+                      <td>
+                        <small>Date</small>
+                      </td>
+                      <td>{{localConveyanceExpenseResponse.date | date:'dd-MM-yyyy'}}</td>
+                    </tr>
+                     <tr>
+                       <td>
+                         <small>Amount to Distribute</small>
+                       </td>
+                       <td>{{localConveyanceExpenseResponse.amountToDisbursed | currency:'INR'}}</td>
+                     </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+            <button type="button" (click)="sysInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+            <div *ngIf="sysinfoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/bat_user', localConveyanceExpenseResponse.createdByEmailId]"
+                        [routerLinkActive]="'active'">
+                        {{localConveyanceExpenseResponse.createdByName}}&nbsp;
+                    </a>,&nbsp;
+                      {{localConveyanceExpenseResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/bat_user', localConveyanceExpenseResponse.lastModifiedByEmailId]"
+                        [routerLinkActive]="'active'">
+                        {{localConveyanceExpenseResponse.modifiedByName}}&nbsp;
+                </a>,&nbsp;
+                      {{localConveyanceExpenseResponse.lastModifiedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!vDetails">
+            <div>
+              <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" bsModal #createLocalConveyanceModel="bs-modal" (onShow)="isLocalConveyanceOpen=true"
+    (onHide)="isLocalConveyanceOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">Edit Local Conveyance</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createLocalConveyanceModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-create-local-conveyance-expense *ngIf="isLocalConveyanceOpen"
+            [isEditModeLocalConveyance]="isEditModeLocalConveyance"
+            [editLocalConveyanceData]="localConveyanceExpenseRequest"
+            (onLocalConveyanceCreated)="onLocalConveyanceCreated($event)"
+            (onCancleLocalConveyance)="cancelLocalConveyance()">
+          </app-bt-create-local-conveyance-expense>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+  
+    <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+    <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+      class="alert alert-danger center center-block" style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  
+  </div> -->

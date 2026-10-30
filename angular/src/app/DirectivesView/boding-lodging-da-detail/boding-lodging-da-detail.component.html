@@ -1,0 +1,243 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card">
+      <div class="card-header">
+          <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                  <tr>
+                    <td rowspan="2" style="width:33px;">
+                      <img alt="Bording/Lodging &DA" src="assets/images/boadingimg.png"
+                        style="height: auto;width:100%;background-color: rgb(53, 179, 184);" title="Bording/Lodging &DA" />
+                    </td>
+                    <td style="padding-left: 5px;">
+                      <span>Boarding/Lodging & DA</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left: 5px;">
+                      <span style="font-size:15px;font-weight: bold;">{{response.boardingName}}</span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-sm-4 col-md-4"></div>
+            </div>
+  
+      </div>
+  </div>
+  
+  
+  
+  <div  class="card" style="margin-top: 10px;">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div class="card-body">
+            <ul class="menue">
+              <li title="Details"><a [ngClass]="ngClassDetails">Details</a></li>
+              <!-- <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li> -->
+            </ul>
+            <br>
+            <hr style="margin-top: 14px;">
+
+         
+          <div *ngIf="vDetails" class="panel-body">
+              <button type="button" (click)="InfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="informationDisplay.angleIcon"></i> Information</button>
+            <div *ngIf="informationDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                      <tr>
+
+                          <td class="wrappable" style="width:50%"><small>Name</small></td>&nbsp;&nbsp;
+                            <td class="wrappable">{{response.boardingName}}</td>
+                        </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                      <tr>
+                          <td class="wrappable" style="width:50%" ><small>Owner</small></td>&nbsp; &nbsp;
+                            <td class="wrappable"><a [routerLink]="['/createuser',response.ownerEmailId]">{{response.ownerFirstName}}&nbsp;{{response.ownerMiddleName}}&nbsp;{{response.ownerLastName}}</a></td>
+                        </tr>
+                  </tbody>
+                </table>
+              </div>
+      
+            </div>
+            <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> Lodging</button>
+            <div *ngIf="infoDisplay.open">
+                <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                                <table class="table table-sm">
+                                  <tbody>
+                                    <tr>
+                                      <td style="width:50%"> <small>Class A City Amount</small></td>
+                                      <td class="wrappable">
+                                         {{response.boardingClassACity | currency:'INR'}}
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                          <table class="table table-sm">
+                            <tbody>
+                            <tr>
+                            <td style="width: 50%"> <small>Class B City Amount</small></td>
+                            <td class="wrappable">{{response.boardingClassBCity | currency:'INR'}} </td>
+        
+                          </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                          <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%"><small>Class C City Amount</small></td>
+                                    <td>
+                                       {{response.boardingClassCCity | currency:'INR'}}
+                                    </td>
+                                  </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                       
+             </div>
+            </div>
+             <button type="button" (click)="sysInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="sysinfoDisplay.angleIcon"></i> Boarding</button>
+            <div *ngIf="sysinfoDisplay.open">
+                <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                                <table class="table table-sm">
+                                  <tbody>
+                                    <tr>
+                                      <td style="width:50%"><small>Class A City Amount</small></td>
+                                      <td class="wrappable">{{response.boardingAmountCityA | currency:'INR'}}
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                        </div>
+               
+                        <div class="col-md-4 col-sm-4">
+                          <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td style="width:50%"><small>Class B City Amount</small>
+                                     </td>
+                                    <td class="wrappable"> {{response.boardingAmountCityB | currency:'INR'}}</td>
+                                  </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                     <div class="col-md-4 col-sm-4">
+                       <table class="table table-sm">
+                         <tbody>
+                            <tr>
+                                <td style="width:50%"><small>Class B City Amount</small>
+                                </td>
+                                <td class="wrappable"> {{response.boardingAmountCityC | currency:'INR'}}</td>
+                              </tr>
+                         </tbody>
+                       </table>
+                     </div>
+                        
+             </div>
+  
+            </div>
+            <!-- ==== -->
+            <button type="button" (click)="travelling()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="travellingDisplay.angleIcon"></i> Travelling Charges</button>
+                <div *ngIf="travellingDisplay.open">
+                    <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                    <table class="table table-sm">
+                                      <tbody>
+                                        <tr>
+                                          <td  class="wrappable"style="width:50%"><small>Two Wheeler Charge(per Km)</small></td>
+                                          <td class="wrappable">{{response.twoWheelerChargesParKilo | currency:'INR'}} </td>
+                                        </tr>
+                                        <tr>
+                                          <td  class="wrappable"style="width:50%"><small>Two Wheeler Max Distance</small></td>
+                                          <td class="wrappable">{{response.twoWheelerMaxDistance}} </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <div class="col-md-6 col-sm-6">
+                                    <table class="table table-sm">
+                                      <tbody>
+                                          <tr>
+                                              <td class="wrappable"style="width:50%"><small>Four Wheeler Charge(per Km)</small> </td>
+                                              <td class="wrappable">{{response.fourWheelChargesParkilo | currency:'INR'}}</td>
+                                            </tr>
+                                            <tr>
+                                              <td  class="wrappable"style="width:50%"><small>Four Wheeler Max Distance</small></td>
+                                              <td class="wrappable">{{response.fourWheelMaxDistance}} </td>
+                                            </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                    </div>
+
+       
+        </div>
+        <button type="button" (click)="sysCreatedByInfoDisplay()"
+        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+          [ngClass]="sysCreatInfoDisplay.angleIcon"></i> System Information</button>
+      <div *ngIf="sysCreatInfoDisplay.open" class="row">
+        <div class="col-md-6 col-sm-6">
+          <table class="table table-sm">
+            <tbody>
+              <tr>
+                  <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                  <td class="wrappable"><a [routerLink]="['/createuser',response.createdByEmailId]">{{response.createdByFirstName}}&nbsp;{{response.createdByMiddleName}}&nbsp;{{response.createdByLastName}}</a> <br> {{response.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <table class="table table-sm">
+            <tbody>
+              <tr>
+                <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/createuser',response.modifiedByEmailId]">{{response.modifiedByFirstName}}&nbsp;{{response.modifiedByMiddleName}} &nbsp;{{response.modifiedByLastName}}</a> <br>{{response.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+          </div>
+          <div *ngIf="!vDetails" class="panel-body">
+           
+           
+          </div>
+        </div>
+      </div>
+      </div>
+   
+            </div>
+
+  
+

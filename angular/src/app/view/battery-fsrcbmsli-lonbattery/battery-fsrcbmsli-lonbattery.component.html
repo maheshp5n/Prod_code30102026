@@ -1,0 +1,156 @@
+<body>
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+
+  <div classs="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:32px;">
+                <img alt="Battery FSR CBMS & Li-lon Battery"  src="assets/images/Sites.png"
+                alt="Battery FSR CBMS & Li-lon Battery" title="Battery FSR CBMS & Li-lon Battery"
+                  style="height: auto;width:100%;background-color: rgb(230, 99, 95);">
+              </td>
+              <td style="padding-left:5px;">Battery FSR CBMS & Li-lon Battery</td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                    <span dropdownToggle type="button" style="background-color: white;">
+                        <span style="font: size 15px;padding-right: 5px;">
+                            &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                class="fa fa-sort-down"></i>&nbsp;
+                        </span>
+                    </span>
+                    <ul class="dropdown-menu" *dropdownMenu role="menu"
+                        aria-labelledby="button-disabled-item" style="width: 115%;">
+                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                            VIEWS</li>
+                        <li role="menuitem" *ngFor="let m of dropdownsList">
+                            <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                        </li>
+                    </ul>
+                </div>&nbsp;
+                <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+               
+            </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          autocomplete="off"style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+        </div>
+        <div class="col-sm-4 col-md-4 text-right">
+          <!-- <div class="btn-group" style="padding: 10px;">
+            <button class="btn btn-outline-info btn-sm" type="button" (click)="showCreateAccountView()">New
+              Battery FSR
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body" style="padding: 0px;background-color:white; min-height: 500px;">
+        <div class="table-responsive mobile" style="height:100%;">
+          <table class="table  table-sm table-condensed tablerview">
+            <thead fix-head style="background-color:rgb(248, 245, 245)">
+              <th  title="S.No">S.No</th>
+              <th scope="col" *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+              class="text-left" title="{{tb.name}}">{{tb.name}} <i [ngClass]="tb.icon"></i></th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of assetList.content ; let i = index ">
+                <td data-line="S.No." class="mhide">{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+                 <td data-line="Battery Name"><a href="#" routerLink="/batteryFSRCBMS/{{a.id}}"> {{a.manualId}} </a></td>
+                <td data-line="Created Date">{{a.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                <td data-line="Action" class="mhide" style="width:50px;">
+                  <div class="btn-group" dropdown placement="bottom right">
+                    <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                      <li role="menuitem">
+                        <a  *ngIf="rights('BatteryFSR','edit')"class="dropdown-item" (click)="createEditModelshow(a)">Edit </a>
+                      </li>
+                      <!-- <li role="menuitem">
+                        <a  *ngIf="rights('BatteryFSR','delete')" class="dropdown-item">Delete</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <div style="height:65px;">
+
+                </div>
+            </tbody>
+          </table>
+          <hr>
+      
+        </div>
+        <div style="text-align: center" *ngIf="!(assetList.first && assetList.last) ">
+          <a [routerLink]="['/batteryFSRCBMS']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!assetList.first"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:assetList.number-1,size:dropdownSelected.size}">
+                        &lt;
+                    </a>
+                    <a [routerLink]="['/batteryFSRCBMS']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:assetList.number,size:dropdownSelected.size}">
+                        {{assetList.number+1}}
+                    </a>
+                    <a [routerLink]="['/batteryFSRCBMS']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!assetList.last"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:assetList.number+1,size:dropdownSelected.size}">
+                        &gt;
+                    </a>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" bsModal #createBFSRModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelBFSRModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-createbattery-fsrcbmslilonbattery [isEditMode]="isEditMode" [editAccountData]="BFSRres"
+          (onBFSRCreated)="onBFSRCreated($event)" (onCancle)="cancelBFSRModelhide()">
+        </app-createbattery-fsrcbmslilonbattery>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+role="dialog" aria-labelledby="create-account">
+
+<button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+  <span aria-hidden="true">&times;</span>
+</button>
+
+<div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+  style="width:80%; text-align: center">
+  <strong>{{message}} !</strong>
+</div>
+<div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+  style="width:40%; text-align: center">
+  <strong>{{message}} !</strong>
+</div>
+</div>
+
+</body>

@@ -1,0 +1,72 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+<span class="table-card-title">
+    {{report.reportName}} 
+    &nbsp; <a *ngIf="isExecute" (click)="startExecutation(report)" style="float: right; cursor: pointer; color: blue;"><i class="fa fa-download"></i></a> 
+     <!-- <button type="button" class="btn btn-sm btn-primary" (click)="startExecutation(report)"><em
+        class="fa fa-cog"></em>
+    Execute</button> -->
+</span>
+<div class="table-responsive table-card" *ngIf="report.presentationType=='Table'">
+    <table class="table table-sm">
+        <thead>
+            <th *ngFor="let o of objKeys" class="text-left">
+                {{o}}
+            </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let r of objectValues" class="text-left">
+                <td *ngFor="let o of objKeys">{{r[o]}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<google-chart *ngIf="report.presentationType!='Table'&&chartValeu.length>0" style="width: 100%;min-height: 348px;"
+    [dynamicResize]="true" [type]="report.presentationType" [options]="{is3D:true}" [columnNames]="objKeys"
+    [data]="chartValeu"></google-chart>
+
+
+    <div class="modal fade" bsModal #reportsWindows="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-xl">
+            <div class="modal-content">
+                <div class="modal-header" *ngIf="rpt">
+                    <h4 class="modal-title pull-left">{{rpt.reportName}}</h4>
+                    <button type="button" class="close pull-right" (click)="reportsWindows.hide()">&times;</button>
+                </div>
+                <div class="modal-body" *ngIf="rpt">
+                    <div class="" style="max-height: 80vh;overflow: auto;">
+                 <br>
+                        <div *ngFor="let r of rptObjectList;">
+                            <p class="text-center" *ngFor="let h of rptObjectKey;" [innerHTML]="r[h]"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" bsModal #reportParam="bs-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" *ngIf="rpt">
+                    <h4 class="modal-title pull-left">{{rpt.reportName}}</h4>
+                    <button type="button" class="close pull-right" (click)="reportParam.hide()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6" *ngFor="let m of params">
+                            <label>{{m.paramDisplay}}</label>
+                            <input type="text" class="form-control" [(ngModel)]="m.paramValue">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-info" (click)="fetchReport()"> Fetch Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   

@@ -1,0 +1,369 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="panel" style="margin-left: 15px;margin-top: 15px;margin-right: 15px">
+    <div class="panel-heading" style="background-color: rgb(240, 240, 240)">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <table>
+                    <tr>
+                        <td><img src="assets/images/custom34_120.png"
+                                style="height: 40px;width:40px;background-color: lightcoral;" alt="Requisition"
+                                title="Requisition"></td>
+                        <td style="padding: 3px;">
+                            <small>Requisition</small>
+                            <h4 style="margin: 0px;">{{requistion.manualId}}</h4>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6 col-sm-6 text-right" style="color: rgb(89, 89, 245);">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-default" (click)="createEditModelshow(requistion)">
+                        Edit</button>
+                    <!--  <button type="button" class="btn btn-sm btn-default">
+                    Delete</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="panel" style="margin-left: 15px;margin-right: 15px">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <!-- <div class="panel panel-default"> -->
+            <div class="panel-body">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 14px;">
+
+                <div *ngIf="vDetails" class="panel-body">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: lightgray;font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> Information
+                    </button>
+                    <!--  <div *ngIf="addressDisplay.open" class="row"> -->
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Name</small>
+                                            <div>{{requistion.manualId}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Required Date</small>
+                                            <div>{{requistion.requiredDate | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Total Quantity Required </small>
+                                            <div>{{requistion.totalQuantityRequired}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Total Quantity Received</small>
+                                            <div>{{requistion.totalQuantityReceived}} </div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>From Warehouse</small>
+                                            <div><a href="#"
+                                                    routerLink="/warehouse/{{requistion.fromWarehouseId}}">{{requistion.fromWarehouseName}}</a>
+                                            </div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Received Status</small>
+                                            <div>{{requistion.receivedStatus}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>From warehouse email</small>
+                                            <div>{{requistion.fromWarehouseEmailId}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Requesting Entity</small>
+                                            <div>{{requistion.requstingEntity}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Requisitioner</small>
+                                            <div>{{requistion.requisitionerFirtName}}
+                                                {{requistion.requisitionerlastName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Cost Center</small>
+                                            <div>{{requistion.costCenter}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Plant</small>
+                                            <div>{{requistion.plant}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Pending For Issue</small>
+                                            <div>{{requistion.pendingForIssue}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Owner</small>
+                                            <div>{{requistion.ownerFirtName}} {{requistion.ownerlastName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Status</small>
+                                            <div>{{requistion.requisitionStatusName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Total InTransit</small>
+                                            <div>{{requistion.totalInTransit}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small> Total Quantity Issued </small>
+                                            <div>{{requistion.totalQuantityIssued}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>To Warehouse</small>
+                                            <div><a href="#"
+                                                    routerLink="/warehouse/{{requistion.toWarehouseId}}">{{requistion.toWarehouseName}}</a>
+                                            </div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Sent Status</small>
+                                            <div>{{requistion.sentStatus}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>To warehouse email</small>
+                                            <div>{{requistion.toWarehouseEmailId}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Requisition To</small>
+                                            <div>{{requistion.requestingTo}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Product Type</small>
+                                            <div>{{requistion.productTypeName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Approval Status</small>
+                                            <div>{{requistion.approvalStatusName}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Sent Status </small>
+                                            <div>{{requistion.sentStatusMessage}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"> </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="changeSystemDisplay()"
+                        style="text-align: left;background-color: lightgray;font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="systemDisplay.angleIcon"></i> System Information</button>
+                    <div *ngIf="systemDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>To legal entity type</small>
+                                            <div>{{requistion.legalEnetityType}} </div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Created By</small>
+                                            <div>{{requistion.createdByFirstName}} {{requistion.createByLastName }}
+                                                {{requistion.createdDate | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table">
+                                <tbody>
+                                    <tr class="fixedtd">
+                                        <td>
+                                            <small>Last Modified By</small>
+                                            <div>{{requistion.modifiedByFirstName}} {{requistion.modifiedByLastName}}
+                                                {{requistion.modifiedDate | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                        </td>
+                                        <td class="text-right edit-inactive"></td>
+                                    </tr>
+                                    <tr class="fixedtd">
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!vDetails" class="panel-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/custom34_120.png"
+                                            style="width: 24px;height: 24px;background-color: lightcoral"> </td>
+                                    <td>
+                                        <a href="#"  style="font-weight: bold;color: black;">
+                                            Requisition Line Item (0) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body" style="margin-bottom: 0px;">
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img src="assets/images/custom34_120.png"
+                                            style="width: 24px;height: 24px;background-color: lightcoral"> </td>
+                                    <td>
+                                        <a href="#"  style="font-weight: bold;color: black;">
+                                            Requisition History (0) </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body" style="margin-bottom: 0px;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" bsModal #createRequisitionModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="createRequisitionModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+
+                <app-create-requisition [isEditMode]="isEditMode" [editAccountData]="requisitionResponse"
+                    (onRequisitionCreated)="onRequisitionCreated($event)" (onCancle)="cancelData()">
+                </app-create-requisition>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+</div> -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-requisition">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

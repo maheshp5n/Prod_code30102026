@@ -1,0 +1,175 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Location" src="assets/images/location_120.png"
+                                style="height: auto;width:100%;;background-color: rgb(20, 155, 53);" title="Location" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Warehouse Products</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span *ngIf="location"
+                                style="font-size:15px;font-weight: bold;">{{location.locationName}}</span>
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+             <input type="text" class="form-control" placeholder="Product Part Code" [(ngModel)]="ProductItemAdvancesearch.productPartcode">
+            </div>
+            <!-- <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Product" [(ngModel)]="ProductItemAdvancesearch.partcode" >
+            </div> -->
+             <div class="col-md-2">
+              <input type="text" class="form-control"placeholder="Product Description"  [(ngModel)]="ProductItemAdvancesearch.productDescription">
+             </div>
+             <div class="col-md-2">
+                <input type="text" class="form-control"placeholder="Location Name"  [(ngModel)]="ProductItemAdvancesearch.locationName">
+               </div>
+               <div class="col-md-2">
+                <input type="text" class="form-control"placeholder="Plant"  [(ngModel)]="ProductItemAdvancesearch.locationPlant">
+               </div>
+             <div class="col-md-2">
+                <select  class="form-control"  [(ngModel)]="ProductItemAdvancesearch.productType">
+                 <option value="">Select Product Type</option>
+                 <option *ngFor="let pt of proType"[ngValue]="pt.typeName">{{pt.typeName}}</option>
+               </select>
+               </div>
+            
+          </div> <br>
+          <div class="row">
+           
+             <div class="col-md-3">
+              <button type="button" class="btn btn-outline-info btn-md" (click)="searchPrItemLoc()"><em
+                class="fa fa-search"></em>
+              Search</button>
+              <button type="button" class="btn btn-outline-info btn-md" (click)="resetProductItemADVSearch()">
+              Reset</button>
+             </div>
+          </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body" style="padding: 0px;min-height: 500px">
+        <div  class="table-responsive">
+            <table class="mobile table  table-sm table-condensed tablerview">
+                <thead>
+                    <tr>
+                        <th *ngFor="let t of tableHeader;let i=index;" (click)="sortOrder(i)">
+                            {{t.name}} <span *ngIf="i==queryparam.clm"><em *ngIf="queryparam.sort=='desc'"
+                                    class="fa fa-angle-down"></em><em *ngIf="queryparam.sort=='asc'"
+                                    class="fa fa-angle-up"></em> </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="products">
+                    <tr *ngFor="let item of products.content;let i=index;">
+                        <td>
+                            {{(queryparam.size*queryparam.page)+(i+1)}}
+                        </td>
+                        <td>
+                            {{item.productItemManualId}}
+                        </td>
+                        <td>
+                            <a [routerLink]="['/bat_product',item.productId]">{{item.productPartcode}}</a>
+                        </td>
+                        <td>
+                            {{item.productDescription}}
+                        </td>
+                        <td>
+                            {{item.productType}}
+                        </td>
+                        <td>
+                            {{item.customerTotalQuantity}}
+                        </td>
+                        <td>
+                            {{item.customerTotalOkQuantity}}
+                        </td>
+                        <td>
+                            {{item.customerTotalFaultyQuantity}}
+                        </td>
+                        <td>
+                            {{item.exicomTotalQuantity}}
+                        </td>
+                        <td>
+                            {{item.exicomTotalOkQuantity}}
+                        </td>
+                        <td>
+                            {{item.exicomTotalFaultyQuantity}}
+                        </td>
+                        <td>
+                            {{item.locationName}}
+                        </td>
+                        <td>
+                            {{item.locationPlant}}
+                        </td>
+                        <!-- <td><a *ngIf="item.productType!='Component'" (click)="expendPartcodeItem(item.productId)"
+                            style="color: blue; text-decoration: underline;cursor: pointer;">View</a></td> -->
+      
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      
+        <!-- expand product of sub product -->
+        <div class="panel " *ngIf="serialNumberDetaiDisp" style="padding-left: 30px; padding-right: 30px;">
+            <div class="panel panel-default ">
+              <table class="table  table-sm table-condensed tablerview">
+                <thead>
+                  <tr>
+                    <th>Part Code</th>
+                    <th>Serial Number</th>
+                    <th>State</th>
+                    <th>Refurbished</th>
+                    <th>Customer Inventory</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let c of locationSerialNumberList;">
+                    <td data-line="Part COde"><a href="#"
+                        routerLink="/bat_product/{{c.productId}}">{{c.productPartCode}}</a></td>
+                    <td data-line="Serial Number">{{c.serialNumber}}</td>
+                    <td data-line="Product State Name">{{c.productStateName}}</td>
+                    <td data-line="Refurbished">
+                      <em *ngIf="c.refurbished" class="tik-mark"></em>
+                    </td>
+                    <td data-line="Customer Inventory">
+                      <em *ngIf="c.isCustomerInventory" class="tik-mark"></em>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <!-- end of expend -->
+        <div class="text-center" *ngIf="products">
+            <a class="btn btn-sm btn-success" [routerLink]="['/bat_warehouse',locationId,'productdetails']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page-1,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;" *ngIf="!products.first"> <em class="fa fa-angle-left"></em> </a>
+            <a class="btn btn-sm btn-success" [routerLink]="['/bat_warehouse',locationId,'productdetails']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;"> {{queryparam.page+1}} </a>
+            <a class="btn btn-sm btn-success" [routerLink]="['/bat_warehouse',locationId,'productdetails']"
+                [routerLinkActive]="['active']"
+                [queryParams]="{page:queryparam.page+1,size:queryparam.size,sort:queryparam.sort,sortc:queryparam.sortc,clm:queryparam.clm}"
+                style="border-radius: 100%;" *ngIf="!products.last"> <em class="fa fa-angle-right"></em> </a>
+            <br>
+        </div>
+    </div>
+</div>

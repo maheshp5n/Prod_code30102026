@@ -1,0 +1,219 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+        <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+    </ngx-spinner>
+    <div class="card">
+        <div class="card-header" style="background-color:rgb(240, 240, 240)">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td rowspan="2" style="width:33px;">
+                                <img alt="pricebook" src="assets/images/pricebook_120.png"
+                                    style="height: auto;width:100%;background-color: rgb(5, 59, 61);" title="Price_Book" />
+                            </td>
+                            <td style="padding-left: 5px;">
+                                <span>Product Price Book</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 5px;">
+                                <span style="font-size:15px;font-weight: bold;">{{priceResponse.priceBookName}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-sm-4 col-md-4"></div>
+                <!-- <div class="col-sm-4 col-md-4" style="text-align: right;">
+                    <div class="btn-group" style="padding: 10px;">
+                        <button *ngIf="rights('PriceBook','edit')" class="btn btn-outline-info btn-sm" type="button"
+                            (click)="createpricebookModelshow(priceResponse)"> Edit </button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 10px;">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="card-body" style="padding-bottom: 0px;">
+                    <ul class="menue">
+                        <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                        <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                    </ul>
+                    <br>
+                    <hr style="margin-top: 14px;">
+    
+                    <div *ngIf="vDetails" class="panel-body">
+                        <button type="button" (click)="changeInfoDisplay()"
+                            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                                [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+                        <div *ngIf="infoDisplay.open" class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td class="wrappable" style="width:50%"><small>Price Book Name</small></td>
+                                            <td class="wrappable"> <a href="#" routerLink="/pricebook/{{priceResponse.priceBookId}}"activateRout="active">{{priceResponse.priceBookName}}</a></td>
+                                        </tr>
+                                        <tr>
+                                                <td class="wrappable"> <small>Part Code</small> </td>
+                                                <td><a [routerLink]="['/products', priceResponse.partCode]"
+                                                    [routerLinkActive]="'active'">{{priceResponse.partCode}}</a></td>
+                                            </tr>
+    
+                                       <tr>
+                                           <td class="wrappable"> <small>Product Price</small></td>
+                                           <td>{{priceResponse.partCodePrice}}</td>
+                                       </tr>
+                                       <tr>
+                                            <td class="wrappable"><small>Description</small></td>
+                                            <td class="wrappable">{{priceResponse.description}}</td>
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td class="wrappable" style="width:50%"><small> Active</small></td><td>
+                                                <input type="checkbox" [(ngModel)]="priceResponse.active" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wrappable"><small>Product Type</small></td>
+                                            <td class="wrappable">{{priceResponse.productType}}</td>
+                                        </tr>
+                                        <tr>
+                                                <td class="wrappable"> <small>List Price</small></td>
+                                                <td class="wrappable">{{priceResponse.listPrice}}</td>
+                                            </tr>
+                                            <tr>
+                                                    <td class="wrappable"> <small> Product Family</small> </td>
+                                                    <td class="wrappable">{{priceResponse.productFamily}}</td>
+                                                </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    
+    
+    
+                        <button type="button" (click)="sysInfoDisplay()"
+                            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                            class="btn btn-sm btn-default btn-block text-left">
+                            <i style="font-size: 18px;" [ngClass]="sysinfoDisplay.angleIcon"></i> System
+                            Information</button>
+                        <div *ngIf="sysinfoDisplay.open" class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                                                <td class="wrappable">
+                                                    <a [routerLink]="['/createuser',priceResponse.createdByEmailId]">
+                                                        {{priceResponse.createdByFirstName}}&nbsp;
+                                                        {{priceResponse.createdByMiddleName}}&nbsp;
+                                                        {{priceResponse.createdByLastName}}</a>&nbsp;,&nbsp;
+                                                        {{priceResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                                </td>
+                                            
+                                            <!-- <td class="text-right edit-inactive"> </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                                                <td class="wrappable">
+                                                    <a  [routerLink]="['/createuser',priceResponse.modifiedByEmailId]">
+                                                        {{priceResponse.modifiedByFirstName}}&nbsp;
+                                                        {{priceResponse.modifiedByMiddleName}}&nbsp;
+                                                        {{priceResponse.modifiedByLastName}}</a>&nbsp;,&nbsp;
+                                                        {{priceResponse.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                        </div>
+    
+    
+                    </div>
+                    <div *ngIf="!vDetails">
+                        <div>
+                            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+    
+    
+    <div class="modal fade" bsModal #createpriceBookModel="bs-modal" (onShow)="isPriceBook=true"
+        (onHide)="isPriceBook=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-account">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="cancelPricebookData()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 500px;overflow: auto;">
+    
+                    <!-- <app-createpricebook *ngIf="isPriceBook" [isEditMode]="isEditMode" [editPriceBookData]="priceResp"
+                        (onpricebookCreated)="onpricebookCreated($event)" (onCancle)="cancelPricebookData()">
+                    </app-createpricebook> -->
+    
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    
+    <!-- popupSuccessModel -->
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-product">
+    
+      <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">Product Added successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+      </div>
+    </div>
+    
+    
+    <!-- next model -->
+    <div class="modal fade" bsModal #selectedItemModel="bs-modal" (onShow)="isCaseModelOpen=true"
+        (onHide)="isCaseModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-account">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="create-account" class="modal-title pull-center">{{heading}}</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="selectedItemModel.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                  <!-- <app-addproductlistpricebookntries (onProductUpdated)="onProductUpdated($event)" [editEntityData]="priceEntrieResponse"[productPrice]="productPrices"(onCancle)="cancelselectedData()">
+    
+                  </app-addproductlistpricebookntries> -->
+    
+                </div>
+            </div>
+        </div>
+    </div>

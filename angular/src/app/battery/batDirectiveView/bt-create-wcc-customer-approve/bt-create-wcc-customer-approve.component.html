@@ -1,0 +1,68 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+       <span class="text-center" style="font-weight: bold"> Customer WCC </span>
+   </div>
+   <div class="panel-body">
+       <!-- <div class="row">
+           <div class="col-md-6 col-sm-6 form-group required ">
+               <div class="control-label">
+                   Customer PO Number
+               </div>
+               <input type="text" class="form-control"[(ngModel)]="wccCustomerRequest.customerPo">
+           </div>
+           <div class="col-md-6 col-sm-6 form-group required ">
+               <div class="control-label">
+                   Customer PO Date
+               </div>
+               <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses"
+               [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+               [minDate]="today" [(ngModel)]="wccCustomerRequest.customerPoDate" onkeydown="return false"  autocomplete="off">&nbsp;
+               <span class="fa fa-calendar errspan"></span>
+           </div>
+       </div> -->
+       <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+               Exicom Invoice Number
+            </div>
+            <input type="text" class="form-control"[(ngModel)]="wccCustomerRequest.invoiceNumber">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+               Exicom Invoice Date
+            </div>
+            <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" class="form-control" [bsConfig]="{dateInputFormat: 'YYYY-MM-DD', adaptivePosition:true}"
+            [minDate]="previous30Day" [(ngModel)]="wccCustomerRequest.invoiceDate" onkeydown="return false" autocomplete="off">&nbsp;
+            <span class="fa fa-calendar errspan"></span>
+            <!-- <input type="text" class="form-control"[(ngModel)]="wccCustomerRequest.customer"> -->
+        </div>
+      
+       </div>
+       <div class="row">
+        <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+               SAP Invoice Reference Number
+            </div>
+            <input type="text" class="form-control" autocomplete="off" [(ngModel)]="wccCustomerRequest.sapInvoiceNumber" (keypress)="numberOnly($event)" onselectstart="return false"  onpaste="return false">
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required" [formGroup]="uploadForm">
+            <div class="control-label">
+              Upload File
+          </div>
+          <input multiple type="file"  (change)="onFileSelect($event)" name="profile" id="getFile" />
+           </div>
+       </div>
+   </div>
+
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+   <div class="col-sm-12 col-md-12 text-right">
+       <button type="button" (click)="cancelWccData()" class="btn btn-default"><i class="fa fa-remove"></i>
+           Cancel</button>&nbsp;
+       <button type="button" (click)="postPD()" class="btn btn-primary"><i class="fa fa-save"></i>
+           Save
+       </button>
+   </div>
+</div>

@@ -1,0 +1,284 @@
+<body>
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width: 35px;">
+                <img alt="Dashboard" src="assets/images/custom47_120.png"
+                  style="height: auto;width:100%;background-color: rgb(91, 235, 191);" title="Manage Inventory">
+              </td>
+              <td style="padding-left: 5px;"><span>Manage Inventories</span></td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                  <span dropdownToggle type="button" style="background-color: white;">
+                    <span *ngIf="allView" style="font: size 15px;padding-right: 5px;">
+                      &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                    </span>
+                    <span *ngIf="recentlyView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; Recently Viewed &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                    </span>
+                    <span *ngIf="underRepairView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; Under Repair &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                    </span>
+                    <span *ngIf="repairedandReadyforDispatchedView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; Repaired and Ready for Dispatched &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                    </span>
+                    <span *ngIf="repairedandDispatchedView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; Repaired and Dispatched &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                    </span>
+                    <span *ngIf="brandReadyforDispatchedView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; BR and Ready for Dispatched &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                    </span>
+                    <span *ngIf="brandDispatchedView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; BR and Dispatched &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                  </span>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item" style="width: 115%;">
+                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">
+                      &nbsp;&nbsp;LIST VIEWS</li>
+                    <li role="menuitem" (click)="dropdownChange('all')"><a class="dropdown-item"
+                        [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('related')"><a class="dropdown-item"
+                        [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently Viewed
+                      </a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('underRepair')"><a class="dropdown-item"
+                        [ngClass]="ngClassUnderRepair">&nbsp;&nbsp;&nbsp;Under Repair
+                      </a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('repairedandReadyforDispatched')"><a
+                        class="dropdown-item"
+                        [ngClass]="ngClassRepairedandReadyforDispatched">&nbsp;&nbsp;&nbsp;Repaired and Ready for
+                        Dispatched
+                      </a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('repairedandDispatched')"><a class="dropdown-item"
+                        [ngClass]="ngClassRepairedandDispatched">&nbsp;&nbsp;&nbsp;Repaired and Dispatched
+                      </a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('brandReadyforDispatched')"><a class="dropdown-item"
+                        [ngClass]="ngClassBandReadyforDispatched">&nbsp;&nbsp;&nbsp;BR and Ready for Dispatched
+                      </a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('brandDispatched')"><a class="dropdown-item"
+                        [ngClass]="ngClassBrandDispatched">&nbsp;&nbsp;&nbsp;BR and Dispatched
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4">
+          <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+        </div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('BRCRepairInventoryReceive','create')" class="btn btn-outline-info btn-sm" type="button" (click)="showManageInventoryView()">
+              <i class="fa fa-plus"></i> New </button>
+              <input  type="file" name="profile" (change)="onFileSelect($event)" id="getFile"
+              style="display:none" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+            <button class="btn btn-sm btn-outline-info" onclick="document.getElementById('getFile').click()"
+              type='submit'><i class="fa fa-upload"></i>&nbsp;&nbsp;Bulk Upload</button>
+              <button type="button" *ngIf="rights('BRCRepairInventoryReceive','create')" (click)="getTemplateExcel()" class="btn btn-sm btn-outline-info"><i class="fa fa-download"></i>&nbsp;Download Template </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="padding: 0px;background-color: white;min-height: 500px;">
+      <div class="table-responsive mobile" style="height: 100%;">
+        <table class="table  table-sm table-condensed tablerview">
+          <thead fix-head style="background-color:rgb(248, 245, 245)">
+            <tr>
+              <th title="S.No" style="width:50px;">S.No.</th>
+              <th title="Name" class="table-header" (click)="setOrder('receivingName',1)"
+                (mouseover)="columnVisibility[1]=true" (mouseout)="columnVisibility[1]=false">
+                Name
+                <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]" style="float: right;">▼</span>
+                <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]" style="float: right;">▲</span>
+              </th>
+              <th title="Part Code" class="table-header" (click)="setOrder('product.productPartCode',2)"
+                (mouseover)="columnVisibility[2]=true" (mouseout)="columnVisibility[2]=false">
+                Part Code
+                <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]" style="float: right;" >▼</span>
+                <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]" style="float: right;" >▲</span>
+              </th>
+              <th title="Case Number" class="table-header" (click)="setOrder('caseDetails.manualId',11)"
+                (mouseover)="columnVisibility[11]=true" (mouseout)="columnVisibility[11]=false">
+                Case Number
+                <span [hidden]="!columnVisibility[11]" *ngIf="!columnSort[11]" style="float: right;" >▼</span>
+                <span [hidden]="!columnVisibility[11]" *ngIf="columnSort[11]" style="float: right;" >▲</span>
+              </th>
+              <th title="Serial No" class="table-header" (click)="setOrder('alterSerialNumber',3)"
+                (mouseover)="columnVisibility[3]=true" (mouseout)="columnVisibility[3]=false">
+                Serial No
+                <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]">▼</span>
+                <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]">▲</span>
+              </th>
+              <th title="Product Description" class="table-header" (click)="setOrder('product.pdoductDescription',4)"
+                (mouseover)="columnVisibility[4]=true" (mouseout)="columnVisibility[4]=false">
+                Product Description
+                <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]" style="float: right;">▼</span>
+                <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]" style="float: right;">▲</span>
+              </th>
+              <th title="Type" class="table-header" (click)="setOrder('repariItem.type.typeName',5)"
+                (mouseover)="columnVisibility[5]=true" (mouseout)="columnVisibility[5]=false">
+                Type
+                <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]" style="float: right;">▼</span>
+                <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]" style="float: right;">▲</span>
+              </th>
+
+              <th title="Status" class="table-header" (click)="setOrder('brcRepariStatus.statusName',6)"
+                (mouseover)="columnVisibility[6]=true" (mouseout)="columnVisibility[6]=false">
+                Status
+                <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]" style="float: right;">▼</span>
+                <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]" style="float: right;">▲</span>
+              </th>
+              <th title="Warehouse" class="table-header" (click)="setOrder('locationStateOrCircle',7)"
+                (mouseover)="columnVisibility[7]=true" (mouseout)="columnVisibility[7]=false">
+                Warehouse
+                <span [hidden]="!columnVisibility[7]" *ngIf="!columnSort[7]">▼</span>
+                <span [hidden]="!columnVisibility[7]" *ngIf="columnSort[7]">▲</span>
+              </th>
+              <th title="Delivery Challan" class="table-header" (click)="setOrder('challanNumber',8)"
+                (mouseover)="columnVisibility[8]=true" (mouseout)="columnVisibility[8]=false">
+                Delivery Challan
+                <span [hidden]="!columnVisibility[8]" *ngIf="!columnSort[8]">▼</span>
+                <span [hidden]="!columnVisibility[8]" *ngIf="columnSort[8]">▲</span>
+              </th>
+              <th title="Engineer" class="table-header" (click)="setOrder('repariItem.engineer.name',9)"
+                (mouseover)="columnVisibility[9]=true" (mouseout)="columnVisibility[9]=false">
+                Engineer
+                <span [hidden]="!columnVisibility[9]" *ngIf="!columnSort[9]" style="float: right;">▼</span>
+                <span [hidden]="!columnVisibility[9]" *ngIf="columnSort[9]" style="float: right;">▲</span>
+              </th>
+
+              <th title="Created Date" class="table-header" (click)="setOrder('createdDate',10)"
+                (mouseover)="columnVisibility[10]=true" (mouseout)="columnVisibility[10]=false">
+                Created Date
+                <span [hidden]="!columnVisibility[10]" *ngIf="!columnSort[10]" style="float: right;">▼</span>
+                <span [hidden]="!columnVisibility[10]" *ngIf="columnSort[10]" style="float: right;">▲</span>
+              </th>
+              <th> Action </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of manageInventoryList ; let i = index ">
+              <td data-line="S.No" class="mhide">{{serialNumber+i+1}}.</td>
+              <td data-line="Name" ><a href="#" routerLink="/manageInventory/{{a.receivingId}}"> {{a.receivingName}} </a></td>
+              <td data-line="Part Code"><a href="#" routerLink="/products/{{a.productPartCode}}"> {{a.productPartCode}} </a></td>
+              <td data-line="Case Number"><a href="#" routerLink="/cases/{{a.caseId}}"> {{a.caseDetailsManualId}} </a></td>
+              <td data-line="Serial No"> {{a.alterSerialNumber}} </td>
+              <td data-line="Product Description" class="mhide">{{a.productDescription}}</td>
+              <td data-line="Type" class="mhide">{{a.repairTypeName}}</td>
+              <td data-line="Status">{{a.brcRepairStatusName}}</td>
+              <td data-line="Warehouse" class="mhide">  <a href="#" routerLink="/warehouse/{{a.warehouse}}"> {{a.warehouse}} </a></td>
+              <td data-line="Delivery Challan" class="mhide">{{a.challanNumber}}</td>
+              <td data-line="Engineer" class="mhide"> <a href="#" routerLink="/serviceResource/{{a.engineerId}}"> {{a.engineerName}} </a></td>
+              <td data-line="Created Date" class="mhide">{{a.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+              <td data-line="" class="mhide" style="width:50px;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                  <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                    <li role="menuitem">
+                      <a class="dropdown-item" *ngIf="rights('BRCRepairInventoryReceive','edit')" (click)="createEditModelshow(a)">Edit </a>
+                    </li>
+                    <!-- <li role="menuitem">
+                      <a class="dropdown-item" *ngIf="rights('BRCRepairInventoryReceive','delete')">Delete</a>
+                    </li> -->
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            <div style="height: 65px;"></div>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align: center" *ngIf="!(first && last)">
+        <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+          (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+          &#8249;
+        </a>
+
+        <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+          {{page+1}}
+        </a>
+
+        <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last" (click)="setPageNext($event)"
+          [ngClass]="{'active':page}">
+          &#8250;
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #ManageInventoryModel="bs-modal" (onShow)="isManageInventoryModel=true"
+    (onHide)="isManageInventoryModel=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-manageInventory">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-manageInventory" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="ManageInventoryModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-create-manageinventory *ngIf="isManageInventoryModel" [isEditMode]="isEditMode"
+            [editManageInventoryData]="bRCInventoryReceiveResponse"
+            (onManageInventoryCreated)="onManageInventoryCreated($event)" (onCancle)="cancelData()">
+          </app-create-manageinventory>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-asset">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+  </div>
+ <!-- choosen file box for bulkupload of MI    by shagufta -->
+<div class="modal fade" bsModal #choosenFiles="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="create-account">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">Files</h4>
+      <button type="button" class="close pull-right" aria-label="Close"
+        (click)="cancelChoosen()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <div class="row" *ngFor="let s of fileList;let i=index">
+            <div class="col-6">
+              {{s.name}}
+            </div>
+          </div>
+    <div class="modal-footer text-right">
+        <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+            <div>
+                <button type="button" class="btn btn-default" (click)="cancelChoosen()"><i class="fa fa-remove"></i>
+                  Cancel</button>&nbsp;
+               <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+          </form>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+</body>

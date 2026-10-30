@@ -1,0 +1,391 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table>
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Quote Template" src="assets/images/quotes_120.png"
+                                style="height: auto;width:100%;background-color: rgb(24, 175, 74);"
+                                title="Quote Template" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Quote Template</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size:15px;font-weight: bold;">{{quoteTemplate.templateName}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+                    <button *ngIf="rights('QuotePdfHeaderAndFooter','edit')" class="btn btn-outline-info btn-sm"
+                        type="button" (click)="createEditModelshow(quoteTemplate)"> Edit </button>
+                       
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 10px;">
+    <div class="row" >
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px; width:995px; height: 1342px;" >
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div style="margin-top: 0px;padding-top: 0px;">
+                                <img src="{{quoteTemplate.logo}}" alt="" style="max-height: 110px;width: 200px;">
+                                <!-- <pdf-viewer [src]="quoteTemplate.logo" [render-text]="true"
+                                        style="height: auto;width: 100%;" id="center">
+                                    </pdf-viewer> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div
+                                style="text-align: right;font-family: Arial, Helvetica, sans-serif; font-style: normal;font-size: 11px;">
+                                <div>
+                                    <span>{{quoteTemplate.companyName}}</span>
+                                </div>
+                                <div>
+                                    <span>{{quoteTemplate.addressLine1}}</span>
+                                </div>
+                                <div>
+                                    <span>{{quoteTemplate.addressLine2}}</span>
+                                </div>
+                                <div>
+                                    <span>{{quoteTemplate.city}}-{{quoteTemplate.pincode}},
+                                        {{quoteTemplate.stateName}}</span>
+                                </div>
+                                <div>
+                                    <span> CIN: {{quoteTemplate.cin}}</span>
+                                </div>
+                                <div>
+                                    <span>Document No. -{{quoteTemplate.documentNumber}}</span>
+                                </div>
+                                <div>
+                                    <span>Tel : {{quoteTemplate.telephone}}</span>
+                                </div>
+                                <div>
+                                    <span>GST No. {{quoteTemplate.gstNumber}}</span>
+                                </div>
+                                <div>
+                                    <span>Web: {{quoteTemplate.website}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <table class="table table-sm table-condensed tablerview">
+                        <thead
+                            style="font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;background-color:rgb(231, 231, 248)">
+                            <tr>
+                                <th scope="col" class="text-left"> QUOTATION </th>
+                            </tr>
+                        </thead>
+                        <div
+                            style="text-align:left;font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;">
+                            <div>
+                                <span> To, </span>
+                            </div>
+                            <div>
+                                <span> XXXX</span>
+                            </div>
+                            <div>
+                                <span>XXXX</span>
+                            </div>
+                            <div>
+                                <span>XXXX</span>
+                            </div>
+                        </div>
+                        <div class="row"
+                            style="text-align:left;font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;padding-top: 2%;">
+                            <div class="col-md-3 col-sm-3">
+                                <span> Quote Number </span>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span> XXXX </span>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span> Created Date </span>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span>dd-mm-yyyy</span>
+                            </div>
+                        </div>
+                        <div class="row"
+                            style="text-align:left;font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;">
+                            <div class="col-md-3 col-sm-3">
+                                <span>Case</span>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span> XXXX </span>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span> Site Name </span>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span>XXXX</span>
+                            </div>
+                        </div>
+                        <div class="row"
+                        style="text-align:left;font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;">
+                        <div class="col-md-3 col-sm-3">
+                            <span>Site ID</span>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <span> XXXX </span>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <span> Indus ID </span>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <span>XXXX</span>
+                        </div>
+                    </div>
+                    </table>
+                    <br>
+                    <div class="card-body"
+                        style="margin-bottom: 0px;padding: 3px;font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;">
+                        <div class="table-responsive mobile" style="height: 100%;">
+                            <table class="table table-sm table-condensed tablerview">
+                                <thead style="background-color:rgb(119, 116, 116)">
+                                    <tr>
+                                        <th title="Part Code" scope="col" class="text-left" style="color: white;"> Part
+                                            Code</th>
+                                        <th title="Product Description" scope="col" class="text-left"
+                                            style="color: white;"> Product
+                                            Description </th>
+                                        <th title="Quantity " scope="col" class="text-left" style="color: white;">
+                                            Quantity </th>
+                                        <th title="Price " scope="col" class="text-left" style="color: white;"> Price
+                                        </th>
+                                        <th title="Total Price " scope="col" class="text-left" style="color: white;">
+                                            Total Price </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-line="Part Code" scope="col" class="text-left"> XXXX </td>
+                                        <td data-line="Product Description" scope="col" class="text-left">XXXX</td>
+                                        <td data-line="Quantity" scope="col" class="text-left"> 0.00 </td>
+                                        <td data-line="Price" scope="col" class="text-left">0.00 </td>
+                                        <td data-line="Total Price " scope="col" class="text-left">0.00 </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-line="Part Code" scope="col" class="text-left"> XXXX </td>
+                                        <td data-line="Product Description" scope="col" class="text-left">XXXX</td>
+                                        <td data-line="Quantity" scope="col" class="text-left"> 0.00 </td>
+                                        <td data-line="Price" scope="col" class="text-left">0.00 </td>
+                                        <td data-line="Total Price " scope="col" class="text-left">0.00 </td>
+                                    </tr>
+                                    <tr>
+                                        <td data-line="Part Code" scope="col" class="text-left"> XXXX </td>
+                                        <td data-line="Product Description" scope="col" class="text-left">XXXX</td>
+                                        <td data-line="Quantity" scope="col" class="text-left"> 0.00 </td>
+                                        <td data-line="Price" scope="col" class="text-left">0.00 </td>
+                                        <td data-line="Total Price " scope="col" class="text-left">0.00 </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row" style="padding-top: 3%;">
+                            <div class="col-md-2 col-sm-2"></div>
+                            <div class="col-md-2 col-sm-2"></div>
+                            <div class="col-md-2 col-sm-2"></div>
+                            <div class="col-md-2 col-sm-2">
+                                <div>
+                                    <span>Sub Total</span>
+                                </div>
+                                <div>
+                                    <span>SGST 9%</span>
+                                </div>
+                                <div>
+                                    <span>CGST 9%</span>
+                                </div>
+                                <div>
+                                    <span>IGST 18%</span>
+                                </div>
+                                <div>
+                                    <span>Grand Total</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2" style="text-align: right;">
+                                <div>
+                                    <span>0.00</span>
+                                </div>
+                                <div>
+                                    <span>0.00</span>
+                                </div>
+                                <div>
+                                    <span>0.00</span>
+                                </div>
+                                <div>
+                                    <span>0.00</span>
+                                </div>
+                                <div>
+                                    <span>0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <table class="table table-sm table-condensed tablerview">
+                        <thead
+                            style="font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;background-color:rgb(231, 231, 248)">
+                            <tr>
+                                <th scope="col" class="text-left"> TERM & CONDITIONS </th>
+                            </tr>
+                        </thead>
+                        <div *ngFor="let ob of termsAndConditions;let i=index"
+                            style="font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;">
+                            <div>{{i+1}}- {{ob.rule}}</div>
+                        </div>
+                    </table>
+                    <!-- <div class="card-body"
+                        style="font-family: Arial, Helvetica, sans-serif;font-style: normal;font-size: 11px;"> -->
+                        <div class="row" style="padding-top: 10%;">
+                            <div class="col-md-7 col-sm-7">
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </div>
+                            <div class="col-md-5 col-sm-5">
+                                <tr>
+                                    <td style="text-align: right;">
+                                        <img src="{{quoteTemplate.signature}}" alt="" id="center">
+                                        <!-- <pdf-viewer [src]="quoteTemplate.signature" [render-text]="true"
+                                            style="height: auto;width: 100%;" id="center">
+                                        </pdf-viewer> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-right: 33%;font-weight: bold;text-align: right;font-family: Arial, Helvetica, sans-serif;">
+                                        <span> Authorized Signatory</span>
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
+                        <br>
+                        <tr>
+                            <td class="text-center">
+                                <span>{{quoteTemplate.footerline1}} </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <span>{{quoteTemplate.footerline2}} </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <span class="text-center">{{quoteTemplate.footerline3}} </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <span class="text-center">{{quoteTemplate.footerline4}} </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <span class="text-center">{{quoteTemplate.footerline5}} </span>
+                            </td>
+                        </tr>
+                </div>
+                <div *ngIf="!vDetails" class="card-body" style="padding: 0px;margin: 0px;">
+                    <div class="card">
+                        <div class="card-header">
+                          <table style="width: 100%;">
+                            <tr>
+                              <td style="width: 30px;">
+                                <img src="assets/images/location_120.png"
+                                  style="width: 24px;height: 24px;background-color: #2a9e43"></td>
+                              <td>
+                                <a>&nbsp;Applied to States({{quoteTemplate.stateList.length}})</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+              
+                        <div *ngIf="quoteTemplate.stateList.length>0" class="card-body" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                         
+                            <div class="table-responsive mobile" style=" background-color: white; height: 100%;">
+                              <table class="table table-sm table-condensed">
+                                <thead style="background-color:rgb(248, 245, 245)">
+                                  <tr>
+                                    <th class="text-left">S.No.</th>
+                                    <th class="text-left" title="Warehouse name">State Name
+                                    </th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let loc of quoteTemplate.stateList; let i = index ">
+                                    <td data-line="S.No." class="mhide">{{i+1}}</td>
+                                    <!-- <td data-line="Location Name" class="wrappable"><a [routerLink]="['/location',loc.locationId]">{{loc.locationName}}</a></td> -->
+                                    <td data-line="Location Type" class="wrappable">{{loc.state.stateName}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                        <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #quotePDFTemplateModel="bs-modal" (onShow)="isModelShow=true"
+    (onHide)="isModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="quotePDFTemplateModel">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="quotePDFMOdel" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="quoteTemplateModelHide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-quote-pdf-template *ngIf="isModelShow" [isEditMode]="isEditMode" [stateLists]="stateList"
+                    [editQuotePDFTemplateData]="quotePdfHeaderAndFooterResponse"
+                    (onQuotePDFTemplateCreated)="onQuotePDFTemplateCreated($event)" (onCancle)="cancelData()">
+                </app-quote-pdf-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

@@ -1,0 +1,190 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <strong><em class="fa fa-cog 2x"></em> Work Flow Rules</strong>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" (click)="newworkflow.show()" class="btn btn-sm btn-outline-info float-right"><em
+                        class="fa fa-plus"></em> New</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="wrap">
+            <table class="head">
+                <thead>
+                    <tr>
+                        <th>
+                            S.No.
+                        </th>
+                        <th>
+                            Object
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            DDL/DML Command
+                        </th>
+                        <th>
+                            Event
+                        </th>
+                        <th>
+                            Active
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                            Last modified
+                        </th>
+                        <th>
+                            Created By
+                        </th>
+                        <th>
+                            Last Modified By
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+       <div class="inner_table">
+        <table >
+            <tbody>
+                <tr *ngFor="let w of workflows;let i=index;">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        {{w.objectName}}
+                    </td>
+                    <td>
+                        {{w.description}}
+                    </td>
+                    <td>
+                        {{w.dmlCommmand}}
+                    </td>
+                    <td>
+                        {{w.onevent}}
+                    </td>
+                    <td>
+                        <em *ngIf="w.active" class="tik-mark"></em>
+                    </td>
+                    <td>
+                        {{w.createdDate|date:'dd-MMM-yy HH:mm:ss'}}
+                    </td>
+                    <td>
+                        {{w.modifiedDate|date:'dd-MMM-yy HH:mm:ss'}}
+                    </td>
+                    <td>
+                        {{w.createdBy}} {{w.createdByMidName}} {{w.createdByLastName}}
+                    </td>
+                    <td>
+                        {{w.modifiedBy}} {{w.modifiedByMidName}} {{w.modifiedByLastName}}
+                    </td>
+                    <td>
+                        <button *ngIf="w.active" (click)="enableDisable(w.id,false)" type="button"
+                            class="btn btn-sm btn-outline-danger"><em class="fa fa-remove"></em> Disable</button>
+                        <button *ngIf="!w.active" (click)="enableDisable(w.id,true)" type="button"
+                            class="btn btn-sm btn-outline-info"><em class="tik-mark"></em> Enable</button>
+                        <button type="button" (click)="editWorkflow(w.id)" class="btn btn-sm btn-outline-primary"><em class="fa fa-edit"></em>
+                            Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+       </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Create New workflow-->
+<div class="modal fade" bsModal #newworkflow="bs-modal" (onHide)="onHide()" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">New Workflow</h3>
+                <button type="button" class="close pull-right" (click)="newworkflow.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="outputdata.length>0" style="color: red;" [innerHTML]="outputdata">
+                    
+                </div>
+                <div class="card">
+                    <div class="card-body m-0" style="max-height: 70vh;overflow: auto;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Object</label>
+                                <ng-select [items]="objects" bindLabel="objectName" bindValue="objectName"
+                                    [(ngModel)]="workfowReuest.object" placeholder="Search Object from list">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        <em class="fa fa-object-group"></em>&nbsp; {{item.objectName}}
+                                    </ng-template>
+                                    <ng-template ng-option-tmp let-item="item" let-index="index"
+                                        let-search="searchTerm">
+                                        <em class="fa fa-object-group"></em>&nbsp; {{item.objectName}}
+                                    </ng-template>
+                                </ng-select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Event</label>
+                                <select class="form-control" [(ngModel)]="workfowReuest.on">
+                                    <option value="POST">POST</option>
+                                    <option value="PRE">PRE</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>DDL/DML Command</label>
+                                <select class="form-control" [(ngModel)]="workfowReuest.dmlCommand">
+                                    <option value="INSERT">INSERT/CREATE</option>
+                                    <option value="UPDATE">UDPATE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label>Define Workflow</label>
+                        <textarea class="form-control" rows="10" cols="10" spellcheck="false" (keyup)="duringCom()"
+                            [(ngModel)]="workfowReuest.onEntityManager"></textarea>
+                        <br />
+                        <label>Description</label>
+                        <textarea class="form-control" rows="4" cols="5"
+                            [(ngModel)]="workfowReuest.description"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" (click)="newworkflow.hide()" class="btn btn-default"><em
+                                class="fa fa-remove"></em> Cancel</button>
+                        <button type="button" (click)="saveworkflow()" class="btn btn-primary"><em
+                                class="fa fa-save"></em> Save</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Popup alert-->
+<div class="modal fade" bsModal #alertModal="bs-modal" role="dialog" tabindex="-1">
+    <div class="text-center" style="margin: 20%;">
+        <strong>
+            <alert [type]="alertDetails.type">
+                <button type="button" (click)="alertModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span [innerHTML]="alertDetails.message">
+                </span>
+            </alert>
+        </strong>
+    </div>
+</div>

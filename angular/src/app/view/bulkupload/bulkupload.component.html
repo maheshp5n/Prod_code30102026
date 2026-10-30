@@ -1,0 +1,202 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div classs="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width: 35px;">
+                <img alt="Case" src="assets/images/caseImg.png"
+                  style=" height:auto; width:100%;background-color: rgb(246, 232, 105);" title="Case">
+              </td>
+              <td style="padding-left: 5px;"><span>Bulk Upload</span></td>
+            </tr>
+            <tr>
+              <td style="padding-left:5px;">
+                <div class="btn-group" dropdown>
+                  <span dropdownToggle type="button" style="background-color: white;">
+                    <span *ngIf="allView" style="font: size 15px;padding-right: 5px;">
+                      &nbsp;All  &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                    <span *ngIf="recentlyView" style="font-size:15px;padding-right: 5px;">
+                      &nbsp; Recently Viewed &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                      <span *ngIf="closeView" style="font-size:15px;padding-right: 5px;">
+                        &nbsp;Closed Cases &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                        <span *ngIf="openView" style="font-size:15px;padding-right: 5px;">
+                          &nbsp;Open Cases &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                          <span *ngIf="toBeInvoiceView" style="font-size:15px;padding-right: 5px;">
+                            &nbsp; To Be Invoiced &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                          
+                  </span>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item" style="width: 115%;">
+                    <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST VIEWS</li>
+                    <li role="menuitem" (click)="dropdownChange('All')"><a class="dropdown-item"
+                        [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All </a></li>
+  
+                    <li role="menuitem" (click)="dropdownChange('related')"><a class="dropdown-item"
+                        [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently Viewed</a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('closed')"><a class="dropdown-item"
+                        [ngClass]="ngClassclose">&nbsp;&nbsp;&nbsp;Closed Cases</a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('open')"><a class="dropdown-item"
+                        [ngClass]="ngClassOpen">&nbsp;&nbsp;&nbsp;Open Cases</a>
+                    </li>
+                    <li role="menuitem" (click)="dropdownChange('toBeInvoice')"><a class="dropdown-item"
+                        [ngClass]="ngClassToBeInvoice">&nbsp;&nbsp;&nbsp;To Be Invoiced</a>
+                    </li>
+  
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4">
+          <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+            style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">
+        </div>
+        <div class="col-md-4 text-right">
+          <div class="btn-group"*ngIf="_cFlag!='f'" >
+            <button type="button"  (click)="createShowModal()" class="btn btn-sm btn-outline-info"><i class="fa fa-plus"></i>&nbsp;Upload Excel </button>
+            <!-- <button type="button" class="btn btn-sm btn-outline-info"><i class="fa fa-user"></i>&nbsp;Change Owner
+            </button> -->
+            <input type="file" class="btn btn-sm btn-outline-info">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="padding:0px;background-color:white; min-height: 500px;">
+      <div class="table-responsive mobile"  style="height: 100%;">
+        <table class="table  table-sm table-condensed tablerview">
+          <thead style="background-color:rgb(248, 245, 245)">
+            <tr>
+              <th style="width:50px;">S.No.</th>
+              <th class="table-header" (click)="setOrder('caseId',1)" (mouseover)="columnVisibility[1]=true"
+                (mouseout)="columnVisibility[1]=false" title="Case Number">Case Number
+                
+                <!-- <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]" style="float:right;">▼</span>
+                <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]" style="float:right;">▲</span> -->
+                <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]" style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]"style="float:right">▲</span></th>
+              
+                <th class="table-header" (click)="setOrder('ast.site.siteId',2)" (mouseover)="columnVisibility[2]=true"
+                (mouseout)="columnVisibility[2]=false" title="Site ID">Site ID
+                <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]"style="float:right">▲</span></th>
+                
+                <th class="table-header" (click)="setOrder('ast.serialNumber',3)" (mouseover)="columnVisibility[3]=true"
+                (mouseout)="columnVisibility[3]=false" title="Asset Serial Number">Asset Serial Number
+                <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]"style="float:right">▲</span></th>
+  
+              <th class="table-header" (click)="setOrder('caseType.caseTypesName',4)" (mouseover)="columnVisibility[4]=true"
+                (mouseout)="columnVisibility[4]=false" title="Type">Type
+                <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]" style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]"style="float:right">▲</span></th>
+  
+              <th class="table-header" (click)="setOrder('caseReason.caseReasonDetailsName',5)" (mouseover)="columnVisibility[5]=true"
+                (mouseout)="columnVisibility[5]=false" title="Case Reason">Case Reason
+                <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]"style="float:right">▲</span></th>
+  
+              <th class="table-header" (click)="setOrder('status.caseStatusName',6)" (mouseover)="columnVisibility[6]=true"
+                (mouseout)="columnVisibility[6]=false" title="Status">Status
+                <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]"style="float:right">▲</span></th>
+  
+              <th class="table-header" (click)="setOrder('stage.caseStageName',7)" (mouseover)="columnVisibility[7]=true"
+                (mouseout)="columnVisibility[7]=false" title="Stage">Stage
+                <span [hidden]="!columnVisibility[7]" *ngIf="!columnSort[7]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[7]" *ngIf="columnSort[7]">▲</span></th>
+  
+              <th class="table-header" (click)="setOrder('createDate',8)" (mouseover)="columnVisibility[8]=true"
+                (mouseout)="columnVisibility[8]=false" title="Date Time Opened">Date/Time Opened
+                <span [hidden]="!columnVisibility[8]" *ngIf="!columnSort[8]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[8]" *ngIf="columnSort[8]"style="float:right">▲</span></th>
+  
+              <th class="table-header" (click)="setOrder('closeDate',9)" (mouseover)="columnVisibility[9]=true"
+                (mouseout)="columnVisibility[9]=false" title="Date Time Closed">Date/Time Closed
+                <span [hidden]="!columnVisibility[9]" *ngIf="!columnSort[9]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[9]" *ngIf="columnSort[9]"style="float:right">▲</span></th>
+  
+              <th class="table-header" (click)="setOrder('engineer.name',10)" (mouseover)="columnVisibility[10]=true"
+                (mouseout)="columnVisibility[10]=false" title="Engineer">Engineer
+                <span [hidden]="!columnVisibility[10]" *ngIf="!columnSort[10]"style="float:right">▼</span>
+                <span [hidden]="!columnVisibility[10]" *ngIf="columnSort[10]"style="float:right">▲</span></th>
+              <th style="width:50px;">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let allcase of AllCase | searchfilt: searchitem; let i = index">
+              <td style="width:50px;"  data-line="S.No" class="mhide">{{serialNumber+i+1}}.</td>
+              <td  data-line="Case Number"> <span id="wrapcolm"> <a href="#" routerLink="/cases/{{allcase.caseId}}"
+                    activateRout="active">{{allcase.caseManualId}}</a></span>
+              </td>
+              <td data-line="Site ID"> <span id="wrapcolm"> <a href="#" routerLink="/sites/{{allcase.siteId}}"
+                    activateRout="active">{{allcase.siteManualId}}</a></span>
+              </td>
+              <td data-line="Asset Serail No."><span id="wrapcolm"> <a href="#" routerLink="/assets/{{allcase.assetsSerialNumber}}"
+                  activateRout="active">{{allcase.assetsSerialNumber}}</a></span>    
+              </td>
+              <td data-line="Case Type"class="mhide">{{allcase.caseTypeName}}</td>
+              <td data-line="Case Reason"class="mhide">{{allcase.caseReasonName}}</td>
+              <td data-line="Case Status"class="mhide">{{allcase.caseStatusName}}</td>
+              <td data-line="Case Stage">{{allcase.caseStageName}}</td>
+              <td data-line="Created Date">{{allcase.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+              <td data-line="Close Date"class="mhide">{{allcase.closedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+              <td data-line="Service Resource"class="mhide">{{allcase.serviceResourceName}}</td>
+              <td data-line="Action"class="mhide" style="width:50px;">
+                <div class="btn-group" dropdown>
+                  <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+  
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                    <li role="menuitem">
+                      <a class="dropdown-item" *ngIf="rights('CaseDetails','edit')" (click)="editCaseModelshow(allcase)" >Edit </a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr> -->
+            <div style="height:65px;">
+  
+            </div>
+          </tbody>
+        </table>
+        
+      </div>
+      <div style="text-align: center" *ngIf="!(first && last)">
+          <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+            (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+            &#8249;
+          </a>
+            <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+            {{page+1}}
+          </a>
+  
+          <a id="prbtn" class="next  round" href="" [class.disabled]="last" *ngIf="!last" (click)="setPageNext($event)"
+            [ngClass]="{'active':page}">
+            &#8250;
+          </a>
+        </div>
+    </div>
+  </div>
+  
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong *ngIf="message=='Submitted Successfully'"></strong>
+  
+      <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+  </div>

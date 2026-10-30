@@ -1,0 +1,172 @@
+
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:32px;">
+              <img alt="Approval" src="assets/images/approval_120.png"
+                style="height: 32px;width:32px;background-color: rgb(138, 52, 2)" title="Approval">
+            </td>
+            <td style="padding-left:5px;">Approval Workflow</td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                    <span dropdownToggle type="button" style="background-color: white;">
+                        <span style="font: size 15px;padding-right: 5px;">
+                            &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                class="fa fa-sort-down"></i>&nbsp;
+                        </span>
+                    </span>
+                    <ul class="dropdown-menu" *dropdownMenu role="menu"
+                        aria-labelledby="button-disabled-item" style="width: 115%;">
+                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                            VIEWS</li>
+                        <li role="menuitem" *ngFor="let m of dropdownsList">
+                            <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                        </li>
+                    </ul>
+                </div>&nbsp;
+                <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+               
+            </td>
+        </tr>
+        </table>
+      </div>
+      <div class="col-sm-4 col-md-4">
+        <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+        autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+      </div>
+      <div class="col-sm-4 col-md-4 text-right">
+        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+          <button *ngIf="rights('Approval','create')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="showCreateApprovalView()"><em class="fa fa-plus"></em> New</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" style="padding: 0px;">
+    <div class="wrap">
+      <table class="head">
+        <thead style="background-color:rgb(248, 245, 245)">
+          <th  title="S.No">S.No</th>
+          <th  *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+          title="{{tb.name}}">
+          <div class="row">
+            <div class="col-10">{{tb.name}}</div>
+            <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+           </div>
+        </th>
+          <th>Action</th>
+        </thead>
+      </table>
+    <div class="inner_table">
+      <table>
+     
+        <tbody>
+          <tr  *ngFor="let a of approvalList.content; let i=index">
+            <td data-line="S. No.">{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}</td>
+            <!-- <td data-line="Vendor name">
+              <a [routerLink]="['/createuser',a.vendorEmailId]" [routerLinkActive]="'active'">{{a.vendorFirstName}}
+                {{a.vendorMiddleName}} {{a.vendorLastName}}</a>
+            </td> -->
+            <td data-line="Object">
+              <a [routerLink]="['/approval', a.id]" [routerLinkActive]="'active'">
+                {{a.objectName}}
+              </a>
+            </td>
+            <td data-line="Object Class">{{a.objectClassName}}</td>
+            <td data-line="Object Id Filed">{{a.objectIdFiledName}}</td>
+            <td data-line="Approval Stages">{{a.approvalStages}}</td>
+            <td data-line="Description">{{a.description}}</td>
+            <td data-line="Active">{{!a.active}}</td>
+            <td data-line="Entry Creteria">{{a.entryCreteria}}</td>
+            <td data-line="Initial Submitters">{{a.initialSubmitters}}</td>
+            <td data-line="Created By">{{a.createByFirstName}} {{a.createdByMiddleName}}
+              {{a.createByLastName}}</td>
+            <td data-line="Created Date">{{a.createdDate | date:'dd-MM-yyyy'}}</td>
+            <td data-line="Modified By">{{a.modifiedByFirstName}} {{a.modifiedByMiddleName}} {{a.modifiedByLastName}}
+            </td>
+            <td data-line="Business Domain">{{a.businessDomainName}}</td>
+            <td data-line="Action">
+              <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                  <li *ngIf="rights('Approval','edit')" role="menuitem">
+                    <a class="dropdown-item" (click)="onClickEditApproval(a.id)">Edit </a>
+                  </li>
+                  <li *ngIf="rights('Approval','delete')" role="menuitem">
+                    <a class="dropdown-item" >Delete</a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <div style="height: 65px;">
+
+          </div>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <div style="text-align: center" *ngIf="!(approvalList.first && approvalList.last) ">
+      <a [routerLink]="['/approval']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                    *ngIf="!approvalList.first"
+                    [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:approvalList.number-1,size:dropdownSelected.size}">
+                    &lt;
+                </a>
+                <a [routerLink]="['/approval']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                    [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:approvalList.number,size:dropdownSelected.size}">
+                    {{approvalList.number+1}}
+                </a>
+                <a [routerLink]="['/approval']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                    *ngIf="!approvalList.last"
+                    [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:approvalList.number+1,size:dropdownSelected.size}">
+                    &gt;
+                </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createApprovalModel="bs-modal" (onShow)="isApprovalOpen=true"
+  (onHide)="isApprovalOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createApprovalModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-create-approval *ngIf="isApprovalOpen" [isEditMode]="isEditMode" [editApprovalData]="approvalRequest"
+          (onApprovalCreated)="onApprovalCreated($event)" (onCancle)="cancelData()" [ID]="id">
+        </app-create-approval>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-product">
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>

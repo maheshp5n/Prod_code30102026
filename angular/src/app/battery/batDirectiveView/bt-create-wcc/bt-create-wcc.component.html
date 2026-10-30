@@ -1,0 +1,157 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+      <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+  
+      <div class="row">
+        <div class="col-md-2 col-sm-3 form-group required ">
+          <div class="control-label">
+            Type
+          </div>
+  
+          <select name="type" [(ngModel)]="_wccdetails.wccTypeId" class="form-control" [disabled]="_isEditMode"
+            (change)="getTypeId(_wccdetails.wccTypeId)">
+            <option value='0' disabled>Select type</option>
+            <option *ngFor="let list of wcctypeList " [ngValue]="list.id">{{list.wccTypeName}}
+            </option>
+          </select>
+        </div>
+  
+        <div class="col-md-3 col-sm-3 form-group required ">
+          <div class="control-label">
+            Start Date
+          </div>
+          <input class="form-control" [(ngModel)]="_wccdetails.startDate" bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [dateCustomClasses]="dateCustomClasses"
+            placeholder="Pick Date" autocomplete="off">&nbsp;
+          <span class="fa fa-calendar errspan"></span>
+        </div>
+        <div class="col-md-3 col-sm-3 form-group required ">
+          <div class="control-label">
+            End Date
+          </div>
+          <div class="row">
+            <div class="col-sm-10 col-md-10 ">
+              <input class="form-control" [(ngModel)]="_wccdetails.toDate" bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [dateCustomClasses]="dateCustomClasses"
+                placeholder="pick Date" autocomplete="off">&nbsp;
+              <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-2 col-sm-2">
+  
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-sm btn-outline-info" style="margin-top: 28px;" (click)="findSa()">Find
+            SA</button>
+        </div>
+  
+      </div>
+  
+      <div class="row">
+        <div class="col-md-3">
+          <label>Amount</label>
+          <span class="form-control">{{_wccdetails.amount|currency:'INR'}}</span>
+        </div>
+        <div class="col-md-3">
+          <label>Tax Amount</label>
+          <span class="form-control">{{_wccdetails.taxAmount|currency:'INR'}}</span>
+        </div>
+        <div class="col-md-3">
+          <label>Total Amount</label>
+          <span class="form-control">{{_wccdetails.totalAmount|currency:'INR'}}</span>
+        </div>
+      </div>
+      <!-- table SA List -->
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngIf="_wccSa.length>0" class="card-body" style="overflow: auto;">
+            <div class="table-responsive mobile">
+              <table class="table  table-sm table-condensed tablerview">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Action</th>
+                    <th class="table-header">SA Number</th>
+                    <th class="table-header" title="Customer Name">Close Date</th>
+                    <th class="table-header" title="Case Number">Case Number</th>
+                    <th class="table-header" title="Customer Name">Customer Name</th>
+                    <th class="table-header" title="Case Type">Case Type</th>
+                    <th class="table-header" title="Case Reason">Case Reason</th>
+                    <th class="table-header" title="Circle">Circle </th>
+                    <th class="table-header" title="Case Reason"> PO Number</th>
+                    <th class="table-header" title="Activity Price List">Activity Price List</th>
+                    <!-- <th class="table-header" title="Service Resources"> Service Resources</th> -->
+                    <th class="table-header" title="Amount">Amount</th>
+                    <th class="table-header" title="Tax Rate">Tax Rate</th>
+                    <th class="table-header" title="Tax Amount">Tax Amount</th>
+                    <th class="table-header" title="Total Amount">Total Amount</th>
+                    <th class="table-header" title="Pending Po Quantity">Remaining PO Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let sal of _wccSa;let i = index ">
+                    <td>{{i+1}}</td>
+                    <td><input type="checkbox" [(ngModel)]="sal.selected" [checked]="sal.selected"
+                        (change)="recalculate()"></td>
+                    <td>{{sal.appointmentNumber}}</td>
+                    <td>{{sal.caseCloseDate|date:'dd-MM-yyyy'}}</td>
+                    <td>{{sal.caseId}}</td>
+                    <td>{{sal.customerName}}</td>
+                    <td>{{sal.caseType}}</td>
+                    <td>{{sal.caseReason}}</td>
+                    <td>{{sal.circleName}}</td>
+                    <td><select [(ngModel)]="sal.poNumber"  (change)="pochange(sal.poNumber)">
+                        <option value="poNumber" disabled>--Select--</option>
+                        <option *ngFor="let podet of _onlyPo" [value]="podet">{{podet}}
+                        </option>
+                      </select> </td>
+                    <td> <select [(ngModel)]="sal.poId" (change)="recalculate()">
+                        <option value=null disabled>--Select--</option>
+                        <option *ngFor="let des of getActivityPriceList(sal.poNumber)" [value]="des.id">
+                          {{des.activityPriceListDescription}}
+                        </option>
+                      </select>
+                    </td>
+                    <td>
+                      {{sal.amount|currency:'INR'}}
+                    </td>
+                    <td>{{sal.taxRate}} %</td>
+                    <td>{{sal.taxAmount|currency:'INR'}}</td>
+                    <td>{{sal.totalAmount|currency:'INR'}}</td>
+                    <td>{{getRemainingQuanitty(sal.poId)}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+    </div>
+  
+    <!--  // save and close button -->
+    <div class="row pb-3 mr-2">
+      <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+          Cancel</button>&nbsp;
+        <button type="button" (click)="postWCC()" class="btn btn-primary"><i class="fa fa-save"></i>
+          Save
+        </button>
+      </div>
+    </div>
+  
+  
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-product">
+  
+      <div [ngClass]="alertmeta.ngClass" style="width:40%; text-align: center;margin:auto;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{alertmeta.message}}</strong>
+      </div>
+    </div>

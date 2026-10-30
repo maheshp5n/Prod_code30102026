@@ -1,0 +1,226 @@
+
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="City" src="assets/images/city_120.png"
+                  style="height: auto;width:100%;background-color: rgb(245, 181, 79);" title="City" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Report</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{wizardDetail.reportName}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div class="btn-group" style="padding: 10px;">
+             <button class="btn btn-outline-info btn-sm" type="button" (click)="editrecord(wizardDetail)">Edit</button>&nbsp;
+             <button class="btn btn-outline-info btn-sm" type="button" (click)="deleteReport(wizardDetail)"> <em class="fa fa-remove"></em>Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+        <!-- </div> -->
+        <div *ngIf="vDetails"class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()" style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;" [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Name</small></td>
+                    <td>{{wizardDetail.reportName}}</td>
+                  </tr>
+                  <tr>
+                      <td class="wrappable" style="width:50%"> <small>Report Description</small> </td>
+                      <td>{{wizardDetail.reportDescription}}</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>Type</small></td>
+                    <td class="wrappable">{{wizardDetail.reportType}}</td>
+                  </tr>
+                  <tr>
+                      <td class="wrappable" style="width:50%"> <small>Presentation Type</small> </td>
+                      <td>{{wizardDetail.presentationType}}</td>
+                  </tr>
+                 
+                 </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- query -->
+          
+          <button type="button" (click)="queryInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="queryinfoDisplay.angleIcon"></i> Query</button>
+              <div class="row"*ngIf="queryinfoDisplay.open">
+                  <div class="col-md-12">
+                   {{wizardDetail.reportQuery}}
+                  </div>
+
+              </div>
+          <!-- query end -->
+
+
+          <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/createuser',wizardDetail.createdBy]">{{wizardDetail.createdBy}}</a> &nbsp;{{wizardDetail.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Last Modified</small></td>
+                      <td class="wrappable"><a [routerLink]="['/createuser',wizardDetail.lastModifiedBy]">{{wizardDetail.lastModifiedBy}}</a>&nbsp;,&nbsp;{{wizardDetail.lastModifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails"class="card-body" style="padding: 0px;margin: 0px;">
+          <div class="card">
+            <div class="card-header">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 30px;"><img src="assets/images/custom47_120.png"
+                                style="width: 24px;height: 24px;background-color: green"> </td>
+                        <td>Executers
+                        </td>
+                      
+                    </tr>
+                </table>
+            </div>
+            <div class="card-body">
+                <div  class="table-responsive mobile" style="height: 100%;">
+                    <table class="table table-sm table-condensed tablerview">
+                        <thead style="background-color:rgb(248, 245, 245)">
+                            <tr>
+                              <th style="width:50px;">S.No</th>
+                                <th>Executer</th>
+                                <th>Executer type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let itm of Executers;let i=index">
+                                <td>{{i+1}}.</td>
+                                <td>{{itm.executer}}</td>
+                                <td>{{itm.executerType}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+         </div>
+         <!-- parameter specification -->
+         <div class="card">
+            <div class="card-header">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 30px;"><img src="assets/images/custom47_120.png"
+                                style="width: 24px;height: 24px;background-color: green"> </td>
+                        <td>Parameter Specification
+                        </td>
+                      
+                    </tr>
+                </table>
+            </div>
+            <div class="card-body">
+                <div  class="table-responsive mobile" style="height: 100%;">
+                    <table class="table table-sm table-condensed tablerview">
+                        <thead style="background-color:rgb(248, 245, 245)">
+                            <tr>
+                              <th style="width:50px;">S.No</th>
+                                <th>Parameter type</th>
+                                <th>Display Message</th>
+                                <th>Identifier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let itms of parameters;let i=index">
+                                <td>{{i+1}}.</td>
+                                <td>{{itms.paramType}}</td>
+                                <td>{{itms.paramDisplay}}</td>
+                                <td>{{itms.paramIdentifier}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+         </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+  <!-- edit report wizar -->
+  <div class="modal fade" bsModal #reportWizard="bs-modal" tabindex="-1" role="dialog" (onHide)="onPoupclose()">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">New Report/Edit Report</h4>
+                <button type="button" class="close pull-right" (click)="reportWizard.hide()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <app-createreport [EditMode]="_edit" [reportResp]="wizardDetail"(onReportCreated)="CreatedRepoted($event)" (onCancle)="reportWizardHide()" ></app-createreport>
+               
+            </div>
+        </div>
+    </div>
+</div>
+

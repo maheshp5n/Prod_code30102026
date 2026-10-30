@@ -1,0 +1,253 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-4 col-sm-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:33px;">
+              <img alt="Circle" src="assets/images/circles_120.png"
+                style="height: auto;width:100%;background-color: rgb(198, 90, 207);" title="Circle" />
+            </td>
+            <td style="padding-left: 5px;">
+              <span>Circle</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px;">
+              <span style="font-size:15px;font-weight: bold;">{{circle.circleName}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-4 col-md-4"></div>
+      <div class="col-sm-4 col-md-4" style="text-align: right;">
+        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+          <button *ngIf="rights('CircleDetails','edit')" class="btn btn-outline-info btn-sm" type="button"
+            (click)="onClickEdit(circle, circle.circleName)">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="margin-top: 10px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+          <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+          <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top: 15px;">
+        <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color:rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i>Circle Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;">
+                      <small>Name</small> </td>
+                    <td>{{circle.circleName}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Zone</small> </td>
+                    <td>
+                      <a href="#" routerLink="/zone">
+                        {{circle.zone}}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                  
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Legal Entity Name</small></td>
+                    <td class="wrappable">
+                      <a href="#" routerLink="/legalentity/{{circle.powerLegalEntityId}}">
+                        {{circle.powerLegalEntityName}} 
+                      </a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td style="width: 50%;"> <small>Owner</small> </td>
+                    <td class="wrappable"><a [routerLink]="['/createuser',circle.accountOwnerId]"
+                        [routerLinkActive]="'active'">{{circle.accountOwnerFirstName}} {{circle.accountOwnerMiddleName}}
+                        {{circle.accountOwnerLastName}}</a></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Country</small></td>
+                    <td>{{circle.countryName}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <small>Circle Manager (Power Division)</small>
+                    </td>
+                    <td class="wrappable">
+                      <a href="#" routerLink="/contacts/{{circle.circleManagerPowerId}}">
+                        {{circle.circleManagerPowerFirstName}} {{circle.circleManagerPowerMiddleName}}
+                        {{circle.circleManagerPowerLastName}}
+                      </a>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <button type="button" (click)="sysInfoDisplay()"
+            style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                    <td class="wrappable"><a [routerLink]="['/createuser',circle.createById]"
+                      [routerLinkActive]="'active'">{{circle.createByFirstName}}&nbsp;
+                      {{circle.createdByMiddleName}}&nbsp;
+                      {{circle.createByLastName}}</a>&nbsp;,&nbsp;
+                    {{circle.createdDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%;"><small>Last Modified By</small></td>
+                    <td class="wrappable"><a [routerLink]="['/createuser',circle.modifiedById]"
+                      [routerLinkActive]="'active'">{{circle.modifiedByFirstName}}&nbsp;
+                      {{circle.modifiedByMiddleName}}&nbsp;
+                      {{circle.modifiedByLastName}}</a>&nbsp;,&nbsp;
+                    {{circle.lastModifiedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!vDetails" class="panel-body">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img _ngcontent-c5="" alt="Dashboard" src="assets/images/Zone_120.png"
+                      style="height: 30px;widows: 30px;background-color: rgb(198, 90, 207);border-radius: 1mm;"
+                      title="Zone/SSA"> </td>
+                  <td>
+                    <a>&nbsp;SSA ({{totalElementsZone}})</a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="panel-body" style="padding:0px;margin-bottom: 0px; background-color:rgb(240, 240, 240)">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive">
+                  <table class="mobile table table-sm table-condensed">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S.No.</th>
+                        <th title="SSA Name">Name </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let c of SSAListByCircleName; let i=index">
+                        <td data-line="S.No." class="mhide" style="text-align: center">{{serialNumberZone+i+1}}.</td>
+                        <td data-line="Name">
+                          <a href="#" routerLink="/ssa/{{c.id}}">
+                            {{c.name}}
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr>
+                  <div style="text-align: center" *ngIf="!(firstZone && lastZone)">
+                    <a id="pag" class="previous round" href="" [class.disabled]="firstZone" *ngIf="!firstZone"
+                      (click)="setPagePreviousZone($event)" [ngClass]="{'active':page}">
+                      &#8249;
+                    </a>
+                    <a id="pag" class="nav-link active" href="" (click)="setPageZone($event)"
+                      [ngClass]="{'active':i==pageZone}">
+                      {{page+1}}
+                    </a>
+                    <a id="pag" class="next round" href="" [class.disabled]="lastZone" *ngIf="!lastZone"
+                      (click)="setPageNextZone($event)" [ngClass]="{'active':page}">
+                      &#8250;
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New -->
+<div class="modal fade" bsModal #createCircleModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-new-circle">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="app-create-new-circle" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createCircleModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-create-new-circle [isEditMode]="isEditMode" [editCircleData]="newcircles"
+          (onCircleCreated)="onCircleCreated($event)" (onCancle)="cancelData()">
+        </app-create-new-circle>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- </div> -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-circle">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+</div>

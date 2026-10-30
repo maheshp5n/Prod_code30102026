@@ -1,0 +1,125 @@
+<div class="card">
+    <div class="card">
+        <div class="card-header">
+
+            <table style="width: 100%;">
+                <tr>
+                    <td style="padding-left:5px;">
+                        <!-- <strong>Line items ({{d.totalElements}} <strong *ngIf="d.numberOfElements>5">+</strong>
+                            )</strong> -->
+                        <strong>Product Return Items</strong>
+
+                    </td>
+                    <td *ngIf="btProductReturnItems.length>5" class="text-right"><a target="_blank"
+                            class="btn btn-sm btn-outline-info"> View All </a> </td>
+                </tr>
+            </table> <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Manual ID"
+                        [(ngModel)]="advancesearch.returnOrderItemManualId">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Product Part Code"
+                        [(ngModel)]="advancesearch.ProductManualId">
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-outline-info btn-md" (click)="resetROItems()"> Reset</button>
+                    <button type="button" class="btn btn-outline-info btn-md" (click)="searchROItems()">
+                        <em class="fa fa-search"></em> Search</button>
+                </div>
+        </div>
+        <br>
+        <div class="card-body" style="padding: 0px;">
+            <div class="table-responsive">
+                <!--Table to De-->
+                <table class="table table-sm" aria-describedby="Raushan Kumar">
+                    <thead>
+                        <tr>
+                            <th scope="col" title="S.No.">
+                                S.No.
+                            </th>
+                            <th scope="col" title=" Manaul Id">
+                                Manaul Id
+                            </th>
+                            <th scope="col" title="Product Part Code">
+                                Product
+                            </th>
+                            <th scope="col" title="Exi Return Qty.">
+                                Exi Return Qty.
+                            </th>
+                            <th scope="col" title="Exi Receive Qty.">
+                                Exi Receive Qty.
+                            </th>
+                            <th scope="col" title=" Cus Return Qty.">
+                                Cus Return Qty.
+                            </th>
+                            <th scope="col" title=" Cus Receive Qty.">
+                                Cus Receive Qty.
+                            </th>
+                            <!-- <th scope="col" title="Action">
+                                Action
+                            </th> -->
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="btProductReturnItems.length>0">
+                        <tr *ngFor="let litem of btProductReturnItems;let i=index;">
+                            <td style="text-align: center;">
+                                {{i+1}}.
+                            </td>
+                            <td>
+                                <a>{{litem.returnOrderManualId}}</a>
+                            </td>
+                            <td>
+                                <a>{{litem.productManualId}}</a>
+
+                            </td>
+                            <td>
+                                <a>{{litem.returnOrderItemQuantityReturned}}</a>
+
+                            </td>
+                            <td>
+                                {{litem.returnOrderItemQuantityReceived}}
+                            </td>
+                            <td>
+                                {{litem.returnOrderItemCustomerQuantityReturned}}
+                            </td>
+                            <td style="text-align: center;" >
+                                {{litem.returnOrderItemCustomerQuantityReceived}}
+                            </td>
+                            <td  style="text-align: center;">
+                            <button type="button" *ngIf="data.btProductReturnRes.returnOrderStatus=='Draft'"
+                            class="btn btn-sm btn-outline-danger" (click)="getDeleteReturnItems(litem.returnOrderItemId)">
+                            Delete
+                        </button>
+                    </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="btProductReturnItems.length==0">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+
+                                <div class="col-md-4" style="text-align: center; float: center;">
+                                    <p>Data Not Found</p>
+                                </div>
+
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body" style="padding: 0px;">
+        <div>
+            <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+        </div>
+    </div>
+</div>

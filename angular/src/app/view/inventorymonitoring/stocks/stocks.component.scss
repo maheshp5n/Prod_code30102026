@@ -1,0 +1,85 @@
+
+.m-card{
+    background-color: #ffffff;
+    font-family: RobotoCondensed;
+}
+.m-card-title{
+    background-color: #f3f3f3;
+    height: 68px;
+    padding: 3px;
+}
+.m-card-menue-spacer{
+    width: 2px;
+    height: 30px;
+    background-color: #7ef120;
+    float: left;
+    margin-top: 1%;
+}
+.m-card-menue-selected{
+    border-bottom-style: solid;
+    border-bottom-color: #00ff18;
+    border-bottom-width: .5px;
+}
+.m-card-menue{
+    float: left;
+    color: #2f353a;
+    font-size: 16px;
+    font-weight: 400;
+    width: 24.8%;
+    padding: 1% 2%;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+.m-card-menue:hover{
+    opacity: .5;
+}
+.warehouselabel{
+    font-family: RobotoCondensed;
+    color: #2f353a;
+    font-size: 18px;
+    font-weight: 400;
+}
+.m-pills{
+    font-family: RobotoCondensed;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.m-pills-selected{
+    color: #00c41b;
+    background-color: #f7f7f7;
+}
+.checkbox{
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background-color: #dedede;
+    vertical-align: middle;
+    margin-left: 23px;
+}
+
+.checkbod-s{
+    width: 16px;
+    height: 14px;
+    background-color: #2d3847;
+    vertical-align: middle;
+}
+.checkbod-sd{
+    width: 16px;
+    height: 14px;
+    background-color: #ffffff;
+    vertical-align: middle;
+}
+.mmbutton{
+    font-family: RobotoCondensed;
+    color: #313d4c;
+    font-size: 12px;
+    font-weight: 400;
+    height: 29px;
+    background-image: linear-gradient(0deg, #a4a5a5 0%, #cacaca 100%);border-style: none;
+    width: 80px;
+    margin-bottom: 5px;
+}

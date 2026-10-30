@@ -1,0 +1,63 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:32px;">
+                <img alt="Asset" src="assets/images/product_120.png"
+                  style="height: 32px;width:32px;background-color: rgb(49,121,146);" title="Bulk Upload UTILS">
+              </td>
+              <td style="padding-left:5px;">Bulk Upload UTILS</td>
+            </tr>
+          </table>
+    </div>
+</div>
+<div class="card card-body p-0 m-0">
+    <div class="table table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th class="text-left">
+                        Sl.No
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Template
+                    </th>
+                    <th class="text-left">
+                        Upload
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let d of pagedDate.content;let i=index;">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                       <a [routerLink]="['/bulkutils',d.id]"> {{d.upload_name}}</a>
+                    </td>
+                    <td>
+                        {{d.upload_description}}
+                    </td>
+                    <td>
+                        <a (click)="downloadLink(d)"><em class="fa fa-download"></em> {{d.template_api_name}}</a>
+                    </td>
+                    <td>
+                        <label class="btn btn-sm btn-outline-info">
+                            <input type="file" style="display: none;" (change)="uploadFiles($event,d.id)"><em class="fa fa-upload"></em> {{d.upload_button_name}}
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

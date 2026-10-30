@@ -1,0 +1,52 @@
+<accordion>
+    <accordion-group *ngFor="let item of returnOrderItem">
+        <div accordion-heading>
+            <em class="fa fa-angle-right"></em> {{item.locationItemIdManual}} {{item.partCode}} {{item.partDescription}} 
+            <small style="padding-left: 400px;">{{checkedLen}} of {{item.lineItems.length}}</small>
+        </div>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th style="width: 25px;"><input type="checkbox" [(ngModel)]="item.gcheck" [checked]="item.gcheck"
+                            (change)="mainChecked(item,$event)"> </th>
+                    <th class="text-left">Serial Number <input type="text" [(ngModel)]="item.search" placeholder="Search Searial Number"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let linei of item.lineItems|globalSearchPipe:item.search">
+                    <td style="width: 25px;">
+                        <input type="checkbox" [(ngModel)]="linei.acutalReceive" (change)="singleChecked($event)">
+                    </td>
+                    <!--
+                    <td>
+                        {{linei.returnLineItemIdManual}}
+                    </td>-->
+                    <td class="text-left">
+                        {{linei.serialNumber}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </accordion-group>
+</accordion>
+<div class="text-right">
+    <button type="button" (click)="cancelDataReceive()" class="btn btn-default"><em class="fa fa-remove"></em>
+        Cancel</button>
+    <button type="button" (click)="receiveData()" class="btn btn-primary"><em class="fa fa-save"></em> Receive</button>
+</div>
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="modal fade" bsModal #alertModal="bs-modal" role="dialog" tabindex="-1">
+    <div style="margin-left: 20%;margin-right:20%" class="text-center">
+        <strong>
+            <alert [type]="alertDetails.type">
+                <span [innerHtml]="alertDetails.message"></span>
+                <button type="button" (click)="alertModal.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </alert>
+        </strong>
+    </div>
+</div>

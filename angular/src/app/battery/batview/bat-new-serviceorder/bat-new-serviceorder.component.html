@@ -1,0 +1,195 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+
+        <input type="text" [(ngModel)]="challanNumber" placeholder="Challan Number" class="form-control">
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-dark" (click)="getProductWith($event)"> Fetch</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body p-0">
+    <div class="">
+      <div class="table-responsive">
+        <table class="table table-sm" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="text-align: center;width: 70px;padding: 5px;">
+                S.No.
+              </th>
+              <th *ngFor="let item of requestTableHeaders;" style="text-align: center;padding: 5px;">
+                {{item.name}}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of btInventoryStockList;let i=index;">
+              <tr class="bg-dark-light" *ngIf="item.btinventoryStock.length>0">
+                <td>{{(i+1)}}</td>
+                <td style="text-align: center;">
+                  <button
+                    style="width: 25px;height: 25px;border-radius: 50%;border-style: solid;border-width: .5px;outline: none;background-color: transparent;"
+                    (click)="changeArrow(item)"> <em *ngIf="item.expended" class="fa fa-angle-double-down"></em> <em
+                      *ngIf="!item.expended" class="fa fa-angle-double-right"></em></button>
+                  <a [routerLink]="['/bt_products',item.productId]"
+                    [routerLinkActive]="['active']">{{item.productPartcode}}</a>
+
+                </td>
+                <td style="text-align: center;">
+                  {{item.productDescription}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.productType}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.exicomTotalFaultyQuantity}} NO.
+                </td>
+                <td style="text-align: center;">
+                  {{item.customerTotalFaultyQuantity}} NO.
+                </td>
+              </tr>
+              <tr *ngIf="item.expended&&item.btinventoryStock.length>0">
+                <td></td>
+                <td colspan="5">
+                  <div class="card" *ngIf="item.customerTotalFaultyQuantity>0">
+                    <div class="card-header text-center">
+                      <strong>Customer Faulty Inventory Serial Number For Partcode {{item.productPartcode}}</strong>
+                    </div>
+                    <div class="card-body p-0">
+                      <table class="table table-sm table-bordered" *ngIf="item.customerTotalFaultyQuantity>0"
+                        style="width: 100%;">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="text-left"><input [checked]="item.globalcustoermerinventorycheck"
+                                [(ngModel)]="item.globalcustoermerinventorycheck"
+                                (change)="changeInCustomerInvetoryCheckBox(item)" type="checkbox"> </th>
+                            <th scope="cell">
+                              Serial Number
+                            </th>
+
+                            <th scope="cell">
+                              BRC Number
+                            </th>
+                            <th scope="cell">
+                              SAP Customer Number
+                            </th>
+                            <th>
+                              Customer Name
+                            </th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let cs of item.btinventoryStock">
+                            <td><input [checked]="cs.isChecked" [(ngModel)]="cs.isChecked" type="checkbox"></td>
+                            <td>{{cs.serialNumber}}</td>
+                            <td>{{cs.brcNumber}}</td>
+                            <td>{{cs.customerSapNumber}}</td>
+                            <td>{{cs.accountName}}</td>
+                            <td><button *ngIf="cs.isCustome" (click)="removeCustomerInventory(cs,item)"
+                                class="btn btn-sm btn-danger"><em class="fa fa-remove"></em> </button></td>
+                          </tr>
+                        </tbody>
+                        <!-- <tfoot *ngIf="item.customerTotalFaultyQuantity>item.btinventoryStock.length">
+                          <tr>
+                            <td></td>
+                            <td><input type="text" class="form-control form-control-sm" placeholder="Enter Serial number" [(ngModel)]="item.globalcustomerinventoryinput.serialNumber"></td>
+                            <td></td>
+                            <td><input type="text" class="form-control form-control-sm" placeholder="Enter Customer SAP Number" [(ngModel)]="item.globalcustomerinventoryinput.customerSapNumber"></td>
+                            <td><input type="text" class="form-control form-control-sm" placeholder="Enter Customer Name" [(ngModel)] ="item.globalcustomerinventoryinput.accountName"> </td>
+                            <td><button class="btn btn-sm btn-primary" (click)="addCustomerSerialNumber(item)"><em  class="fa fa-plus"></em> </button> </td>
+                          </tr>
+                        </tfoot> -->
+                      </table>
+                    </div>
+                  </div>
+                  <!-- <div class="card"  *ngIf="item.exicomTotalFaultyQuantity>0">
+                    <div class="card-header text-center">
+                      <strong>Exicom Faulty Inventory Serial Number</strong>
+                    </div>
+                    <div class="card-body">
+                      <div>
+                        <span *ngFor="let sr of item.exicomSerialnumbers;" style="background-color: rgba(red, green, blue, .8); border-radius: 3px;border-style: solid;border-width: .5px;padding: 3px 6px;margin: 3px 6px;">{{sr}}  &nbsp;<em class="fa fa-remove" (click)="remoteSerialNumber(sr,item)" style="cursor: pointer;"></em> </span>
+                      </div>
+                      <hr>
+                      <div *ngIf="item.exicomTotalFaultyQuantity>item.exicomSerialnumbers.length" class="row">
+                        <div class="col-4">
+                          <input  class="form-control form-control-sm" [(ngModel)]="item.globalexiserialnumber" placeholder="Enter Serial number"> 
+                        </div>
+                        <div class="col-4">
+                          <button (click)="addExicomInventory(item)" class="btn btn-primary btn-sm"><em class="fa fa-plus"></em> </button>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div> -->
+
+                </td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6 form-group required">
+        <div class="control-label">
+          Repair Center
+        </div>
+        <select class="form-control" [(ngModel)]="btServiceOrderRequest.destinationLocationId">
+          <option value="0">--Select--</option>
+          <option *ngFor="let center of btRepairCenterlist" [value]="center.locationId">{{center.locationName}}</option>
+        </select>
+      </div>
+      <div class="col-sm-6 form-group required ">
+        <div class="control-label">
+          Shipping Mode
+        </div>
+        <select [(ngModel)]="btServiceOrderRequest.shippingMode" class="form-control">
+          <option value="0" disabled>--Select--</option>
+          <option value="Courier">Courier</option>
+          <option value="ByHand">ByHand</option>
+          <option value="Transport">Transport</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-6 form-group required ">
+        <div class="control-label">
+          Shipping To Name
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="btServiceOrderRequest.shippingTo">
+      </div>
+      <div class="col-sm-6 form-group required">
+        <div class="control-label">
+          Tracking Number
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="btServiceOrderRequest.trackingNumber">
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-12 text-right">
+        <button class="btn btn-primary" type="button" (click)="postServiceOrder()"><em class="fa fa-save"></em>
+          Save</button> &nbsp;
+        <button class="btn btn-default" type="button" (click)="cancelSeriviceOrder()"><em class="fa fa-remove"></em>
+          Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

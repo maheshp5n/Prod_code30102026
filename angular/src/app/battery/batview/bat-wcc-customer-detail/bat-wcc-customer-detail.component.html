@@ -1,0 +1,1060 @@
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4">
+          <table>
+            <tr>
+              <td rowspan="2" style="width: 35px;">
+                <img alt="Case" src="assets/images/caseImg.png"
+                  style="height: auto;width:100%;background-color: rgb(253, 234, 122);" title="Case">
+              </td>
+              <td style="padding-left: 5px;">
+                <span>WCC Customer</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;"> {{AllBtWccCustomer.manualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4">
+  
+        </div>
+        <div class="col-md-4 text-right">
+          <!-- <button type="button" *ngIf="rights('BtCase','edit') && _cFlag!='f'"  (click)="invoiceCreate()"
+            class="btn btn-outline-info btn-sm">Invoice</button> -->
+            
+          <!--comment by pawan for short time-->
+            <!-- <button type="button" *ngIf="rights('BtCase','edit') && _cFlag!='f'"  (click)="docRecieved()"
+            class="btn btn-outline-info btn-sm">Document Recieved</button> -->
+            <button type="button" *ngIf="rights('BtWccCustomStatus','create') && AllBtWccCustomer.wccStatusId==3" (click)="wccCustomerApprove()"
+            class="btn btn-outline-info btn-sm">Approve</button>
+            <!-- reject -->
+            <!-- <button type="button" *ngIf="rights('BtCustomerWccReject','create') && AllBtWccCustomer.wccStatusId==3" (click)="rejectWccCustomer()"
+              class="btn btn-outline-info btn-sm">Reject</button> -->
+              <button type="button" *ngIf="rights('BtCustomerWccReject','create') && AllBtWccCustomer.wccStatusId==3" (click)="rejectWccCustomer()"
+              class="btn btn-outline-info btn-sm">Reject</button>
+
+              <button *ngIf="btnshow && AllBtWccCustomer.wccStatusId==2" class=" btn btn-sm btn-outline-info" type="button" 
+              (click)="showApprovalWindow()">Approve/Reject</button>
+              <!-- <button *ngIf="((AllBtWccCustomer.wccStatusId==6 || AllBtWccCustomer.wccStatusId==4) && rights('BtSchUseOnlyDetails','edit'))" type="button" (click)="pofDModelshow()"
+              class="btn btn-outline-info btn-sm">Invoice Request Edit</button> -->
+          
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="padding: 3px 5px;">
+      <div class="row">
+        <!-- <div class="col-md-2">
+          <label><small>Site Id</small></label>
+          <div><a [routerLink]="['/bat_site',AllBtWccCustomer.siteId]" [routerLinkActive]="'active'">{{AllBtWccCustomer.siteManualId}}</a>
+          </div>
+        </div> -->
+        <div class="col-md-3">
+          <label><small>Type</small></label>
+          <div>{{AllBtWccCustomer.caseTypeName}}</div>
+        </div>
+        <div class="col-md-3">
+          <label><small>Case Reason</small></label>
+          <div>{{AllBtWccCustomer.reasonName}}</div>
+        </div>
+        <div class="col-md-3">
+          <label><small>Status</small></label>
+          <div>{{AllBtWccCustomer.approvalStatus}}</div>
+        </div>
+        <div class="col-md-3">
+          <label><small>Customer</small></label>
+          <div>{{AllBtWccCustomer.customer}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- <div class="container"> -->
+  <div class="card">
+    <div class="card-body">
+      <ul class="menue">
+        <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+        <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+      </ul>
+      <br>
+      <hr style="margin-top: 14px;">
+      <div *ngIf="vDetails">
+        <button type="button" (click)="changeInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="infoDisplay.angleIcon"></i> Case Information</button>
+        <div *ngIf="infoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small>Invoice Request Number</small>
+                  </td>
+                  <td class="wrappable"> {{AllBtWccCustomer.manualId}}</td>
+                </tr>
+                <tr>
+                  <td><small>Type</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.caseTypeName}} </td>
+                </tr>
+  
+           
+                <tr>
+                  <td class="wrappable"><small>Circle</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_circle/{{AllBtWccCustomer.circle}}"
+                    activateRout="active">
+                    {{AllBtWccCustomer.circle}}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>JMS Number</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.JmsNo}}</td>
+                </tr>
+             
+                
+  
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+            
+               
+                <tr class="wrappable">
+                  <td><small>Case Reason</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.reasonName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width:50%"><small> Service Centre</small></td>
+                  <td class="wrappable">
+                    {{AllBtWccCustomer.legalEntityName}}
+                  </td>
+                </tr>
+          
+                <!-- <tr>
+                  <td class="wrappable"><small>Date Of Visit</small></td>
+                  <td class="wrappable"> {{AllBtWccCustomer.dateOfVisit |date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                </tr> -->
+                <tr>
+                  <td class="wrappable"><small>Invoice Request Status</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.wccStatus}} </td>
+                </tr>
+                <!-- <tr>
+                  <td class="wrappable"><small>RJIL_TT01_No</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.rjil_TT01_No}} </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Vendor Name</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.vendorName}}</td>
+                </tr> -->
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button type="button" (click)="changeAdditionalDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="additionDisplay.angleIcon"></i> Additional Information</button>
+        <div *ngIf="additionDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class=" table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Total Site Visit Charges </small>
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.customerRate}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Total Charges</small>
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.totalCharges}} </td>
+                </tr>
+  
+                <tr>
+                  <td class="wrappable"> <small>Approval Status </small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.approvalStatus}} </td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 50%"><small>Total Customer Spare Charges </small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.customerBillingRate}}</td>
+                </tr>
+                <!-- <tr>
+                  <td class="wrappable"><small>Priority</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.casePriorityName}}</td>
+                </tr> -->
+                <tr>
+                  <td class="wrappable"><small> RSH Approval Date  </small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.approvedByRsh | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Submitted Date  </small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.submitted_by_sch_date | date:'dd-MM-yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- <button type="button" (click)="changeSiteDetailDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="siteDetaiDisplay.angleIcon"></i> Site Detail</button>
+        <div *ngIf="siteDetaiDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Account Name</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_account/{{AllBtWccCustomer.accountSapNumber}}"
+                      activateRout="'active'">{{AllBtWccCustomer.accountName}}</a> </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Site ID</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_site/{{AllBtWccCustomer.siteId}}"
+                      activateRout="'active'">{{AllBtWccCustomer.siteManualId}}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wrappable"> <small>Assets</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_asset/{{AllBtWccCustomer.assetsSerialNumber}}"
+                      activateRout="active">{{AllBtWccCustomer.assetsSerialNumber}}</a></td>
+                </tr>
+                <tr>
+                  <td class="wrappable"> <small>Missing Assets</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.missingAssets}}</td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Customer</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.siteCustomer}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Site Name</small></td>
+                  <td class="wrappable"> {{AllBtWccCustomer.siteName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Assets Description</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.assetsName}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> -->
+  
+        <!-- <button type="button" (click)="changeProblemDetailDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="problemDetaiDisplay.angleIcon"></i> Problem Description</button>
+        <div *ngIf="problemDetaiDisplay.open">
+          <div class="row">
+  
+            <div class="col-md-6 col-sm-6 table-responsive">
+              <table class="table table-sm">
+                <tbody>
+  
+                  <tr>
+                    <td class="wrappable"><small>Number of SMR</small></td>
+                    <td class="wrappable"> {{AllBtWccCustomer.noOfSmr}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Internal Comment</small>
+                    </td>
+                    <td class="wrappable"> {{AllBtWccCustomer.internalRemark}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable" style="width: 50%"><small>Problem(s) Reported</small></td>
+                    <td class="wrappable">
+                      <ol>
+                        <li *ngFor="let problems of problemReportedDetails">
+                          {{problems.problemName}}
+                        </li>
+                      </ol>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width: 50%"><small>Other Problems Reported</small> </td>
+                    <td class="wrappable">{{AllBtWccCustomer.otherProblemReported}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Remark</small></td>
+                    <td class="wrappable">{{AllBtWccCustomer.remarks}}</td>
+                  </tr>
+                  <tr>
+                    <td class="wrappable"><small>Input From SCH or Engineer</small>
+                    </td>
+                    <td class="wrappable"> {{AllBtWccCustomer.inputFromEng}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div> -->
+        <!-- <button type="button" (click)="assignmentDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="AssignmentDetaiDisplay.angleIcon"></i> Assignment Details </button>
+        <div *ngIf="AssignmentDetaiDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Service Center</small></td>
+                  <td class="wrappable"><a href="#" routerLink="/bat_legalentity/{{AllBtWccCustomer.serviceCenterId}}"
+                      activateRout="active">{{AllBtWccCustomer.serviceCenterName}}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 50%"><small>Engineer</small>
+                    <div></div>
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.serviceResourceName}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div> -->
+        <!-- <button type="button" (click)="proofDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="proofDetaiDisplay.angleIcon"></i> Proof Of Delivery(For SCH Use Only) </button>
+        <div *ngIf="proofDetaiDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>POD Number</small>
+  
+                  </td>
+                  <td class="wrappable"> {{AllBtWccCustomer.podnumber}}</td>
+                </tr>
+                <tr>
+                  <td style="width: 50%"><small>POD Shipping Expected Date</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.podShippingExpectedDate | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>POD Shipping Name</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.podShippingToName}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>POD Date</small>
+  
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.poddate | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>POD Shipping Mode</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.podShippingMode }}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>POD Shipping Tracking Number</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.podShippingTrackingNumber}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div> -->
+  
+  
+        <button type="button" (click)="invoiceDetailDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="invoiceDetaisDisplay.angleIcon"></i> Customer PO And Invoice Details </button>
+        <div *ngIf="invoiceDetaisDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Customer PO Number</small>
+  
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.customerPoNumber}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>GRN Number</small>
+  
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.grnNumber}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>POD Number</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.podnumber}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>POD Shipping Name</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.podShippingName}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>POD Tracking Number</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.podShippingTrackingNumber}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Service Period From</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.servicePeriodFrom | date:'dd-MM-yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Customer PO Date</small>
+                   
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.customerPoDate | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>GRN Date</small>
+                   
+                  </td>
+                  <td class="wrappable">{{AllBtWccCustomer.grnDate | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>POD Date</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.poddate | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>POD Shipping Expected Date</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.podShippingExpectedDate | date: 'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable"><small>Service Period To</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.servicePeriodTo | date:'dd-MM-yyyy'}}</td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+        <button type="button" (click)="vendorInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="vendorDetaisDisplay.angleIcon"></i> Commercial Details</button>
+        <div *ngIf="vendorDetaisDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                
+                <tr>
+                  <td class="wrappable"><small>Exicom Invoice Number</small></td>
+                  <td class="wrappable">{{AllBtWccCustomer.exicom_invoice_number}}</td>
+                </tr>
+                <tr>
+                  <td style="width: 50%"><small> Sap Invoice Ref. Number </small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.sapInvoiceNumber}}</td>
+                </tr>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Rejection Reason</small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.wccRejectReason}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+           
+                <tr>
+                  <td style="width: 50%"><small>Exicom Invoice Date </small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.exicom_invoice_date | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td style="width: 50%"><small> Remarks </small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.remarks}}</td>
+                </tr>
+                <tr>
+                  <td style="width: 50%"><small>Other Reason </small> </td>
+                  <td class="wrappable">{{AllBtWccCustomer.other_rejection_reason}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+       
+         
+        
+          
+  
+        </div>
+        <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+            [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+        <div *ngIf="sysinfoDisplay.open" class="row">
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Created By</small></td>
+                  <td class="wrappable">
+                    <a
+                      [routerLink]="['/bat_user',AllBtWccCustomer.createdByEmailId]">{{AllBtWccCustomer.createdBy}}</a>&nbsp;,&nbsp;{{AllBtWccCustomer.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td class="wrappable" style="width: 50%"><small>Last Modified By</small>
+  
+                  </td>
+                  <td class="wrappable"><a
+                      [routerLink]="['/bat_user',AllBtWccCustomer.lastModifiedByEmailId]">{{AllBtWccCustomer.lastModifiedBy}}</a>&nbsp;,&nbsp;{{AllBtWccCustomer.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+        </div>
+      </div>
+    
+      <!-- =======edit Create Case=== -->
+      <!-- <div class="modal fade" bsModal #createInvoiceModel="bs-modal" (onShow)="modelsOpenState.caseEditModelOpen=true"
+        (onHide)="modelsOpenState.caseEditModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-account">
+        <div class="modal-dialog modal-lg modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="cancelInvoiceData()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <app-bt-create-invoice *ngIf="modelsOpenState.caseEditModelOpen"  [isEditMode]="isEditMode" [editInvoice]="caseInvoiceRequest" [caseID]="caseid" (onCaseInvoiceCreated)="onCaseInvoiceCreated($event)"
+             (onCancle)="cancelInvoiceData()" >
+             </app-bt-create-invoice>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- Service Appointment create -->
+      <!-- <div class="modal fade" bsModal #createServiceAppointmentModel="bs-modal" (onShow)="isEditModelShow=true"
+        (onHide)="isEditModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+        aria-labelledby="create-appointment">
+        <div class="modal-dialog modal-lg modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 id="create-appointment" class="modal-title pull-left">{{heading}}</h4>
+              <button type="button" class="close pull-right" aria-label="Close"
+                (click)="createServiceAppointmentModelhide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <app-create-service-appoinment-bycase *ngIf="isEditModelShow" [isEditMode]="isEditMode"
+                [editSecodServiceAppointmentData]="secodServiceAppointmentRequest"
+                (onSecondServiceAppointmentCreated)="onSecondServiceAppointmentCreated($event)"
+                (onCancle)="createServiceAppointmentModelhide()">
+              </app-create-service-appoinment-bycase>
+            </div>
+          </div>
+        </div>
+      </div> -->
+  <!-- popupSuccessModel -->
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong *ngIf="message=='Submitted Successfully'"></strong>
+  
+      <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #sureModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-serviceAppointment">
+    <div  class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left"> Submit for Document Recieved</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="sureModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+              <app-bt-are-you-sure (noRequestFor)="noRequestFor()" [caseID]="caseid" (onDOcumnetSuccess)="onDOcumnetSuccess($event)" [ApprovalMessage]="approvalmessage"></app-bt-are-you-sure>
+            </div>
+         
+        </div>
+    </div>
+</div> -->
+<!-- case reject sure pop -->
+<!-- <div class="modal fade" bsModal #rejectcasemodel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account">
+<div class="modal-dialog modal-lg modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{AllBtWccCustomer.caseManualId}}&nbsp; Reject</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="rejectcasemodelCancel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;">
+     <app-bt-reject-case [caseManualID]="AllBtWccCustomer.caseManualId" [caseID]="caseid" [isEditMode]="isEditMode" (onCancel)="rejectcasemodelCancel()" (onSuccess)="OnSuccess($event)"></app-bt-reject-case>
+    </div>
+  </div>
+</div>
+</div> -->
+  <!-- Show image files box -->
+<!-- <div class="modal fade" bsModal #choosenFilesShow="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="create-account">
+<div class="modal-dialog modal-lg modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{fileName}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="choosenFilesShow.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="max-height: 500px;overflow: auto;">
+  <img [src]="imageToShow" alt="" style="width:100%;height: auto;" type="application/pdf">
+  <pdf-viewer [src]="imageToShow" [render-text]="true" style="
+  height: auto;width: 100%;"></pdf-viewer>
+
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+            <div>
+                <button type="button" class="btn btn-default" (click)="choosenFilesShow.hide()"><i class="fa fa-remove"></i>
+                  Cancel</button>&nbsp;
+               <button type="submit" class="btn btn-primary" (click)="downloadFile(fileName)">Download</button>
+            </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div> -->
+
+
+
+
+<div *ngIf="!vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+    <!--POD File Submit BY SCH-->
+<div class="card">
+  <div class="card-header">
+      <table style="width: 100%;">
+          <tr>
+              <td style="width: 30px;">
+                  <img src="assets/images/file_120.png"
+                      style="width: 24px;height: 24px;background-color: rgb(7, 144, 230)">
+              </td>
+              <td>
+                  <a style="font-weight: bold;color: black;">
+                     WCC Case ({{wccCaseResp.length}}) </a>
+              </td>
+              <td class="text-right">
+                  <!-- <input multiple type="file" name="profile" (change)="onFileSelect($event)"
+                      id="getFile" style="display:none"
+                      accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                  <button class="btn btn-outline-info btn-sm"
+                      onclick="document.getElementById('getFile').click()" type='submit'><i
+                          class="fa fa-upload"></i>&nbsp;&nbsp;File
+                      Upload</button> -->
+              </td>
+          </tr>
+      </table>
+  </div>
+  <div *ngIf="wccCaseResp.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+      <div class="table-responsive mobile" style="height: 100%;">
+          <table class="table table-sm table-condensed tablerview">
+              <thead style="background-color:rgb(248, 245, 245)">
+                  <tr>
+                      <th title="S.No" style="width:50px;">S.No.</th>
+                      <th title="File Name" scope="col" class="text-left"> Case Number
+                      </th>
+                      <th title="File Size" scope="col" class="text-left"> Total Customer Spare Charge
+                      </th>
+                      <th title="Created Date" scope="col" class="text-left"> Total Site Visit Charge
+                      </th>
+                      <th title="Total Charge" scope="col" class="text-left">Total Charge</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let cs of wccCaseResp;let i=index">
+                      <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                      <td data-line="File Name" class="wrappable"><a routerLink="/bat_case/{{cs.caseId}}" activateRout="active">{{cs.caseManualId}}</a>
+                      </td>
+                      <td data-line="File Size" scope="col"
+                          class="text-left"> {{cs.sapareCharges}} </td>
+                      <td data-line="File Size" scope="col"
+                          class="text-left">
+                          {{ cs.siteCharge}} </td>
+                      <td data-line="Created Date" scope="col" class="text-left">
+                          {{cs.totalCharge}}
+                      </td>
+                      <!-- <td *ngIf="rights('BtServiceAppointment','edit')">
+                          <button (click)="DeletAttachment(ob.id)"> <i class="fa fa-trash"
+                                  aria-hidden="true"></i></button>
+                      </td> -->
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+      <table style="width: 100%;">
+          <tr>
+              <td style="width: 30px;">
+                  <img src="assets/images/file_120.png"
+                      style="width: 24px;height: 24px;background-color: rgb(7, 144, 230)">
+              </td>
+              <td>
+                  <a style="font-weight: bold;color: black;">
+                     SCH Files ({{PODfileUploadList.length}}) </a>
+              </td>
+              <td class="text-right">
+                  <!-- <input multiple type="file" name="profile" (change)="onFileSelect($event)"
+                      id="getFile" style="display:none"
+                      accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                  <button class="btn btn-outline-info btn-sm"
+                      onclick="document.getElementById('getFile').click()" type='submit'><i
+                          class="fa fa-upload"></i>&nbsp;&nbsp;File
+                      Upload</button> -->
+              </td>
+          </tr>
+      </table>
+  </div>
+<div *ngIf="PODfileUploadList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+  <div class="table-responsive mobile" style="height: 100%;">
+      <table class="table table-sm table-condensed tablerview">
+          <thead style="background-color:rgb(248, 245, 245)">
+              <tr>
+                  <th title="S.No" style="width:50px;">S.No.</th>
+                  <th title="File Name" scope="col" class="text-left"> File Name
+                  </th>
+                  <th title="File Size" scope="col" class="text-left"> File Size
+                  </th>
+                  <th title="Created Date" scope="col" class="text-left"> Created Date
+                  </th>
+                  <!-- <th *ngIf="rights('BtServiceAppointment','edit')">Action</th> -->
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let ob of PODfileUploadList;let i=index">
+                  <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                  <td data-line="File Name" class="wrappable"><a [routerLink]=""
+                          (click)="filePreview(ob.fileDownloadUri,ob.fileName)"
+                          activateRout="active">{{ob.fileName}}</a>
+                  </td>
+                  <td *ngIf="(ob.fileSize/1024)/1024 < 1" data-line="File Size" scope="col"
+                      class="text-left">
+                      {{ (ob.fileSize/1024) | number: '1.0-1'}} KB</td>
+                  <td *ngIf=" (ob.fileSize/1024)/1024 >=1" data-line="File Size" scope="col"
+                      class="text-left">
+                      {{ (ob.fileSize/1024)/1024 | number: '1.0-1'}} MB</td>
+                  <td data-line="Created Date" scope="col" class="text-left">
+                      {{ob.createdDate | date:'dd-MM-yyyy'}}
+                  </td>
+                  <!-- <td *ngIf="rights('BtServiceAppointment','edit')">
+                      <button (click)="DeletAttachment(ob.id)"> <i class="fa fa-trash"
+                              aria-hidden="true"></i></button>
+                  </td> -->
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+</div>
+  <!-- File -->
+<div class="card">
+  <div class="card-header">
+      <table style="width: 100%;">
+          <tr>
+              <td style="width: 30px;">
+                  <img src="assets/images/file_120.png"
+                      style="width: 24px;height: 24px;background-color: rgb(7, 144, 230)">
+              </td>
+              <td>
+                  <a style="font-weight: bold;color: black;">
+                    Commercial Files ({{fileUploadList.length}}) </a>
+              </td>
+              <td class="text-right">
+                  <!-- <input multiple type="file" name="profile" (change)="onFileSelect($event)"
+                      id="getFile" style="display:none"
+                      accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" />
+                  <button class="btn btn-outline-info btn-sm"
+                      onclick="document.getElementById('getFile').click()" type='submit'><i
+                          class="fa fa-upload"></i>&nbsp;&nbsp;File
+                      Upload</button> -->
+              </td>
+          </tr>
+      </table>
+  </div>
+  <div *ngIf="fileUploadList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+      <div class="table-responsive mobile" style="height: 100%;">
+          <table class="table table-sm table-condensed tablerview">
+              <thead style="background-color:rgb(248, 245, 245)">
+                  <tr>
+                      <th title="S.No" style="width:50px;">S.No.</th>
+                      <th title="File Name" scope="col" class="text-left"> File Name
+                      </th>
+                      <th title="File Size" scope="col" class="text-left"> File Size
+                      </th>
+                      <th title="Created Date" scope="col" class="text-left"> Created Date
+                      </th>
+                      <!-- <th *ngIf="rights('BtServiceAppointment','edit')">Action</th> -->
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let ob of fileUploadList;let i=index">
+                      <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                      <td data-line="File Name" class="wrappable"><a [routerLink]=""
+                              (click)="filePreview(ob.fileDownloadUri,ob.fileName)"
+                              activateRout="active">{{ob.fileName}}</a>
+                      </td>
+                      <td *ngIf="(ob.fileSize/1024)/1024 < 1" data-line="File Size" scope="col"
+                          class="text-left">
+                          {{ (ob.fileSize/1024) | number: '1.0-1'}} KB</td>
+                      <td *ngIf=" (ob.fileSize/1024)/1024 >=1" data-line="File Size" scope="col"
+                          class="text-left">
+                          {{ (ob.fileSize/1024)/1024 | number: '1.0-1'}} MB</td>
+                      <td data-line="Created Date" scope="col" class="text-left">
+                          {{ob.createdDate | date:'dd-MM-yyyy'}}
+                      </td>
+                      <!-- <td *ngIf="rights('BtServiceAppointment','edit')">
+                          <button (click)="DeletAttachment(ob.id)"> <i class="fa fa-trash"
+                                  aria-hidden="true"></i></button>
+                      </td> -->
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+   <div class="card">
+            <div class="card-header">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/Sites.png" style="width: 24px;height: 24px;background-color: #f15050">
+                  </td>
+                  <td>
+                    <a>&nbsp; <strong>Approval History({{historyList.length}})</strong> </a>
+                  </td>
+  
+                </tr>
+              </table>
+            </div>
+  
+            <div *ngIf="historyList.length>0" class="card-body"
+              style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+              <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+                <div class="table-responsive mobile">
+                  <table class="table table-sm">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th>S.No</th>
+                        <th class="text-left" title="Approvel Stage"> Approvel Stage
+                        </th>
+                        <th class="text-left" title="Assigned Date">Assigned Date
+                        </th>
+                        <th class="text-left" title="Assigned To"> Assigned To
+                        </th>
+                        <th class="text-left" title="Action">Action</th>
+                        <th class="text-left" title="Approved Date">Approved Date</th>
+  
+                        <th class="text-left" title="Remarks">Remarks
+                        </th>
+  
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let hlist of historyList;let i=index ">
+                        <td class="mhide" data-line="S.No." style="width:50px;">{{i+1}}.</td>
+                        <td data-line="Approvel Stage" class="wrappable">{{hlist.stageName}}</td>
+                        <td class="wrappable text-left" data-line="Assigned Date">
+                          {{hlist.assignedDate | date:'dd-MM-yyyy'}}</td>
+                        <td class="wrappable" data-line="Assigned To">
+                 
+                            {{hlist.assignedTo}}
+                        </td>
+                        <td class="wrappable" data-line="Action">{{hlist.action}}</td>
+                        <td class="wrappable" data-line="Approved date">{{hlist.approvedDate | date:'dd-MM-yyyy'}}
+                        </td>
+                        <td class="wrappable text-left" data-line="Remarks">{{hlist.remark}}</td>
+  
+                      </tr>
+                    </tbody>
+                  </table>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+
+<div>
+    <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+</div>
+</div>
+</div>
+</div>
+
+<!--Customer WCC Rejected-->
+
+<div class="modal fade" bsModal #rejectWccCustomermodel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account" (onShow)="modelsOpenState.wccEditModelOpen=true"
+(onHide)="modelsOpenState.wccEditModelOpen=false">
+<div class="modal-dialog modal-lg modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{AllBtWccCustomer.caseManualId}}&nbsp; Reject</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="closeRejectModel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+        <div class="modal-body"  *ngIf="modelsOpenState.wccEditModelOpen"  style="max-height: 500px;overflow: auto;">
+
+          <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+            <div class="panel-heading">
+               <span class="text-center" style="font-weight: bold"> Reject Customer WCC </span>
+           </div>
+           <div class="panel-body">
+               <div class="row">
+                   <div class="col-md-6 col-sm-6 form-group required ">
+                       <div class="control-label">
+                           Reject Reason
+                       </div>
+                       <select class="form-control" [(ngModel)]="rejectReasonReq.rejectReasonId">
+                         <option value="0" selected disabled>Select Reason</option>
+                         <option *ngFor="let re of reasonList" [ngValue]="re.id">{{re.wccCustomerRejectList}}</option>
+                       </select>
+                   </div>
+                   <div class="col-md-6 col-sm-6 form-group required ">
+                       <div class="control-label">
+                           Remarks
+                       </div>
+                       <input type="text" class="form-control"[(ngModel)]="rejectReasonReq.remarks">
+
+                   </div>
+             
+               </div>
+        
+              
+           </div>
+        
+        </div>
+        
+        <!--  // save and close button -->
+        <div class="row">
+           <div class="col-sm-12 col-md-12 text-right">
+               <button type="button" (click)="closeRejectModel()" class="btn btn-default"><i class="fa fa-remove"></i>
+                   Cancel</button>&nbsp;
+               <button type="button" (click)="rejected()" class="btn btn-primary"><i class="fa fa-save"></i>
+                   Save
+               </button>
+           </div>
+        </div>
+        </div>
+  </div>
+</div>
+</div>
+
+  
+
+<!-- Wcc Customer Approval directive -->
+
+<div class="modal fade" bsModal #createWccCustomermodel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account" (onShow)="modelsOpenState.wccEditModelOpen=true"
+(onHide)="modelsOpenState.wccEditModelOpen=false">
+<div class="modal-dialog modal-lg modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{AllBtWccCustomer.caseManualId}}&nbsp; Approval</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="CloseWccCustomerModel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+        <div class="modal-body"  *ngIf="modelsOpenState.wccEditModelOpen"  style="max-height: 500px;overflow: auto;">
+        <app-bt-create-wcc-customer-approve [wccCustomerReq]="wccCustomerReq" (onCancle)="CloseWccCustomerModel()" (onWccCustomerCreated)="onWccCustomerCreated()"></app-bt-create-wcc-customer-approve>
+          <!-- <app-bt-change-case-type-commer [AllBtWccCustomerponse]="AllBtWccCustomerponse" (onChanged)="onChnagedUpdate($event)" (onCancle)="CloseCaseTypeChange()"></app-bt-change-case-type-commer > -->
+        </div>
+  </div>
+</div>
+</div>
+  
+
+<div class="modal fade" bsModal #createPD="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account">
+<div class="modal-dialog modal-lg modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="cancelPDData()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- <app-bt-create-pod [isthisEditMode]="isEditMode" [editPDData]="caseres" [caseID]="caseid" (onCasePDCreated)="onCasePDCreated($event)"
+     (onCancle)="cancelPDData()" ></app-bt-create-pod> -->
+
+     <app-bt-create-pod [isthisEditMode]="isEditMode"[caseID]="caseselectlist" [editPDData]="caseres"(onCasePDCreated)="onCasePDCreated($event)"
+     (onCancle)="cancelPDData()" ></app-bt-create-pod>
+    </div>
+  </div>
+</div>
+</div>
+     
+
+<!-- Calling Aproval Mode -->
+
+<div class="modal fade" bsModal #approvalModule="bs-modal" [config]="{backdrop:'static'}" tabindex="-1"  role="dialog">
+  <div class="mpanel" style="width:61%">
+      <div class="mpanel-header">
+          <label>Approval For {{AllBtWccCustomer.manualId}}</label>
+          <button (click)="approvalModule.hide()" class="cls-btn"><em class="fa fa-remove"></em> </button>
+      </div>
+      <div class="mpanel-body">
+          <app-bat-tobeapproved-dr [objectName]="'BtCustomerWcc'" [manualId]="AllBtWccCustomer.manualId" [_objectId]="wccApprovalId"   (onSaveDetails)="onApprovalDone()" (onCancel)="approvalModule.hide()"></app-bat-tobeapproved-dr>
+      </div>
+  </div>
+</div>

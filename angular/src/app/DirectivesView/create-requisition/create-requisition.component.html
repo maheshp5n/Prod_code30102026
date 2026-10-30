@@ -1,0 +1,431 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Name
+                </div>
+                <!-- <input *ngIf="_isEditMode==false" [(ngModel)]="requisitionResponse.id" type="text" class="form-control"
+                    disabled> -->
+                <input [(ngModel)]="requisitionResponse.manualId" type="text"
+                    class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Owner
+                </div>
+                <input *ngIf="_isEditMode==false" value="{{loginData.firstName}} {{loginData.lastName}}" type="text"
+                    class="form-control" disabled>
+                <input *ngIf="_isEditMode==true"
+                    value="{{requisitionResponse.ownerFirtName}} {{requisitionResponse.ownerlastName}}" type="text"
+                    class="form-control" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Required Date
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.requiredDate" class="form-control" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" autocomplete="off">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Status
+                </div>
+                <select [(ngModel)]="requisitionResponse.requisitionStatusId" class="form-control ">
+                    <option value='0' disabled>--Select--</option>
+                    <option *ngFor="let o of status" [ngValue]="o.statusId">{{o.statusName}}</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="_isEditMode==true" class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Total Quantity Required
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.totalQuantityRequired" class="form-control"
+                    disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Total InTransit
+                    <input type="text" [(ngModel)]="requisitionResponse.totalInTransit" class="form-control" disabled>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="_isEditMode==true" class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Total Quantity Received
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.totalQuantityReceived" class="form-control"
+                    disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Total Quantity Issued
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.totalQuantityIssued" class="form-control" disabled>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    From Warehouse
+                </div>
+                <div class="input-group">
+                    <input [(ngModel)]="requisitionResponse.fromWarehouseName" class="form-control"
+                        [typeahead]="warehouseList" typeaheadOptionField="warehouseName"
+                        (keyup)="noMatchFromWarehouseCheck()"
+                        (typeaheadNoResults)="typeaheadNoResultsFromWarehouse($event)" [isAnimated]="true"
+                        (keydown)="onKeydownFromWarehouse($event)" (typeaheadOnSelect)="onSelectFromWarehouse($event)"
+                        [typeaheadOptionsLimit]="5" placeholder="Search Warehouse...">
+                    <span class="input-group-append">
+                        <div><i [ngClass]="isFromWarehouseSelected" (click)="fromWarehouseTimes()"
+                                class="input-group-text bg-transparent border-left-0"></i></div>
+                    </span>
+                    <span class="input-group-append">
+                        <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewFromWarehouse()"></i></div>
+                    </span>
+                </div>
+                <div style="font:100; color: red;">{{noMatchFromWarehouse}}</div>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    To Warehouse
+                </div>
+                <div class="input-group">
+                    <input [(ngModel)]="requisitionResponse.toWarehouseName" class="form-control"
+                        [typeahead]="warehouseList" typeaheadOptionField="warehouseName"
+                        (keyup)="noMatchToWarehouseCheck()" (typeaheadNoResults)="typeaheadNoResultsToWarehouse($event)"
+                        [isAnimated]="true" (keydown)="onKeydownToWarehouse($event)"
+                        (typeaheadOnSelect)="onSelectToWarehouse($event)" [typeaheadOptionsLimit]="5"
+                        placeholder="Search Warehouse...">
+                    <span class="input-group-append">
+                        <div><i [ngClass]="isToWarehouseSelected" (click)="toWarehouseTimes()"
+                                class="input-group-text bg-transparent border-left-0"></i></div>
+                    </span>
+                    <span class="input-group-append">
+                        <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewToWarehouse()"></i></div>
+                    </span>
+                </div>
+                <div style="font:100; color: red;">{{noMatchToWarehouse}}</div>
+            </div>
+        </div>
+
+        <div *ngIf="_isEditMode==true" class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Received Status
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.receivedStatus" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Sent Status
+                    <input type="text" [(ngModel)]="requisitionResponse.sentStatus" class="form-control" disabled>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    From warehouse email
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.fromWarehouseEmailId" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    To warehouse email
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.toWarehouseEmailId" class="form-control">
+            </div>
+        </div>
+
+        <div *ngIf="_isEditMode==true" class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Requesting Entity
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.requstingEntity" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Requisition To
+                    <input type="text" [(ngModel)]="requisitionResponse.requestingTo" class="form-control" disabled>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="_isEditMode==true" class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Requisitioner
+                </div>
+                <input type="text"
+                    value="{{requisitionResponse.requisitionerFirtName}} {{requisitionResponse.requisitionerlastName}}"
+                    class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Product Type
+                </div>
+                <select [(ngModel)]="requisitionResponse.productTypeId" class="form-control ">
+                    <option value='0' disabled>--Select--</option>
+                    <option *ngFor="let o of productType" [ngValue]="o.productTypeId">{{o.productTypeName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div *ngIf="_isEditMode==false" class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Product Type
+                </div>
+                <select [(ngModel)]="requisitionResponse.productTypeId" class="form-control ">
+                    <option value='0' disabled>--Select--</option>
+                    <option *ngFor="let o of productType" [ngValue]="o.productTypeId">{{o.productTypeName}}</option>
+                </select>
+            </div>
+            <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Cost Center
+                </div>
+                <input [(ngModel)]="requisitionResponse.costCenter" type="text" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Approval Status
+                </div>
+                <select [(ngModel)]="requisitionResponse.approvalStatusId" class="form-control ">
+                    <option value='0' disabled>--Select--</option>
+                    <option *ngFor="let o of approvalStatus" [ngValue]="o.approvalStatusId">{{o.approvalStatusName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="_isEditMode==true" class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Plant
+                </div>
+                <input [(ngModel)]="requisitionResponse.plant" type="text" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Sent Status
+                    <input [(ngModel)]="requisitionResponse.sentStatusMessage" type="text" class="form-control"
+                        disabled>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="_isEditMode==true" class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Pending For Issue
+                </div>
+                <input type="text" [(ngModel)]="requisitionResponse.pendingForIssue" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Product
+                </div>
+                <div class="input-group">
+                    <input [(ngModel)]="productListResponse.productPartCode" class="form-control"
+                        [typeahead]="_productList" typeaheadOptionField="productPartCode"
+                        (keyup)="noMatchProductCheck()" (typeaheadNoResults)="typeaheadNoResultsProduct($event)"
+                        [isAnimated]="true" (keydown)="onKeydownPartCode($event)"
+                        (typeaheadOnSelect)="onSelectPartCode($event)" [typeaheadOptionsLimit]="5"
+                        placeholder="Search Products...">
+                    <span class="input-group-append">
+                        <div><i [ngClass]="isProductSelected" (click)="productTimes()"
+                                class="input-group-text bg-transparent border-left-0"></i></div>
+                    </span>
+                    <span class="input-group-append">
+                        <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewProduct()"></i></div>
+                    </span>
+                </div>
+                <div style="font:100; color: red;">{{noMatchProduct}}</div>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Quantity
+                </div>
+                <div class="input-group">
+                    <input type="number" [(ngModel)]="productListResponse.quantity" class="form-control">
+                    <span class="input-group-append">
+                        <div><i class="border-left-0  fa fa-plus btn btn-success"
+                                (click)="addProductList(productListResponse)"> Add</i></div>
+                    </span>
+                </div>
+            </div>
+            <!-- <div class="col-md-3 col-sm-3 form-group" style="padding-top: 3%;">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12  text-right" >
+                        <button type="button" (click)="addProductList(productListResponse)" class="btn btn-success ">
+                            <i class="fa fa-plus"></i> Add</button>&nbsp;
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div *ngIf="productList.length>0" class="table-responsive">
+            <table class="table table-sm table-condensed tablerview">
+                <thead style="background-color:rgb(248, 245, 245)">
+                    <tr>
+                        <th>S.No.</th>
+                        <th title="Product Part Code"> Product Part Code</th>
+                        <th title=" Quantity"> Quantity </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let list of productList; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.productPartCode}}</td>
+                        <td>{{list.quantity}}</td>
+                        <td><a id="removebtn" (click)="removeProductList(list)">Remove</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> System Information </span>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label" style="font-weight: bold;">
+                    To legal entity type
+                </div>
+                <div>{{requisitionResponse.legalEnetityType}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label" style="font-weight: bold;">
+                    Created By
+                </div>
+                <div>{{requisitionResponse.createdByFirstName}} {{requisitionResponse.createByLastName}}
+                    {{requisitionResponse.createdDate | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+                <!-- <input type="text" class="form-control"> -->
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label" style="font-weight: bold;">
+                    Last Modified By
+                </div>
+                <div>{{requisitionResponse.modifiedByFirstName}} {{requisitionResponse.modifiedByLastName}}
+                    {{requisitionResponse.modifiedDate | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreateRequsition()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+
+<!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+</div> -->
+<div class="modal fade" bsModal #addProductListModel="bs-modal" (onShow)="isProductModelShow=true"
+(onHide)="isProductModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">Product Lists</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="addProductListModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 300px;overflow: auto;">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #createProductModel="bs-modal" (onShow)="isProductModelShow=true"
+(onHide)="isProductModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">New Product</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createProductModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <app-create-new-product ></app-create-new-product> -->
+                <app-create-new-product *ngIf="isProductModelShow" [isEditMode]="isEditMode" [editProductData]="createProduct"
+                    (onProductCreated)="onProductCreated($event)" (onCancle)="cancelDataProd()">
+                </app-create-new-product>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #createWarehouseModel="bs-modal" (onShow)="isWarehouseModelShow=true"
+(onHide)="isWarehouseModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left"> New Warehouse </h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createWarehouseModelhide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-create-new-warehouse *ngIf="isWarehouseModelShow" [isEditMode]="isEditMode" [editWarehouseData]="newwarehouse"
+                    (onWarehouseCreated)="onWarehouseCreated($event)" (onCancle)="cancelDataWarehouse()">
+                </app-create-new-warehouse>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-requisition">
+
+  <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong *ngIf="message=='Submitted Successfully'"> Requisition ( <a href="#"
+        routerLink="/requisition/{{this.tempId}}">{{this.tempMannulId}}</a>
+      )
+      created successfully !</strong>
+    <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+  </div>
+</div>

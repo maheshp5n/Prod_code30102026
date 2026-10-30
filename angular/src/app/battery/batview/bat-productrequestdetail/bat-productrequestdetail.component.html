@@ -1,0 +1,609 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:30px">
+                            <img alt="" src="/assets/images/product_request_120.png"
+                                style="width: 100%;height: auto;background-color: #88C651">
+                        </td>
+                        <td style="padding-left: 5px;">Product Request</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span style="font-size: 15px;font-weight: bold;">
+                                {{btProducRequestResponse.productRequestManualId}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-8 text-right">
+                <div *ngIf="_cFlag!='f'" class="btn-group">
+                    <button
+                        *ngIf="(btProducRequestResponse.productRequestDestinationLocationId==logedInUser.locationId||btProducRequestResponse.productRequestSourceLocationId==logedInUser.locationId)&& btProducRequestResponse.productRequestStatus!='Short Closed' && btProducRequestResponse.productRequestStatus=='Draft'"
+                        type="button" (click)="additemModel()" class="btn btn-sm btn-outline-info">Add
+                        Item</button>&nbsp;
+                    <button type="button" (click)="EditProductReq()"
+                        *ngIf="btProducRequestResponse.productRequestStatus=='Draft'"
+                        class="btn btn-sm btn-outline-info">Edit</button>&nbsp;
+                    <button
+                        *ngIf="btProducRequestResponse.productRequestStatus=='Draft'&&btProducRequestResponse.productRequestDestinationLocationId==logedInUser.locationId && btProducRequestResponse.productRequestStatus!='Short Closed'"
+                        type="button" (click)="submitProductRequest('Submitted')"
+                        class="btn btn-sm btn-outline-info">Submit</button>&nbsp;
+                    <button
+                        *ngIf="btProducRequestResponse.productRequestStatus!='Draft'&& btProducRequestResponse.productRequestStatus!='Short Closed'&&btProducRequestResponse.productRequestSourceLocationId!=logedInUser.locationId"
+                        type="button" (click)="getShortCloseProductRequest('Short Closed')"
+                        class="btn btn-sm btn-outline-info">Short
+                        Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <small>Status</small>
+                <div>{{btProducRequestResponse.productRequestStatus}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top:15px;">
+    </div>
+    <div *ngIf="vDetails" class="card-body">
+        <button type="button" (click)="changeButtonDisplay('info')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.info.icon"></i> &nbsp;Information
+        </button>
+        <div *ngIf="displayButtons.info.visibal" class="row">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>Product Request Number</small>
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestManualId}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Destination Location
+                            </small>
+                        </td>
+                        <td>
+                            <a
+                                [routerLink]="['/bat_warehouse',btProducRequestResponse.productRequestDestinationLocationId]">{{btProducRequestResponse.productRequestDestinationLocationName}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Total Quantity Required
+                            </small>
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestTotalQuantityRequired}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Total Quantity Issued
+                            </small>
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestTotalQuantityIssued}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Expected Date
+                            </small>
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestNeedByDateTime |date :'dd-MM-yyyy'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Submitted Date
+                            </small>
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestSubmittedDate |date :'dd-MM-yyyy'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>Owner</small>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/bat_user',btProducRequestResponse.productRequestOwnerEmailId]"
+                                activateRout="active">{{btProducRequestResponse.ownerFirstName}}&nbsp;{{btProducRequestResponse.ownerMiddleName}}&nbsp;{{btProducRequestResponse.ownerLastName}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Source Warehouse
+                            </small>
+                        </td>
+                        <td>
+                            <div *ngIf="btProducRequestResponse.productRequestStatus=='Draft'">
+                                <select style="outline: none;border-style: none;border-bottom-style: solid .5px;"
+                                    *ngIf="btProducRequestResponse.productRequestDestinationLocationId==logedInUser.emailId"
+                                    [(ngModel)]="btProducRequestResponse.productRequestSourceLocationId">
+                                    <option *ngFor="let l of locationParentAndSiblings" [ngValue]="l.locationId">
+                                        {{l.locationName}}</option>
+                                </select>
+                                <button
+                                    *ngIf="btProducRequestResponse.destinationLocationOwnerEmailId==logedInUser.emailId"
+                                    (click)="updateLocation()" class="btn btn-sm btn-ouline-info"><em
+                                        class="fa fa-pencil"></em> </button>
+                            </div>
+                            <a *ngIf="btProducRequestResponse.productRequestStatus !='Draft'||btProducRequestResponse.destinationLocationOwnerEmailId!=logedInUser.emailId"
+                                [routerLink]="['/bat_warehouse',btProducRequestResponse.productRequestSourceLocationId]">{{btProducRequestResponse.productRequestSourceLocationName}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Status
+                            </small>
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestStatus}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Total Quantity Received
+                            </small>
+
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestTotalQuantityReceived}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Description
+                            </small>
+                        </td>
+                        <td>
+                            {{btProducRequestResponse.productRequestDescription}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button type="button" (click)="changeButtonDisplay('sysinfo')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.sysInfo.icon"></i> &nbsp;System Information
+        </button>
+        <div class="row" *ngIf="displayButtons.sysInfo.visibal">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Created By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/bat_user',btProducRequestResponse.productRequestCreatedByEmailId]"
+                                activateRout="active">{{btProducRequestResponse.createdByFirstName}}&nbsp;{{btProducRequestResponse.createdByMiddleName}}&nbsp;{{btProducRequestResponse.createdByLastName}}</a>,&nbsp;{{btProducRequestResponse.productRequestCreatedDate|date
+                            :'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Last Modified By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/bat_user',btProducRequestResponse.modifiedByEmail]"
+                                activateRout="active">{{btProducRequestResponse.lastModifiedByFirstName}}&nbsp;{{btProducRequestResponse.lastModifiedByMiddleName}}&nbsp;{{btProducRequestResponse.lastModifiedByLastName}}</a>,&nbsp;
+                            {{btProducRequestResponse.productRequestLastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!vDetails" class="card-body">
+        <div class="card">
+            <div class="card-header">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 24px;">
+                            <img src="assets/images/product_request_line_item_120.png" alt=""
+                                style="width: 100%;height: auto;background-color: #88C651">
+                        </td>
+                        <td style="padding-left:5px;"><strong>Product Request Items
+                                ({{btProductReqItemResponse.totalElements}}) </strong> </td>
+
+                        <!-- <td *ngIf="btProductReqItemResponse.totalElements>5" class="text-right"><a
+                                [routerLink]="['/details_of_all_view',productRequestId,'cmponent','proLi']"
+                                [queryParams]="{cmponent:lineItemColumns,page:page,totalElement:pageProductRequestItems.totalElements}"
+                                target="_blank" class="btn btn-sm btn-outline-info"> View All </a> </td> -->
+
+                    </tr>
+
+                </table> <br>
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <input type="text" class="form-control" placeholder="Item Manual Id"
+                            [(ngModel)]="advancesearchPRitems.productRequestItemManualId">
+                    </div>
+                    <div class="col-md-3">
+
+                        <input type="text" class="form-control" placeholder="Product"
+                            [(ngModel)]="advancesearchPRitems.productRequestItemProductPartcode">
+                    </div>
+                    <div class="col-md-3">
+
+                        <input type="text" class="form-control" placeholder="Status"
+                            [(ngModel)]="advancesearchPRitems.productRequestItemStatus">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-outline-info btn-md" style="float:right;padding-left:20px;"
+                            (click)="resetpreqitem()"> Reset</button> &nbsp;
+                        <button type="button" class="btn btn-outline-info btn-md"
+                            style="padding-right: 50px; padding-left: 40px;" (click)="searchPReqitems()">
+                            <em class="fa fa-search"></em> Search</button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card-body" *ngIf="btProductReqItemResponse.content&&btProductReqItemResponse.content.length>0"
+                style="padding: 0px;">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th title="S.No.">S.No.</th>
+                            <th title="S.No.">Item Manual Id</th>
+                            <th class="text-left" title="Product Part code">
+                                Product
+                            </th>
+                            <th title="Product Description" style="text-align: center;">
+                                Product Description
+                            </th>
+                            <th class="text-left" title="Status">
+                                Status
+                            </th>
+                            <th title="Quantity Requested" style="text-align: center;">
+                                Quantity Requested
+                            </th>
+                            <th title="Quantity Issued" style="text-align: center;">
+                                Quantity Issued
+                            </th>
+                            <th title="Quantity Received" style="text-align: center;">
+                                Quantity Received
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let _item of btProductReqItemResponse.content;let j=index;">
+                            <td style="text-align: center;">{{j+1}}.</td>
+                            <td>
+                                <a [routerLink]="['/bat_product_request_items',_item.productRequestItemId]"
+                                    [queryParams]="_item">{{_item.productRequestItemManualId}}</a>
+                            </td>
+                            <td>
+                                {{_item.productRequestItemProductPartcode}}
+                            </td>
+                            <td style="text-align: center;">{{_item.productRequestItemProductDescription}}</td>
+                            <td>{{_item.productRequestItemStatus}}</td>
+                            <td style="text-align: center;">{{_item.productRequestItemRequiredQuantity}}</td>
+                            <td style="text-align: center;">{{_item.productRequestItemIssuedQuantity}}</td>
+                            <td style="text-align: center;">{{_item.productRequestItemReceivedQuantity}}</td>
+                            <td style="text-align: center;">
+                                <button type="button"
+                                    *ngIf="_item.productRequestItemStatus !='Short Closed'&&btProducRequestResponse.productRequestStatus=='Submitted'"
+                                    (click)="getShortCloseProductItem(_item.productRequestItemId,_item.productRequestItemManualId,'Short Closed')"
+                                    class="btn btn-sm btn-outline-danger">
+                                    Short Close
+                                </button>
+                                <span *ngIf="_item.productRequestItemStatus== 'Short Closed'"> <em
+                                        class="fa fa-remove"></em> Short
+                                    Closed</span>
+                                <button type="button"
+                                    *ngIf="_item.productRequestItemStatus =='Draft'&&btProducRequestResponse.productRequestStatus!='Submitted' "
+                                    (click)="getDeleteProuctRequestITems(_item.productRequestItemId,_item.productRequestItemManualId)"
+                                    class="btn btn-sm btn-outline-danger">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 24px;">
+                            <img src="assets/images/product_request_line_item_120.png" alt=""
+                                style="width: 100%;height: auto;background-color: #88C651">
+                        </td>
+                        <td style="padding-left:5px;"><strong>Product Transfer
+                                ({{pageProductTranferDetails.totalElements}}) </strong> </td>
+
+                        <!-- <td *ngIf="pageProductTranferDetails.totalElements>5" class="text-right"><a
+                                [routerLink]="['/details_of_all_view',productRequestId,'cmponent','proTransfer']"
+                                [queryParams]="{cmponent:protransferCol,page:page}" target="_blank"
+                                class="btn btn-sm btn-outline-info"> View All </a> </td> -->
+                    </tr>
+                    <br>
+
+                </table> <br>
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <input type="text" class="form-control" placeholder="PT Item"
+                            [(ngModel)]="advancesearchPT.productTransferManualId">
+                    </div>
+                    <div class="col-md-3">
+
+                        <input type="text" class="form-control" placeholder="Product"
+                            [(ngModel)]="advancesearchPT.productPartcode">
+                    </div>
+                    <div class="col-md-3">
+
+                        <input type="text" class="form-control" placeholder="Tracking Number"
+                            [(ngModel)]="advancesearchPT.productTranferTrackingNumber">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-outline-info btn-md" style="float:right;padding-left:20px;"
+                            (click)="resetPT()"> Reset</button> &nbsp;
+                        <button type="button" class="btn btn-outline-info btn-md"
+                            style="padding-right: 50px; padding-left: 40px;" (click)="searchPT()">
+                            <em class="fa fa-search"></em> Search</button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card-body" style="padding:0px">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th title="S.No.">S.No.</th>
+                                <!-- <th>
+                                    Product Transfer Item
+                                </th> -->
+                                <th title="Product Transfer">
+                                    Product Transfer
+                                </th>
+
+                                <th title="Product Part code">
+                                    Product
+                                </th>
+                                <th title="Tracking Number">
+                                    Tracking Number
+                                </th>
+                                <th title="Quantity Sent" style="text-align: center;">
+                                    Quantity Sent
+                                </th>
+                                <th title="Quantity Received" style="text-align: center;">
+                                    Quantity Received
+                                </th>
+                                <!-- <th title="Full Received">
+                                    Full Received
+                                </th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let d of pageProductTranferDetails.content;let i=index;">
+                                <td style="text-align: center;">{{i+1}}.</td>
+                                <!-- <td>
+                                    {{d.productTransferManualId}}
+                                </td> -->
+                                <td>
+                                    <a [routerLink]="['/bat_product_transfer',d.productTrnsferId]"
+                                        [routerLinkActive]="'active'">{{d.productTransferManualId}}</a>
+
+                                </td>
+                                <td>
+                                    <!-- <a [routerLink]="['/bat_products',d.productPartcode]"
+                                        [routerLinkActive]="'active'">{{d.productPartcode}}</a> -->
+                                    {{d.productPartcode}}
+
+                                </td>
+                                <td>
+                                    {{d.productTranferTrackingNumber}}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{d.productTransferTotalQuantityIssued}}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{d.productTransferTotalQuantityReceived}}
+                                </td>
+                                <!-- <td style="text-align: center;">
+                                    <input type="checkbox" [(ngModel)]="d.rec" disabled>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+            <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #editProductRequestModel="bs-modal" [config]="{backdrop:'static'}" tabindex="-1"
+    role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Edit Product Request
+                </h4>
+                <button type="button" class="close pull-right" (click)="editProductRequestModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-bt-newproductrequestdirective *ngIf="editProductReq" [destLoc]="btProducRequestResponse"
+                    (onUpdatePr)="onUpdateProductRequest($event)" (onCancle)="cancelData()">
+                </app-bt-newproductrequestdirective>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Add Items-->
+<div class="modal fade" bsModal #addItemModal="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Add Item : {{btProducRequestResponse.productRequestManualId}}
+                </h4>
+                <button type="button" class="close pull-right" (click)="addItemModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 form-group required">
+                        <label class="control-label">Product</label>
+                        <ng-select *ngIf="productItemList" [items]="productItemList" bindLabel="bothvalues"
+                            (search)="searchProducts($event)" [(ngModel)]="btPrItemReq.btProductId" bindValue="id"
+                            placeholder="Search Products" (change)="getAvilableStock(btPrItemReq.btProductId)">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(198, 172, 240);" />{{item.partCode}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                    style="background-color: rgb(198, 172, 240);" />{{item.partCode}}<small>({{item.productType}})</small>
+                            </ng-template>
+                        </ng-select>
+                        <small *ngIf="Discription!=null">
+                            Product Description:{{Discription}}
+                        </small>
+
+                    </div>
+                    <div class="col-md-2 form-group required">
+                        <label class="reque">Quantity Required</label>
+                        <input type="text" (keypress)="numberOnly($event)" class="form-control"
+                            [(ngModel)]="btPrItemReq.requiredQty">
+                    </div>
+                    <div class="col-md-2">
+                        <label>Av. Source </label>
+                        <input type="text" class="form-control"
+                            [(ngModel)]="avilableStockAtSource.exicomTotalOkQuantity" disabled>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Av. Destination</label>
+                        <input type="text" class="form-control"
+                            [(ngModel)]="avilabStockAtDestination.exicomTotalOkQuantity" disabled>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <button type="button" style="margin-top: 28px;" (click)="addItem()" class="btn btn-info"><i
+                                class="fa fa-plus"></i>
+                            Add</button>
+                    </div>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Item Transfer-->
+<div class="modal fade" bsModal #transferItem="bs-modal" (onShow)="openModels.transferItem=true"
+    (onHide)="openModels.transferItem=false" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Product Transfer, Request ID : {{locationProductRequestResponse.prManualId}}
+                </h4>
+                <button type="button" class="close pull-right" (click)="transferItem.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <app-producttransferdirective [productRequest]="locationProductRequestResponse"
+                    (onTransferDone)="onProductTransferDone($event)" (onCancel)="onProductTransferCancled($event)"
+                    *ngIf="openModels.transferItem"></app-producttransferdirective> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--Item Receive-->
+<div class="modal fade" bsModal #receiveItem="bs-modal" [config]="{backdrop:'static'}"
+    (onHide)="openModels.receiveItem=false" (onShow)="openModels.receiveItem=true" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Product Receive ,Request ID :{{locationProductRequestResponse.prManualId}}
+                </h4>
+                <button type="button" class="close pull-right" (click)="receiveItem.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <app-productrequestreceive *ngIf="openModels.receiveItem"
+                    [locationProductRequest]="locationProductRequestResponse"
+                    (onCencled)="onItemReceivedCancled($event)" (onReceived)="onItemReceived($event)">
+                </app-productrequestreceive> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--Alert Popup Moudles-->
+<div class="modal fade" bsModal #alertPopupModal="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" role="dialog">
+    <div class="text-center" style="margin-left: 20%;margin-right: 20%;">
+        <strong>
+            <alert [type]="alertInfo.type">
+                <span [innerHTML]="alertInfo.message"></span>
+                <button type="button" (click)="alertPopupModal.hide()" class="close pull-right"><span
+                        aria-hidden="true">&times;</span> </button>
+            </alert>
+        </strong>
+    </div>
+</div>

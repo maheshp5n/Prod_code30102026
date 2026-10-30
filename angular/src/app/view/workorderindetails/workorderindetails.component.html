@@ -1,0 +1,331 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="panel " style="margin-left: 15px;margin-top: 15px;margin-right: 15px">
+  <div class="panel-heading" style="background-color: rgb(240, 240, 240)">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <table>
+          <tr>
+            <td>
+              <img src="assets/images/work_order_120.png"
+                style="height: 32px;width:32px;background-color: rgb(91, 235, 191);" alt="Work Order"
+                title="Work Order">
+            </td>
+            <td style="padding: 3px;">
+              <small>Work Order</small>
+              <h4 style="margin: 0px;">{{account.accountName}}</h4>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6 col-sm-6 text-right" style="color: rgb(89, 89, 245);">
+        <button type="button" class="btn btn-sm btn-default" (click)="createEditModelshow(account)">
+          Add Product Consumed</button>
+        <!-- <button type="button" class="btn btn-sm btn-default">
+                 Delete</button> -->
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <small>Work Order Number</small>
+        <div>{{account.phone}}</div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <small>case Reason</small>
+        <div>
+          {{account.billingCountry}}
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <small>Status</small>
+        <div>
+          {{account.accountOwnerFirstName}} {{account.accountOwnerLastName}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" style="margin-left: 15px;margin-right: 15px">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <!-- <div class="panel panel-default"> -->
+      <div class="panel-body">
+        <ul class="menue">
+          <li>
+            <a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a>
+          </li>
+          <li>
+            <a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a>
+          </li>
+        </ul>
+        <br>
+        <hr style="margin-top: 14px;">
+
+        <div *ngIf="vDetails" class="panel-body">
+          <button type="button" (click)="changeInfoDisplay()"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="infoDisplay.angleIcon"></i> Work Order Information
+          </button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Work Order Number</small>
+                      <div>{{account.accountName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Case</small>
+                      <div>{{account.type}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Asset</small>
+                      <div>{{account.description}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Account</small>
+                      <div>{{account.catagory}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Case Type</small>
+                      <div>{{account.parentAccountName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Problem Reported</small>
+                      <div>{{account.parentAccountName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Service Appointment Count</small>
+                      <div>{{account.parentAccountName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Owner</small>
+                      <div>{{account.emailid }} </div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Status</small>
+                      <div>{{account.sampAccountNumber}}</div>
+
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Priority</small>
+                      <div>{{account.accountOwner}}</div>
+
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Contact</small>
+                      <div>{{account.phone}}</div>
+
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Case Reason</small>
+                      <div>{{account.parentCustomerName}}</div>
+
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Other Problem Reported</small>
+                      <div>{{account.parentCustomerName}}</div>
+
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Work Type </small>
+                      <div>{{account.parentCustomerName}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"> </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <button type="button" (click)="changeSystemDisplay()"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="systemDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="systemDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Created Date</small>
+                      <div>{{account.createdByFirstName}} {{account.createdByLastName }}
+                        {{account.createdDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Created By</small>
+                      <div>{{account.createdByFirstName}} {{account.createdByLastName }}
+                        {{account.createdDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table">
+                <tbody>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Last Modified Date</small>
+                      <div>{{account.createdByFirstName}} {{account.createdByLastName }}
+                        {{account.createdDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                  <tr class="fixedtd">
+                    <td>
+                      <small>Last Modified By</small>
+                      <div>{{account.modifiyedFirstName}} {{account.modifiyedLastName}}
+                        {{account.modifiyedDate | date:'yyyy-MM-dd, HH:mm:ss'}}</div>
+                    </td>
+                    <td class="text-right edit-inactive"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="!vDetails" class="panel-body">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/service_appointment_120.png"
+                      style="width: 24px;height: 24px;background-color: lightskyblue"> </td>
+                  <td>
+                    <a href="#" routerLink="/cases" style="font-weight: bold;color: black;">
+                      Service Appointment (0) </a>
+                  </td>
+                  <!-- <td class="text-right">
+                              <button type="button" class="btn btn-sm btn-default">
+                                  <i class="fa fa-plus"></i> New Case</button>
+                          </td> -->
+                </tr>
+              </table>
+            </div>
+            <div *ngIf="casesList.length" class="panel-body" style="margin-bottom: 0px;">
+
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/product_consumed_120.png"
+                      style="width: 24px;height: 24px;background-color: rgb(91, 235, 191);"> </td>
+                  <td>
+                    <a href="#" routerLink="/cases" style="font-weight: bold;color: black;">
+                      Products Consumed (0) </a>
+                  </td>
+                  <!-- <td class="text-right">
+                            <button type="button" class="btn btn-sm btn-default">
+                                <i class="fa fa-plus"></i> New Case</button>
+                        </td> -->
+                </tr>
+              </table>
+            </div>
+            <div *ngIf="casesList.length" class="panel-body" style="margin-bottom: 0px;">
+
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width: 30px;">
+                    <img src="assets/images/work_order_120.png"
+                      style="width: 24px;height: 24px;background-color:rgb(91, 235, 191);"> </td>
+                  <td>
+                    <a href="#" routerLink="/cases" style="font-weight: bold;color: black;"> Work Order History (0) </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div *ngIf="casesList.length" class="panel-body" style="margin-bottom: 0px;">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #createWorkOrderModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createWorkOrderModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <app-add-product-consumed (onCancle)="cancelData()"></app-add-product-consumed>
+      </div>
+    </div>
+  </div>
+</div>

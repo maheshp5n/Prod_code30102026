@@ -1,0 +1,23 @@
+
+<div class="card card-body">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 form-group required">
+            <div class="control-label">Action</div>
+            <select class="form-control" [(ngModel)]="actiondata.action">
+                <option value="00">--SELECT--</option>
+                <option value="Approved">Approve</option>
+                <option value="Rejected">Reject</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-sm-6 form-group required">
+            <div class="control-label">
+                Remarks
+            </div>
+            <input type="text" [(ngModel)]="actiondata.remarks" class="form-control">
+        </div>
+        <div class="col-2">
+            <label></label>
+            <button type="button" class="btn btn-primary" (click)="saveDetails()" style="margin-top: 28px;"><em class="fa fa-save"></em> Save</button>
+        </div>
+         </div>
+     </div>

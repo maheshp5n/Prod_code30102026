@@ -1,0 +1,211 @@
+<body>
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+
+  <div classs="panel panel-default">
+    <div class="panel-heading" style="background-color:rgb(240, 240, 240)">
+      <div class="row">
+        <td>
+          <div class="col-lg-1 col-md-1 col-sm-1" style="padding-top: 14px;margin-right: 0px;width: 50px;">
+            <img _ngcontent-c5="" alt="Dashboard" src="assets/images/custom60_120.png"
+              style="height: 40px;widows:40px;background-color: brown;" title="Sub Product Inventory">
+          </div>
+        </td>
+        <div class="col-lg-4 col-md-4 col-sm-4" style="padding-top: 10px;">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Sub Product Inventory</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="btn-group" dropdown>
+                <span dropdownToggle type="button" style="background-color: white;">
+                  <span *ngIf="!recentlyView" style="font: size 15px;padding-right: 5px;">
+                    &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                  <span *ngIf="recentlyView" style="font-size:15px;padding-right: 5px;">
+                    &nbsp; Recently Viewed &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                </span>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item" style="width: 115%;">
+                  <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                    VIEWS</li>
+                  <li role="menuitem" (click)="dropdownChange('All')"><a class="dropdown-item"
+                      [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a>
+                  </li>
+                  <li role="menuitem" (click)="dropdownChange('related')"><a class="dropdown-item"
+                      [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently Viewed </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4" style="padding-top: 14px">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-center" style="padding-top: 1%;">
+              <input type="text" [(ngModel)]="searchitem" class="form-control" style="font-family:Arial, FontAwesome"
+                placeholder="&#xF002; Search this list">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3" style="padding-top: 14px">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-right" style="padding-top: 2px">
+              <div class="btn-group">
+                <button type="button" (click)="showCreateAccountView()" class="btn btn-default">
+                  <i class="fa fa-plus"></i> New</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-body" style="padding: 0px;margin: 0px;min-height: 485px;background-color:rgb(240, 240, 240)">
+      <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+        <div class="table-responsive">
+          <table class="table  table-sm table-condensed tablerview">
+            <thead style="background-color:rgb(248, 245, 245)">
+              <tr>
+                <th>S.No</th>
+                <th title="Name" class="table-header" (click)="setOrder('serialNumber',1)"
+                  (mouseover)="columnVisibility[1]=true" (mouseout)="columnVisibility[1]=false">
+                  Name
+                  <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]">▼</span>
+                  <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]">▲</span>
+                </th>
+                <th title="Part Code" class="table-header" (click)="setOrder('serialNumber',2)"
+                  (mouseover)="columnVisibility[2]=true" (mouseout)="columnVisibility[2]=false">
+                  Part Code
+                  <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]">▼</span>
+                  <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]">▲</span>
+                </th>
+                <th title="Product Description" class="table-header" (click)="setOrder('serialNumber',3)"
+                  (mouseover)="columnVisibility[3]=true" (mouseout)="columnVisibility[3]=false">
+                  Product Description
+                  <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]">▼</span>
+                  <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]">▲</span>
+                </th>
+                <th title="Product Type" class="table-header" (click)="setOrder('serialNumber',4)"
+                  (mouseover)="columnVisibility[4]=true" (mouseout)="columnVisibility[4]=false">
+                  Product Type
+                  <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]">▼</span>
+                  <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]">▲</span>
+                </th>
+                <th title="Warehouse" class="table-header" (click)="setOrder('serialNumber',5)"
+                  (mouseover)="columnVisibility[5]=true" (mouseout)="columnVisibility[5]=false">
+                  Warehouse
+                  <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]">▼</span>
+                  <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]">▲</span>
+                </th>
+                <th title="MSL Status" class="table-header" (click)="setOrder('serialNumber',6)"
+                  (mouseover)="columnVisibility[6]=true" (mouseout)="columnVisibility[6]=false">
+                  MSL Status
+                  <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]">▼</span>
+                  <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]">▲</span>
+                </th>
+                <th title="MSL" class="table-header" (click)="setOrder('serialNumber',7)"
+                  (mouseover)="columnVisibility[7]=true" (mouseout)="columnVisibility[7]=false">
+                  MSL
+                  <span [hidden]="!columnVisibility[7]" *ngIf="!columnSort[7]">▼</span>
+                  <span [hidden]="!columnVisibility[7]" *ngIf="columnSort[7]">▲</span>
+                </th>
+                <th title="Total Stock" class="table-header" (click)="setOrder('serialNumber',8)"
+                  (mouseover)="columnVisibility[8]=true" (mouseout)="columnVisibility[8]=false">
+                  Total Stock
+                  <span [hidden]="!columnVisibility[8]" *ngIf="!columnSort[8]">▼</span>
+                  <span [hidden]="!columnVisibility[8]" *ngIf="columnSort[8]">▲</span>
+                </th>
+                <th title="Ok Stock" class="table-header" (click)="setOrder('serialNumber',9)"
+                  (mouseover)="columnVisibility[9]=true" (mouseout)="columnVisibility[9]=false">
+                  Ok Stock
+                  <span [hidden]="!columnVisibility[9]" *ngIf="!columnSort[9]">▼</span>
+                  <span [hidden]="!columnVisibility[9]" *ngIf="columnSort[9]">▲</span>
+                </th>
+                <th title="Faulty Stock" class="table-header" (click)="setOrder('serialNumber',10)"
+                  (mouseover)="columnVisibility[10]=true" (mouseout)="columnVisibility[10]=false">
+                  Faulty Stock
+                  <span [hidden]="!columnVisibility[10]" *ngIf="!columnSort[10]">▼</span>
+                  <span [hidden]="!columnVisibility[10]" *ngIf="columnSort[10]">▲</span>
+                </th>
+                <th title="Created Date" class="table-header" (click)="setOrder('createdDate',11)"
+                  (mouseover)="columnVisibility[11]=true" (mouseout)="columnVisibility[11]=false">
+                  Created Date
+                  <span [hidden]="!columnVisibility[11]" *ngIf="!columnSort[11]">▼</span>
+                  <span [hidden]="!columnVisibility[11]" *ngIf="columnSort[11]">▲</span>
+                </th>
+                <th> Action </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of assetList | searchfilt: searchitem; let i = index ">
+                <td>{{serialNum+i+1}}</td>
+                <td><a href="#" routerLink="/assets/{{a.serialNumber}}"> {{a.serialNumber}} </a></td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td> {{a.serialNumber}} </td>
+                <td>{{a.createdDate | date:'yyyy-MM-dd, HH:mm:ss'}}</td>
+                <td style="width:50px;">
+                  <div class="btn-group" dropdown placement="bottom right">
+                    <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                      <li role="menuitem">
+                        <a class="dropdown-item" (click)="createEditModelshow(a)">Edit </a>
+                      </li>
+                      <!-- <li role="menuitem">
+                        <a class="dropdown-item">Delete</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <hr>
+          <div style="text-align: center">
+            <a id="prbtn" class="previous round" href="" [class.disabled]="isDisabledPrevious()"
+              *ngIf="!isDisabledPrevious()" (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+              &#8249;
+            </a>
+            <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+              {{page+1}}
+            </a>
+            <a id="prbtn" class="next round" href="" [class.disabled]="isDisabledNext()" *ngIf="!isDisabledNext()"
+              (click)="setPageNext($event)" [ngClass]="{'active':page}">
+              &#8250;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" bsModal #createAcountModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createAcountModelhide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;">
+
+          <app-create-sub-product-inventory [isEditMode]="isEditMode" [editAccountData]="assetResponse"
+            (onAssetCreated)="onAssetCreated($event)" (onCancle)="cancelData()"> </app-create-sub-product-inventory>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>

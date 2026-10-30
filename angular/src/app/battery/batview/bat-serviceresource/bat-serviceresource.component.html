@@ -1,0 +1,208 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:32px;">
+                <img alt="Service Resources" src="assets/images/service_resource_120.png"
+                  style="height: 32px;width:32px;background-color: lightskyblue;" title="Service Resources">
+              </td>
+              <td style="padding-left:5px;">Service Resources</td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                    <span dropdownToggle type="button" style="background-color: white;">
+                        <span style="font: size 15px;padding-right: 5px;">
+                            &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                class="fa fa-sort-down"></i>&nbsp;
+                        </span>
+                    </span>
+                    <ul class="dropdown-menu" *dropdownMenu role="menu"
+                        aria-labelledby="button-disabled-item" style="width: 115%;">
+                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                            View</li>
+                        <li role="menuitem" *ngFor="let m of dropdownsList">
+                            <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                        </li>
+                    </ul>
+                </div>&nbsp;
+                <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+               
+            </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4">
+          <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          autocomplete="off" style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list"> -->
+        </div>
+        <div class="col-sm-4 col-md-4 text-right">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('ServiceRecource','create')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="showCreateAccountView()"><i class="fa fa-plus"></i>&nbsp;New</button>
+          </div>
+        </div>
+      </div> <br>
+      <!-- search -->
+      <div class="row">
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advancesearch.name" placeholder="Name">
+        </div>
+  
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advancesearch.userEmailId" placeholder="User Email Id">
+        </div>
+  
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advancesearch.type" placeholder="Type">
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="form-control" [(ngModel)]="advancesearch.location" placeholder="Location">
+        </div>
+      
+  
+      </div><br>
+      <div class="row">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-outline-info btn-md" (click)="searchSR()"><em class="fa fa-search"></em> Search</button>
+          <button type="button" class="btn btn-outline-info btn-md" (click)="resetSearch()"> Reset</button>
+      </div>
+      </div> <br>
+    </div>
+  
+    <div class="card-body" style="padding: 0px;">
+      <div class="wrap">
+        <table class="head">
+          <thead style="background-color:rgb(248, 245, 245)">
+            <th  title="S.No">S.No</th>
+            <th *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+           title="{{tb.name}}">
+           <div class="row">
+             <div class="col sm-10">{{tb.name}}</div>
+             <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+           </div>
+            </th>
+            <th>Action</th>
+          </thead>
+        </table>
+    <div class="inner_table" *ngIf="serviceResourceList.content.length>0">
+      <table>
+        <tbody>
+          <tr *ngFor="let a of serviceResourceList.content ; let i = index ">
+            <td  data-line="S.No">{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+            <td data-line="Name"><a href="#" routerLink="/bat_serviceResources/{{a.serviceResourceId}}">{{a.name}}</a></td>
+            <td data-line="User"><a [routerLink]="['/bat_user',a.userEmailId]" [routerLinkActive]="'active'">
+                {{a.userEmailId}}
+              </a> </td>
+            <td data-line=" Resource Type">{{a.resourceTypeName}}</td>
+            <td> <a href="#" routerLink="/bat_warehouse/{{a.locationId}}"> {{a.locationName}}</a></td>
+            <td data-line="Created Date">{{a.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+            <td data-line="Action">
+              <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                <!-- <button type="button" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-disabled-item"> -->
+                <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                <ul class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="button-disabled-item">
+                  <li *ngIf="rights('ServiceRecource','edit')" role="menuitem">
+                    <a class="dropdown-item" (click)="onClickEdit(a)">Edit </a>
+                  </li>
+                  <!-- <li *ngIf="rights('ServiceRecource','delete')" role="menuitem">
+                    <a class="dropdown-item">Delete</a>
+                  </li> -->
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <div style="height: 65px;">
+  
+          </div>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="serviceResourceList.content.length==0">
+      <div class="row">
+        <div class="col-md-4"> </div>
+        <div class="col-md-4"> <p>Data Not Found</p></div>
+        <div class="col-md-4"></div>
+     </div>
+  </div>
+      </div>
+      <div class="row"> 
+        <div class="col-sm-4" style="text-align:left">
+          Showing Page {{serviceResourceList.number+1}} &nbsp;of&nbsp;{{serviceResourceList.totalPages}}&nbsp;Total Count={{serviceResourceList.totalElements}}
+        </div>
+  
+      <div class="col-sm-4">
+        <div style="text-align: center" *ngIf="!(serviceResourceList.first && serviceResourceList.last) ">
+          <a [routerLink]="['/bat_serviceResources']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!serviceResourceList.first"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:serviceResourceList.number-1,size:dropdownSelected.size}">
+                        &lt;
+                    </a>
+                    <a [routerLink]="['/bat_serviceResources']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:serviceResourceList.number,size:dropdownSelected.size}">
+                        {{serviceResourceList.number+1}}
+                    </a>
+                    <a [routerLink]="['/bat_serviceResources']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                        *ngIf="!serviceResourceList.last"
+                        [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:serviceResourceList.number+1,size:dropdownSelected.size}">
+                        &gt;
+                    </a>
+        </div>
+      </div>
+      <div class="col-sm-4" style="text-align: right;">
+        <div class="row">
+         <div class="col-md-6"></div>
+          <div  *ngIf="!(serviceResourceList.first && serviceResourceList.last) "  class="col-md-6">
+            <input type="text"[(ngModel)]="pagenumber" (keypress)="numberOnly($event)" placeholder="Enter Page"size="8" autocomplete="off">
+             <button (click)=jumpPage(pagenumber)>Go</button>
+           </div>
+        </div>
+     </div>
+      </div>
+   
+    </div>
+  </div>
+  
+  
+  <div class="modal fade" bsModal #createServiceResourceModel="bs-modal" (onShow)="isServiceResourceOpen=true"
+    (onHide)="isServiceResourceOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createServiceResourceModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height: 500px;overflow: auto;">
+          <app-bt-createserviceresource *ngIf="isServiceResourceOpen" [isEditMode]="isEditMode"
+            [editServiceResourseData]="newServiceResource" (onServiceResourseCreated)="onServiceResourseCreated($event)"
+            (onCancle)="cancelData()">
+          </app-bt-createserviceresource>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+  </div>

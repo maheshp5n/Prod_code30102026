@@ -1,0 +1,311 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+</ngx-spinner>
+
+<div class="panel panel-default">
+
+    <div class="panel-heading" style="background-color:rgb(240, 240, 240)">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-1" style="padding-top: 14px;margin-right: -40px;width: 50px;">
+                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/productlineitems_120.png"
+                            style="height: 40px;widows: 40px;background-color: rgb(199, 164, 68);border-radius: 1mm;"
+                            title="Account">
+                    </div>
+                    <div class="col-lg-11" style="padding-top: 12px;">
+                        <div class="row">
+                            <div class="col-sm-5 col-md-5">
+                                <div class="row">
+                                    <div class="col-sm-5 col-md-5">
+                                        <span>Product Line Items</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8 col-md-8">
+                                        <div class="btn-group" dropdown>
+                                            <span dropdownToggle type="button" style="background-color: white;">
+                                                <span *ngIf="!recentlyView" style="font: size 15px;padding-right: 5px;">
+                                                    &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                                                <span *ngIf="recentlyView" style="font-size:15px;padding-right: 5px;">
+                                                    &nbsp; Recently Viewed &nbsp;&nbsp;<i
+                                                        class="fa fa-sort-down"></i>&nbsp;</span>
+                                            </span>
+
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item"
+                                                style="width: 110%;">
+                                                <li style="text-align-last: left;padding-top: 2mm;color: grey;">
+                                                    &nbsp;&nbsp;LIST
+                                                    VIEWS</li>
+                                                <li role="menuitem" (click)="dropdownChange('All')"><a
+                                                        class="dropdown-item"
+                                                        [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a></li>
+                                                <li role="menuitem" (click)="dropdownChange('related')"><a
+                                                        class="dropdown-item"
+                                                        [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently Viewed
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-7 col-md-7" style="padding-top: 1%;">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-8 text-center">
+                                        <div class="row">
+                                            <div class="col md-9 col-sm-9 ">
+                                                <!-- <input type="text" [(ngModel)]="searchitem" class="form-control"
+                                                    style="font-family:Arial, FontAwesome"
+                                                    placeholder="&#xF002; Search this list"> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 ">
+                                        <div class="row">
+                                            <div class="col md-12 col-sm-12 text-right">
+                                                <div class="btn-group">
+                                                    <button type="button" (click)="showCreateProductLineItemsView()"
+                                                        class="btn btn-default">
+                                                        <i class="fa fa-plus"></i> New</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="panel-heading" style="background-color:rgb(240, 240, 240)">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-1" style="padding-top: 13px;margin-right: 0px;width: 50px;">
+                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/productlineitems_120.png"
+                            style="height: 40px;widows: 40px;background-color: rgb(199, 164, 68);border-radius: 1mm;" title="Account">
+                    </div>
+
+                    <div class="col-lg-11" style="margin-left: -45px;">
+                        <div class="row" style="padding-top: 10px;">
+                            <div class="col-sm-5 col-md-5">
+                                <span>Product Line Items</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="btn-group" dropdown>
+                                    <span dropdownToggle type="button"
+                                        style="background-color: white; padding-right: 5px;">
+                                        <span *ngIf="!recentlyView" style="font-size:15px;">
+                                            &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                                        <span *ngIf="recentlyView" style="font-size:15px;">
+                                            &nbsp; Recently Viewed &nbsp;&nbsp;<i
+                                                class="fa fa-sort-down"></i>&nbsp;</span>
+                                    </span>
+
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item"
+                                        style="width: 110%;">
+                                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                                            VIEWS</li>
+                                        <li role="menuitem" (click)="dropdownChange('All')"><a class="dropdown-item"
+                                                [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a></li>
+                                        <li role="menuitem" (click)="dropdownChange('related')"><a class="dropdown-item"
+                                                [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently Viewed </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-center " style="margin-top: -10px;">
+                                <div class="row">
+                                    <div class="col md-7 col-sm-7 ">
+                                        <input type="text" [(ngModel)]="searchitem" class="form-control"
+                                            style="font-family:Arial, FontAwesome"
+                                            placeholder="&#xF002; Search this list">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 text-right " style="margin-top: -10px;">
+                                <div class="row">
+                                    <div class="btn-group">
+                                        <button type="button" (click)="showCreateProductLineItemsView()"
+                                            class="btn btn-default">
+                                           New</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <!-- min-height: 550px; -->
+    <div class="panel-body" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+        <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+            <div class="table-responsive">
+                <table class="table table-sm table-condensed">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                            <th>S.No</th>
+
+
+                            <th class="table-header" (mouseover)="columnVisibility[1]=true"
+                                (mouseout)="columnVisibility[1]=false" title="Serial Number">Serial Number
+                                <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]">▼</span>
+                                <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]">▲</span></th>
+
+                            <th class="table-header" (mouseover)="columnVisibility[2]=true"
+                                (mouseout)="columnVisibility[2]=false" title="Part Code">Part Code
+                                <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]">▼</span>
+                                <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]">▲</span></th>
+
+                            <th class="table-header" (mouseover)="columnVisibility[3]=true"
+                                (mouseout)="columnVisibility[3]=false" title="Product State">
+                                Product State
+                                <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]">▼</span>
+                                <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]">▲</span></th>
+
+                            <th class="table-header" (mouseover)="columnVisibility[4]=true"
+                                (mouseout)="columnVisibility[4]=false" title="Status">
+                                Status
+                                <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]">▼</span>
+                                <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]">▲</span></th>
+
+                            <th class="table-header" (mouseover)="columnVisibility[5]=true"
+                                (mouseout)="columnVisibility[5]=false" title="Location">
+                                Location
+                                <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]">▼</span>
+                                <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]">▲</span></th>
+
+                            <th class="table-header" (mouseover)="columnVisibility[6]=true"
+                                (mouseout)="columnVisibility[6]=false" title="Created Date" style="width: 5cm">
+                                Created Date
+                                <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]">▼</span>
+                                <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]">▲</span></th>
+
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{serialNumber+i+1}}.</td>
+                            <td><a href="# " routerLink="/productLineItems/1">xxxx</a>
+                            </td>
+                            <!-- <td>xxxx</td> -->
+
+                            <td>xxxx </td>
+
+                            <td>
+
+                                xxxx
+                            </td>
+
+                            <td>xxxx
+                            </td>
+
+                            <td>
+                                xxxx
+                            </td>
+
+                            <td>xxxx
+                            </td>
+
+                            <td style="width: 50;text-align: center">
+                                <div class="btn-group " dropdown placement="bottom right ">
+                                    <button dropdownToggle type="button " class="fa fa-sort-down "></button>
+                                    <ul class="dropdown-menu dropdown-menu-right " role="menu "
+                                        aria-labelledby="button-disabled-item ">
+                                        <li role="menuitem ">
+                                            <a class="dropdown-item" (click)="onClickEdit()">Edit </a>
+                                        </li>
+                                        <!-- <li role="menuitem ">
+                                            <a class="dropdown-item ">Delete</a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+
+                <div style="text-align: center">
+                    <a id="pag" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                        (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                        &#8249;
+                    </a>
+
+                    <a id="pag" class="nav-link active" href="" (click)="setPage($event)"
+                        [ngClass]="{'active':i==page}">
+                        {{page+1}}
+                    </a>
+
+
+                    <a id="pag" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                        (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                        &#8250;
+                    </a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New -->
+<div class="modal fade" bsModal #createProductLineItemsModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-new-productlineitems">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="createProductLineItemsModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-create-new-productlineitems [isEditMode]="isEditMode"
+                    [editProductLineItemsData]="newproductLineItems"
+                    (onProductLineItemsCreated)="onProductLineItemsCreated($event)" (onCancle)="cancelData()">
+                </app-create-new-productlineitems>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+
+
+    <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+
+    <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+        class="alert alert-danger center center-block" style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+    </div>
+
+</div>

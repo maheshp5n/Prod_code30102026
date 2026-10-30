@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="card-body">
+        <div class="control-label">
+          {{actionmessg}} ?
+         </div>
+         <div class="col-md-12 col-sm-12 form-group required text-left">
+          <div class="control-label">Comment</div>
+          <textarea class="form-control" [(ngModel)]="actionreq.comment" rows="10" col="100"></textarea>
+     </div>
+      <br>
+        <div class="">
+        </div>
+        <div class="row">
+         <div class="col-sm-12 text-right">
+            <div class="col-md-6 col-sm-6"></div>
+            <div class="col-sm-6 col-md-6 text-right">
+              <button class="btn btn-md btn-success" id="Ignore" (click)="generateCase()">Yes
+              </button>&nbsp;
+              <button class="btn btn-md btn-danger"  (click)="closeIgnor()">No
+              </button>
+            </div>
+          </div>
+          </div>
+          
+      </div>
+
+</div>
+<!-- new -->
+
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+  
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong *ngIf="message=='Submitted Successfully'"></strong>
+  
+      <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+  </div>

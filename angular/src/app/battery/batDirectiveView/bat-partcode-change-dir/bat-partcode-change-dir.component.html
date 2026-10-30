@@ -1,0 +1,68 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <label>From Partcode</label>
+                <ng-select *ngIf="fromProducts" [items]="fromProducts" [(ngModel)]="chanageReq.fromProductId"
+                    bindLabel="partCode" bindValue="id" placeholder="Serch Products"
+                    (search)="getValueOfPartCodeFrom($event)">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-6">
+                <label>From Partcode</label>
+                <ng-select *ngIf="toProducts" [items]="toProducts" [(ngModel)]="chanageReq.toProductId"
+                    bindLabel="partCode" bindValue="id" placeholder="Serch Products"
+                    (search)="getValueOfPartCodeTo($event)">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.partCode}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label>Status</label>
+                <select [(ngModel)]="chanageReq.productStateId" class="form-control">
+                    <option value="0">--Select--</option>
+                    <option value="1">OK</option>
+                    <option value="2">Faulty</option>
+                    <option value="3">Scrap</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label>Quantity</label>
+               <input type="number" [(ngModel)]="chanageReq.qty" class="form-control">
+            </div>
+            <div class="col-4">
+                <label>Remarks</label>
+                <textarea class="form-control" cols="4" rows="2" [(ngModel)]="chanageReq.remarks"></textarea>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 text-right">
+                <button class="btn btn-primary" (click)="saveDetails()" ><em class="fa fa-save"></em> Save </button>&nbsp;<button type="button" class="btn btn-default" (click)="cancelDetails()" ><em class="fa fa-remove"> </em> Cancel </button>
+            </div>
+        </div>
+    </div>
+</div>

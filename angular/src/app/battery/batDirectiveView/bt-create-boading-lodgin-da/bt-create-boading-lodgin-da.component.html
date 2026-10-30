@@ -1,0 +1,158 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-heading">
+      <span class="text-center" style="font-weight: bold">Information</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+  
+        <!-- <div class="col-md-6 col-sm-6">
+          <div class="control-label">
+            Owner
+          </div>
+  
+          <input type="text" *ngIf="_isEditMode == false" rows="3" class="form-control"
+            value="{{loginData.firstName}} {{loginData.middleName}} {{loginData.lastName}}" disabled>
+  
+          <input type="text" *ngIf="_isEditMode == true" rows="3" class="form-control"
+            value="{{res.createdByFirstName}} {{res.createdByMiddleName}} {{res.createdByLastName}}" disabled>
+  
+        </div> -->
+        <div class="col-md-6 col-sm-6 form-group required">
+          <div class="control-label">
+            Name
+          </div>
+          <input type="text" *ngIf="_isEditMode == false" class="form-control" [(ngModel)]="res.boardingName">
+          <input *ngIf="_isEditMode == true" class="form-control" [(ngModel)]="res.boardingName" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="panel-heading">
+      <span class="text-center" style="font-weight: bold">Lodging</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 form-group required ">
+          <div class="control-label">
+            Class A City Amount
+          </div>
+          <input type="text" [(ngModel)]="res.boardingClassACity" (keypress)="onlyNumbersForRs($event)"  class="form-control">
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required ">
+          <div class="control-label">
+            Class B City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.boardingClassBCity">
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required ">
+          <div class="control-label">
+            Class C City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.boardingClassCCity">
+        </div>
+     
+  
+  
+      </div>
+    </div>
+    <!-- new Add -->
+    <div class="panel-heading">
+      <span class="text-center" style="font-weight: bold">Lodging(self)</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label">
+            Class A City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.lodgingClassACitySelf">
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label">
+            Class B City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.lodgingClassBCitySelf">
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label">
+            Class C City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.lodgingClassCCitySelf">
+        </div>
+      
+  
+      </div>
+  
+    </div>
+    <!-- end -->
+    <div class="panel-heading">
+      <span class="text-center" style="font-weight: bold">Boarding</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label">
+            Class A City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.boardingAmountCityA">
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label">
+            Class B City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.boardingAmountCityB">
+        </div>
+        <div class="col-md-4 col-sm-4 form-group required">
+          <div class="control-label">
+            Class C City Amount
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.boardingAmountCityC">
+        </div>
+      
+  
+      </div>
+  
+    </div>
+    <div class="panel-heading">
+      <span class="text-center" style="font-weight: bold">Travelling Charges</span>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-3 form-group required">
+          <div class="control-label" style="font-size: 12px;">
+            Two Wheeler Charge (per km)
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.twoWheelerChargesParKilo">
+        </div>
+        <div class="col-md-3 col-sm-3 form-group required">
+          <div class="control-label"  style="font-size: 12px;">
+            Four Wheeler Charge (per km)
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.fourWheelChargesParkilo">
+  
+        </div>
+        <div class="col-md-3 col-sm-3 form-group">
+          <div class="control-label"  style="font-size: 12px;">
+         Two Wheeler Max. distance
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.twoWheelerMaxDistance">
+        </div>
+        <div class="col-md-3 col-sm-3 form-group">
+          <div class="control-label"  style="font-size: 12px;">
+           Four Wheeler Max. distance
+          </div>
+          <input type="text" class="form-control" (keypress)="onlyNumbersForRs($event)"  [(ngModel)]="res.fourWheelMaxDistance">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>
+          Cancel</button>&nbsp;
+        <button type="button" class="btn btn-primary" (click)="postBodingDetails()"><i class="fa fa-save"></i>
+          Save</button>
+      </div>
+    </div>

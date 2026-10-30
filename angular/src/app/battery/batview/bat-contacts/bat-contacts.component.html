@@ -1,0 +1,267 @@
+<!-- Developed by Ankur Saxena -->
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-4 col-md-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:32px;">
+                <img alt="Contacts" src="assets/images/contact_120.png"
+                  style="height: 32px;width:32px;background-color: rgb(91, 235, 191);border-radius: 1mm;"
+                  title="Contacts">
+                <!-- <img _ngcontent-c5="" alt="Dashboard" src="assets/images/contact_120.png"
+                  style="height: 32px;width:32px;background-color: rgb(91, 235, 191);border-radius: 1mm;" title="Account"> -->
+              </td>
+              <td style="padding-left:5px;">Contacts</td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <div class="btn-group" dropdown>
+                    <span dropdownToggle type="button" style="background-color: white;">
+                        <span style="font: size 15px;padding-right: 5px;">
+                            &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i
+                                class="fa fa-sort-down"></i>&nbsp;
+                        </span>
+                    </span>
+                    <ul class="dropdown-menu" *dropdownMenu role="menu"
+                        aria-labelledby="button-disabled-item" style="width: 115%;">
+                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                            View</li>
+                        <li role="menuitem" *ngFor="let m of dropdownsList">
+                            <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                        </li>
+                    </ul>
+                </div>&nbsp;
+                <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+            <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+            </button>
+               
+            </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4">
+         <!-- <input type="text" [(ngModel)]="searchitem" class="form-control form-control-sm"
+          autocomplete="off"style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">-->
+          <!-- <button type="button" (click)="contactSearch.boxstatus=!contactSearch.boxstatus"><em class="fa fa-search"></em> Advance Search</button> -->
+        </div>
+        <div class="col-sm-4 col-md-4 text-right">
+          <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('ContactDetails','create')" class="btn btn-outline-info btn-sm" type="button"
+              (click)="showCreateContactView()"><i class="fa fa-plus"></i>&nbsp;New Contact</button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <!-- search -->
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="contactSearch.contact_name" placeholder="Contact Name">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="contactSearch.contact_email" placeholder="Email">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="contactSearch.contact_phone"placeholder="Mobile Number">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="contactSearch.contact_account" placeholder="Account">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+        
+          <div class="col-md-3">
+            <select class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="contactSearch.contact_type">
+              <option value="">Select Type</option>
+              <option value="Employee">Employee</option>
+              <option value="Customer">Customer</option>
+              <option value="Vendor">Vendor</option>
+            </select>
+          
+            <!-- <input type="text" class="form-control"  placeholder="Type"> -->
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" (keydown.enter)="advanceSearch()" [(ngModel)]="contactSearch.emp_code" placeholder="Emp Code/Vendor Code">
+          </div>
+          <div class="col-md-3">
+            <button  type="button" class="btn btn-outline-info btn-md" (click)="advanceSearch()" ><em class="fa fa-search"></em> Search</button>
+            <button  type="button" class="btn btn-outline-info btn-md" (click)="resetSearch()" >Reset</button>
+         
+          </div>
+        </div>
+        <br>
+      
+    </div>
+    <div class="card-body" style="padding: 0px;">
+      <div class="wrap">
+        <table class="head">
+          <thead style="background-color:rgb(248, 245, 245)">
+            <th  title="S.No">S.No</th>
+            <th  *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+           title="{{tb.name}}">
+           <div class="row">
+             <div class="col sm-10">{{tb.name}}</div>
+             <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+            </div></th>
+            <th>Action</th>
+          </thead>
+        </table>
+     <!-- <div class="inner_table" *ngIf="contactsList.content.length>0" > -->
+        <div class="inner_table" >
+
+      <table>
+         
+        <tbody>
+          <tr *ngFor="let c of contactsList.content;let i = index">
+            <td data-line="S.No">{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+                         <!-- <td><a href="#" routerLink="/contacts/{{c.contactid}}">{{c.contactFirstName}}
+                {{c.contactMiddleName}}
+                {{c.contactLastName}}</a>
+            </td> -->
+            <td data-line="Name"><a *ngIf="c.contactFirstName" [routerLink]="['/bat_contacts',c.contactid]"
+                [routerLinkActive]="'active'">{{c.contactFirstName}}
+                {{c.contactMiddleName}}
+                {{c.contactLastName}}</a>
+            </td>
+            <td data-line="Contact Type">{{c.contactTypeName}} </td>
+  
+            <td data-line="Account Name">
+              <a *ngIf="c.accountSAPNumber" [routerLink]="['/bat_account', c.accountSAPNumber]"
+                [routerLinkActive]="'active'">{{c.accountName}}</a>
+            </td>
+  
+            <td data-line="E-Mail">
+              <a>{{c.contactEmailId}}</a>
+            </td>
+  
+            <td data-line="Mobile No.">
+              <a>
+                {{c.contactMobileNumber}}
+              </a>
+            </td>
+  
+            <td data-line="Grade">
+              <a *ngIf="c.gradeName" [routerLink]="['/bat_boding_lodgin_DA',c.gradeName]" [routerLinkActive]="'active'">
+                {{c.gradeName}}
+              </a>
+            </td>
+            <td data-line="Employee Code">{{c.employeeCode}}
+            </td>
+            <td data-line="Designation">{{c.contactDesignationName}}
+            </td>
+            <td data-line="Legal Entity">
+              <a [routerLink]="['/bat_legalentity',c.legalEntityId]"
+                [routerLinkActive]="'active'">{{c.leagalEntityName}}</a>
+            </td>
+            <td data-line="City">{{c.contactMallingCity}}
+            </td>
+            <td data-line="Created Date" >
+              {{c.contactCreatedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+            </td>
+  
+            <td data-line="Action">
+              <div *ngIf="_cFlag!='f'" class="btn-group" dropdown placement="bottom right">
+                <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                <ul class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="button-disabled-item">
+                  <li role="menuitem">
+                    <a *ngIf="rights('ContactDetails','edit')" class="dropdown-item"
+                      (click)="onClickEdit(c,c.contactid)">Edit </a>
+                  </li>
+                  <li role="menuitem">
+                    <a *ngIf="rights('ContactDetails','delete')" class="dropdown-item">Delete</a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <div style="height: 65px;">
+  
+          </div>
+        </tbody>
+      </table>
+     </div>
+     <!-- <div *ngIf="contactsList.content.length==0">
+      <div class="row">
+         <div class="col-md-4"> </div>
+         <div class="col-md-4"> <p>Data Not Found</p></div>
+         <div class="col-md-4"></div>
+      </div>
+     </div> -->
+      </div>
+      <div class="row">
+        <div class="col-sm-4" style="text-align:left">
+          Showing Page {{contactsList.number+1}} &nbsp;of&nbsp;{{contactsList.totalPages}}&nbsp;Total Count={{contactsList.totalElements}}
+        </div>
+        <div class="col-sm-4">
+          <div style="text-align: center" *ngIf="!(contactsList.first && contactsList.last) ">
+            <a [routerLink]="['/bat_contacts']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          *ngIf="!contactsList.first"
+                          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:contactsList.number-1,size:dropdownSelected.size}">
+                          &lt;
+                      </a>
+                      <a [routerLink]="['/bat_contacts']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:contactsList.number,size:dropdownSelected.size}">
+                          {{contactsList.number+1}}
+                      </a>
+                      <a [routerLink]="['/bat_contacts']" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          *ngIf="!contactsList.last"
+                          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:contactsList.number+1,size:dropdownSelected.size}">
+                          &gt;
+                      </a>
+          </div>
+        </div>
+        <!-- <div class="col-sm-4" *ngIf="contactsList.content.length>0" style="text-align: right;"> -->
+            <div class="col-sm-4"  style="text-align: right;">
+
+          <div class="row">
+           <div class="col-md-6"></div>
+            <div  *ngIf="!(contactsList.first && contactsList.last) "  class="col-md-6">
+              <input type="text"[(ngModel)]="pagenumber" (keypress)="numberOnly($event)" placeholder="Enter Page"size="8" autocomplete="off">
+               <button (click)=jumpPage(pagenumber)>Go</button>
+             </div>
+          </div>
+       </div>
+  
+      </div>
+     
+    </div>
+  </div>
+  
+  <!-- New -->
+  <div class="modal fade" bsModal #createContactModel="bs-modal" (onShow)="isContactOpen=true"
+    (onHide)="isContactOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="createContactModel.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createcontacts *ngIf="isContactOpen" [isEditMode]="isEditMode" [editContactData]="newcontact"
+            (onContactCreated)="onContactCreated($event)" (onCancle)="cancelData()"></app-bt-createcontacts>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+  </div> -->

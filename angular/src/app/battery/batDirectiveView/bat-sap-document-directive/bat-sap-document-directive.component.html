@@ -1,0 +1,107 @@
+<!-- STK DOC Dropdown -->
+<div class="btn-group" dropdown *ngIf="stk.length > 0">
+  <button dropdownToggle 
+          type="button" 
+          class="btn btn-sm btn-outline-info dropdown-toggle"
+          aria-controls="dropdown-animated">
+    STK DOC <span class="caret"></span>
+  </button>
+  <ul *dropdownMenu 
+      class="dropdown-menu dropdown-menu-right" 
+      role="menu" 
+      aria-labelledby="button-animated">
+    <li role="menuitem" *ngFor="let item of stk">
+      <a class="dropdown-item" 
+         href="#" 
+         (click)="stkdisplay(item); $event.preventDefault()">
+        {{ item.INVOICE_NO }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- STO DOC Dropdown -->
+<div class="btn-group" dropdown *ngIf="sto.length > 0">
+  <button dropdownToggle 
+          type="button" 
+          class="btn btn-sm btn-outline-info dropdown-toggle"
+          aria-controls="dropdown-animated">
+    STO DOC <span class="caret"></span>
+  </button>
+  <ul *dropdownMenu 
+      class="dropdown-menu dropdown-menu-right" 
+      role="menu" 
+      aria-labelledby="button-animated">
+    <li role="menuitem" *ngFor="let item of sto">
+      <a class="dropdown-item" 
+         href="#" 
+         (click)="stodisplay(item); $event.preventDefault()">
+        {{ item.INVOICE }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- PDF Viewer Modal -->
+<div class="modal fade" 
+     bsModal 
+     #objectPdfView="bs-modal"
+     (onShow)="isModelShow = true"
+     (onHide)="hideModal()"
+     tabindex="-1" 
+     role="dialog">
+
+  <div class="mpanel">
+    <!-- Modal Header -->
+    <div class="mpanel-header">
+      <label>
+        <em class="fa fa-check"></em> {{ it.title }}
+      </label>
+      <button type="button"
+              (click)="hideModal()"
+              class="cls-btn">
+        <em class="fa fa-remove"></em>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="mpanel-body msize">
+      <div style="width: 100%; height: 100%; overflow: auto;">
+
+        <!-- STK Documents (Simple Base64 Display) -->
+        <ng-container *ngIf="it.doc?.length > 0">
+          <div *ngFor="let dc of it.doc; let i = index" 
+               style="margin-bottom: 20px;">
+            <iframe
+              style="width: 100%; height: 100vh; border: none;"
+              [src]="dc.data | sanitize"
+              frameborder="0">
+            </iframe>
+          </div>
+        </ng-container>
+
+        <!-- STO Documents (PDF.js Viewer with Blob URLs) -->
+        <ng-container *ngIf="pdfViewerUrlMap?.length > 0">
+          <div *ngFor="let url of pdfViewerUrlMap; let i = index" 
+               style="margin-bottom: 20px;">
+          
+            
+            <iframe
+              style="width: 100%; height: 100vh; border: none;"
+              [src]="url | sanitize"
+              frameborder="0">
+            </iframe>
+          </div>
+        </ng-container>
+
+       
+        <ng-container *ngIf="!it.doc?.length && !pdfViewerUrlMap?.length">
+          <div style="padding: 20px; text-align: center; color: #999;">
+            <p>No documents available</p>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</div>

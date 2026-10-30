@@ -1,0 +1,234 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+</ngx-spinner>
+
+<div class="panel panel-default">
+
+  <div class="panel-heading" style="background-color:rgb(240, 240, 240)">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-1" style="padding-top: 14px;margin-right: -40px;width: 50px;">
+            <img _ngcontent-c5="" alt="Dashboard" src="assets/images/warehouse_120.png"
+              style="height: 40px;widows: 40px;background-color: rgb(39, 207, 109);border-radius: 1mm;" title="Account">
+          </div>
+          <div class="col-lg-11" style="padding-top: 12px;">
+            <div class="row">
+              <div class="col-sm-5 col-md-5">
+                <div class="row">
+                  <div class="col-sm-5 col-md-5">
+                    <span>Warehouse</span></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-8 col-md-8">
+                    <div class="btn-group" dropdown>
+                      <span dropdownToggle type="button" style="background-color: white;">
+                        <span *ngIf="!recentlyView" style="font: size 15px;padding-right: 5px;">
+                          &nbsp;All &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                        <span *ngIf="recentlyView" style="font-size:15px;padding-right: 5px;">
+                          &nbsp; Recently Viewed &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;</span>
+                      </span>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="button-disabled-item" style="width: 110%;">
+                        <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;LIST
+                          VIEWS</li>
+                        <li role="menuitem" (click)="dropdownChange('All')"><a class="dropdown-item"
+                            [ngClass]="ngClassAll">&nbsp;&nbsp;&nbsp;All</a></li>
+                        <li role="menuitem" (click)="dropdownChange('related')"><a class="dropdown-item"
+                            [ngClass]="ngClassRelated">&nbsp;&nbsp;&nbsp;Recently Viewed </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-7 col-md-7" style="padding-top: 1%;">
+                <div class="row">
+                  <div class="col-md-8 col-sm-8 text-center">
+                    <div class="row">
+                      <div class="col md-9 col-sm-9 ">
+                        <input type="text" [(ngModel)]="searchitem" class="form-control"
+                          style="font-family:Arial, FontAwesome" placeholder="&#xF002; Search this list">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4 ">
+                    <div class="row">
+                      <div class="col md-12 col-sm-12 text-right">
+                        <div class="btn-group">
+                          <button type="button" (click)="showCreateWarehouseView()" class="btn btn-default">
+                            <i class="fa fa-plus"></i> New</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ; min-height: 550px -->
+  <div class="panel-body" style="padding:0px;margin-bottom: 0px;min-height: 485px;background-color:rgb(240, 240, 240)">
+    <div style="padding: 0px;margin-bottom: 0px; background-color: white">
+      <div class="table-responsive">
+        <table class="table table-sm table-sm table-condensed tablerview">
+          <thead style="background-color:rgb(248, 245, 245)">
+            <tr scope="row">
+              <th>S.No</th>
+              <th class="table-header" (click)="setOrder('warehouseName',1)" (mouseover)="columnVisibility[1]=true"
+                (mouseout)="columnVisibility[1]=false" title="Warehouse Name">
+                Warehouse Name
+                <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]">▼</span>
+                <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]">▲</span></th>
+
+              <th class="table-header" (click)="setOrder('warehouseEmail',2)" (mouseover)="columnVisibility[2]=true"
+                (mouseout)="columnVisibility[2]=false" title="Warehouse Email">
+                Warehouse Email
+                <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]">▼</span>
+                <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]">▲</span></th>
+
+              <th class="table-header" (click)="setOrder('legalEntity.legalEntityName',3)"
+                (mouseover)="columnVisibility[3]=true" (mouseout)="columnVisibility[3]=false" title="Legal Entity Name">
+                Legal Entity Name
+                <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]">▼</span>
+                <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]">▲</span></th>
+
+              <th class="table-header" (click)="setOrder('warehousePlant',4)" (mouseover)="columnVisibility[4]=true"
+                (mouseout)="columnVisibility[4]=false" title="Warehouse Plant">
+                Warehouse Plant
+                <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]">▼</span>
+                <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]">▲</span></th>
+
+              <th class="table-header" (click)="setOrder('createdDateTime',5)" (mouseover)="columnVisibility[5]=true"
+                (mouseout)="columnVisibility[5]=false" title="Created Date">Created Date
+
+                <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]">▼</span>
+                <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]">▲</span></th>
+
+
+              <th> Action </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row" *ngFor="let c of warehouseList | searchfilt: searchitem; let i = index">
+              <td>{{serialNumber+i+1}}.</td>
+              <td><a href="#" routerLink="/warehouse/{{c.warehouseId}}">{{c.warehouseName}}</a>
+              </td>
+              <td>{{c.warehouseEmail}}
+              </td>
+
+              <td>
+                <a href="#" routerLink="/legalentity/{{c.legalEntityId}}">{{c.legalEntityName}}</a>
+              </td>
+              <td>{{c.warehousePlant}}
+              </td>
+              <td>
+                {{c.createdDateTime | date:'yyyy-MM-dd HH:mm:ss'}}
+              </td>
+              <td style="width: 50;">
+                <div class="btn-group" dropdown placement="bottom right">
+                  <!-- <button type="button" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-disabled-item"> -->
+                  <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                    <li role="menuitem">
+                      <a class="dropdown-item" (click)="onClickEdit(c,c.warehouseId)">Edit </a>
+                    </li>
+                    <!-- <li role="menuitem">
+                      <a class="dropdown-item">Delete</a>
+                    </li> -->
+                  </ul>
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+
+        <div style="text-align: center">
+          <a id="pag" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+            (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+            &#8249;
+          </a>
+
+          <a id="pag" class="nav-link active" href="" (click)="setPage($event)" [ngClass]="{'active':i==page}">
+            {{page+1}}
+          </a>
+
+
+          <a id="pag" class="next round" href="" [class.disabled]="last" *ngIf="!last" (click)="setPageNext($event)"
+            [ngClass]="{'active':page}">
+            &#8250;
+          </a></div>
+      </div>
+    </div>
+
+    <!-- New -->
+    <div class="modal fade" bsModal #createWarehouseModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-new-product">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="createWarehouseModel.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <app-create-new-warehouse [isEditMode]="isEditMode" [editWarehouseData]="newwarehouse"
+              (onWarehouseCreated)="onWarehouseCreated($event)" (onCancle)="cancelData()"></app-create-new-warehouse>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-account">
+
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="alert alert-success center center-block" style="width:40%; text-align: center">
+        <strong>Successfully Submitted!</strong>
+      </div>
+    </div> -->
+
+    <!-- 
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-product">
+
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+      </div>
+
+
+      <div *ngIf="message=='Updated Successfully'" class="alert alert-success center center-block"
+        style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+      </div>
+
+      <div *ngIf="message!='Submitted Successfully' && message!='Updated Successfully'"
+        class="alert alert-danger center center-block" style="width:40%; text-align: center">
+        <strong>{{message}} !</strong>
+      </div>
+
+    </div> -->
+
+    <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+      role="dialog" aria-labelledby="create-product">
+      <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+      </div>
+    </div>

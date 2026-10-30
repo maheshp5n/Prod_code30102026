@@ -1,0 +1,158 @@
+<div 
+*ngIf="_btData.btProductTransferData">
+    <button type="button" (click)="changeButtonDisplay('info')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displayButtons.info.icon"></i> &nbsp;Information
+</button>
+<div class="row" *ngIf="displayButtons.info.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td>
+                    <small>
+                        Product Transfer Number
+                    </small>
+                </td>
+                <td>
+                    {{_btData.btProductTransferData.productTransferManualId}}
+                </td>
+            </tr>           
+            <tr>
+                <td>
+                    <small>Issued Quantity </small>
+                </td>
+                <td>{{_btData.btProductTransferData.productTransferTotalQuantityIssued}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Source Warehouse</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/bat_warehouse',_btData.btProductTransferData.productRequestSourceLocationId]"
+                        [routerLinkActive]="'active'">{{_btData.btProductTransferData.productRequestSourceLocationName}}</a>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td>
+                    <small>Received Quantity</small>
+                </td>
+                <td>
+                    {{_btData.btProductTransferData.productTransferTotalQuantityReceived}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Destination Warehouse</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/bat_warehouse',_btData.btProductTransferData.productRequestDestinationLocationId]"
+                        [routerLinkActive]="'active'">{{_btData.btProductTransferData.productRequestDestinationLocationName}}</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Shipping Date</small>
+                </td>
+                <td>
+                    {{_btData.btProductTransferData.productTransferCreatedDate | date:'dd-MM-yyyy'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<button type="button" (click)="changeButtonDisplay('shippinginfo')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displayButtons.shippingInfo.icon"></i> &nbsp;Shipping Information
+</button>
+<div class="row" *ngIf="displayButtons.shippingInfo.visibal">
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping Mode
+                    </small>
+                </td>
+                <td>
+                    {{_btData.btProductTransferData.productTransferShippingMode}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>
+                        Tracking Number
+                    </small>
+                </td>
+                <td>
+                    {{_btData.btProductTransferData.productTranferTrackingNumber}}
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm" aria-describedby="">
+            <tr>
+                <td>
+                    <small>
+                        Shipping To Name
+                    </small>
+                </td>
+                <td>
+                    {{_btData.btProductTransferData.productTransferShippingToName}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small>Expected date of Arrival</small>
+                </td>
+                <td>
+                    {{_btData.btProductTransferData.productTransferActualDeliveryDate|date:'dd-MM-yyyy'}}
+                </td>
+            </tr>
+        </table>
+    </div>    
+</div>
+
+<button type="button" (click)="changeButtonDisplay('sysinfo')"
+    style="text-align: left;background-color: lightgray;font-weight: bold;"
+    class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+        [ngClass]="displayButtons.sysInfo.icon"></i> &nbsp;System Info
+</button>
+<div class="row" *ngIf="displayButtons.sysInfo.visibal">
+    <div class="col-md-6">
+       <table class="table table-sm">
+           <tr>
+               <td><small>Created By</small></td>
+               <td>
+                <a [routerLink]="['/bat_user',_btData.btProductTransferData.productTransferCreatedByEmaiilId]"
+                            activateRout="active">   
+                {{_btData.btProductTransferData.productTransferCreatedByFirstName}}&nbsp;{{_btData.btProductTransferData.productTransferCreatedByMiddleName}}&nbsp;{{_btData.btProductTransferData.productTransferCreatedByLastName}}&nbsp;,&nbsp;</a>{{_btData.btProductTransferData.productTransferCreatedByMiddleName}}&nbsp;{{_btData.btProductTransferData.productTransferCreatedDate|date:'dd-MM-yyyy HH:mm:ss'}}</td>
+           </tr>
+       </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <td>
+                    <small>Last Modified By</small>
+                </td>
+                <td>
+                    <a [routerLink]="['/bat_user',_btData.btProductTransferData.productTransferLastModifiedByEmailId]"
+                            activateRout="active">
+                    {{_btData.btProductTransferData.productTransferLastModifiedByFirstName}}&nbsp;{{_btData.btProductTransferData.productTransferLastModifiedByMiddleName}}&nbsp;{{_btData.btProductTransferData.productTransferLastModifiedByLastName}}&nbsp;,&nbsp;</a>{{_btData.btProductTransferData.productTransferLastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>

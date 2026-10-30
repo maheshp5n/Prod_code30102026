@@ -1,0 +1,123 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <!-- <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Name
+                </div>
+                <input type="text" class="form-control" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Owner
+                    <input [(ngModel)]="annexureRequest.owner" type="text" class="form-control" disabled>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Invoice Number
+                </div>
+                <input [(ngModel)]="annexureRequest.invoiceNumber" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Invoice Date
+                </div>
+                <input onkeydown="return false" [(ngModel)]="annexureRequest.invoiceDate" type="text" class="form-control" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" placeholder="Pick date..."
+                    [dateCustomClasses]="dateCustomClasses" autocomplete="off">
+                <span class="fa fa-calendar errspan"></span>
+                <!-- <div class="control-label">
+                    Vendor Code
+                </div>
+                <input [(ngModel)]="annexureRequest.vendorCode" type="text" class="form-control" disabled> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required ">
+                <div class="control-label">
+                    PO Number
+                </div>
+                <input [(ngModel)]="annexureRequest.poNumber" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    PO Date
+                    <input  onkeydown="return false"[(ngModel)]="annexureRequest.poDate" type="text" class="form-control" bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today" placeholder="Pick date..."
+                        [dateCustomClasses]="dateCustomClasses" autocomplete="off">
+                    <span class="fa fa-calendar errspan"></span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Submitted Date
+                </div>
+                <input [(ngModel)]="annexureRequest.submittedDate" type="text" class="form-control" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]="today"
+                    [dateCustomClasses]="dateCustomClasses">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+            </div>
+        </div> -->
+    </div>
+    <!-- <div *ngIf="_isEditMode==true" class="panel-heading">
+        <span class="text-center" style="font-weight: bold">System Information</span>
+    </div>
+    <div *ngIf="_isEditMode==true" class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bold;">
+                    Created By
+                </div>
+                <div class="label">
+                    &nbsp;{{annexureRequest.createdByFirstName}} {{annexureRequest.createdByMiddleName}}
+                    {{annexureRequest.createdByLastName}},
+                    {{annexureRequest.createdDate | date:'YYYY-MM-DD HH:mm:ss'}}
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="control-label" style="font-weight: bolder;">
+                    Last Modified By
+                </div>
+                <div class="label">
+                    &nbsp;{{annexureRequest.modifiedByFirstName}} {{annexureRequest.modifiedByLastName}},
+                    {{annexureRequest.modifiedDate| date:'YYYY-MM-DD HH:mm:ss'}}
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="button" (click)="postCreateAnnexure()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully !'">Annexure ( <a href="#"
+                routerLink="/annexure/{{tempServiceId}}">{{tempServiceName}}</a> )
+            created successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully !'">{{message}}</strong>
+    </div>
+</div>

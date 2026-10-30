@@ -1,0 +1,105 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <strong>Product Transfer</strong>
+        <br>
+    </div>
+    <div class="card-body">
+        <span>Location</span>
+        <div class="form-row mt-1">
+            <div class="form-group col-md-2">
+                <select type="text" class="form-control form-control-sm" [(ngModel)]="destinationLocatonId"
+                    (change)="getValueOfSourceLocation(destinationLocatonId)">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let list of pendingLocationTransferItem" [ngValue]="list.locationId">
+                        {{list.locationName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <strong>
+            Requested Item Details
+        </strong>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S.N.</th>
+                <th scope="col">Manual Id</th>
+                <th scope="col">Part Code</th>
+                <th scope="col">Product Type</th>
+                <th scope="col">Requested Items</th>
+                <th scope="col">Issued Items</th>
+                <th scope="col">Issue Quantity</th>
+                <th scope="col">In hand Ok Qty</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of pendingITemsLIstByLocation;let i=index">
+                <td style="text-align: center;">{{i+1}}</td>
+                <td>{{item.productRequestManualId}}</td>
+                <td>{{item.productManualId}}</td>
+                <td>{{item.product_type}}</td>
+                <td>{{item.productRequestItemRequiredQty}}</td>
+                <td>{{item.productRequestItemIssuedQty}}</td>
+                <td ><input type="text"  [(ngModel)]="item.issueingQuantity"></td>
+                <td>{{item.okQuantity}}</td>
+                <td style="text-align: center;">{{item.productDescription}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="card">
+    <div class="card-header">
+        <strong>Shipment Details</strong>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">
+                    Shipping Mode
+                </label>
+                <select class="form-control" [(ngModel)]="btProductTransferReq.shippingMode">
+                    <option value="select" disabled>Select</option>
+                    <option value="Courier">Courier</option>
+                    <option value="ByHand">ByHand</option>
+                    <option value="Transport">Transport</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group required" >
+                <label class="control-label">Ship To Name </label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Company Name / Person Name"></em>
+                <input type="text" class="form-control" autocomplete="off"  [(ngModel)]="btProductTransferReq.shippingToName">
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Tracking Number</label>
+                <em class="fa fa-info-circle" style="padding-left: 10px;"
+                    tooltip="Courier Tracking Number / Person Mobile Number"></em>
+                <input type="text" class="form-control" autocomplete="off"  [(ngModel)]="btProductTransferReq.trackingNumber">
+            </div>
+            <div class="col-md-6 form-group required">
+                <label class="control-label">Expected Delivery Date</label>
+                <input type="text" onkeydown="return false" bsDatepicker [dateCustomClasses]="dateCustomClasses"  [(ngModel)]="btProductTransferReq.actualDeliveryDate"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', adaptivePosition: true}" class="form-control"
+                    [minDate]="today" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <!-- <button type="button" (click)="cancelTransfer()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button> -->
+        <button type="button" (click)="transferItems()" class="btn btn-primary"><i class="fa fa-save"></i>
+            Transfer</button>
+    </div>
+</div>

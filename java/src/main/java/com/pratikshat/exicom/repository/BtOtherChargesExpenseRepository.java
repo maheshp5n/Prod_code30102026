@@ -1,0 +1,26 @@
+package com.pratikshat.exicom.repository;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.pratikshat.exicom.entity.BtOtherChargesExpense;
+
+@Repository
+public interface BtOtherChargesExpenseRepository extends JpaRepository<BtOtherChargesExpense, Long> {
+
+	@Query(value ="SELECT oc.id, oc.manual_id AS manualId, em.id AS btExpenseManagementId, em.manual_id AS btExpenseManagementManualId,bd.business_domain_id AS businessDomainId,bd.business_domain_name AS businessDomainName,oc.other_charges_type_id AS otherChargesTypeId, boct.name AS otherChargesTypeName,oc.date,oc.bill_no AS billNo,oc.amount,oc.remark,oc.created_by_email_id AS createdByEmailId, CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `createdByName`,oc.created_date AS createdDate, oc.last_modified_by_email_id AS lastModifiedByEmailId,CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `modifiedByName`,oc.last_modified_date AS lastModifiedDate,oc.owner_email_id AS ownerEmailId,CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `ownerByName`,oc.amount_to_disbursed AS amountToDisbursed FROM bt_other_charges_expense oc LEFT JOIN bt_expense_management em ON em.id=oc.bt_expense_management_id LEFT JOIN other_charges_types boct ON boct.id=oc.other_charges_type_id LEFT JOIN employee_details ed ON oc.created_by_email_Id=ed.email_id LEFT JOIN business_domain bd ON bd.business_domain_id=em.business_domain_business_domain_id WHERE oc.is_deleted=FALSE and oc.id=:id",nativeQuery = true)
+	Map<String, Object> getById(@Param("id")long id);
+	
+	@Query(value ="SELECT oc.id, oc.manual_id AS manualId, em.id AS btExpenseManagementId, em.manual_id AS btExpenseManagementManualId,bd.business_domain_id AS businessDomainId,bd.business_domain_name AS businessDomainName,oc.other_charges_type_id AS otherChargesTypeId, boct.name AS otherChargesTypeName,oc.date,oc.bill_no AS billNo,oc.amount,oc.remark,oc.created_by_email_id AS createdByEmailId, CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `createdByName`,oc.created_date AS createdDate, oc.last_modified_by_email_id AS lastModifiedByEmailId,CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `modifiedByName`,oc.last_modified_date AS lastModifiedDate,oc.owner_email_id AS ownerEmailId,CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `ownerByName`,oc.amount_to_disbursed AS amountToDisbursed FROM bt_other_charges_expense oc LEFT JOIN bt_expense_management em ON em.id=oc.bt_expense_management_id LEFT JOIN other_charges_types boct ON boct.id=oc.other_charges_type_id LEFT JOIN employee_details ed ON oc.created_by_email_Id=ed.email_id LEFT JOIN business_domain bd ON bd.business_domain_id=em.business_domain_business_domain_id WHERE oc.is_deleted=FALSE and em.id=:btExpenseManagmentId",nativeQuery = true,countQuery ="select count(*) FROM bt_other_charges_expense oc LEFT JOIN bt_expense_management em ON em.id=oc.bt_expense_management_id LEFT JOIN other_charges_types boct ON boct.id=oc.other_charges_type_id LEFT JOIN employee_details ed ON oc.created_by_email_Id=ed.email_id LEFT JOIN business_domain bd ON bd.business_domain_id=em.business_domain_business_domain_id WHERE oc.is_deleted=FALSE and em.id=:btExpenseManagmentId")
+	Page<Map<String, Object>> getByExpenseManagmentId(@Param("btExpenseManagmentId")long btExpenseManagmentId,Pageable page);
+	
+	@Query(value ="SELECT oc.id, oc.manual_id AS manualId, em.id AS btExpenseManagementId, em.manual_id AS btExpenseManagementManualId,bd.business_domain_id AS businessDomainId,bd.business_domain_name AS businessDomainName,oc.other_charges_type_id AS otherChargesTypeId, boct.name AS otherChargesTypeName,oc.date,oc.bill_no AS billNo,oc.amount,oc.remark,oc.created_by_email_id AS createdByEmailId, CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `createdByName`,oc.created_date AS createdDate, oc.last_modified_by_email_id AS lastModifiedByEmailId,CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `modifiedByName`,oc.last_modified_date AS lastModifiedDate,oc.owner_email_id AS ownerEmailId,CONCAT(IFNULL(ed.`first_name`,' '),IFNULL(ed.`middle_name`,' '),IFNULL(ed.`last_name`,'')) AS `ownerByName`,oc.amount_to_disbursed AS amountToDisbursed FROM bt_other_charges_expense oc LEFT JOIN bt_expense_management em ON em.id=oc.bt_expense_management_id LEFT JOIN other_charges_types boct ON boct.id=oc.other_charges_type_id LEFT JOIN employee_details ed ON oc.created_by_email_Id=ed.email_id LEFT JOIN business_domain bd ON bd.business_domain_id=em.business_domain_business_domain_id WHERE oc.is_deleted=FALSE and em.id=:btExpenseManagmentId",nativeQuery = true)
+	List<Map<String, Object>> getListByExpenseManagmentId(@Param("btExpenseManagmentId")long btExpenseManagmentId);
+}

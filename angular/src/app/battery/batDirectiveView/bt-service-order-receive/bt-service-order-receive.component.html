@@ -1,0 +1,55 @@
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>
+                    S.No.
+                </th>
+                <th>
+                    SO Number
+                </th>
+                <th>
+                   SO Item Number
+                </th>
+                <th>
+                    Serial Number
+                </th>
+                <th>
+                    Partcode
+                </th>
+                <th>
+                    Location Name
+                </th>
+                <th>Shipping Mode</th>
+                <th>Shipping Name</th>
+                <th>
+                    Tracking Number
+                </th>
+                <th>Description</th>
+                <th><input type="checkbox" [(ngModel)]="global" [checked]="global" (change)="globalselectchange(global)"> Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of btServiceOrderReceiveItem;let i=index">
+                <td style="text-align: center;">{{i+1}}</td>
+                <td>{{item.serviceOrderManualId}}</td>
+                <td>{{item.serviceOrderItemManualId}}</td>
+                <td>{{item.serviceOrderItemSerialNumber}}</td>
+                <td>{{item.productPartcode}}</td>
+                <td>{{item.serviceOrderLocationName}}</td>
+                <td>{{item.serviceOrderShippingMode}}</td>
+                <td>{{item.serviceOrderShippingTo}}</td>
+                <td>{{item.serviceOrderTrackingNumber}}</td>
+                <td>{{item.productDescription}}</td> 
+                <td style="text-align: center;"><input type = "checkbox" [checked]="item.isChecked" [(ngModel)]="item.isChecked" > </td>              
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr>
+<div class="row">
+    <div class="col-12 text-right">
+        <button class="btn btn-primary" type="button" (click)="SaveServiceOrderRecieve()"><em class="fa fa-save" ></em> Save</button>
+        <button class="btn btn-default" type="button" (click)="canelServiceOrderRecieve()"><em class="fa fa-remove"  ></em> Cancel</button>
+    </div>
+</div>

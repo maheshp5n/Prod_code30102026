@@ -1,0 +1,579 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="2" style="width:35px;">
+                            <img alt="" style="width: 100%;height: auto;background-color: #88C651;"
+                                src="assets/images/product_request_120.png">
+                        </td>
+                        <td style="padding-left: 5px;">
+                            Job Card
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:5px;">
+                            <strong>{{btJobCardDetail.jobCardManualId}}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-8 text-right">
+                <div class="btn-group">
+                    <!-- <button class="btn btn-outline-info btn-sm" type="button"
+                        (click)="getReAssignModel(btJobCardDetail)"
+                        *ngIf="!btJobCardDetail.isJobCardRepaired&&loginData.emailId==btJobCardDetail.assignedToEmailId"><i
+                            class="fa fa-plus"></i> Re-Assign
+                    </button>&nbsp; -->
+                    <button type="button" (click)="editJobCardModel.show()" class="btn btn-sm btn-outline-info">Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body" style="padding-bottom: 0px;">
+        <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+        </ul>
+        <br>
+        <hr style="margin-top:15px;">
+    </div>
+    <div *ngIf="vDetails" class="card-body">
+        <button type="button" (click)="changeButtonDisplay('info')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.info.icon"></i> &nbsp;Information
+        </button>
+        <div *ngIf="displayButtons.info.visibal" class="row">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>Job Card Number</small>
+                        </td>
+                        <td>
+                            {{btJobCardDetail.jobCardManualId}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Service Order Number
+                            </small>
+                        </td>
+                        <td>
+                            <a
+                                [routerLink]="['/bat_serviceorder',btJobCardDetail.serviceOrderId]">{{btJobCardDetail.serviceOrderManualId}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                BRC Case Number
+                            </small>
+                        </td>
+                        <td>
+                            <a
+                                [routerLink]="['/bat_brc_case',btJobCardDetail.brcCaseId]">{{btJobCardDetail.brcCaseManualId}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Brc Case Stage
+                            </small>
+                        </td>
+                        <td>{{btJobCardDetail.brcCaseStage}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Product Part Code
+                            </small>
+                        </td>
+                        <td>
+                            <a
+                                [routerLink]="['/bat_product',btJobCardDetail.productId]">{{btJobCardDetail.productPartcode}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Asset Serial Number
+                            </small>
+                        </td>
+                        <td>{{btJobCardDetail.serviceOrderItemSerialNumber}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Assigned To
+                            </small>
+                        </td>
+                        <td>
+                            {{btJobCardDetail.assignedToFirstName}} {{btJobCardDetail.assignedToMiddleName}}
+                            {{btJobCardDetail.assignedToLastName}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <small>Assigned Status</small>
+                        </td>
+                        <td>
+                            <em *ngIf="btJobCardDetail.isAssigned==true" class="tik-mark"></em> <em
+                                *ngIf="btJobCardDetail.isAssigned!=true" class="cross-mark"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                QC Status
+                            </small>
+                        </td>
+                        <td>
+                            <em *ngIf="btJobCardDetail.jobCardIsQcDone==true" class="tik-mark"></em> <em
+                                *ngIf="btJobCardDetail.jobCardIsQcDone!=true" class="cross-mark"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Return Status
+                            </small>
+                        </td>
+                        <td>
+                            <em *ngIf="btJobCardDetail.isReturnedToSource=='true'" class="tik-mark"></em> <em
+                                *ngIf="btJobCardDetail.isReturnedToSource!='true'" class="cross-mark"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Received Status
+                            </small>
+                        </td>
+                        <td>
+                            <em *ngIf="btJobCardDetail.isReceived==true" class="tik-mark"></em> <em
+                                *ngIf="btJobCardDetail.isReceived!=true" class="cross-mark"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>
+                                Description
+                            </small>
+                        </td>
+                        <td>
+                            {{btJobCardDetail.productDescription}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <button type="button" (click)="changeButtonDisplay('engremarks')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.engRemarks.icon"></i> &nbsp;Repair Eng. Input Information
+        </button>
+        <div class="row" *ngIf="displayButtons.engRemarks.visibal">
+            <div class="col-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td><small>Engineer</small></td>
+                        <td>
+                            {{btJobCardDetail.assignedToFirstName}} {{btJobCardDetail.assignedToMiddleName}}
+                            {{btJobCardDetail.assignedToMiddleName}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small>Battery Voltage Before Repair</small></td>
+                        <td>{{btJobCardDetail.batteryVoltageBef}}</td>
+                    </tr>
+                    <tr>
+                        <td><small>Repair Date</small> </td>
+                        <td>{{btJobCardDetail.jobCardRepariDate |date
+                            :'dd-MM-yyyy'}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small> Cell Vmax (v)</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.cellVmax}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>BRC Eng. Corrective Action</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.correctiveAction}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Spare Part Replaced </small>
+
+                        </td>
+                        <td>
+                            {{totalSparPartReplaced}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small> BER Remark</small></td>
+                        <td>{{btJobCardDetail.berRemarks}}</td>
+                    </tr>
+                    <tr>
+                        <td><small>Cell Bulged</small></td>
+                        <td>{{btJobCardDetail.cellBledge}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small> Material Shortage (If Any)</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.matSorteg}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Observation 2</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.observation2}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Observation 4</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.observation4}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>Engineer Issued Date</small>
+                        </td>
+                        <td>
+                            {{btJobCardDetail.jobCardCreatedDate |date
+                            :'dd-MM-yyyy'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small> Battery Voltage After Repair</small>
+                        </td>
+                        <td>
+                            {{btJobCardDetail.batteryVoltageAft}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Battery AH After Repair</small>
+                        </td>
+                        <td>
+                            {{btJobCardDetail.batteryAhAft}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><small>Cell Vmin (v)</small> </td>
+                        <td>{{btJobCardDetail.cellVmin}}</td>
+                    </tr>
+                    <tr>
+                        <td><small>BRC Eng Resolution Method</small> </td>
+                        <td>{{btJobCardDetail.engResolutionMethod}}</td>
+                    </tr>
+                    <tr>
+                        <td><small>BRC Engineer Remark</small> </td>
+                        <td>{{btJobCardDetail.engRemarks}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Battery Balance At</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.btBalanceAt}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Type</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.currentStatusType}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <small>Observation 1</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.observation1}}
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <small>Observation 3</small>
+
+                        </td>
+                        <td>
+                            {{btJobCardDetail.observation3}}
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+
+        <button type="button" (click)="changeButtonDisplay('sysinfo')"
+            style="text-align: left;background-color: lightgray;font-weight: bold;"
+            class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="displayButtons.sysInfo.icon"></i> &nbsp;System Information
+        </button>
+        <div class="row" *ngIf="displayButtons.sysInfo.visibal">
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Created By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/bat_user',btJobCardDetail.jobCardCreatedByEmailId]"
+                                activateRout="active">{{btJobCardDetail.createdByfirstName}}&nbsp;{{btJobCardDetail.createdBymiddleName}}&nbsp;{{btJobCardDetail.createdBylastName}}</a>,&nbsp;{{btJobCardDetail.jobCardCreatedDate|date
+                            :'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-sm">
+                    <tr>
+                        <td>
+                            <small>
+                                Last Modified By
+                            </small>
+                        </td>
+                        <td class="wrappable">
+                            <a [routerLink]="['/bat_user',btJobCardDetail.jobCardLastModifiedByEmailId]"
+                                activateRout="active">{{btJobCardDetail.lastModifiedByfirstName}}&nbsp;{{btJobCardDetail.lastModifiedByMiddleName}}&nbsp;{{btJobCardDetail.lastModifiedBylastName}}</a>,&nbsp;
+                            {{btJobCardDetail.jobCardLastModifiedDate|date:'dd-MM-yyyy HH:mm:ss'}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!vDetails" class="card-body" style="margin: 0px;">
+    <div class="card">
+        <div class="card-header">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 24px;">
+                        <img src="assets/images/product_request_line_item_120.png" alt=""
+                            style="width: 100%;height: auto;background-color: #88C651">
+                    </td>
+                    <td style="padding-left:5px;"><strong>Consumed Product Items
+                        </strong> </td>
+                </tr>
+            </table> <br>
+        </div>
+        <div class="card-body" style="padding: 0px;">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th title="S.No.">S.No.</th>
+                        <th title="Product Consume Number.">Product Consume Number</th>
+                        <th title="Part Code">Part Code</th>
+                        <th class="text-left" title="Quantity">
+                            Quantity
+                        </th>
+                        <th title="Consume From Stock" style="text-align: center;">
+                            Consume From Stock
+                        </th>
+                        <th title="Consume Date" style="text-align: center;">
+                            Consume Date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let _item of btConsumedProducts;let j=index;">
+                        <td style="text-align: center;">{{j+1}}.</td>
+                        <td>{{_item.productConsumedManualId}}
+                        </td>
+                        <td>
+                            <a [routerLink]="['/bat_product',_item.consumedProductId]"
+                                [queryParams]="_item">{{_item.partCode}}</a>
+                        </td>
+                        <td>{{_item.quantityConsumed}}</td>
+                        <td style="text-align: center;">
+                            <em *ngIf="_item.isConsumedFromStock==true" class="tik-mark"></em> <em
+                                *ngIf="_item.isConsumedFromStock!=true" class="cross-mark"></em>
+                        </td>
+                        <td style="text-align: center;">{{_item.consumedDate |date
+                            :'dd-MM-yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 24px;">
+                        <img src="assets/images/product_request_line_item_120.png" alt=""
+                            style="width: 100%;height: auto;background-color: #88C651">
+                    </td>
+                    <td style="padding-left:5px;"><strong>Assets For Quality Check
+                        </strong> </td>
+                </tr>
+            </table> <br>
+        </div>
+        <div class="card-body" style="padding: 0px;">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th title="S.No.">S.No.</th>
+                        <th title="QC Number">QC Number</th>
+                        <th class="text-left" title="Assigned To">
+                            Assigned To
+                        </th>
+                        <th title="Final Approval" style="text-align: center;">
+                            Final Approval
+                        </th>
+                        <th title="Created Date" style="text-align: center;">
+                            Created Date
+                        </th>
+                        <th title="Assigned Date" style="text-align: center;">
+                            Assigned Date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let _item of btItemsForQC;let j=index;">
+                        <td style="text-align: center;">{{j+1}}.</td>
+                        <td>
+                            <a [routerLink]="['/bat_job_card_qc',_item.qcId]"
+                                [queryParams]="_item">{{_item.qcManualId}}</a>
+                        </td>
+                        <td>
+                            {{_item.assignedTofirstName}} {{_item.assignedTomiddleName}} {{_item.assignedTolastName}}
+                        </td>
+                        <td style="text-align: center;">{{_item.qcFinalApproval}}</td>
+                        <td style="text-align: center;">{{_item.qcCreatedDate |date
+                            :'dd-MM-yyyy HH:mm:ss'}}</td>
+                        <td style="text-align: center;">{{_item.qcAssignedDate |date
+                            :'dd-MM-yyyy HH:mm:ss'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="padding-left:5px;"><strong>Files
+                        </strong> </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mobile" style="height: 100%;">
+                <table class="table table-sm table-condensed tablerview">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                            <th title="S.No" style="width:50px;">S.No.</th>
+                            <th title="File Name" scope="col"> File Name
+                            </th>
+                            <th title="Created Date" scope="col"> Created Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td *ngIf="fileFound">1</td>
+                            <td data-line="File Name" class="wrappable">
+                                <a href="/bt/api/jobcard/files/download/{{btJobCardDetail.fileId}}"
+                                    target="_blank">{{btJobCardDetail.filename}}</a>
+                            </td>
+                            <td>{{btJobCardDetail.fileCreatedDate|date
+                                :'dd-MM-yyyy'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Assign Task-->
+<div class="modal fade" bsModal #editJobCardModel="bs-modal" (onShow)="openModel.editJobCard=true"
+    (onHide)="openModel.editJobCard=false" tabindex="-" role="dialog" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Edit Job Card : {{btJobCardDetail.jobCardManualId}}
+                </h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="editJobCardModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-bat-edit-job-card *ngIf="openModel.editJobCard" [jobCardRes]="btJobCardDetail"
+                    (cancled)="editJobCardModel.hide()" (editJobCard)="onEditJobCard()"></app-bat-edit-job-card>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Reassign Job Card-->
+<div class="modal fade" bsModal #reAssingJobCardModel="bs-modal" (onShow)="reAssingJobCardModelShow=true"
+    (onHide)="reAssingJobCardModelShow=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-reassign-appointment">
+    <div class="modal-dialog modal-lg modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-appointment" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="reAssingJobCardModelHide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-bat-reassign-job-card *ngIf="reAssingJobCardModelShow" [reAssignJC]="reAssignJobCard"
+                    (onReassignJcCreated)="onReassignJobCardCreated($event)" (onCancle)="cancelJobCardReAssign()">
+                </app-bat-reassign-job-card>
+            </div>
+        </div>
+    </div>
+</div>

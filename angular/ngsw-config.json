@@ -1,0 +1,62 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "dataGroups": [
+    {
+      "name": "api data",
+      "urls": ["/api/*"],
+      "cacheConfig": {
+        "maxAge": "0u",
+        "maxSize": 0,
+        "strategy": "performance"
+      }
+    },
+   {
+      "name": "Engineer Rating",
+      "urls": ["/engrating/*"],
+      "cacheConfig": {
+        "maxAge": "0u",
+        "maxSize": 0,
+        "strategy": "freshness"
+      } 
+    },{
+      "name": "BT Engineer Rating",
+      "urls":["/btengrating/*"],
+      "cacheConfig": {
+        "maxAge": "0u",
+        "maxSize": 0,
+        "strategy": "freshness"
+      }
+    }
+  ],
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css?family=Titillium+Web",
+          "https://fonts.googleapis.com/icon?family=Material+Icons"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+        ]
+      }
+    }
+  ]
+}

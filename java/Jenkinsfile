@@ -1,0 +1,16 @@
+pipeline {
+  agent {
+    node {
+      label 'ExicomBackend'
+    }
+
+  }
+  stages {
+    stage('') {
+      steps {
+        sh 'mvnw clean package'
+      }
+    }
+
+  }
+}

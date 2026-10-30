@@ -1,0 +1,103 @@
+
+        <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6 col-sm-6 form-group required">
+                      <div class="control-label">
+                        Case
+                      </div>
+                       <input type="text" class="form-control" [(ngModel)]="rejectcase.caseManualId" disabled>
+                    
+               </div>
+             
+              </div>
+              <div class="row">
+              <!-- remark -->
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                   Remark
+                </div>
+                <textarea  [(ngModel)]="rejectcase.remark" class="form-control"
+                rows="2"></textarea>
+               </div>
+              <div class="col-md-6 col-sm-6">
+                <div class="row">
+                 
+                  <!-- *ngIf="rejectcase.file!=undefined && rejectcase.file!=null" -->
+                  <div class="col-sm-10 form-group">
+                    <div class="control-label"> File</div>
+                    <input type="text" class="form-control" [(ngModel)]="filename" id="myInput" disabled>
+                   
+                  </div>
+                 
+                  <div *ngIf="filename!=null" class="col-md-2 col-sm-2" style="float:left;position: relative; ">
+                    <div class="control-label"> &nbsp;</div>
+                    <button  (click)="removefile()" class="btn btn-primary">&times;</button>
+                  </div>
+                  <div class="col-md-2 col-sm-2" *ngIf="filename==null">
+                    <div  class="control-label">&nbsp;</div>
+                    <input type="file" name="profile" (change)="onFileSelect($event)" id="getFile" style="display:none"
+                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                  <button  class="btn btn-sm btn-outline-info" onclick="document.getElementById('getFile').click()"
+                    type='submit'><i class="fa fa-upload"></i>&nbsp;&nbsp;file</button>
+        
+
+                  </div>
+                 
+                 </div>
+              </div>
+           
+             </div>
+            </div>
+  
+          </div>
+          <div class="row">
+              <div class="col-md-12 text-right">
+                <button type="button" (click)="rejectcasemodelCancel()" class="btn btn-default"> <i class="fa fa-remove"></i> Cancel</button>&nbsp;
+               <button type="button" (click)="RejectSubmit()" class="btn btn-primary"><i class="fa fa-save"></i> save </button>
+              </div>
+            </div>
+  
+  <!-- popupSuccessModel -->
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+role="dialog" aria-labelledby="create-product">
+
+<div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <strong *ngIf="message=='Submitted Successfully'">
+    &nbsp;Updated Successfully !</strong>
+  <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+</div>
+</div>
+
+<div class="modal fade" bsModal #choosenFiles="bs-modal" [config]="{backdrop: 'static'}"
+tabindex="-1" role="dialog" aria-labelledby="create-account">
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">Files</h4>
+    </div>
+    <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <div class="row" *ngFor="let s of fileList;let i=index">
+            <div class="col-6">
+              {{s.name}}
+            </div>
+            <!-- <div class="col-6 text-right">
+              <a style="font-weight: bolder; text-align: center;color: blue;" (click)=" remove(s.name)">Remove</a>
+            </div> -->
+          </div>
+    <div class="modal-footer text-right">
+      <form [formGroup]="uploadForm" (submit)="onSubmit()" enctype="multipart/form-data">
+        <div>
+          <button type="button" class="btn btn-default" (click)="cancelChoosen()"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+</div>

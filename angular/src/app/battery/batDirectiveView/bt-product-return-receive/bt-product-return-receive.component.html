@@ -1,0 +1,57 @@
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>
+                    S.No.
+                </th>
+                <th>
+                    Return ID
+                </th>
+                <th>
+                    Tracking No.
+                </th>
+                <th>
+                 Partcode
+                </th>
+                <th>
+                    Shipping To
+                </th>
+                <th>
+                    Shipping Mode
+                </th>
+                <th>Exi Return Qty.</th>                
+                <th>Cus Return Qty.</th>                                 
+                <th>Exi Received Qty.</th>             
+                <th>Cus Received Qty.</th>              
+                <th>Exi Receiving Qty.</th>
+                <th>Cus Receiving Qty.</th>  
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of btReturnItemsList;let i=index">
+                <td style="text-align: center;">{{i+1}}</td>
+                <td>{{item.returnOrderManualId}}</td>
+                <td>{{item.returnOrderTrackingNumber}}</td>
+                <td>{{item.productManualId}}</td>
+                <td>{{item.returnOrderShipToName}}</td>                
+                <td>{{item.returnOrderShippingMode}}</td>                          
+                <td>{{item.returnOrderItemQuantityReturned}}</td>                                        
+                <td>{{item.returnOrderItemCustomerQuantityReturned}}</td>                       
+                <td>{{item.returnOrderItemQuantityReceived}}</td>                                        
+                <td>{{item.returnOrderItemCustomerQuantityReceived}}</td>      
+                <td style="text-align: center;"><input type="text" [(ngModel)]="item.returnOrderItemQuantityReceived01"></td>              
+                <td style="text-align: center;"><input type="text" [(ngModel)]="item.returnOrderItemCustomerQuantityReceived01"></td>
+            </tr>
+        </tbody>
+        
+    </table>
+   
+</div>
+<hr>
+<div class="row">
+    <div class="col-12 text-right">
+        <button class="btn btn-primary" type="button" (click)="saveProductReturnRecieve()"><em class="fa fa-save" ></em> Save</button>
+        <button class="btn btn-default" type="button" (click)="canelProductReturnRecieve()"><em class="fa fa-remove"  ></em> Cancel</button>
+    </div>
+</div>

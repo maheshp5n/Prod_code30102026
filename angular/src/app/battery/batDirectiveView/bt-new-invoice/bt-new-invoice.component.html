@@ -1,0 +1,95 @@
+
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    
+
+    <div class="panel-heading">
+        <span class="text-center" style="font-weight: bold"> Information</span>
+    </div>
+    <div class="panel-body">
+        <div>
+    
+        <div class="row">
+            <div class="col-md-4 col-sm-4 form-group required">
+                <div class="control-label">
+                    Vendor Invoice Number 
+                </div>
+                <input type="text" class="form-control"name="venInvNumb"[(ngModel)]="venReq.vendorInvoiceNumber">&nbsp;
+              
+            </div>
+            <div class="col-md-4 col-sm-4 form-group required ">
+                <div class="control-label">
+                    Vendor Invoice Date
+                </div>
+                <input  class="form-control"onkeydown="return false" [(ngModel)]="venReq.vendorInvoiceDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                  name="venInvDate"  [maxDate]="today" [dateCustomClasses]="dateCustomClasses" placeholder="Pick Date" autocomplete="off">&nbsp;
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+            <div class="col-md-4 col-sm-4  form-group required" [formGroup]="uploadForm2">
+                <div class="control-label">
+                    Vendor Invoice Copy
+                </div>
+            
+                <input multiple type="file" (change)="onFileSelect($event)" name="profile" id="getFile"
+                    accept="application/pdf" />
+                  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required ">
+                <div class="control-label">
+                WCC Number
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-sm-10">
+                        <ng-select [items]="wccpendingList" bindLabel="wccManualId" bindValue="wccId" name="wccid" [(ngModel)]="venReq.wccId"  placeholder="Search WCC Number..." appendTo="body">
+                            <ng-template ng-label-tmp let-item="item">
+                                <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                                  /> {{item.wccManualId}}
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <img height="15" alt="" width="15" src='/assets/images/contact_120.png'
+                                   > {{item.wccManualId}} 
+                            </ng-template>
+                        </ng-select>               
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                Remarks
+                </div>
+                
+                <textarea class="form-control" name="remarks" [(ngModel)]="venReq.remarks"></textarea>
+            </div>
+        </div>
+        </div>
+    
+    </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+    <form (ngSubmit)="onSubmit()">
+    <div class="col-md-12 text-right">
+        <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+            Cancel</button>&nbsp;
+        <button type="submit"class="btn btn-primary"><i class="fa fa-save"></i>
+            Save
+        </button>
+    </div>
+</form>
+</div>
+
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message!='Updated Successfully'"> &nbsp;{{message}}!</strong>
+        <strong *ngIf="message=='Updated Successfully'">&nbsp;{{message}} !</strong>
+
+    </div>
+</div>

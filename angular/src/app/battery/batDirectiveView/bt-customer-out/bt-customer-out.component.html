@@ -1,0 +1,83 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    BRC Case No.
+                </div>
+                <input type="text" class="form-control" value="{{outInventoryReq.inId }}" [(ngModel)]="brcCaseNumber"
+                    disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Dispatched Date
+                </div>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control" [minDate]="today"
+                    autocomplete="off" [(ngModel)]="outInventoryReq.actualOutDate">
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Exicom Documentation No.
+                </div>
+                <input type="text" rows="3" class="form-control" [(ngModel)]="outInventoryReq.outLrDocNumber">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Courier Partner
+                </div>
+                <select type="text" rows="3" class="form-control" [(ngModel)]="outInventoryReq.outCourierPartner">
+                    <option disabled value="0">--Select--</option>
+                    <option *ngFor="let item of courierPartner">{{item}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Exicom Delivery Challan No.
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="outInventoryReq.outdeleveryChallanNumber">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    GRN No.
+                </div>
+                <input type="text" rows="3" class="form-control" [(ngModel)]="outInventoryReq.outGrnNumber">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group ">
+                <div class="control-label">
+                    Out GRN Date
+                </div>
+                <input type="text" bsDatepicker [dateCustomClasses]="dateCustomClasses" onkeydown="return false"
+                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD'}" class="form-control" [minDate]="today"
+                    autocomplete="off" [(ngModel)]="outInventoryReq.outGrnDate">
+                <span class="fa fa-calendar errspan"></span>
+            </div>        
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    E-way Bill No.
+                </div>
+                <input type="text" rows="3" class="form-control" [(ngModel)]="outInventoryReq.trackingNumber">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+            </div>
+            <div class="col-md-6 col-sm-6 text-right" style="margin-top: 20px;" >
+                <button type="button" class="btn btn-default" (click)="cancelCustomerInventoryOut()"><i
+                        class="fa fa-remove"></i> Cancel</button>&nbsp;
+                <button type="button" class="btn btn-primary" (click)="saveCustomerInventoryOut()"><i
+                        class="fa fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>

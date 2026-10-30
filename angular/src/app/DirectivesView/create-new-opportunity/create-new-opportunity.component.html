@@ -1,0 +1,206 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Information</strong>
+    </div>
+    <div class="panel-body">
+        <!-- Ankur -->
+        <div class="row" *ngIf="_isEditMode==true">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Opportunity Name
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="newOpportunity.oppertunityNumber" disabled>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Case
+                </div>
+                <!-- <ng-select *ngIf="caseForList" [items]="caseForList" [(ngModel)]="newOpportunity.caseId"
+                    bindLabel="caseManualId" bindValue="caseId" placeholder="Search Case...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/case_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.caseManualId}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/case_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.caseManualId}}
+                    </ng-template>
+                </ng-select> -->
+                <input [(ngModel)]="newOpportunity.caseManualId" type="text" class="form-control" placeholder=""
+                    disabled>
+            </div>
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Account Name
+                </div>
+                <!-- <ng-select *ngIf="accountForList" [items]="accountForList" [(ngModel)]="newOpportunity.accountId"
+                    bindLabel="accountName" bindValue="sapAccountNumber" placeholder="Search Accounts...">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/account_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.accountName}}
+                    </ng-template>
+                </ng-select> -->
+                <input [(ngModel)]="newOpportunity.accountName" type="text" class="form-control" placeholder=""
+                    disabled>
+
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Type
+                </div>
+                <select class="form-control" [(ngModel)]="newOpportunity.oppertunityTypeId">
+                    <option value='7' disabled>--select--</option>
+                    <option *ngFor="let o of typeForList;" [ngValue]="o.oppertunityTypeId">
+                        {{o.oppertunityTypeName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Stage
+                </div>
+                <select class="form-control" [(ngModel)]="newOpportunity.oppertunityStageId">
+                    <!-- <option value='0' disabled>--select--</option> -->
+                    <option *ngFor="let o of stageForList;" [ngValue]="o.oppertunityStageId">
+                        {{o.oppertunityStageName}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                    Forecast Category
+                </div>
+                <select class="form-control" [(ngModel)]="newOpportunity.forcastCategoryId">
+                    <!-- <option value='0' disabled>--select--</option> -->
+                    <option *ngFor="let o of forecastCategoryForList;" [ngValue]="o.oppertunityForecastCategoryId">
+                        {{o.oppertunityForecastCategoryName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Probability(%)
+                </div>
+                <input [(ngModel)]="newOpportunity.probability" type="text" class="form-control" placeholder="">
+            </div>
+            <div class="col-md-6 col-sm-6 form-group" style="display: none;">
+                <div class="control-label">
+                    Amount
+                </div>
+                <input [(ngModel)]="newOpportunity.ammount" class="form-control">
+            </div>
+        </div>
+
+        <div class="row" style="display: none;">
+            <div class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Close Date
+                </div>
+                <input [(ngModel)]="newOpportunity.closeDate" class="form-control" bsDatepicker
+                    [dateCustomClasses]="dateCustomClasses" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                    [maxDate]="today" autocomplete="off">
+
+                <span class="fa fa-calendar errspan"></span>
+            </div>
+
+        </div>
+
+        <div class="row" *ngIf="_isEditMode==true" style="display: none;">
+            <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Site Name
+                </div>
+                <input [(ngModel)]="newOpportunity.siteName" class="form-control" rows="3" style="display: none;">
+            </div>
+            <div *ngIf="_isEditMode==true" class="col-md-6 col-sm-6 form-group">
+                <div class="control-label">
+                    Expected Revenue
+                </div>
+                <input [(ngModel)]="newOpportunity.expectedRevenue" class="form-control" rows="3">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 text-right">
+        <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i class="fa fa-remove"></i>&nbsp;
+            Cancel</button>&nbsp;
+        <button type="button" (click)="createOpportunity()" class="btn btn-sm btn-primary"><i
+                class="fa fa-save"></i>&nbsp;
+            Save</button>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createAcountModel="bs-modal" (onShow)="isAccountOpen=true"
+    (onHide)="isAccountOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelData2()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <app-createaccount *ngIf="isAccountOpen" [isEditMode]="isEditModeAcount"
+                    [editAccountData]="createAccount" (onAccountCreated)="onAccountCreated($event)">
+                </app-createaccount>
+                <!-- (onCancle)="cancelDataAccount()" -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #createCaseModel="bs-modal" (onShow)="isCaseOpen=true" (onHide)="isCaseOpen=false"
+    [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">New Case</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDatacase()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px;overflow: auto;">
+                <app-createcase *ngIf="isCaseOpen" [isEditMode]="isEditModeCase" [editEntityData]="res"
+                    (onCancle)="cancelDatacase()"></app-createcase>
+                <!-- (onCaseCreated)="onCaseCreated($event)" -->
+            </div>
+            <div class="modal-footer">
+                <div class="custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+                    <label class="custom-control-label" for="defaultChecked2">Assign using assignment rule</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong *ngIf="message=='Submitted Successfully'">Created Opportunity ( <a href="#"
+                routerLink="/Opportunities/{{tempOppoId}}">{{tempOppoName}}</a>
+            )
+            successfully !</strong>
+        <strong *ngIf="message!='Submitted Successfully'">{{message}}</strong>
+    </div>
+</div>

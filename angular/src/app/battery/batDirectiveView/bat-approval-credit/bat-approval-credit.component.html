@@ -1,0 +1,74 @@
+
+<div class="card card-body">
+    <div class="card">
+        <div class="card-header">
+            General Information
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <label>Object</label>
+                    <select class="form-control" [(ngModel)]="approvalObject.object_class_name">
+                        <option *ngFor="let o of objList;" [ngValue]="o.object_name">
+                            {{o.object_lable_name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label>Name</label>
+                    <input type="text" [(ngModel)]="approvalObject.object_name" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label>
+                        Initiar
+                    </label>
+                    <div class="row">
+                        <div class="col-4">
+                            <select class="form-control" [(ngModel)]="approvalObject.rltype" (change)="onChangeMode($event)">
+                                <option value="00" selected>--SELECT--</option>
+                                <option value="ROLE">
+                                            BY ROLE
+                                </option>
+                                <option value="USER">BY USER</option>
+                            </select>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" [(ngModel)]="approvalObject.init_submitters">
+                                <option *ngFor="let o of initList" [ngValue]="o.initvalue">
+                                    {{o.initlavel}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label>Stapes </label>
+                    <input type="number" class="form-control" [(ngModel)]="approvalObject.stapes">
+                </div>
+                <div class="col-9">
+                    <label>Description</label>
+                    <input type="text" class="form-control" [(ngModel)]="approvalObject.description">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Action
+        </div>
+        <div class="card-body">
+            <small>Object obj(crosponding entity),String dmlCommand,LoginUser user,javax.persistence.EntityManager em,BtApprovalStapes stape</small>
+            <textarea class="form-control" rows="10" cols="10" [(ngModel)]="approvalObject.action_cat"></textarea>
+        </div>
+    </div>
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-12 text-right">
+                <button type="button" class="btn btn-default" (click)="cancelButtonClicked()"><em class="fa fa-remove"></em> Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="saveDetails()"><em class="fa fa-save"></em> Save</button>
+            </div>
+        </div>
+    </div>
+</div>

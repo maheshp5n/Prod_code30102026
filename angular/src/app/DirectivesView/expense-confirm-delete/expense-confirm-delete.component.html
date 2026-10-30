@@ -1,0 +1,30 @@
+<div class="panel">
+    <div class="panel-body" style="max-height: 70vh;overflow: auto;">
+        <div style="text-align: center">
+            <strong> {{approvalmessage}}
+              <!-- Do you want to Recieve Document ?  -->
+
+            </strong>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-12 col-sm-12 text-right">
+                <button type="button" class="btn btn-sm btn-primary" (click)="noRequestForSure()"><i class="fa fa-remove"></i>&nbsp;
+                  No</button>&nbsp;
+            
+                <button type="button" (click)="yesRequestFor()" class="btn btn-sm btn-danger"><i class="fa fa-save"></i>&nbsp;
+                  Yes</button>
+              </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product">
+
+    <div [ngClass]="alertmeta.ngClass" style="width:40%; text-align: center;margin:auto;">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{alertmeta.message}}</strong>
+    </div>
+  </div>

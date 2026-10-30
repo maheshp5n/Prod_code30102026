@@ -1,0 +1,57 @@
+<div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">General Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group required">
+        <div class="control-label">
+          Case
+        </div>
+        <div class="row">
+          <div class="col-md-10 col-sm-10">
+            <ng-select *ngIf="caseList" [items]="caseList" bindLabel="caseManualId" bindValue="caseId"
+              placeholder="Search Cases...">
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                  style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img height="15" alt="" width="15" src='/assets/images/caseImg.png'
+                  style="background-color: rgb(246, 232, 105);" /> {{item.caseManualId}}
+              </ng-template>
+            </ng-select>
+          </div>
+          <!-- <div class="col-md-2 col-sm-2">
+            <span class="input-group-append">
+              <div><i [ngClass]="faPlus" *ngIf="rights('CaseDetails','create')" class="border-left-0"
+                  (click)="addNewCase()"></i></div>
+            </span>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<button class="btn-primary" (click)="fsr()">fsr</button>
+
+<div class="modal fade" bsModal #createfsrserviceModel="bs-modal" (onShow)="isFsrOpen=true" (onHide)="isFsrOpen=false"
+  [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="create-new-product">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createfsrserviceModel.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-bt-create-fsr-service *ngIf="isFsrOpen">
+        </app-bt-create-fsr-service>
+      </div>
+    </div>
+  </div>
+</div>
+Working

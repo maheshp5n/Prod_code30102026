@@ -1,0 +1,675 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div  class="col-sm-12 col-md-12">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:32px;">
+                          <img alt="Contacts" src="assets/images/caseImg.png"
+                            style="height: 32px;width:32px;background-color: rgb(91, 235, 191);border-radius: 1mm;"
+                            title="Contacts">
+                          <!-- <img _ngcontent-c5="" alt="Dashboard" src="assets/images/contact_120.png"
+                            style="height: 32px;width:32px;background-color: rgb(91, 235, 191);border-radius: 1mm;" title="Account"> -->
+                        </td>
+                        <td style="padding-left:5px;">{{pageName}}</td>
+                      </tr>
+                </table><br>
+                <div *ngIf="prliAdvance">
+
+               
+                <div class="row" >
+                    <div class="col-md-4">
+            
+                        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="advancesearchPRitems.name">
+                      </div>
+                       <div class="col-md-4">
+        
+                        <input type="text" class="form-control" placeholder="Product" [(ngModel)]="advancesearchPRitems.product">
+                      </div>
+                      <div class="col-md-4">
+        
+                        <input type="text" class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPRitems.productDescription">
+                      </div>
+                    
+                </div> <br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-outline-info btn-md"  (click)="resetpreqitem()"> Reset</button> &nbsp;
+                          <button type="button" class="btn btn-outline-info btn-md"(click)="searchPReqitems()" >
+                            <em class="fa fa-search"></em> Search</button>
+                      </div>
+                </div> </div>
+                <div *ngIf="PTofPRAdvance">
+                    <div class="row">
+                        <div class="col-md-4">
+                
+                            <input type="text" class="form-control" placeholder="Product Transfer Item" [(ngModel)]="advancesearchPT.name">
+                          </div>
+                           <div class="col-md-4">
+            
+                            <input type="text" class="form-control" placeholder="Product" [(ngModel)]="advancesearchPT.product">
+                          </div>
+                          <div class="col-md-4">
+            
+                            <input type="text" class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPT.productDescription">
+                          </div>
+                        
+                        
+                    </div> <br>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-outline-info btn-md" (click)="resetPT()"> Reset</button> &nbsp;
+                          <button type="button" class="btn btn-outline-info btn-md"(click)="searchPT()" >
+                            <em class="fa fa-search"></em> Search</button>
+                      </div>
+                  </div>
+                </div>
+                <div *ngIf="PTLineItmsAdvanc">
+                    <div class="row">
+                        <div class="col-md-3">
+                
+                            <input type="text" class="form-control" placeholder="Serial Number" [(ngModel)]="advancesearchPTitems.serialNumber">
+                          </div>
+                           <div class="col-md-3">
+            
+                            <input type="text" class="form-control" placeholder="Part Code" [(ngModel)]="advancesearchPTitems.partcode">
+                          </div>
+                          <div class="col-md-3">
+            
+                            <input type="text" class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPTitems.productDescription">
+                          </div>
+                          <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Product Type" [(ngModel)]="advancesearchPTitems.productType">
+                          </div>
+                        
+                    </div> <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-outline-info btn-md"  (click)="resetPTItems()"> Reset</button> &nbsp;
+                            <button type="button" class="btn btn-outline-info btn-md" (click)="searchPTitems()" >
+                                <em class="fa fa-search"></em> Search</button>
+                        </div>
+                    </div>
+                </div>
+                     
+                <div *ngIf="SOItmsAdv">
+                    <div class="row">
+                        <div class="col-md-3">
+                
+                            <input type="text" class="form-control" placeholder="Serial Number" [(ngModel)]="advancesearchSOItem.serialNumber">
+                          </div>
+                           <div class="col-md-3">
+            
+                            <input type="text" class="form-control" placeholder="Part Code" [(ngModel)]="advancesearchSOItem.productPartcode">
+                          </div>
+                          <div class="col-md-3">
+            
+                            <input type="text" class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchSOItem.productDescription">
+                          </div>
+                          <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Assigned To" [(ngModel)]="advancesearchSOItem.assignedTo">
+                          </div>
+                        
+                    </div> <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Lot No" [(ngModel)]="advancesearchSOItem.lotNo">
+                        </div>
+                        <div> 
+                             <input type="text" class="form-control" placeholder="Remarks" [(ngModel)]="advancesearchSOItem.assignedTo">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="control-label">
+                                Customer Inventory
+                              </div>
+                            <input type="checkbox"  class="largerCheckbox" placeholder="Customer Inventory" [(ngModel)]="advancesearchSOItem.customerInventory">
+                          </div>
+                           <div class="col-md-3">
+                            <div class="control-label">
+                              Received
+                              </div>
+                            <input  type="checkbox"  class="largerCheckbox" placeholder="Received" [(ngModel)]="advancesearchSOItem.received">
+                          </div>
+                         
+                    </div> <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="control-label">
+                              Not Received
+                            </div>
+                          <input type="checkbox" class="largerCheckbox"  placeholder="Not Received" [(ngModel)]="advancesearchSOItem.notReceived">
+                        </div>
+                        <div class="col-md-3">
+                          <div class="control-label">
+                             Inhouse Inventory
+                            </div>
+                          <input type="checkbox"  class="largerCheckbox" [(ngModel)]="advancesearchSOItem.inhouseInventory">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-outline-info btn-md"  (click)="resetSOItems()"> Reset</button> &nbsp;
+                            <button type="button" class="btn btn-outline-info btn-md" (click)="searchSOItems()" >
+                                <em class="fa fa-search"></em> Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="ROLineItemsAdv">
+                    <div class="row">
+                        <div class="col-md-3">
+                         
+                            <input type="text"  class="form-control" placeholder="RO Line Item ID" [(ngModel)]="advancesearch.returnOrderLineItemManualId">
+                          </div>
+                          <div class="col-md-3">
+                         
+                            <input type="text"  class="form-control" placeholder="Part Code" [(ngModel)]="advancesearch.productPartcode">
+                          </div>
+                          <div class="col-md-3">
+                         
+                            <input type="text"  class="form-control" placeholder="Description" [(ngModel)]="advancesearch.productDescription">
+                          </div>
+                          <div class="col-md-3">
+                         
+                            <input type="text"  class="form-control" placeholder="Serial Number" [(ngModel)]="advancesearch.serialNumber">
+                          </div>
+                       
+                    </div> <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-outline-info btn-md"  (click)="resetROItems()"> Reset</button> &nbsp;
+                            <button type="button" class="btn btn-outline-info btn-md" (click)="searchROItems()" >
+                                <em class="fa fa-search"></em> Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="SORItemAdv">
+                    <div class="row">
+                        <div class="col-md-4">
+                        
+                          <input type="text" class="form-control" [(ngModel)]="advancesearchSORItm.serialNumber" placeholder="Serial Number">
+                        </div>
+                        <div class="col-md-4">
+                          <input type="text" class="form-control" [(ngModel)]="advancesearchSORItm.productPartcode" placeholder="Product Part Code">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text"class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchSORItm.productDescription">
+                            
+                          </div>
+                      
+                    
+                    </div><br>
+                      <div class="row">
+                          <div class="col-md-3">
+                            <div class="control-label">
+                                Inhouse Inventory
+                              </div>
+                         <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearchSORItm.inhouseInventory">
+                         
+                          </div>
+                          <div class="col-md-3">
+                            <div class="control-label">
+                              Customer Inventory
+                            </div>
+                            <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearchSORItm.customerInventory">
+                          </div>
+                          <div class="col-md-3">
+                            <div class="control-label">
+                              Received
+                            </div>
+                            <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearchSORItm.received">
+                          </div>
+                          <div class="col-md-3">
+                              <div class="control-label">
+                                  Not Received
+                                </div>
+                           <input type="checkbox" class="largerCheckbox" [(ngModel)]="advancesearchSORItm.notReceived">
+                           
+                          </div>
+                         
+                     </div> <br>
+                      <div class="row">
+                        
+                        <div class="col-md-3">
+                           <button type="button" class="btn btn-outline-info btn-md" (click)="searchSROItems()"><em
+                                class="fa fa-search"></em>
+                              Search</button>
+                              <button type="button" class="btn btn-outline-info btn-md" (click)="resetSROItems()">
+                              Reset</button>
+                          </div>
+                      </div>
+                </div>
+                <div *ngIf="PTItemAdv">
+                    <div class="row">
+                        <div class="col-md-3">
+                        
+                          <input type="text" class="form-control" [(ngModel)]="advancesearchPTItm.manualId" placeholder="Product Transfer Item">
+                        </div>
+                        <div class="col-md-3">
+                          <input type="text" class="form-control" [(ngModel)]="advancesearchPTItm.sourceLocation" placeholder="Source Warehouse">
+                        </div>
+                        <div class="col-md-3">
+                          <input type="text" class="form-control" [(ngModel)]="advancesearchPTItm.destinationLocation" placeholder="Destination Warehouse.">
+                        </div>
+                        <div class="col-md-3">
+                    
+                          <input type="text" class="form-control" [(ngModel)]="advancesearchPTItm.partcode" placeholder=" Part Code">
+                        </div>
+                
+                      </div><br>
+                      <div class="row">
+                          <div class="col-md-3">
+                            <input type="text"class="form-control" placeholder="Product Description" [(ngModel)]="advancesearchPTItm.productDescription">
+                            
+                          </div>
+                        <div class="col-md-3">
+                           <button type="button" class="btn btn-outline-info btn-md" (click)="searchPTItm()"><em
+                                class="fa fa-search"></em>
+                              Search</button>
+                              <button type="button" class="btn btn-outline-info btn-md" (click)="resetPTItm()">
+                              Reset</button>
+                          </div>
+                      </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-body" style="padding:0px;">
+    <div class="wrap">
+        <table class="head">
+            <thead style="background-color:rgb(248, 245, 245)">
+                <th *ngFor="let col of tbalehead" (click)="getSortOrder(col.id)" title="{{col.name}}" >
+                    <div class="row">
+                        <div class="col sm-10">{{col.name}}</div>
+                        <!-- <div class="col sm-2"><i [ngClass]="col.icon"></i></div> -->
+                       </div>
+                
+              </th>
+              <th class="text-left" style="width: 50px;">Action</th>
+              
+              </thead>
+        </table>
+     <div class="inner_table"  *ngIf="AllDataList.content.length>0"style="background-color: white;">
+        <table>
+          
+            <tbody *ngIf="pageName=='Case'">
+              <tr  *ngFor="let case of casedetails.content ;let i=index">
+                <td  data-line="S.No.">{{serialNumber+i+1}}.</td>
+                <td  data-line="Case ID"><a [routerLink]="['/cases',case.caseId]">{{case.caseManualId}}</a></td>
+                <td  data-line="Type">{{case.caseTypeName}}</td>
+                <td data-line="Case Reason">{{case.caseReasonName}}</td>
+                <td data-line="Status">{{case.caseStatusName}}</td>
+
+              </tr>
+              <!--  -->
+            
+              <!--  -->
+
+            </tbody>
+            <tbody *ngIf="pageName=='Product Request Line Items'">
+              <tr *ngFor="let _item of pageProductRequestItems.content;let j=index;">
+                <td>{{serialNumber+j+1}}.</td>
+                <td> <a [routerLink]="['/productrequest/lineItems',_item.lpRequestItemId]">
+                        {{_item.lpRequestItemManualId}}</a></td>
+                <td>
+                    <table>
+                        <tr *ngIf="_item.edit&&logedInUser.roleGroupAndAccount.roleGroup=='SCH'">
+                            <td style="vertical-align: middle;">
+                                <ng-select [items]="products" bindLabel="productPartCode" bindValue="productPartCode" [(ngModel)]="_item.partCode" >
+
+
+                                    <ng-template ng-label-tmp let-item="item">
+                                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                            style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}} - {{item.productDescription}}
+                                    </ng-template>
+                                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                            style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}} - {{item.productDescription}}
+                                    </ng-template>
+
+                                </ng-select>
+
+                            </td>
+                            <td>
+                                <button type="button" class="btn" (click)="changePartCode(_item.lpRequestItemId,_item.partCode)"><em class="tik-mark"></em> Change</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn" (click)="_item.edit=!_item.edit;cancel()"><em class="fa fa-remove"></em> Cancel</button> 
+                            </td>
+                        </tr>
+                        <tr  *ngIf="!_item.edit">
+                            <td>
+                                <a *ngIf="!_item.edit" [routerLink]="['/products',_item.partCode]">{{_item.partCode}}</a>
+                            </td>
+                            <td *ngIf="logedInUser.roleGroupAndAccount.roleGroup=='SCH'">
+                                <button type="button" class="btn" (click)="_item.edit=!_item.edit"><em class="fa fa-pencil"></em> </button> 
+                            </td>
+                        </tr>
+                    </table>
+                
+                  
+                    </td>
+                <td>{{_item.partDescription}}</td>
+                <td >{{_item.quantityRequired}}</td>
+                <td style="width: 50px;" >
+                    <!-- change on 24 feb to remove this button -->
+                    <!-- <button type="button" (click)="disableLineItem(_item.lpRequestItemId)" *ngIf="locationProductRequestResponse.status !='Draft'&&!_item.disabled" class="btn btn-sm btn-outline-danger">
+                        Disable   
+                    </button>
+                    <span *ngIf="_item.disabled"> <em class="fa fa-remove"></em> Disabled</span> -->
+                   
+                    <!--  -->
+                    <button type="button"  *ngIf="issSortclose && _item.lineItemStatus!='Short Closed'&&logedInUser.locationId==locationProductRequestResponse.sourceLocationId" (click)="onshortCloseItem(_item)"  class="btn btn-sm btn-info">
+                        Short Closed
+                    </button>
+                    <!-- <button type="button" *ngIf="locationProductRequestResponse.status=='Draft'"
+                        class="btn btn-sm btn-danger" (click)="deleteItem(_item.lpRequestItemId)"><em
+                            class="fa fa-remove"></em> </button> -->
+                </td>
+            </tr>
+
+            </tbody>
+            <tbody *ngIf="pageName=='Product Transfer'">
+                <tr *ngFor="let d of pageProductTranferDetails.content;let i=index;">
+                    <td>{{serialNumber+i+1}}.</td>
+                    <td>{{d.locationProductTransferItemManualId}}</td>
+                    <td>
+                        <a [routerLink]="['/producttransfer',d.locationProductTransferItemId]"
+                            [routerLinkActive]="'active'">{{d.locationProductTransferManualId}}</a>
+
+                    </td>
+                    <td>
+                        <a [routerLink]="['/products',d.productPartCode]"
+                            [routerLinkActive]="'active'">{{d.productPartCode}}</a>
+
+                    </td>
+                    <td>
+                        {{d.partDescription}}
+                    </td>
+                    <td>
+                        {{d.quantitySent}}
+                    </td>
+                    <td>
+                        {{d.quantityReceived}}
+                    </td>
+                    <td>
+                        <input type="checkbox" [(ngModel)]="d.receivedAll" disabled>
+                    </td>
+                </tr>
+            </tbody>
+            <!-- return Order below -->
+            <tbody *ngIf="pageName=='Return Order'">
+                <tr *ngFor="let litem of d.content;let i=index;">
+                    <td>
+                        {{serialNumber+i+1}}.
+                    </td>
+                    <td>
+                        <a
+                            [routerLink]="['/productreturnorder/lineItem',litem.returnOrderLineItemId]">{{litem.returnOrderLineItemManualId}}</a>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/products',litem.returnOrderProductPartcode]">{{litem.returnOrderProductPartcode}}</a>
+
+                    </td>
+                    <td>
+                        {{litem.returnOrderProductDescription}}
+                    </td>
+                    <td>
+                        {{litem.returnOrderProductSerialNumber}}
+                    </td>
+                    <td>
+                        <input type="checkbox" [(ngModel)]="litem.received" disabled>
+                    </td>
+                    <td>
+                        <button type="button" (click)="removeItem(litem.returnOrderLineItemId)"
+                            class="btn btn-sm btn-danger"><em class="fa fa-remove"></em> </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="pageName=='Product Tranfer Line Items'">
+                <tr *ngFor="let item of locationProductTransferLineItems;let i=index;">
+                    <td>{{i+1}}.</td>
+                    <td>
+                        <a
+                            [routerLink]="['/producttransferLineItemDetail',item.productTransferItemId]">{{item.productLineItemSerialNumber}}</a>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/products',item.productPartCode]">{{item.productPartCode}}</a>
+                    </td>
+                    <td>
+                        {{item.productPartDescription}}
+                    </td>
+                    <td>
+                        {{item.productType}}
+                    </td>
+                    <td>
+                        <input type="checkbox" disabled [(ngModel)]="item.received">
+                    </td>
+                </tr>
+            </tbody>
+            <!-- service Order Line items -->
+            <tbody *ngIf="pageName=='Service Order Items'">
+                <tr *ngFor="let item of items;let i=index;">
+                    <!-- <td><input type="checkbox" [checked]="item.checked" [(ngModel)]="item.checked"> </td> -->
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        {{item.itemSerialNumber}}
+                    </td>
+                    <td>
+                        {{item.partCode}}
+                    </td>
+                    <td>
+                        {{item.productDescription}}
+                    </td>
+                    <td>
+                        {{item.state}}
+                    </td>
+                    <td>
+                        <input type="checkbox" [checked]="item.isCustomerInventory" disabled>
+                    </td>
+                    <td>
+                        <input type="checkbox" [checked]="item.isReceived" disabled>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="pageName=='Price Book Entries'">
+                <tr *ngFor="let ent of entrieTable.content; let i = index; ">
+                    <td data-line="S.No" >{{serialNumber+i+1}}.</td>
+                    <td data-line="Part Code"><a href="#"
+                            routerLink="/pricebookproducts/{{ent.id}}">{{ent.partCode}}</a>
+                    </td>
+                    <td data-line="List Price" >{{ent.listPrice}}</td>
+                    <td data-line="Product Type">{{ent.productType}}</td>
+                    <td data-line="Description">{{ent.description}}</td>
+                    <td data-line="Active"> <input type="checkbox" [(ngModel)]="ent.active"
+                            value="ent.active" disabled></td>
+                    <td data-line="Action" class="mhide" >
+                        <div class="btn-group" dropdown>
+                            <button dropdownToggle type="button"
+                                class="fa fa-sort-down"></button>
+
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                aria-labelledby="button-disabled-item">
+                                <li role="menuitem">
+                                    <a class="dropdown-item"
+                                        (click)="editpriceEntriesModelshow(ent)">Edit </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <div style="height:65px;">
+
+                </div>
+            </tbody>
+            <!-- PRC -->
+            <tbody *ngIf="pageName=='Pre Registration Case'">
+                <tr *ngFor="let pr of prcdata.content ;let i=index">
+                    <td  data-line="S.No.">{{i+1}}.</td>
+                    <td data-line="PRC ID"><a [routerLink]="['/prc',pr.prcCaseId]">{{pr.prcCaseManualId}}</a></td>
+                    <td  data-line="Type">{{pr.caseTypeName}}</td>
+                    <td data-line="Case Reason">{{pr.caseReasonName}}</td>
+                    <td  data-line="Action">{{pr.lastAction}}</td>
+                    <td  data-line="case"> <a href="" routerLink="/case/{{pr.caseId}}"> {{pr.caseManualId}}</a></td>
+
+                  </tr>
+            </tbody>
+            <!-- asset prc -->
+            <tbody *ngIf="isassetPRC">
+                <tr *ngFor="let pr of astprcdata.content ;let i=index">
+                    <td  data-line="S.No.">{{i+1}}.</td>
+                    <td data-line="PRC ID"><a [routerLink]="['/prc',pr.prcCaseId]">{{pr.prcCaseManualId}}</a></td>
+                    <td  data-line="Type">{{pr.caseTypeName}}</td>
+                    <td data-line="Case Reason">{{pr.caseReasonName}}</td>
+                    <td  data-line="Action">{{pr.lastAction}}</td>
+                    <td  data-line="case"> <a href="" routerLink="/case/{{pr.caseId}}"> {{pr.caseManualId}}</a></td>
+
+                  </tr>
+            </tbody>
+            <tbody *ngIf="pageName=='Service Order Return Items'">
+                <tr *ngFor="let case of soritems.content ;let i=index">
+                    <td class="wrappable mhide" data-line="S.No.">{{i+1}}.</td>
+                    <td class="wrappable" data-line="Service Order"><a [routerLink]="['/serviceorder',case.serviceOrderId]">{{case.serviceOrderManualId}}</a></td>
+                    <td class="wrappable" data-line="Item Serial Number">{{case.itemSerialNumber}}</td>
+                    <td class="wrappable" data-line="product Part Code">{{case.productPartCode}}</td>
+                    <td class="wrappable" data-line="Product Description">{{case.productDescription}}</td>
+                    <td class="wrappable" data-line="Previous Product Final State Name"> {{case.previousProductFinalStateName}}</td>
+                    <td class="wrappable" data-line="Product Final State Name">{{case.finalProductStateName}}</td>
+                  </tr>
+            </tbody>
+            <tbody *ngIf="pageName=='Product Transfer Item'">
+                <tr *ngFor="let item of LPTItems.content;let i=index;">
+                    <td style="text-align: center;">{{i+1}}.</td>
+                        <td>
+                        <a [routerLink]="['/producttransfer/ptitemdetails',item.locationProductTransferItemId]">{{item.locationProductTransferItemManualId}}</a>
+                    </td>
+                    <td>
+                        <a href=""></a>
+                        {{item.locationProductRequestLineItemManualId}}</td>
+                        <td>{{item.productPartCode}}</td>
+                    <td>
+                        
+                        <a [routerLink]="['/location',item.sourceLocationId]"> {{item.sourceLocationName}}</a>
+                       
+                    </td>
+                    <td>
+                        <a [routerLink]="['/location',item.destinationLocationId]">{{item.destinationLocationName}}</a>
+                    </td>
+                    <td>{{item.trackingNumber}}
+                    </td>
+                    <td> <a [routerLink]="['/createuser',item.ownerEmailId]">
+                        {{item.ownerFirstName}}&nbsp;{{item.ownerMiddleName}}&nbsp;{{item.ownerLastName}}
+                    </a>
+                 </td>
+                </tr>
+            </tbody>
+          </table>
+     </div>
+      <div *ngIf="AllDataList.content.length==0">
+        <div class="row">
+           <div class="col-md-4"> </div>
+           <div class="col-md-4"> <p>Data Not Found</p></div>
+           <div class="col-md-4"></div>
+        </div>
+       </div>
+
+    </div>
+    <!-- pagination -->
+    <div class="row">
+        <div class="col-sm-4" style="text-align:left">
+            Showing Page {{AllDataList.number+1}} &nbsp;of&nbsp;{{AllDataList.totalPages}}&nbsp;Total Count={{AllDataList.totalElements}}
+          </div>
+        <div class="col-sm-4" *ngIf="!(AllDataList.first && AllDataList.last)" style="text-align: center" >
+            <a [routerLink]="['/details',objectId,'cmponent',compom]" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          *ngIf="!AllDataList.first"
+                          [queryParams]="{cmponent:colmnsLineItemPR,page:AllDataList.number-1}">
+                          &lt;
+                      </a>
+                      <a [routerLink]="['/details',objectId,'cmponent',compom]" [routerLinkActive]="['active']" class="previous round btn-sm"
+                      [queryParams]="{cmponent:colmnsLineItemPR,page:AllDataList.number}">
+                          {{AllDataList.number+1}}
+                      </a>
+                      <a [routerLink]="['/details',objectId,'cmponent',compom]" [routerLinkActive]="['active']" class="previous round btn-sm"
+                          *ngIf="!AllDataList.last"[queryParams]="{cmponent:colmnsLineItemPR,page:AllDataList.number+1}"
+                          >
+                          &gt;
+                      </a>
+        </div>
+        <div class="col-sm-4" *ngIf="AllDataList.content.length>0" style="text-align: right;">
+            <div class="row">
+             <div class="col-md-6"></div>
+              <div  *ngIf="!(AllDataList.first && AllDataList.last) "  class="col-md-6">
+                <input type="text"[(ngModel)]="pagenumber" placeholder="Enter Page"size="8" autocomplete="off">
+                 <button (click)=jumpPage(pagenumber)>Go</button>
+               </div>
+            </div>
+         </div>
+    </div>
+  
+    <!-- pagination -->
+</div>
+
+<!-- pricebook entries model -->
+<div class="modal fade" bsModal #selectedItemModel="bs-modal" (onShow)="isCaseModelOpen=true"
+    (onHide)="isCaseModelOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-center">{{heading}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="selectedItemModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-addproductlistpricebookntries (onProductUpdated)="onProductUpdated($event)"
+                    [editEntityData]="priceEntrieResponse" [productPrice]="productPrices"
+                    (onCancle)="cancelselectedData()">
+                </app-addproductlistpricebookntries>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <!-- for short close popup -->
+ <div class="modal fade" bsModal #sureModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+ role="dialog" aria-labelledby="create-serviceAppointment">
+ <div  class="modal-dialog modal-md">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h4 id="popupRequestforSA" class="modal-title pull-left"> {{shortcloseHeading}}</h4>
+             <button type="button" class="close pull-right" (click)="sureModelhide()">
+               <span aria-hidden="true">&times;</span>
+           </button>
+          
+         </div>
+         <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+             <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+               <div class="raw">
+               
+                   <p class="text-align center">{{messageShort}}</p>
+                   <!-- <p *ngIf="forPR=='allPR'"> PR </p>
+                   <p *ngIf="forPR!='allPR'"> item </p> -->
+               
+               </div>
+               <div class="row">
+                   <div class="col-md-12 col-sm-12 text-right">
+                       <button type="button" class="btn btn-sm btn-primary" (click)="sureModelhide()"><i class="fa fa-remove"></i>&nbsp;
+                         No</button>&nbsp;
+                   
+                       <button type="button" (click)="yesRequest()" class="btn btn-sm btn-danger"><i class="fa fa-save"></i>&nbsp;
+                         Yes</button>
+                     </div>
+             </div>
+           </div>
+         </div>
+     </div>
+ </div>
+</div>

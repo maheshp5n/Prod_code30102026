@@ -1,0 +1,170 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label>
+                    <strong>
+                        Pending Request for part code change
+                    </strong>                    
+                </label>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+           
+            <div class="col-md-4 text-right">
+                <!-- <button *ngIf="users.roleGroupAndAccount.roleGroup=='SCH'" (click)="newpartcodechangeWindow.show()" class="btn btn-sm btn-outline-primary">Update Partcode</button> -->
+                <button (click)="approvedSelected()" class="btn btn-sm btn-outline-primary">Approve</button>
+            <!--
+                <button (click)="getModrateApprovalModalOpen()" class="btn btn-sm btn-outline-primary"> Moderate</button>
+            -->
+            </div>
+        </div>  <br>
+            <div class="row">
+                <div class="col-4">
+                    <input type="text" class="form-control" [(ngModel)]="search.refid" placeholder="Ref ID">
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" [(ngModel)]="search.partcode" placeholder="Part code">
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" [(ngModel)]="search.serialnumber" placeholder="Serial Number">
+                </div>
+              
+            </div><br>
+            <div class="row">
+                <div class="col-4">
+                    <button type="button" (click)="getSearchResult()" class="btn btn-md btn-outline-primary"><em class="fa fa-search"></em> Search</button>
+                    <button type="button" (click)="reset()" class="btn btn-md btn-outline-primary"> Reset</button>
+                </div>
+            </div>
+    
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 25px;">
+                            <input type="checkbox" [(ngModel)]="global" [checked]="global" (change)="changeGlobal()">
+                        </th>
+                       <th scope="col">
+                           Ref. ID
+                       </th>
+                        <th scope="col">
+                            Date
+                        </th>
+                        <th scope="col">
+                            Service Appointment
+                        </th>
+                        <th scope="col">
+                            Circle
+                        </th>
+                        <th scope="col">
+                            Location
+                        </th>
+                        <th scope="col">
+                            Legal Entity
+                        </th>
+                        <th scope="col">
+                           Consumed Partcode
+                        </th>
+                        <th scope="col">
+                            Description
+                        </th>
+                        <th scope="col">
+                            Consumed Sl.No
+                        </th>
+                        <th scope="col">
+                            Faulty Partcode
+                        </th>
+                        <th scope="col">
+                            Description
+                        </th>
+                        <th scope="col">
+                            Faulty Sl.No
+                        </th>
+                        <th scope="col">
+                            Price difference
+                        </th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data">
+                        <td>
+                            <input *ngIf="item.initiated_by_email_id!=users.emailId" type="checkbox" [(ngModel)]="item.selected" [checked]="item.selected">
+                        </td>
+                        <td>
+                            {{item.manual_id}}
+                        </td>
+                        <td>
+                            {{item.request_date|date:'dd-MMM-yy'}}
+                        </td>
+                        <td>
+                            <a [routerLink]="['/serviceappointment',item.sa_id]" [routerLinkActive]="['active']"> {{item.sa_manual_id}} </a>
+                        </td>
+                        <td>
+                            {{item.circle}}
+                        </td>
+                        <td>
+                            {{item.location_name}}
+                        </td>
+                        <td>
+                            {{item.legal_entity}}
+                        </td>
+                        <td>
+                            {{item.consumed_product_product_part_code}}
+                        </td>
+                        <td>
+                            {{item.consumed_product_description}}
+                        </td>
+                        <td>
+                            {{item.consumed_product_serial_number}}
+                        </td>
+                        <td>
+                            {{item.faulty_product_product_part_code}}
+                        </td>
+                        <td>
+                            {{item.faulty_product_description}}
+                        </td>
+                        <td>
+                            {{item.faulty_product_serial_number}}
+                        </td>
+                        <td>
+                            {{(item.faulty_product_price-item.consumed_product_price)|currency:'INR'}}
+                        </td>
+                        <td>
+                            <button *ngIf="item.initiated_by_email_id!=users.emailId" (click)="selectOneItem(item)" type="button" class="btn btn-sm btn-outline-primary">Moderate</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #modrateApprovalWindow="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label>Moderate Approval</label> <button class="cls-btn" (click)="cancelModreteModal()"><em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body modal-lg modal-xl">
+            <app-partchangemapproval *ngIf="modratedata.open" (cancel)="cancelModreteModal()" [partcodeChangeRequest]="modratedata" (onUpdate)="onModrateChangeDone()"></app-partchangemapproval>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #newpartcodechangeWindow="bs-modal" [config]="{backdrop:'static'}" tabindex="-1" (onShow)="openWindow.newpartcodechange=true" role="dialog">
+    <div class="mpanel">
+        <div class="mpanel-header">
+            <label>Partcode change Request</label>
+            <button (click)="newpartcodechangeWindow.hide()" class="cls-btn"> <em class="fa fa-remove"></em> </button>
+        </div>
+        <div class="mpanel-body msize">
+            <app-partcodechangenew *ngIf="openWindow.newpartcodechange" (onCancel)="newpartcodechangeWindow.hide()" (onSave)="onSaveOfNewworkflow()"></app-partcodechangenew>
+        </div>
+    </div>
+</div>

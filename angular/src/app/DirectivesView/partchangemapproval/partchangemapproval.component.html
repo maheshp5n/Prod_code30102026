@@ -1,0 +1,67 @@
+<!-- <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner> -->
+<div class="mclass">
+
+    <div style="width: 60%;" class="card card-body">
+        <div class="row">
+            <div class="col-6">
+                <label *ngIf="_changeRequest.flow_type=='FLOW_TYPE_SA'">Consumed Part code</label>
+                <label *ngIf="_changeRequest.flow_type!=='FLOW_TYPE_SA'">Faulty Part code</label>
+                <span class="form-control">
+                    {{_changeRequest.consumed_product_product_part_code}}
+                </span>
+            </div>
+            <div class="col-6">
+                <label>
+                    Serial Number
+                </label>
+                <span class="form-control">
+                    {{_changeRequest.consumed_product_serial_number}}
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <label>
+                    Faulty Part code
+                </label>
+                <ng-select *ngIf="productItemList" [items]="productItemList" bindLabel="bothvalues"
+                    bindValue="productPartCode" (search)="searchProducts($event)"
+                    [(ngModel)]="_changeRequest.faulty_product_product_part_code" placeholder="Search Products Item">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" /> {{item.productPartCode}}
+                        <!-- <small>({{item.productDescription}})</small> -->
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" />
+                        {{item.productPartCode}}<small>({{item.productDescription}})</small>
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-6">
+                <label>
+                    Serial Number
+                </label>
+                <input type="text" class="form-control" [(ngModel)]="_changeRequest.faulty_product_serial_number">
+            </div>
+        </div>
+    </div>
+    <div style="width: 40%;" class="card card-body">
+        <textarea class="form-control" rows="7" [(ngModel)]="_changeRequest.remarks" placeholder="Your remarks">
+        </textarea>
+        <hr>
+        <div>
+            <button (click)="saveDetails()" type="button" class="btn btn-sm btn-outline-primary">
+                Submit for Update Inventory in SAP and CRM
+            </button>
+            <button type="button" (click)="onCancel()" class="btn btn-sm btn-outline-primary">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+</div>

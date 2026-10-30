@@ -1,0 +1,276 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="text-center" style="font-weight: bold">Work Order Information</span>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Work Order Number
+        </div>
+        <input *ngIf="_isEditMode==false" [(ngModel)]="createAccount.accountName" type="text" class="form-control">
+
+        <input *ngIf="_isEditMode==true" [(ngModel)]="createAccount.accountName" type="text" class="form-control"
+          disabled>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Owner
+        </div>
+        <input type="text" class="form-control" value="{{loginData.firstName}} {{loginData.lastName}}" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Case
+        </div>
+        <div class="input-group">
+          <input [(ngModel)]="createAccount.accountName" class="form-control" [typeahead]="caseList"
+            typeaheadOptionField="accountName" [isAnimated]="true" (keydown)="onKeydownCase($event)"
+            (typeaheadOnSelect)="onSelectCase($event)" placeholder="Search Cases...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isCaseSelected" (click)="CaseTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+          <span class="input-group-append">
+            <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewCase()"></i></div>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Status
+        </div>
+        <select [(ngModel)]="createAccount.parentAccountSapNumber" class="form-control ">
+          <option value='0'>--Select--</option>
+          <option *ngFor="let o of accountForList" [ngValue]="o.sapAccountNumber">{{o.accountName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Asset
+        </div>
+        <div class="input-group">
+          <input [(ngModel)]="createAccount.accountName" class="form-control" [typeahead]="assetList"
+            typeaheadOptionField="assetsSerialNumber" [isAnimated]="true" (keydown)="onKeydownSerialNo($event)"
+            (typeaheadOnSelect)="onSelectSerialNo($event)" placeholder="Search Assets...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isAssetSelected" (click)="SerialNoTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+          <span class="input-group-append">
+            <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAsset()"></i></div>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <div class="control-label">
+          Priority
+        </div>
+        <select [(ngModel)]="createAccount.catagory" class="form-control">
+          <option value='0'>--None--</option>
+          <option *ngFor="let o of accountList;" [ngValue]="o.sapAccountNumber">{{o.accountName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Account
+        </div>
+        <div class="input-group">
+          <input [(ngModel)]="createAccount.accountName" class="form-control" [typeahead]="accountList"
+            typeaheadOptionField="accountName" [isAnimated]="true" (keydown)="onKeydownParentAccount($event)"
+            (typeaheadOnSelect)="onSelectParentAccount($event)" placeholder="Search Accounts...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isAccountSelected" (click)="ParentAccountTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+          <span class="input-group-append">
+            <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewAccount()"></i></div>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Contact
+        </div>
+        <div class="input-group">
+          <input [(ngModel)]="createAccount.accountName" class="form-control" [typeahead]="cantactList"
+            typeaheadOptionField="accountName" [isAnimated]="true" (keydown)="onKeydownContact($event)"
+            (typeaheadOnSelect)="onSelectContact($event)" placeholder="Search Contacts...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isContactSelected" (click)="CaseTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+          <span class="input-group-append">
+            <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewContact()"></i></div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="_isEditMode==true" class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Case Type
+        </div>
+        <input type="text" class="form-control" disabled>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Case Reason
+        </div>
+        <input type="text" class="form-control" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label" style="font-weight: bold">
+          Problem Reported
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-sm-5 form-group ">
+            <div class="control-label">
+              Available
+            </div>
+            <div class="list-group">
+              <select [(ngModel)]="available" multiple="multiple" class="form-control" size="10">
+                <!-- <option *ngFor="let item of groupsArray" value="item.groupName">{{item.groupName}}</option> -->
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-2 form-group " style="margin-top: 5%">
+            <button class="btn" (click)="moveRight()"><i class="fa fa-caret-right"></i></button><br><br>
+            <button class="btn" (click)="moveLeft()"><i class="fa fa-caret-left"></i></button>
+          </div>
+
+          <div class="col-md-5 col-sm-5 form-group ">
+            <div class="control-label">
+              Chosen
+            </div>
+            <div class="list-group">
+              <select [(ngModel)]="chosen" multiple="multiple" class="form-control" size="10">
+                <!-- <option *ngFor="let item of selectedItems" value="item.groupName">{{item.groupName}}</option> -->
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Other Problem Reported
+        </div>
+        <textarea [(ngModel)]="createAccount.description" class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Service Appointment Count
+        </div>
+        <input type="text" [(ngModel)]="createAccount.description" class="form-control">
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Work Type
+        </div>
+        <div class="input-group">
+          <input [(ngModel)]="createAccount.accountName" class="form-control" [typeahead]="workTypeList"
+            typeaheadOptionField="accountName" [isAnimated]="true" (keydown)="onKeydownWorkType($event)"
+            (typeaheadOnSelect)="onSelectWorkType($event)" placeholder="Search Work types...">
+          <span class="input-group-append">
+            <div><i [ngClass]="isWorkTypeSelected" (click)="WorkTypeTimes()"
+                class="input-group-text bg-transparent border-left-0"></i></div>
+          </span>
+          <span class="input-group-append">
+            <div><i [ngClass]="faPlus" class="border-left-0" (click)="addNewWorktype()"></i></div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="_isEditMode==true" class="panel-heading">
+    <span class="text-center" style="font-weight: bold">System Information</span>
+  </div>
+  <div *ngIf="_isEditMode==true" class="panel-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Created Date
+        </div>
+        <div>
+
+        </div>
+
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Last Modified Date
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Created By
+        </div>
+        <div>
+
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group ">
+        <div class="control-label">
+          Last Modified By
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  // save and close button -->
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button type="button" (click)="cancelData()" class="btn btn-default"><i class="fa fa-remove"></i>
+      Cancel</button>&nbsp;
+    <!-- <button type="button" (click)="postCreateAccountAndNew(sampAccountNumber)" class="btn btn-default"><i class="fa fa-save"></i>
+        Save & New</button>&nbsp; -->
+    <!-- (click)="postCreateAccount(createAccount.sampAccountNumber)" -->
+    <button type="button" class="btn btn-primary"><i class="fa fa-save"></i>
+      Save
+    </button>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+  role="dialog" aria-labelledby="create-account">
+
+  <button type="button" class="close pull-right" aria-label="Close" (click)="popupSuccessModel.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+  <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+    style="width:40%; text-align: center">
+    <strong>{{message}} !</strong>
+  </div>
+</div>

@@ -1,0 +1,558 @@
+  <ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="Asset" src="assets/images/service_appointment_120.png"
+                style="height: 32px;width:32px;background-color: rgb(126,139,228);" title="RMA">
+              </td>
+              <td style="padding-left: 5px;">
+                <span>RMA</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{res.manualId}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;" *ngIf="rights('BtRmaRejectLog','edit') && res.rmaStatus=='Open'">
+          <!-- <input  type="file" name="profile" (change)="onFileSelect($event)"
+          id="getFile" style="display:none"
+          accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" /> -->
+          <!-- <button type="button"  *ngIf="fileUploadList.length==0"
+          class="btn btn-outline-info btn-sm" onclick="document.getElementById('getFile').click()" type='button'><i
+          class="fa fa-upload"></i> Upload RMA</button> -->
+          <button type="button"  (click)="rejectrmamodelshow('edit')"
+          class="btn btn-outline-info btn-sm">Edit Status</button>
+          <button type="button"  (click)="rejectrmamodelshow('reject')"
+          class="btn btn-outline-info btn-sm">Reject</button>
+          <!-- <div class="btn-group"  *ngIf="_cFlag!='f'" style="padding: 10px;">
+             <button *ngIf="rights('BtRMADetails','edit')"class="btn btn-outline-info btn-sm" type="button" (click)="editSSAModel(res)">Edit</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+        <!-- </div> -->
+        <div *ngIf="vDetails"class="card-body" style="margin-top: 0px;padding-top: 0px;">
+          <button type="button" (click)="changeInfoDisplay()" style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;" [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+          <div *ngIf="infoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Name</small></td>
+                    <td>{{res.manualId}}</td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td class="wrappable" style="width:50%"><small>RMA Status</small></td>
+                    <td class="wrappable"> {{res.rmaStatus}}</td>
+                  </tr>
+                 
+                 </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Case Number</small></td>
+                      <td class="wrappable"> <a href="#" routerLink="/bat_case/{{res.caseId}}" activateRout="active">{{res.caseManualId}}</a></td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Service Appointment Number</small></td>
+                      <td class="wrappable"> <a href="#" routerLink="/bat_serviceappointment/{{res.serviceappointmentId}}" activateRout="active">{{res.serviceManualId}}</a></td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Customer Name</small></td>
+                      <td class="wrappable"><a href="#" routerLink="/bat_contacts/{{res.customerId}}" activateRout="active"> {{res.customerName}}</a></td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small> SLA Time</small></td>
+                      <td class="wrappable"> {{res.SLATime}}</td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Site Id</small></td>
+                      <td class="wrappable"><a href="#" routerLink="/bat_site/{{res.siteId}}" activateRout="active"> {{res.siteManualId}} </a></td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Site Name</small></td>
+                      <td class="wrappable"> {{res.siteName}}</td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+
+              <div *ngIf="res.AssetSerialNumber!=null" class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Asset Serial No</small></td>
+                      <td class="wrappable"><a href="#" routerLink="/bat_asset/{{res.AssetId}}" activateRout="active"> {{res.AssetSerialNumber}} </a></td>
+               
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+
+              <div *ngIf="res.AssetSerialNumber==null" class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Asset Serial No</small></td>
+                      <td class="wrappable">{{res.missingAsset}}</td>
+               
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Part Code</small></td>
+                      <td class="wrappable"><a href="#" routerLink="/bat_product/{{res.productID}}" activateRout="active"> {{res.productPartCode}} </a></td>
+                    </tr>
+                   </tbody>
+                </table>
+              </div>
+
+
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Circle</small></td>
+                      <td class="wrappable"><a href="#" routerLink="/bat_circle/{{res.circle_circle_name}}" activateRout="active"> {{res.circle_circle_name}} </a></td>
+                    </tr>
+                   </tbody>
+                </table>
+              </div>
+
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Site Tech Name	</small></td>
+                      <td class="wrappable"> {{res.siteTechName}}</td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Case Type</small></td>
+                      <td class="wrappable"> {{res.caseTypeName}}</td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>BRC Received Date</small></td>
+                      <td class="wrappable"> {{res.BRCReceivedDate | date:'yyyy-MM-dd'}}</td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>RMA Closed Date</small></td>
+                      <td class="wrappable"> {{res.closeDate}}</td>
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>BRC Case</small></td>
+                      <td class="wrappable"><a href="#" routerLink="/bat_brc_case/{{res.BRCId}}" activateRout="active">{{res.BRCManualId}}</a></td>
+                      <!-- <td class="wrappable"><a href="#" routerLink="/bt/api/customerinventoryin/{{res.BRCId}}" activateRout="active"> {{res.BRCManualId}} </a></td> -->
+
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Remarks</small></td>
+                      <td class="wrappable"> {{res.rmaRemarksR}} {{res.rmaRemarksA}}</td>
+                      <!-- <td class="wrappable"><a href="#" routerLink="/bt/api/customerinventoryin/{{res.BRCId}}" activateRout="active"> {{res.BRCManualId}} </a></td> -->
+
+                    </tr>
+                   
+                   </tbody>
+                </table>
+              </div>
+     
+          </div>
+
+
+          <button type="button" (click)="sysInfoDisplay()"
+          style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+          class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+              [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+          <div *ngIf="sysinfoDisplay.open" class="row">
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                      <td class="wrappable"><a
+                        [routerLink]="['/bat_user',res.createdEmailId]">{{res.createdByName}}</a>&nbsp;,&nbsp;{{res.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <table class="table table-sm">
+                <tbody>
+                  <tr >
+                    <td class="wrappable" style="width:50%"><small>Last Modified By</small></td>
+                      <td class="wrappable"><a [routerLink]="['/bat_user',res.modifiedEmailId]">{{res.modifiedByName}}</a>&nbsp;,&nbsp;{{res.lastModifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div *ngIf="!vDetails"class="card-body" style="padding: 0px;margin: 0px;">
+
+            <!-- <div class="card">
+                <div class="card-header">
+                  <table style="width: 100%;">
+                    <tr>
+                      <td style="width: 30px;">
+                        <img src="assets/images/Sites.png"
+                          style="width: 24px;height: 24px;background-color: #f15050"></td>
+                      <td>
+                        <a>&nbsp; <strong>Sites({{totalSite}})</strong> </a>
+                      </td>
+    
+                    </tr>
+                  </table>
+                </div>
+    
+                <div class="card-body"*ngIf="siteList.length>0" style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+                  <div class="table-responsive mobile" style=" background-color: white; height: 100%;">
+                    <table class="table table-sm table-condensed">
+                      <thead style="background-color:rgb(248, 245, 245)">
+                        <tr>
+                          <th class="text-left" title="S.No.">S.No.</th>
+                          <th class="text-left" title="Site ID">Site ID
+                          </th>
+                          <th class="text-left" title="District">District
+                          </th>
+                          <th class="text-left" title="Circle">Circle
+                          </th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ser of siteList;let i = index ">
+                          <td data-line="S.No" class=" mhide wrappable">{{serialNumber+i+1}}.</td>
+                          <td data-line="Site ID" class="wrappable"><a [routerLink]="['/sites',ser.siteId]">
+                              {{ser.siteManualId}}</a></td>
+                          <td data-line="District" class="wrappable"> {{ser.clusterDistrict}}</td>
+                          <td data-line="Circle" class="wrappable"><a href="#" routerLink="/circles/{{ser.circleName}}"
+                            activateRout="active">{{ser.circleName}}</a>
+                          </td>
+    
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: center" *ngIf="!(first && last)">
+                      <a id="prbtn" class="previous round" href="" [class.disabled]="first" *ngIf="!first"
+                        (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                        &#8249;
+                      </a>
+    
+                      <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                        [ngClass]="{'active':i==page}">
+                        {{page+1}}
+                      </a>
+    
+                      <a id="prbtn" class="next round" href="" [class.disabled]="last" *ngIf="!last"
+                        (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                        &#8250;
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div *ngIf="fileUploadList.length>0" class="card-body" style="margin-bottom: 0px;padding: 0px;">
+                <div class="table-responsive mobile" style="height: 100%;">
+                    <table class="table table-sm table-condensed tablerview">
+                        <thead style="background-color:rgb(248, 245, 245)">
+                            <tr>
+                                <th title="S.No" style="width:50px;">S.No.</th>
+                                <th title="File Name" scope="col" class="text-left"> File Name
+                                </th>
+                                <th title="File Size" scope="col" class="text-left"> File Size
+                                </th>
+                                <th title="Created Date" scope="col" class="text-left"> Created Date
+                                </th>
+                                <!-- <th *ngIf="rights('BtRmaDetails','edit') && res.rmaStatus=='Open'">Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ob of fileUploadList;let i=index">
+                                <td data-line="S.No" class="mhide">{{i+1}}.</td>
+                                <td data-line="File Name" class="wrappable"><a [routerLink]=""
+                                        (click)="filePreview(ob.fileDownloadUri,ob.fileName)"
+                                        activateRout="active">{{ob.fileName}}</a>
+                                </td>
+                                <td *ngIf="(ob.fileSize/1024)/1024 < 1" data-line="File Size" scope="col"
+                                    class="text-left">
+                                    {{ (ob.fileSize/1024) | number: '1.0-1'}} KB</td>
+                                <td *ngIf=" (ob.fileSize/1024)/1024 >=1" data-line="File Size" scope="col"
+                                    class="text-left">
+                                    {{ (ob.fileSize/1024)/1024 | number: '1.0-1'}} MB</td>
+                                <td data-line="Created Date" scope="col" class="text-left">
+                                    {{ob.createdDate | date:'dd-MM-yyyy'}}
+                                </td>
+                                <!-- <td *ngIf="rights('BtRmaDetails','edit') && res.rmaStatus=='Open'">
+                                    <button (click)="DeletAttachment(ob.id)"> <i class="fa fa-trash"
+                                            aria-hidden="true"></i></button>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+              <div>
+                <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+              </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Edit SSA -->
+<!-- <div class="modal fade" bsModal #createSSAModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+aria-labelledby="create-account">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="cancelSSAData()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-create-ssa [isEditMode]="isEditMode" [editSSAEntityData]="ssares" (onSSACreated)="onSSACreated($event)"
+        (onSSACancle)="cancelSSAData()"></app-create-ssa>
+
+    </div>
+  </div>
+</div>
+</div> -->
+
+
+  <!-- case reject sure pop -->
+  <div class="modal fade" bsModal #rejectcasemodel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">{{res.manualId}}&nbsp; {{modalName}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="rejectcasemodelCancel()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          <div class="modal-body" style="max-height: 500px;overflow: auto;">
+            <!-- <app-bat-reject-case [caseManualID]="caseres.caseManualId" [caseID]="caseid" [isEditMode]="isEditMode" (onCancel)="rejectcasemodelCancel()" (onSuccess)="OnSuccess($event)"
+            ></app-bat-reject-case> -->
+
+            
+        <div class="panel panel-default" style="max-height: 75vh;overflow: auto;">
+          <div class="panel-body">
+            <!-- <div class="row" *ngIf="!isreject">
+              <div class="col-md-6 col-sm-6 form-group required">
+                <div class="control-label">
+                 Are You Sure You Want To Change Status Open to Under Transit By Customer!
+                </div>
+              
+               </div>
+      
+           
+             </div> -->
+            <div class="row" >
+            <!-- remark -->
+            <div class="col-md-6 col-sm-6 form-group required">
+              <div class="control-label">
+                 Remark
+              </div>
+              <textarea  [(ngModel)]="btRmaRejectById.remarks" class="form-control"
+              rows="2"></textarea>
+             </div>
+             <div class="col-md-6 col-sm-6 form-group required" [formGroup]="uploadForm">
+              <div class="control-label">
+                Upload File
+            </div>
+            <input  type="file"  (change)="onFileSelect($event)" name="profile" id="getFile" />
+             </div>
+    
+         
+           </div>
+   
+          </div>
+
+        </div>
+        <div class="row">
+          <form (ngSubmit)="RejectSubmit()">
+            <div class="col-md-12 text-right">
+              <button type="button" (click)="rejectcasemodelCancel()" class="btn btn-default"> <i class="fa fa-remove"></i> Cancel</button>&nbsp;
+             <button type="submit"  class="btn btn-primary" ><i class="fa fa-save"></i> Save </button>
+
+            </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<!--search result-->
+<!-- <div class="modal fade" bsModal #fileUploadModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-md modal-md">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4>File Upload</h4>
+            
+          </div>
+          <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+       
+              <div class="row" *ngFor="let s of fileList;let i=index">
+             
+                  <div class="col-6">
+                      {{s.name}}
+                  </div>
+                  <div class="col-6 text-right">
+                      <a style="font-weight: bolder; text-align: center;color: blue;"
+                          (click)="removeFile(s.name)">Remove</a>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer text-right">
+              <button class="btn btn-sm btn-default" (click)="closeUploadFiles()"><i class="fa fa-remove"></i>
+                  Close</button>
+              <button class="btn btn-sm btn-primary" (click)="onSubmit()"><i class="fa fa-upload"></i> Upload</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+<div class="modal fade" bsModal #filePreviewModel='bs-modal' [config]="{backdrop:'static'}" role="dialog">
+  <div class="modal-dialog modal-lg modal-xl">
+      <div class="modal-content">
+          <div class="modal-header">
+              <!-- <h4>{{uploadFilesLength}} Files selected for Upload</h4> -->
+              <h4>{{fileName}}</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="filePreviewModel.hide()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body" style="max-height: 70vh;overflow: auto;">
+              <img src="{{imageUrl}}" alt="" style="height: auto;width: 100%;">
+              <pdf-viewer [src]="imageUrl" [render-text]="true" style="height: auto;width: 100%;">
+              </pdf-viewer>
+          </div>
+          <div class="modal-footer text-right">
+              <button class="btn btn-sm btn-default" (click)="filePreviewModel.hide()"><i class="fa fa-remove"></i>
+                  Close</button>
+              <button class="btn btn-sm btn-primary" (click)="saveFile()"><i class="fa fa-download"></i>
+                  Download</button>
+          </div>
+      </div>
+  </div>
+</div>

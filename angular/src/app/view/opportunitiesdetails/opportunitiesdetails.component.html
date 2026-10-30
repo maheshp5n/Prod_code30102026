@@ -1,0 +1,852 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+
+<div class="card" style="margin-bottom: 10px;">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img alt="Opportunity" src="assets/images/opportunity_120.png"
+                                style="height: auto;width:100%;background-color: rgb(223, 178, 56);"
+                                title="Opportunity" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Opportunity</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span
+                                style="font-size:15px;font-weight: bold;">{{oppertunityResponse.oppertunityNumber}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-4 col-md-4"></div>
+            <div class="col-sm-4 col-md-4" style="text-align: right;">
+                <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 10px;">
+                    <!-- <button class="btn btn-outline-info btn-sm" type="button" (click)="createCaseModelshow(asset.serialNumber,2)"><i class="fa fa-plus"></i>&nbsp; New Case DCT</button>
+            <button class="btn btn-outline-info btn-sm" type="button" (click)="createCaseModelshow(asset.serialNumber,1)"><i class="fa fa-plus"></i>&nbsp; New Case Battery</button> -->
+                    <button *ngIf="rights('Oppertunity','edit')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="onClickEdit(oppertunityResponse)">Edit</button>
+                    <button *ngIf="rights('Oppertunity','delete')" class="btn btn-outline-info btn-sm" type="button"
+                        (click)="onClickDelete(oppertunityResponse)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <small>Account Name</small>
+                <div>
+                    <a href="#" routerLink="/accounts/{{oppertunityResponse.accountId}}">
+                        {{oppertunityResponse.accountName}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <small>Stage</small>
+                <div>
+                    <a>
+                        {{oppertunityResponse.stage}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <small>Amount</small>
+                <div>
+                    <a>
+                        <i class="fa fa-inr"></i>&nbsp; {{oppertunityResponse.ammount | currency:'INR'}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <small>Opportunity Owner</small>
+                <div>
+                    <a [routerLink]="['/createuser',oppertunityResponse.oppertunityOwnerEmailId]"
+                        [routerLinkActive]="'active'">
+                        {{oppertunityResponse.oppertunityOwnerFirtName}}
+                        {{oppertunityResponse.oppertunityOwnerMiddleName}}
+                        {{oppertunityResponse.oppertunityOwnerlastName}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="breadcrumb flat" style="width: 100%;padding-top: 17px;">
+    <div class="row">
+        <a style="width: 50%;height: 1cm;padding-top: 2mm;text-align: center;border-top-left-radius: 20px
+        ;border-bottom-left-radius: 20px;" class="disabled" [ngClass]="proposedClass">
+            <h6 style="clip: auto;">Proposal/Price
+                Quote</h6>
+        </a>
+        <a style="width: 50%;height: 1cm;padding-top: 2mm;text-align: center;border-radius: 5px
+        ;border-top-right-radius: 20px
+        ;border-bottom-right-radius: 20px;" class="disabled" [ngClass]="closedClass">
+            <h6 style="clip: auto;">Closed
+            </h6>
+        </a>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button *ngIf="proposedClass == 'active'" style="text-align-last: center;" class="btn btn-primary" type="button"
+            (click)="changeStatus.show()">
+            <i class="fa fa-check"></i> Mark Stage as Complete
+        </button>
+        <button *ngIf="closedClass == 'active'" style="text-align-last: center;" class="btn btn-primary" type="button"
+            (click)="changeStatus.show()">
+            Change Closed Stage
+        </button>
+    </div>
+</div> -->
+
+<div class="card">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                    <li><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 15px;">
+
+                <div *ngIf="vDetails" class="card-body" style="margin-top: 0px;padding-top: 0px;">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> &nbsp;Opportunity Information
+                    </button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Opportunity Owner</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <a [routerLink]="['/createuser',oppertunityResponse.oppertunityOwnerEmailId]"
+                                                [routerLinkActive]="'active'">
+                                                {{oppertunityResponse.oppertunityOwnerFirtName}}
+                                                {{oppertunityResponse.oppertunityOwnerMiddleName}}
+                                                {{oppertunityResponse.oppertunityOwnerlastName}}
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Opportunity Name</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            {{oppertunityResponse.oppertunityNumber}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Account Name</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <a href="#" routerLink="/accounts/{{oppertunityResponse.accountId}}">
+                                                {{oppertunityResponse.accountName}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Type</small>
+                                        </td>
+                                        <td class="wrappable">{{oppertunityResponse.type}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Case</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <a href="#" routerLink="/cases/{{oppertunityResponse.caseId}}">
+                                                {{oppertunityResponse.caseNumber}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Amount</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <i class="fa fa-inr"></i>&nbsp;
+                                            {{oppertunityResponse.ammount | currency:'INR'}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">
+                                            <small>Forecast Category</small>
+                                        </td>
+                                        <td class="wrappable">{{oppertunityResponse.forcastCategory}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Close Date</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            {{oppertunityResponse.closeDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Stage</small>
+                                        </td>
+                                        <td class="wrappable">{{oppertunityResponse.stage}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Probability (%)</small>
+                                        </td>
+                                        <td class="wrappable">{{oppertunityResponse.probability}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Site Name</small>
+                                        </td>
+                                        <td class="wrappable">
+                                            <a href="#" routerLink="/sites/{{oppertunityResponse.siteId}}">
+                                                {{oppertunityResponse.siteName}}
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <small>Expected Revenue</small>
+                                        </td>
+                                        <td class="wrappable"><i
+                                                class="fa fa-inr"></i>&nbsp;{{oppertunityResponse.expectedRevenue}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="sysInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="sysinfoDisplay.angleIcon"></i> &nbsp;System Information</button>
+                    <div *ngIf="sysinfoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small>Created By</small></td>
+                                        <td class="wrappable">
+                                            <a [routerLink]="['/createuser',oppertunityResponse.createdByEmailId]"
+                                                [routerLinkActive]="'active'">
+                                                {{oppertunityResponse.createdByFirstName}}&nbsp;
+                                                {{oppertunityResponse.createdByMiddleName}}&nbsp;
+                                                {{oppertunityResponse.createByLastName }}</a>&nbsp;,&nbsp;
+                                                {{oppertunityResponse.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width: 50%;"><small >Last Modified By</small></td>
+                                        <td class="wrappable"> <a [routerLink]="['/createuser',oppertunityResponse.modifiedByEmailId]"
+                                            [routerLinkActive]="'active'">
+                                            {{oppertunityResponse.modifiedByFirstName}}&nbsp;
+                                            {{oppertunityResponse.modifiedByMiddleName}}&nbsp;
+                                            {{oppertunityResponse.modifiedByLastName}}</a>&nbsp;,&nbsp;
+                                            {{oppertunityResponse.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                    </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="vReleated" class="panel-body">
+                    <!-- 1 Product-->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/product_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);;border-radius: 1mm;"
+                                            title="Products"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Products ({{totalOppoLineItems}})</b>
+                                    </td>
+                                    <td class="text-right">
+                                        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                                            <button *ngIf="rights('OppertunityLineItem','edit')"
+                                                class="btn btn-outline-info btn-sm" type="button"
+                                                (click)="addProduct()">Add Product</button>
+                                            <button *ngIf="rights('OppertunityLineItem','edit')"
+                                                class="btn btn-outline-info btn-sm" type="button"
+                                                (click)="openEditAll()">Edit All</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Part Code</th>
+                                            <th>Product Description</th>
+                                            <th>Quantity</th>
+                                            <th>Sales Price</th>
+                                            <th>Total Price</th>
+                                            <th>Price Book</th>
+                                            <th>List Price</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of getOppertunityLineItemRequestArray; let i=index">
+                                            <td data-line="S.No" class="mhide">{{serialNumberOppoLineItems+i+1}}.</td>
+                                            <td data-line="Part Code"><a href="#"
+                                                    routerLink="/products/{{c.productPartCode}}">{{c.productPartCode}}</a>
+                                            </td>
+                                            <td data-line="Product Description" class="mhide">{{c.pdoductDescription}}
+                                            </td>
+                                            <td data-line="Quantity">{{c.quantity}}</td>
+                                            <td data-line="Sales Price">{{c.salePrice | currency:'INR'}}</td>
+                                            <td data-line="Total Price">{{c.totalPrice | currency:'INR'}}</td>
+                                            <td data-line="Price Book Name">{{c.priceBookName}}</td>
+                                            <td data-line="List Price">{{c.listPrice | currency:'INR'}}</td>
+                                            <td data-line="Created Date" class="mhide">
+                                                {{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </td>
+                                            <td data-line="Action" class="mhide" style="width: 50;">
+                                                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                    placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li *ngIf="rights('OppertunityLineItem','edit')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="openEditOppoLineItem(c.id)">Edit
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="rights('OppertunityLineItem','delete')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteOpportunityLineItem(c.id)">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <div style="height: 65px;">
+
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="text-align: center" *ngIf="!(firstOppoLineItems && lastOppoLineItems)">
+                                <a id="pag" class="previous round" href="" [class.disabled]="firstOppoLineItems"
+                                    *ngIf="!firstOppoLineItems" (click)="setPagePreviousOppoLineItems($event)">
+                                    <!--  [ngClass]="{'active':pageOppoLineItems}" -->
+                                    &#8249;
+                                </a>
+                                <a id="pag" class="nav-link active" href="" (click)="setPageOppoLineItems($event)"
+                                    [ngClass]="{'active':i==pageOppoLineItems}">
+                                    {{pageOppoLineItems+1}}
+                                </a>
+                                <a id="pag" class="next round" href="" [class.disabled]="lastOppoLineItems"
+                                    *ngIf="!lastOppoLineItems" (click)="setPageNextOppoLineItems($event)">
+                                    <!-- [ngClass]="{'active':pageOppoLineItems}" -->
+                                    &#8250;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 1 Product-->
+
+                    <!-- 2 Quote-->
+                    <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard" src="assets/images/quotes_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(175, 88, 156);border-radius: 1mm;"
+                                            title="Quote"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Quote ({{totalQuote}})</b>
+                                    </td>
+                                    <td class="text-right">
+                                        <div *ngIf="_cFlag!='f'" class="btn-group" style="padding: 1px;">
+                                            <button *ngIf="rights('Quote','create')" class="btn btn-outline-info btn-sm"
+                                                type="button" (click)="newQuote(oppertunityResponse.accountId)"><i
+                                                    class="fa fa-plus"></i>&nbsp;New</button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive">
+                                <table class="mobile table table-sm table-condensed tablerview">
+                                    <thead fix-head style="background-color:rgb(248, 245, 245)">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Quote Name</th>
+                                            <th>Quote Number</th>
+                                            <th>Account Name</th>
+                                            <th>Expiry Date</th>
+                                            <th>Created Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let c of quoteList; let i=index">
+                                            <td class="mhide" data-line="S.No">{{serialNumberQuote+i+1}}.</td>
+                                            <td data-line="Quote Name"><a href="#"
+                                                    routerLink="/Quote/{{c.id}}">{{c.quoteName}}</a></td>
+                                            <td data-line="Quote Number">{{c.quoteNumber}}</td>
+                                            <td data-line="Account Name">
+                                                <a href="#" routerLink="/accounts/{{c.accountId}}">
+                                                    {{c.accountName}}
+                                                </a></td>
+                                            <td data-line="Expiry Date">{{c.expiryDate | date:'dd-MM-yyyy hh-mm-ss'}}
+                                            </td>
+                                            <td data-line="Created Date">{{c.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                                            </td>
+                                            <td class="mhide" data-line="Action" style="width: 50;overflow-y:visible;">
+                                                <div *ngIf="_cFlag!='f'" class="btn-group" dropdown
+                                                    placement="bottom right">
+                                                    <button dropdownToggle type="button"
+                                                        class="fa fa-sort-down"></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" role="menu"
+                                                        aria-labelledby="button-disabled-item">
+                                                        <li *ngIf="rights('Quote','edit')" role="menuitem">
+                                                            <a class="dropdown-item" (click)="onClickEditQuote(c)">Edit
+                                                            </a>
+                                                        </li>
+                                                        <li *ngIf="rights('Quote','delete')" role="menuitem">
+                                                            <a class="dropdown-item"
+                                                                (click)="deleteQuoteLineItem(c.id)">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <div style="height: 65px;">
+
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="text-align: center" *ngIf="!(firstQuote && lastQuote)">
+                                <a id="pag" class="previous round" href="" [class.disabled]="firstQuote"
+                                    *ngIf="!firstQuote" (click)="setPagePreviousQuote($event)">
+                                    <!-- [ngClass]="{'active':pageQuote}" -->
+                                    &#8249;
+                                </a>
+
+                                <a id="pag" class="nav-link active" href="" (click)="setPageQuote($event)"
+                                    [ngClass]="{'active':i==pageQuote}">
+                                    {{pageQuote+1}}
+                                </a>
+                                <a id="pag" class="next round" href="" [class.disabled]="lastQuote" *ngIf="!lastQuote"
+                                    (click)="setPageNextQuote($event)">
+                                    <!--  [ngClass]="{'active':pageQuote}" -->
+                                    &#8250;
+                                </a></div>
+                        </div>
+                    </div>
+                    <!-- 2 Quote-->
+
+                    <!-- 3 -->
+                    <!-- <div class="card">
+                        <div class="card-header">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 30px;">
+                                        <img _ngcontent-c5="" alt="Dashboard"
+                                            src="assets/images/OpportunityTeam_120.png"
+                                            style="height: 30px;widows: 30px;background-color: rgb(235, 164, 57);border-radius: 1mm;"
+                                            title="Quote"> </td>
+                                    <td>
+                                        <b>&nbsp;&nbsp;Opportunity Team</b>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group" style="padding: 1px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div> -->
+                    <!-- 3 -->
+
+                    <div>
+                        <app-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-action-history>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Opportunity Product -->
+<div class="modal fade" bsModal #OpportunityProductModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">New Boarding/Lodging & DA</h4>
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="OpportunityProductModel.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="min-height: 500px;overflow: auto;padding-left: 2mm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Product Information</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 form-group required">
+                                <div class="control-label">
+                                    Part Code
+                                </div>
+                                <!-- [(ngModel)]="newOpportunity.partCode"  -->
+                                <input *ngIf="isEditMode == true" type="text" class="form-control" disabled>
+                                <input *ngIf="isEditMode == false" type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 col-sm-6 form-group required">
+                                <div class="control-label">
+                                    Type
+                                </div>
+
+                                <select [(ngModel)]="newOpportunity.type" class="form-control">
+                                    <option value='' disabled>--select--</option>
+                                    <option>Product</option>
+                                    <option>Sub-Product</option>
+                                    <option>Component</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 form-group required">
+                                <div class="control-label">
+                                    Product Family
+                                </div>
+                                <!-- [(ngModel)]="newOpportunity.productFamilyId" -->
+                                <!-- (change)="getproductSubFamily()" -->
+                                <select class="form-control">
+                                    <option value='null' disabled>--select--</option>
+                                    <!-- <option *ngFor="let o of productFamily;" [ngValue]="o.id">
+                                        {{o.name}}</option> -->
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-sm-6 form-group required">
+                                <div class="control-label">
+                                    Product Sub Family
+                                </div>
+                                <!-- [(ngModel)]="newOpportunity.subProductFamilyId"  -->
+                                <select class="form-control">
+                                    <option value='null' disabled>--select--</option>
+                                    <!-- <option *ngFor="let s of productSubFamily;" [ngValue]="s.id">
+                      {{s.name}}</option> -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 form-group required">
+                                <div class="control-label">
+                                    Price
+                                </div>
+                                <!-- [(ngModel)]="newOpportunity.price" -->
+                                <input type="number" onkeydown="return event.keyCode !== 69" class="form-control"
+                                    placeholder="">
+
+                            </div>
+                            <div class="col-md-6 col-sm-6 form-group">
+                                <div class="control-label">
+                                    Product Description
+                                </div>
+                                <!-- [(ngModel)]="newOpportunity.productDescription" -->
+                                <input class="form-control" rows="3">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="isEditMode==true" class="panel-heading">
+                        <strong>System Information</strong>
+                    </div>
+                    <div *ngIf="isEditMode==true" class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="control-label" style="font-weight: bold;">
+                                    Created By
+                                </div>
+                                <div class="label">
+                                    <!-- {{newOpportunity.createdByFirstName}} {{newOpportunity.createdByLastName}},
+                    {{newOpportunity.createdDate | date:'dd-MM-yyyy HH:mm:ss'}} -->
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="control-label" style="font-weight: bold;">
+                                    Last Modified By
+                                </div>
+                                <div class="label">
+                                    <!-- {{newOpportunity.modifiedByFirstName}} {{newOpportunity.modifiedByLastName}}, -->
+                                    <!-- {{newOpportunity.modifiedDate| date:'dd-MM-yyyy HH:mm:ss'}} -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="panel-footer"> -->
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 text-right">
+                            <button type="button" class="btn btn-sm btn-default" (click)="cancelData()"><i
+                                    class="fa fa-remove"></i>&nbsp;
+                                Cancel</button>&nbsp;
+                            <button type="button" (click)="createProduct()" class="btn btn-sm btn-primary"><i
+                                    class="fa fa-save"></i>&nbsp;
+                                Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type=" button" class="btn btn-default" (click)="OpportunityProductModel.hide()">
+                            Cancel</button>&nbsp;
+                        <button type="button" class="btn btn-primary" (click)="postBoarding()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New -->
+<div class="modal fade " bsModal #createNewOpportunity="bs-modal" (onShow)="isOpportunityOpen=true"
+    (onHide)="isOpportunityOpen=false" [config]="{backdrop: 'static'} " tabindex="-1 " role="dialog "
+    aria-labelledby="create-new-Opportunity ">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h4 id="create-account " class="modal-title pull-left ">{{heading}}</h4>
+                <button type="button " class="close pull-right " aria-label="Close "
+                    (click)="createNewOpportunity.hide() ">
+                    <span aria-hidden="true ">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <app-create-new-opportunity *ngIf="isOpportunityOpen" [isEditMode]="isEditMode"
+                    [editOpportunityData]="newOpportunity" (onOpportunityCreated)="onOpportunityCreated($event) "
+                    (onCancle)="cancelData() ">
+                </app-create-new-opportunity>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popup for Status change-->
+<!-- <div class="modal fade" bsModal #changeStatus="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-weight: bolder; text-align: center">Close this opportunity
+                </h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="changeStatus.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-md">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 form-group required">
+                        <div class="control-label">
+                            Status
+                        </div>
+                        <select class="form-control" [(ngModel)]="newOpportunity.oppertunityStageId"
+                            (change)="stageSelected()">
+                            <option value='0' disabled>--select--</option>
+                            <option [ngValue]="2">Closed Won</option>
+                            <option [ngValue]="3">Closed Lost</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-right">
+                        <button type="button" class="btn btn-sm btn-default" (click)="changeStatus.hide()"><i
+                                class="fa fa-remove"></i>&nbsp;
+                            Cancel</button>&nbsp;
+
+                        <button type="button" class="btn btn-sm btn-primary" (click)="stageEdit()"><i
+                                class="fa fa-save"></i>&nbsp;
+                            Change Status</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- Add Product -->
+<div class="modal fade" bsModal #createaddProductModel="bs-modal" (onShow)="isaddProductOpen=true"
+    (onHide)="isaddProductOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{headingaddPro}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataaddProduct()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-opportunity-add-product *ngIf="isaddProductOpen" [viewAddPriceBook]="viewAddPriceBook"
+                    (_onAddProductCreated)="onaddProductCreated($event)" (_onAddProCancle)="cancelDataaddProduct()"
+                    (headingPrice)="headingadd($event)" [opportunityId]="oppertunityId">
+                </app-opportunity-add-product>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Product -->
+<div class="modal fade" bsModal #editOppoLineItemModel="bs-modal" (onShow)="iseditProductOpen=true"
+    (onHide)="iseditProductOpen=false" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-new-product">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">{{headingeditPro}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelDataEditProduct()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-opportunity-edit-product *ngIf="iseditProductOpen" [isEditAll]="isEditAll"
+                    (_onEditProductCreated)="oneditProductCreated($event)"
+                    (_onEditAllProductCreated)="oneditAllProductCreated($event)"
+                    (_onEditProCancle)="cancelDataEditProduct()" (headingEditPrice)="headingedit($event)"
+                    [opportunityId]="oppertunityId" [editOppoLineItem]="oppertunityLineItemRequest"
+                    [editAllOppoLineItems]="getOppertunityLineItemRequestArray">
+                </app-opportunity-edit-product>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quote Approved -->
+<!-- <div class="modal fade" bsModal #quoteApprovedModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="create-account" class="modal-title pull-left">New Quote</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="cancelQuoteApproved()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <h5 class="col-md-10 col-sm-10">Select a record type:
+                            </h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-7">
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio" [ngModel]="this.quoteRequest.isApproved"
+                                            (click)="saveApproval($event.target.value)"
+                                            value="false">&nbsp;&nbsp;Unapproved
+                                        Quote</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio" [ngModel]="this.quoteRequest.isApproved"
+                                            (click)="saveApproval($event.target.value)"
+                                            value="true">&nbsp;&nbsp;Approved
+                                        Quote</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 text-right">
+                            <button type="button" class="btn btn-sm btn-default" (click)="cancelQuoteApproved()"><i
+                                    class="fa fa-remove"></i>&nbsp;
+                                Cancel</button>&nbsp;
+                            <button type="button" (click)="newQuote()" class="btn btn-sm btn-primary"><i
+                                    class="fa fa-save"></i>&nbsp;
+                                Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- New -->
+<div class="modal fade " bsModal #createNewQuote="bs-modal" [config]="{backdrop: 'static'} " tabindex="-1 "
+    (onShow)="isQuote=true" (onHide)="isQuote=false" role="dialog " aria-labelledby="create-new-Quote ">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h4 id="create-account " class="modal-title pull-left ">{{headingQuote}}</h4>
+                <button type="button " class="close pull-right " aria-label="Close " (click)="cancelQuote()">
+                    <span aria-hidden="true ">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <app-create-new-quote  *ngIf="isQuote"   [isEditModeQuote]="isEditModeQuote" [caseId]="caseManualId" [editQuoteData]="quoteRequest"
+                    [opportunityId]="oppoId" [BillingcountryID]="BillingcountryId"
+                     (_onQuoteCreated)="_onQuoteCreated($event)" (onCancle)="cancelQuote()">
+                </app-create-new-quote>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-product" style="box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.35);">
+    <div [ngClass]="popupNgClass" style="width:40%; text-align: center;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="popupClose()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{message}}</strong>
+    </div>
+</div>

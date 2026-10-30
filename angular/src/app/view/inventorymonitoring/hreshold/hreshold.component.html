@@ -1,0 +1,267 @@
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-3">
+        <span class="warehouselabel">Warehouse</span>
+        <input type="text" class="form-control search" [(ngModel)]="searckeys.warehouse"
+            placeholder="Search from current list">
+        <table class="table table-sm">
+            <tr *ngFor="let w of warehouses|globalSearchPipe:searckeys.warehouse">
+                <td>
+                    <a [routerLink]="['/inventorymonitoringandplanning','threshhold',w.locationId]"
+                        [routerLinkActive]="'active'">{{w.locationName}}</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-9">
+        <br>
+        <div>
+            <a [ngClass]="getpillClass('all')" [routerLink]="['/inventorymonitoringandplanning','threshhold']">All
+                Warehouse</a>
+            <a [ngClass]="getpillClass('')" *ngIf="warehouses.length>0" (click)="false" href="#">{{indiname}}</a>
+
+            <span class="text-right" style="width: 399px;
+            height: 32px;margin-left: 15px;
+            background-color: rgba(243, 243, 243, 0.57);padding: 5px 5px;border-style: solid;border-width: .5px;border-color: #4d5f76;
+            ">
+                <span>
+                    INVENTORY TYPE :
+                </span>
+                <input type="radio" class="checkbox" name="itemtype" [checked]="config.allItem"
+                    (change)="changeInventoryType('all')">
+                <span>All</span>
+                <input type="radio" class="checkbox" name="itemtype" [checked]="config.serial"
+                    (change)="changeInventoryType('serial')">
+                <span>Serialized </span>
+                <input type="radio" class="checkbox" name="itemtype" [checked]="config.nonserial"
+                    (change)="changeInventoryType('nonserial')">
+                <span>Non Serialized </span>
+            </span>
+
+        </div>
+        <div style="background-color: #f7f7f7;padding: 15px 10px;margin-top: 10px;">
+            <input type="text" class="form-control search pull-left" style="width: 50%;" [(ngModel)]="searckeys.items"
+                placeholder="Search from current list">
+            <button type="button" class="mmbutton pull-right" (click)="onResetButtonClick()">RE-SET</button>
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead style="background-color: #4d5f76;color: #ffffff;">
+                        <tr>
+                            <th class="text-left">
+                                Warehouse
+                            </th>
+                            <th>
+                                Product Part Code
+                            </th>
+                            <th>
+                                Product Description
+                            </th>
+                            <th>
+                                Product Type
+                            </th>
+                            <th>
+                                MSL
+                            </th>
+                            <th>
+                                HSL
+                            </th>
+                            <th>
+                                OK Quantity
+                            </th>
+                            <th class="text-left">
+                                <input type="checkbox" (change)="changeSelection()" [(ngModel)]="allselection"
+                                    [checked]="allselection">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of warehouseitemss.content|globalSearchPipe:searckeys.items">
+                            <td>
+                                <a [routerLink]="['/location',item.locationId]"
+                                    [routerLinkActive]="'active'">{{item.locationName}}</a>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/products',item.partCode]"
+                                    [routerLinkActive]="'active'">{{item.partCode}}</a>
+                            </td>
+                            <td>
+                                {{item.partDescription}}
+                            </td>
+                            <td>
+                                {{item.partType}}
+                            </td>
+                            <td>
+                                {{item.msl}}
+                            </td>
+                            <td>
+                                {{item.hsl}}
+                            </td>
+                            <td>
+                                {{item.okQuantity}}
+                            </td>
+                            <td>
+                                <input type="checkbox" [(ngModel)]="item.selected" [checked]="item.selected">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div class="text-right" *ngIf="warehouseitemss&&warehouseitemss.totalPages>1">
+                <pagination [totalItems]="warehouseitemss.totalElements" [itemsPerPage]="warehouseitemss.size"
+                    (pageChanged)="pageChange($event)"></pagination>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--reset windows-->
+<div class="modal fade" bsModal #resetwindows="bs-modal" (onHide)="onResetWindowHide()" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">
+                    Reset MSL & HSL
+                </h4>
+                <button type="button" (click)="resetwindows.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="max-height: 70vh;overflow: auto;background-color: #f7f7f7;padding: 15px 10px;">
+                    <div class="table-responsive" style="min-height: 40vh;">
+                        <table class="table table-sm">
+                            <thead style="background-color: #4d5f76;color: #ffffff;">
+                                <tr>
+                                    <td colspan="2">
+                                        <ng-select [items]="warehouses" [(ngModel)]="newaproduct.locationId"
+                                            bindLabel="locationName" bindValue="locationId"
+                                            placeholder="Select Warehouse">
+                                            <ng-template ng-label-tmp let-item="item">
+                                                <img height="15" width="15" alt="" src="assets/images/location_120.png"
+                                                    style="background-color: rgb(26, 41, 5);" />
+                                                {{item.locationName}}
+                                            </ng-template>
+                                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                                                <img height="15" width="15" alt="" src="assets/images/location_120.png"
+                                                    style="background-color: rgb(26, 41, 5);" /> {{item.locationName}}
+                                            </ng-template>
+                                        </ng-select>
+                                    </td>
+                                    <td colspan="2">
+                                        <ng-select [items]="productForlist" [(ngModel)]="newaproduct.productPartcode"
+                                            bindLabel="productPartCode" bindValue="productPartCode"
+                                            placeholder="Select Product">
+                                            <ng-template ng-label-tmp let-item="item">
+                                                <img height="15" width="15" alt="" src="assets/images/product_120.png"
+                                                    style="background-color: rgb(155, 6, 43);" />
+                                                {{item.productPartCode}}
+                                            </ng-template>
+                                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                                                <img height="15" width="15" alt="" src="assets/images/product_120.png"
+                                                    style="background-color: rgb(155, 6, 43);" />
+                                                {{item.productPartCode}}
+                                            </ng-template>
+                                        </ng-select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" [(ngModel)]="newaproduct.msl"
+                                            placeholder="MSL">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="HSL"
+                                            [(ngModel)]="newaproduct.hsl">
+                                    </td>
+                                    <td>
+                                        <button type="button" (click)="additemstoSelectedList()"
+                                            class="btn btn-primary"><em class="fa fa-plus"></em> Add</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Warehouse
+                                    </th>
+                                    <th>
+                                        Product Part Code
+                                    </th>
+                                    <th>
+                                        Product Description
+                                    </th>
+                                    <th>
+                                        Produc Type
+                                    </th>
+                                    <th>
+                                        MSL
+                                    </th>
+                                    <th>
+                                        HSL
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let item of selecteditems;">
+                                    <td>
+                                        {{item.locationName}}
+                                    </td>
+                                    <td>
+                                        {{item.partCode}}
+                                    </td>
+                                    <td>
+                                        {{item.partDescription}}
+                                    </td>
+                                    <td>
+                                        {{item.partType}}
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" [(ngModel)]="item.msl">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" [(ngModel)]="item.hsl">
+                                    </td>
+                                    <td>
+                                        <button type="btn btn-outline-danger"
+                                            (click)="removeSelectedItem(item.locationId,item.partCode)"><em
+                                                class="fa fa-remove"></em> </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                <div class="text-right">
+                    <button type="button" (click)="submitResetValue()" class="btn btn-dark"><em class="fa fa-save"></em>
+                        Update MSL/HSL</button>
+                    <button type="button" class="btn btn-default" (click)="resetwindows.hide()"><em
+                            class="fa fa-remove"></em> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #alertWindows="bs-modal" role="dialog" tabindex="-1">
+    <div style="margin: 20%;" class="text-center">
+        <strong>
+            <alert [type]="alertDetails.type">
+                <button type="button" (click)="alertWindows.hide()" class="close pull-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span [innerHTML]="alertDetails.message"></span>
+            </alert>
+        </strong>
+    </div>
+</div>
+
+
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>

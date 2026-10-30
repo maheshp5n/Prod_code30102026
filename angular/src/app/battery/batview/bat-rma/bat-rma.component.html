@@ -1,0 +1,264 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+  <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div classs="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <table style="width: 100%;">
+          <tr>
+            <td rowspan="2" style="width:32px;">
+              <img alt="Asset" src="assets/images/service_appointment_120.png"
+                style="height: 32px;width:32px;background-color: rgb(126,139,228);" title="RMA">
+            </td>
+            <td style="padding-left:5px;">RMA Case</td>
+          </tr>
+          <!-- <tr>
+            <td style="padding-left: 5px;">
+              <div class="btn-group" dropdown>
+                <span dropdownToggle type="button" style="background-color: white;">
+                  <span style="font: size 15px;padding-right: 5px;">
+                    &nbsp;{{dropdownSelected.name}} &nbsp;&nbsp;<i class="fa fa-sort-down"></i>&nbsp;
+                  </span>
+                </span>
+                <ul class="dropdown-menu" *dropdownMenu role="menu" aria-labelledby="button-disabled-item"
+                  style="width: 115%;">
+                  <li style="text-align-last: left;padding-top: 2mm;color: grey;">&nbsp;&nbsp;List
+                    View</li>
+                  <li role="menuitem" *ngFor="let m of dropdownsList">
+                    <a [ngClass]="m.class" (click)="dropdownChange(m.sqId)">{{m.name}}</a>
+                  </li>
+                </ul>
+              </div>&nbsp;
+              <button *ngIf="!pindtselection" title="Pin this list view" type="button" class="btn btn-sm"
+                (click)="pinFilter()">
+                <em class="fa fa-thumb-tack"></em>
+              </button>
+              <button *ngIf="pindtselection" type="button" class="btn btn-sm btn-info">
+                <em class="fa fa-thumb-tack"></em>
+              </button>
+
+            </td>
+          </tr> -->
+        </table>
+      </div>
+      <div class="col-sm-4 col-md-4"></div>
+      <div class="col-sm-4 col-md-4" *ngIf="rights('BtRmaRejectLog','edit')">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 text-right">
+            <input type="file" name="profile" (change)="onFileSelect($event)" id="EditRMAgetFile" style="display:none"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            <button class="btn btn-sm btn-outline-info" onclick="document.getElementById('EditRMAgetFile').click()"
+              type='submit'><i class="fa fa-upload"></i>&nbsp;&nbsp; Bulk Status Update</button>&nbsp;&nbsp;
+            <input type="file" name="profile" (change)="onFileSelect($event)" id="RMARejectgetFile" style="display:none"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            <button class="btn btn-sm btn-outline-info" onclick="document.getElementById('RMARejectgetFile').click()"
+              type='submit'><i class="fa fa-upload"></i>&nbsp;&nbsp; Bulk Case Reject</button>&nbsp;&nbsp;
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-12 text-right">
+            <a [routerLink]="[]" style="margin-right: 5px;" (click)="getRmaStatusTemplateExcel()"><small><i
+                  class="fa fa-download"></i>&nbsp; Status Update
+                Template</small></a>
+            <a [routerLink]="[]" style="padding-right: 2px;" (click)="getRmaRejectTemplateExcel()"><small><i
+                  class="fa fa-download"></i>&nbsp;Case Reject
+                Template</small></a>
+          </div>
+        </div>
+      </div>
+    </div> <br>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="RMA Number" [(ngModel)]="advancesearch.rmaManualId">
+      </div>
+      <div class="col-md-3">
+        <select type="text" class="form-control" [(ngModel)]="advancesearch.rmaStatus">
+          <option value="">Select Status</option>
+          <option>Open</option>
+          <option>UNDER TRANSIT BY CUSTOMER</option>
+          <option>REJECTED ON CUSTOMER REQUEST</option>
+          <option>Closed</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Case Number" [(ngModel)]="advancesearch.caseManualId">
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-outline-info btn-md" (click)="searchRMACase()"><em
+            class="fa fa-search"></em>
+          Search</button>
+        <button type="button" class="btn btn-outline-info btn-md" (click)="resetsearch()">
+          Reset</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body" style="padding: 0px; background-color: white;">
+    <div class="wrap">
+      <table class="head">
+        <thead style="background-color:rgb(248, 245, 245)">
+          <th title="S.No">S.No</th>
+          <th *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)" title="{{tb.name}}">
+            <div class="row">
+              <div class="col sm-10"> {{tb.name}}</div>
+              <div class="col sm-2"> <i [ngClass]="tb.icon"></i></div>
+            </div>
+
+          </th>
+          <!-- <th>Action</th> -->
+        </thead>
+      </table>
+      <div class="inner_table" *ngIf="RMAResp.content.length>0">
+        <table>
+
+          <tbody>
+            <tr *ngFor="let rma of RMAResp.content; let i = index">
+              <td data-line="S.No">{{(dropdownSelected.page*dropdownSelected.size)+(i+1)}}.</td>
+              <td data-line="Name"> <span> <a href="#" routerLink="/bat_rma/{{rma.id}}"
+                    activateRout="active">{{rma.manualId}}</a></span>
+              </td>
+              <td data-line="Circle Name"> {{rma.rmaStatus}}</td>
+              <td data-line="Case number"> <span> <a href="#" routerLink="/bat_user/{{rma.createdEmailId}}"
+                    activateRout="active">{{rma.createdEmailId}}</a></span></td>
+
+              <td data-line="Case number"> <span> <a href="#" routerLink="/bat_case/{{rma.caseId}}"
+                    activateRout="active">{{rma.caseManualId}}</a></span></td>
+              <td data-line="service appointment number"> <span> <a href="#"
+                    routerLink="/bat_serviceappointment/{{rma.serviceappointmentId}}"
+                    activateRout="active">{{rma.serviceAppManualId}}</a></span></td>
+
+                    
+              <td *ngIf="rma.AssetSerialNumber!=null" data-line="Asset Serial No"> <span> <a href="#"
+                routerLink="/bat_asset/{{rma.AssetId}}"
+                activateRout="active">{{rma.AssetSerialNumber}}</a></span></td>
+
+                <td *ngIf="rma.AssetSerialNumber==null" data-line="Asset Serial No"> <span>
+                {{rma.missingAsset}}
+                 </span></td>
+                
+                <td data-line="Part Code"> <span> <a href="#"
+                      routerLink="/bat_product/{{rma.productID}}"
+                      activateRout="active">{{rma.productPartCode}}</a></span></td>
+                      
+                      <td data-line="Site Id"> <span> <a href="#"
+                        routerLink="/bat_site/{{rma.siteId}}"
+              activateRout="active">{{rma.siteManualId}}</a></span></td>
+                
+                <td data-line="Circle"> <span> <a href="#"
+                  routerLink="/bat_circle/{{rma.circle_circle_name}}"
+                  activateRout="active">{{rma.circle_circle_name}}</a></span></td>
+                  
+                  <td data-line="Created Date">{{rma.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+
+              <!-- <td data-line="Action" >
+                  <div class="btn-group" dropdown>
+                    <button dropdownToggle type="button" class="fa fa-sort-down"></button>
+  
+                    <ul *ngIf="rights('SSA','edit')" class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-disabled-item">
+                      <li role="menuitem">
+                        <a class="dropdown-item" (click)="editSSA(rma)">Edit </a>
+                      </li>
+                    </ul>
+                  </div>
+                </td> -->
+            </tr>
+            <div style="height:65px;">
+
+            </div>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="RMAResp.content.length==0">
+        <div class="row">
+          <div class="col-md-4"> </div>
+          <div class="col-md-4">
+            <p>Data Not Found</p>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-4" style="text-align:left">
+      Showing Page {{RMAResp.number+1}} &nbsp;of&nbsp;{{RMAResp.totalPages}}&nbsp;Total Count={{RMAResp.totalElements}}
+    </div>
+    <div class="col-sm-4">
+      <div style="text-align: center" *ngIf="!(RMAResp.first && RMAResp.last) ">
+        <a [routerLink]="['/bat_rma']" [routerLinkActive]="['active']" class="previous round btn-sm"
+          *ngIf="!RMAResp.first"
+          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:RMAResp.number-1,size:dropdownSelected.size}">
+          &lt;
+        </a>
+        <a [routerLink]="['/bat_rma']" [routerLinkActive]="['active']" class="previous round btn-sm"
+          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:RMAResp.number,size:dropdownSelected.size}">
+          {{RMAResp.number+1}}
+        </a>
+        <a [routerLink]="['/bat_rma']" [routerLinkActive]="['active']" class="previous round btn-sm"
+          *ngIf="!RMAResp.last"
+          [queryParams]="{sqId:dropdownSelected.sqId,name:dropdownSelected.name,filtreparam:dropdownSelected.filtreparam,sortname:dropdownSelected.sortname,sortorder:dropdownSelected.sortorder,page:RMAResp.number+1,size:dropdownSelected.size}">
+          &gt;
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-4" style="text-align: right;">
+      <div class="row">
+        <div class="col-md-6"></div>
+        <div *ngIf="!(RMAResp.first && RMAResp.last) " class="col-md-6">
+          <input type="text" [(ngModel)]="pagenumber" placeholder="Enter Page" size="8" autocomplete="off">
+          <button (click)=jumpPage(pagenumber)>Go</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- choosen files box -->
+<div class="modal fade" bsModal #choosenFiles="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="create-account">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="create-account" class="modal-title pull-left">Files</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="choosenFiles.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow: auto;">
+        <div class="row" *ngFor="let s of fileList;let i=index">
+          <div class="col-6">
+            {{s.name}}
+          </div>
+        </div>
+        <div class="modal-footer text-right">
+          <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+            <div>
+              <button type="button" class="btn btn-default" (click)="cancelChoosen()"><i class="fa fa-remove"></i>
+                Cancel</button>&nbsp;
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="modal fade" bsModal #createSSAModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelSSAData()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-create-ssa [isEditMode]="isEditMode" [editSSAEntityData]="ssares" (onSSACreated)="onSSACreated($event)"
+            (onSSACancle)="cancelSSAData()"></app-create-ssa>
+  
+        </div>
+      </div>
+    </div>
+  </div> -->

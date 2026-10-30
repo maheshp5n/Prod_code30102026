@@ -1,0 +1,135 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+</ngx-spinner>
+<div class="card">
+    <div class="card-header" style="background-color:rgb(240, 240, 240)">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <table style="width: 100%;">
+                    <tr>
+                        <td rowspan="2" style="width:33px;">
+                            <img src="assets/images/product_request_line_item_120.png" alt=""
+                                style="width: 100%;height: auto;background-color: #88C651"
+                                title="Product Request Line Items" />
+                        </td>
+                        <td style="padding-left: 5px;">
+                            <span>Product Request Line Item</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 5px;">
+                            <span
+                                style="font-size:15px;font-weight: bold;">{{productReqItemsRes.productRequestItemManualId}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card-body" style="padding-bottom: 0px;">
+                <ul class="menue">
+                    <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+                </ul>
+                <br>
+                <hr style="margin-top: 14px;">
+
+                <div *ngIf="vDetails" class="panel-body">
+                    <button type="button" (click)="changeInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                            [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+                    <div *ngIf="infoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small>Item Request ID</small></td>
+                                        <td class="wrappable"> {{productReqItemsRes.productRequestItemManualId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Part Code</small> </td>
+                                        <td><a [routerLink]="['/products', productReqItemsRes.productRequestItemProductId]"
+                                                [routerLinkActive]="'active'">{{productReqItemsRes.productRequestItemProductPartcode}}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Product Type</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemProductType}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Item Status</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemStatus}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small>Quantity Recieved</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemReceivedQuantity}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"> <small>Quantity Issued</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemIssuedQuantity}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Quantity Required</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemRequiredQuantity}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrappable"><small>Description</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemProductDescription}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <button type="button" (click)="sysInfoDisplay()"
+                        style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+                        class="btn btn-sm btn-default btn-block text-left">
+                        <i style="font-size: 18px;" [ngClass]="sysinfoDisplay.angleIcon"></i> System
+                        Information</button>
+                    <div *ngIf="sysinfoDisplay.open" class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small>Created Date</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemCreatedDate |
+                                            date:'dd-MM-yyyy HH:mm:ss'}}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="wrappable" style="width:50%"><small>Last Date</small></td>
+                                        <td class="wrappable">{{productReqItemsRes.productRequestItemLastModifiedDate |
+                                            date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

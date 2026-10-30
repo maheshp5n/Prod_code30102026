@@ -1,0 +1,316 @@
+<ngx-spinner size="medium" color="#fff" type="line-scale-party">
+    <p style="font-size: 20px; color: rgb(255, 255, 255)">Loading...</p>
+  </ngx-spinner>
+  <div class="card">
+    <div class="card-header" style="background-color:rgb(240, 240, 240)">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="2" style="width:33px;">
+                <img alt="legalEntity" src="assets/images/ligalEntity.png"
+                  style="height: auto;width:100%;background-color: rgb(91, 235, 191);" title="legalEntity" />
+              </td>
+              <td style="padding-left: 5px;">
+                <span>Legal Entity</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left: 5px;">
+                <span style="font-size:15px;font-weight: bold;">{{response.legalEntityName}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-4 col-md-4" style="text-align: right;">
+          <div class="btn-group" style="padding: 10px;">
+            <button *ngIf="rights('LegalEntity','edit') && _cFlag!='f'" class="btn btn-outline-info btn-sm" type="button"
+              (click)="createLegalENtityModelshow(req)">Edit</button>
+            <!-- <button class="btn btn-outline-info btn-sm" type="button" (click)="createLocation()">New Location</button> -->
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  
+  <div class="card" style="margin-top: 10px;">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="card-body" style="padding-bottom: 0px;">
+          <ul class="menue">
+            <li title="Details"><a [ngClass]="ngClassDetails" (click)="subTabChange('details')">Details</a></li>
+            <li title="Related"><a [ngClass]="ngClassReleated" (click)="subTabChange('releated')">Related</a></li>
+          </ul>
+          <br>
+          <hr style="margin-top: 14px;">
+  
+          <div *ngIf="vDetails" class="panel-body">
+            <button type="button" (click)="changeInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
+                [ngClass]="infoDisplay.angleIcon"></i> Information</button>
+            <div *ngIf="infoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Name</small>
+                      </td>
+                      <td class="wrappable">{{response.legalEntityName}}</td>
+                    </tr>
+  
+                    <tr>
+                      <td>
+                        <small>Type</small></td>
+                      <td class="wrappable">{{response.legalEntityTypeName}}</td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small> Circle Manager</small></td>
+                      <td class="wrappable">
+                        <a [routerLink]="['/bat_user',response.ownerAccountId]">{{response.ownerAccountFirstName}}&nbsp;{{response.ownerAccountMiddleName}}
+                          &nbsp;{{response.ownerAccountLastName}}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="wrappable"><small>Fixed Payout</small>
+                      </td>
+                      <td class="wrappable">{{response.legalEntiytFixedLayou}} </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+  
+            <button type="button" (click)="sysInfoDisplay()"
+              style="text-align: left;background-color: rgb(243, 242, 242);font-weight: bold;"
+              class="btn btn-sm btn-default btn-block text-left">
+              <i style="font-size: 18px;" [ngClass]="sysinfoDisplay.angleIcon"></i> System Information</button>
+            <div *ngIf="sysinfoDisplay.open" class="row">
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Created By</small></td>
+                      <td class="wrappable"><a
+                          [routerLink]="['/bat_user',response.createdByEmailId]">{{response.createdByFirstName}}&nbsp;{{response.createdByMiddleName}}&nbsp;{{response.createdByLastName}}</a>&nbsp;,&nbsp;{{response.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+  
+                      <td class="text-right edit-inactive"> </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="wrappable" style="width:50%"><small>Last Modified</small></td>
+                      <td class="wrappable">
+                        <a
+                          [routerLink]="['/bat_user',response.modifiedByEmailid]">{{response.modifiedByFirstName}}&nbsp;{{response.modifiedByMiddleName}}&nbsp;{{response.modifiedByLastName}}</a>&nbsp;,&nbsp;{{response.modifiedDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                      </td>
+  
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+            </div>
+  
+  
+          </div>
+          <div *ngIf="!vDetails">
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img src="assets/images/location_120.png"
+                        style="width: 24px;height: 24px;background-color: #2a9e43"></td>
+                    <td>
+                      <a>&nbsp;Warehouse({{totallocation}})</a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+  
+              <div *ngIf="location.length>0" class="card-body"
+                style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+  
+                <div class="table-responsive mobile" style=" background-color: white; height: 100%;">
+                  <table class="table table-sm table-condensed">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th class="text-left">S.No.</th>
+                        <th class="text-left" title="Warehouse name">Warehouse Name
+                        </th>
+                        <th class="text-left" title="Warehouse Type"> Warehouse Type
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let loc of location; let i = index ">
+                        <td data-line="S.No." class="mhide">{{serialNumberloc+i+1}}</td>
+                        <td data-line="Location Name" class="wrappable"><a
+                            [routerLink]="['/bat_warehouse',loc.locationId]">{{loc.locationName}}</a></td>
+                        <td data-line="Location Type" class="wrappable">{{loc.locationTypeName}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="text-align: center" *ngIf="!(firstloc && lastloc)">
+                    <a id="prbtn" class="previous round" href="" [class.disabled]="firstloc" *ngIf="!firstloc"
+                      (click)="setPagePrevious($event)" [ngClass]="{'active':page}">
+                      &#8249;
+                    </a>
+                    <a id="prbtn" class="nav-link active" href="" (click)="setPage($event)"
+                      [ngClass]="{'active':i==page}">
+                      {{pageLoc+1}}
+                    </a>
+  
+                    <a id="prbtn" class="next round" href="" [class.disabled]="lastloc" *ngIf="!lastloc"
+                      (click)="setPageNext($event)" [ngClass]="{'active':page}">
+                      &#8250;
+                    </a>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="width: 30px;">
+                      <img src="assets/images/relationship_120.png"
+                        style="width: 24px;height: 24px;background-color: #ecd762"></td>
+                    <td>
+                      <a>&nbsp;Engineer({{totalEng}})</a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+  
+              <div *ngIf="enginr.length>0" class="card-body"
+                style="padding:0px;margin-bottom: 0px;background-color:rgb(240, 240, 240)">
+  
+                <div class="table-responsive mobile" style="background-color: white; height: 100%;">
+                  <table class="table table-sm table-condensed ">
+                    <thead style="background-color:rgb(248, 245, 245)">
+                      <tr>
+                        <th class="text-left">S.No.</th>
+                        <th class="text-left" title="Account Name">Account Name
+                        </th>
+                        <th class="text-left" title="Type"> Type
+                        </th>
+                        <th class="text-left" title="Mobile number">Mobile Number
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let eng of enginr; let i = index; ">
+                        <td data-line="S.No." class="wrappable mhide">{{serialNumbereng+i+1}}</td>
+                        <td data-line="Accounts" class="wrappable"><a
+                            [routerLink]="['/bat_account',eng.accountSAPNumber]">{{eng.accountName}}</a></td>
+                        <td data-line="Type " class="wrappable">{{eng.contactTypeName}}</td>
+                        <td data-line="Mobile Number" class="wrappable">{{eng.contactPhoneNumber}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="text-align: center" *ngIf="!(firsteng && lasteng)">
+                    <a id="prbtn" class="previous round" href="" [class.disabled]="firsteng" *ngIf="!firsteng"
+                      (click)="setPagePreviousEng($event)" [ngClass]="{'active':page}">
+                      &#8249;
+                    </a>
+  
+                    <a id="prbtn" class="nav-link active" href="" (click)="setPageEng($event)"
+                      [ngClass]="{'active':i==page}">
+                      {{pageEng+1}}
+                    </a>
+  
+                    <a id="prbtn" class="next round" href="" [class.disabled]="lasteng" *ngIf="!lasteng"
+                      (click)="setPageNextEng($event)" [ngClass]="{'active':page}">
+                      &#8250;
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div>
+              <app-bt-action-history [actionHistoryInput]="actionHistoryObjectAndId"></app-bt-action-history>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  
+  
+  <!-- =======edit legaentityModel=== -->
+  <div class="modal fade" bsModal #createLegalENtityModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left">{{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="cancelData()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-create-legalentity [isEditMode]="isEditMode" [editEntityData]="req"
+            (onEntityCreated)="onEntityCreated($event)" (onCancle)="cancelData()"></app-bt-create-legalentity>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- popupSuccessModel -->
+  <div class="modal fade" bsModal #popupSuccessModel="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1"
+    role="dialog" aria-labelledby="create-account">
+    <div *ngIf="message!='Submitted Successfully'" class="alert alert-danger center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+    <div *ngIf="message=='Submitted Successfully'" class="alert alert-success center center-block"
+      style="width:40%; text-align: center">
+      <strong>{{message}} !</strong>
+    </div>
+  </div>
+  <!-- create location -->
+  <div class="modal fade" bsModal #creatLocation="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+    aria-labelledby="create-account">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="create-account" class="modal-title pull-left"> {{heading}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="creatLocation.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-bt-createwarehouse [isEditMode]="isEditMode" [editEntityData]="localres"
+            (onLocationCreated)="onLocationCreated($event)" [legalENtityName]="legalENtityName"
+            [legalENtityId]="legalENtityId" (onCancle)="cancelLocationData()"></app-bt-createwarehouse>
+  
+        </div>
+      </div>
+    </div>
+  </div>

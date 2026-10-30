@@ -1,0 +1,77 @@
+<div class="" style="padding: 10px;">
+    <div class="">
+        <div class="row">
+            <div class="col-6">
+                <label>Search Partcode </label>
+                <ng-select *ngIf="consumedpartcodeList" [items]="consumedpartcodeList"
+                    bindLabel="faulty_product_product_part_code" bindValue="id" [(ngModel)]="saId"
+                    (change)="changeSa(saId)" placeholder="Search Partcode">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" />
+                        {{item.faulty_product_product_part_code}} ({{item.faulty_product_serial_number}})
+
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                            style="background-color: rgb(198, 172, 240);" />
+                        {{item.faulty_product_product_part_code}} ({{item.faulty_product_serial_number}})
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+
+        <div *ngIf="item_to_show">
+            <div class="row">
+                <div class="col-6">
+                    <label>Original Faulty Partcode</label>
+                    <span *ngIf="item_to_show"
+                        class="form-control">{{item_to_show.faulty_product_product_part_code}}</span>
+                </div>
+                <div class="col-6">
+                    <label>Original Faulty Serial Number</label>
+                    <span *ngIf="item_to_show" class="form-control">{{item_to_show.faulty_product_serial_number}}
+                    </span>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    <label>Updated Faulty Partcode</label>
+
+                    <ng-select [items]="productItemList" bindLabel="productPartCode" bindValue="productPartCode"
+                        [(ngModel)]="postData.faulty_part_code" (search)="searchProduts($event)"
+                        placeholder="Search SA">
+                        <ng-template ng-label-tmp let-item="item">
+                            <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                style="background-color: rgb(198, 172, 240);" />
+                            {{item.productPartCode}}
+
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                            <img height="15" alt="" width="15" src='/assets/images/product_120.png'
+                                style="background-color: rgb(198, 172, 240);" />
+                            {{item.productPartCode}}
+                        </ng-template>
+                    </ng-select>
+
+                </div>
+                <div class="col-6">
+                    <label>Updated Faulty Serial Number</label>
+                    <input type="text" class="form-control" [(ngModel)]="postData.faulty_serial_number">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12 text-right">
+                <button (click)="saveDetails()" type="button" class="btn btn-sm btn-outline-info"><em
+                        class="fa fa-save"></em> Save</button>
+                <button (click)="onCancelEvent()" type="button" class="btn btn-sm btn-outline-danger"><em
+                        class="fa fa-remove"></em> Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
