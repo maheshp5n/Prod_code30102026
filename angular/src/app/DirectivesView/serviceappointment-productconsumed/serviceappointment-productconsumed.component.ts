@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective, TypeaheadMatch } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { ServiceAppointmentProductConsumedRequest, ServiceAppointmentProductConsumedLineitemRequest, LocationProductItemForList, Page, ProductConsumptionType, ServiceAppointmentProductConsumedResponse, LptransferOkSRN_details } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
@@ -11,8 +12,8 @@ import { ProductsService } from '../../services/products.services';
   styleUrls: ['./serviceappointment-productconsumed.component.scss']
 })
 export class ServiceappointmentProductconsumedComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
 
   @Output()
   onProductConsumedCreated: EventEmitter<ServiceAppointmentProductConsumedRequest> = new EventEmitter<ServiceAppointmentProductConsumedRequest>();

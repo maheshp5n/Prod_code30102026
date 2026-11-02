@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateMslrequestComponent } from './create-mslrequest.component';
 
@@ -6,7 +6,7 @@ describe('CreateMslrequestComponent', () => {
   let component: CreateMslrequestComponent;
   let fixture: ComponentFixture<CreateMslrequestComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateMslrequestComponent ]
     })

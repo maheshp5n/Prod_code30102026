@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { AssetsService } from '../../../services/assets.services';
@@ -32,13 +32,13 @@ export class BatSiteDetailComponent implements OnInit {
   vDetails: boolean = true;
   msg: string
   isSiteModelShow: boolean;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('editSiteModel', { static: false }) editSiteModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('editSiteModel') editSiteModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
   // @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createPRCModel',{static:false}) createPRCModel :ModalDirective
+  @ViewChild('createPRCModel') createPRCModel :ModalDirective
   isDCTCaseModelShow: boolean = false;
   account: AccountCreate = new AccountCreate();
   sapId: string = '';

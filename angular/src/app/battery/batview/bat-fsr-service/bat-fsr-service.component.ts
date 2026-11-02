@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { caseService } from '../../../services/caseService.service';
 import { Loginservices } from '../../../services/login.services';
 import { BtCaseserviceService } from '../../bat_services/bt-caseservice.service';
@@ -18,7 +18,7 @@ export class BatFsrServiceComponent implements OnInit {
   isEditMode: boolean = false;
   heading: string="Field Service Report";
 
-  @ViewChild('createfsrserviceModel', { static: false })
+  @ViewChild('createfsrserviceModel')
   createfsrserviceModel: ModalDirective;
   constructor( private caseService: BtCaseserviceService, private loginService: Loginservices,) { }
 

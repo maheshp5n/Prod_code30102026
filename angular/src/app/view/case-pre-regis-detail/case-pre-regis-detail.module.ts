@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { OrderModule } from 'ngx-order-pipe';

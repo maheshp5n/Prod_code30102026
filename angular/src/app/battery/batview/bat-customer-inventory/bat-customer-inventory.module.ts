@@ -4,7 +4,8 @@ import { BatCustomerInventoryComponent } from './bat-customer-inventory.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BatCustomerInventoryRouting } from './bat-customer-inventory.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import {BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { BtCustmerInventoryOutModule } from '../../batDirectiveView/bt-customer-out/bt-customer-out.module';
 import { BtCustomerInventoryInModule } from '../../batDirectiveView/bt-customer-in/bt-customer-in.module';
 import { BatEditGRNModule } from '../../batDirectiveView/bat-edit-grn/bat-edit-grn.module';

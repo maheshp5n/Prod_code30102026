@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CityCatagory, WccRequest, WccTypes, CircleZoneForList, WccSA, WCCResponse, PODetailsbywcctypeID, ActivityDesc, wccSAReq, PendingSAIDs } from '../../services/model';
 import { DatePipe } from '@angular/common';
@@ -20,7 +20,7 @@ export class CreatewccComponent implements OnInit {
 
   _isEditMode: boolean;
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   alertmeta = {
     ngClass: 'alert-success',
     message: ''

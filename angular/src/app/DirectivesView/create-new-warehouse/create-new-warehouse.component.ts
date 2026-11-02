@@ -7,7 +7,8 @@ import {
   EventEmitter,
   Input
 } from "@angular/core";
-import { ModalDirective, TypeaheadMatch } from "ngx-bootstrap";
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { NgxSpinnerService } from "ngx-spinner";
 import { WarehouseService } from "../../services/warehouse.service";
 import { FieldValidation } from "../../services/validation.services";
@@ -38,7 +39,7 @@ export class CreateNewWarehouseComponent implements OnInit {
   newLegalEntity = new ServiceCenterForList();
   popupNgClass: string = "alert alert-danger center center-block";
 
-  @ViewChild("createLegalEntityModel", { static: false })
+  @ViewChild("createLegalEntityModel")
   createLegalEntityModel: ModalDirective;
 
   @Input()
@@ -73,7 +74,7 @@ export class CreateNewWarehouseComponent implements OnInit {
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild("popupSuccessModel", { static: false })
+  @ViewChild("popupSuccessModel")
   popupSuccessModel: ModalDirective;
 
   constructor(

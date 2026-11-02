@@ -1,7 +1,10 @@
 
 import { NgModule } from "@angular/core";
 import { CommonModule, DatePipe } from "@angular/common";
-import { ModalModule, BsDropdownModule, AlertModule, BsDatepickerModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule } from "@angular/forms";
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 import { createMslRqstModule } from '../../DirectivesView/create-mslrequest/create-mslrequest.module';

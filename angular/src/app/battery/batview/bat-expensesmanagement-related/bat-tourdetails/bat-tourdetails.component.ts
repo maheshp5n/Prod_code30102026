@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../../services/login.services';
 import { ActionHistoryObjectAndId } from '../../../../services/model';
@@ -49,7 +49,7 @@ export class BatTourdetailsComponent implements OnInit {
   };
 
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createTourExpenseModel', { static: false }) createTourExpenseModel: ModalDirective;
+  @ViewChild('createTourExpenseModel') createTourExpenseModel: ModalDirective;
 
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   constructor(private spinner: NgxSpinnerService,private datePipe: DatePipe, private _activatedRoute: ActivatedRoute,

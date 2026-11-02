@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angu
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductsService } from '../../services/products.services';
 import { ProductsResponse, PriceBookEntriesResponse, PriceBookEntriesRequest, ProductFamily, ProductSubFamily, ProductType } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { PriceBookService } from '../../services/pricebook.service';
 import { element } from 'protractor';
 
@@ -58,8 +58,8 @@ export class ProductlistComponent implements OnInit {
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('selectedItemModel', { static: false }) selectedItemModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('selectedItemModel') selectedItemModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set priceBookId(id: number) {
     this.id = id;

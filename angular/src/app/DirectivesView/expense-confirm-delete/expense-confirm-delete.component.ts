@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ExpenseManagementService } from '../../services/expenses-management.service';
 import { ExpenseManagementResponse } from '../../services/model';
@@ -18,7 +18,7 @@ export class ExpenseConfirmDeleteComponent implements OnInit {
   private baseUrllodging = 'api/tourexpense';
   private baseUrllocalCon = 'api/tourexpense';
   private baseUrlOther = 'api/tourexpense';
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   alertmeta = {
     ngClass: 'alert-success',
     message: ''

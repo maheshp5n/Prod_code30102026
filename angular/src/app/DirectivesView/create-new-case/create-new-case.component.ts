@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-create-new-case',
@@ -7,7 +7,7 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./create-new-case.component.css']
 })
 export class CreateNewCaseComponent implements OnInit {
-  @ViewChild('createNewCaseModel',{static:false}) createNewCaseModel:ModalDirective;
+  @ViewChild('createNewCaseModel') createNewCaseModel:ModalDirective;
   
 
   constructor() { }

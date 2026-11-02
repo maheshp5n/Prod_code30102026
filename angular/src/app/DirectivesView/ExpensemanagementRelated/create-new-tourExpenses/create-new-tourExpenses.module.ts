@@ -1,4 +1,5 @@
-import { PopoverModule, TooltipModule } from 'ngx-bootstrap';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ligalEntityService } from './../../../services/ligalentity.services';
 import { CirclesService } from './../../../services/circles.services';
 import { ContactcreateModule } from './../../contactcreate/contactcreate.module';
@@ -9,7 +10,10 @@ import { ContactsService } from './../../../services/contacts.services';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule, TypeaheadModule, BsDatepickerModule, TimepickerModule, DatepickerModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
 import { BLDAdetailMoule } from '../../boding-lodging-da-detail/boding-lodging-da-detail.module';

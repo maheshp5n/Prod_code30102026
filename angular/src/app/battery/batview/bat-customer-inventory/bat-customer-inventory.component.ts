@@ -6,7 +6,7 @@ import { Loginservices } from '../../../services/login.services';
 import { Page } from '../../../services/model';
 import * as fileSaver from 'file-saver';
 import { BtCustomerInventoryService } from '../../bat_services/bt-customer-inventory.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BtCustomerInventoryOutRequest } from '../../bt_model';
 import { ThrowStmt } from '@angular/compiler';
 import { ActivatedRoute } from '@angular/router';
@@ -132,12 +132,12 @@ export class BatCustomerInventoryComponent implements OnInit {
     }
   ];
 
-  @ViewChild('inputfile', { static: false }) inputfile: ElementRef;
-  @ViewChild('outputFile', { static: false }) outputfile: ElementRef;
+  @ViewChild('inputfile') inputfile: ElementRef;
+  @ViewChild('outputFile') outputfile: ElementRef;
 
-  @ViewChild('customerInventoryIn', { static: false }) customerInventoryIn: ModalDirective;
-  @ViewChild('CustomerInventoryOut', { static: false }) CustomerInventoryOut: ModalDirective;
-  @ViewChild('editGRN', { static: false }) editGRN: ModalDirective;
+  @ViewChild('customerInventoryIn') customerInventoryIn: ModalDirective;
+  @ViewChild('CustomerInventoryOut') CustomerInventoryOut: ModalDirective;
+  @ViewChild('editGRN') editGRN: ModalDirective;
   pagedata: Page<any> = new Page<any>();
   openCustomerInventoryIn = { customerInventoryIn: false };
   openCustomerInventoryOut = { CustomerInventoryOut: false }

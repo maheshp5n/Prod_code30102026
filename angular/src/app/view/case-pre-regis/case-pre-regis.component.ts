@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CaseResponse, AssetsResponse, PreRegCaseResponse, PreRegCaseRequest, ProblemReported, CaseReasonForList, CaseTypeForList, CaseTypeRecord, Page, CaseStatus, CaseStageDetails, LastActionForList } from '../../services/model';
 import { OrderPipe } from 'ngx-order-pipe';
 import { Loginservices } from '../../services/login.services';
@@ -18,9 +18,9 @@ import { PagefilterService } from '../../services/pagefilterservice';
   styleUrls: ['./case-pre-regis.component.scss']
 })
 export class CasePreRegisComponent implements OnInit {
-  @ViewChild('createPreRegisCaseModel', { static: false }) createPreRegisCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('createPreRegisCaseModel') createPreRegisCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   res: PreRegCaseResponse = new PreRegCaseResponse();
   req: PreRegCaseRequest = new PreRegCaseRequest();
   AllCase: Page<PreRegCaseResponse>  = new Page<PreRegCaseResponse>()

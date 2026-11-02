@@ -5,7 +5,7 @@ import { AccountService } from '../../services/accounts.services';
 import { ProductsDetailsRouting } from './productsdetails.routing';
 import { ProductsdetailsComponent } from './productsdetails.component';
 import { ProductsService } from '../../services/products.services';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { ContactcreateModule } from '../../DirectivesView/contactcreate/contactcreate.module';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';

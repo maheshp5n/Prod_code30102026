@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -22,11 +22,11 @@ import { AssetForList, AssetTypeChoice, BTassetResp, BTAssetsForList, BTCaseReas
   styleUrls: ['./bt-create-pre-registration-case.component.css']
 })
 export class BtCreatePreRegistrationCaseComponent implements OnInit {
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
-  @ViewChild('createLegalEntityModel', { static: false }) createLegalEntityModel: ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
+  @ViewChild('createLegalEntityModel') createLegalEntityModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
 
   @Output()
   onCaseCreated: EventEmitter<BtPreRegCaseRequest> = new EventEmitter<BtPreRegCaseRequest>();

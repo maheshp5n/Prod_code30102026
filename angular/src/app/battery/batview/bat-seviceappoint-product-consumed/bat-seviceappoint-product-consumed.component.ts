@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, ViewChild,EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationProductItemForList, ProductConsumptionType, ServiceAppointmentProductConsumedLineitemRequest, ServiceAppointmentProductConsumedRequest, ServiceAppointmentProductConsumedResponse } from '../../../services/model';
 import { ProductsService } from '../../../services/products.services';
@@ -14,8 +14,8 @@ import { BTProductForListResponse } from '../../bt_model';
   styleUrls: ['./bat-seviceappoint-product-consumed.component.scss']
 })
 export class BatSeviceappointProductConsumedComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
 
   @Output()
   onProductConsumedCreated: EventEmitter<ServiceAppointmentProductConsumedRequest> = new EventEmitter<ServiceAppointmentProductConsumedRequest>();

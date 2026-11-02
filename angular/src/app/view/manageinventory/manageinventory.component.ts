@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BRCInventoryReceiveResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ManageInventoryService } from '../../services/manageinventory.services';
@@ -14,9 +14,9 @@ import { caseService } from '../../services/caseService.service';
   styleUrls: ['./manageinventory.component.scss']
 })
 export class ManageinventoryComponent implements OnInit {
-  @ViewChild('ManageInventoryModel', { static: false }) ManageInventoryModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
+  @ViewChild('ManageInventoryModel') ManageInventoryModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
   message: string = '';
   ngClassManage: string;
   i: number;

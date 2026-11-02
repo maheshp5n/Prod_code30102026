@@ -5,7 +5,7 @@ import { LocationProductRequestResponse, LPRStatus, Page } from '../../services/
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalserviceService } from '../../globalservice.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 
 @Component({
@@ -14,7 +14,7 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./productrequest.component.scss']
 })
 export class ProductrequestComponent implements OnInit {
-  @ViewChild('sureModel',{static:false})sureModel:ModalDirective;
+  @ViewChild('sureModel')sureModel:ModalDirective;
   prstatusli:Array<LPRStatus>=[]
   dropdownsList = [{
     sqId: 1,

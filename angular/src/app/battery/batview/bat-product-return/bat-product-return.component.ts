@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import {LPrStatusForList, Page } from '../../../services/model';
@@ -100,8 +100,8 @@ export class BatProductReturnComponent implements OnInit {
   ];
   _cFlag: string;
   btProductReturnOrderRes: Page<BtProductReturnResponse> = new Page<BtProductReturnResponse>();
-  @ViewChild('btProductReturn', { static: false }) btProductReturn: ModalDirective;
-  @ViewChild('receiveOrder', { static: false }) receiveOrder: ModalDirective;
+  @ViewChild('btProductReturn') btProductReturn: ModalDirective;
+  @ViewChild('receiveOrder') receiveOrder: ModalDirective;
   constructor(private pagefilterservice: PagefilterService, private _global: GlobalserviceService, private _activatedRoute: ActivatedRoute, private _productreturnservice: ProductReturnService, private _ngxspinner: NgxSpinnerService,
     private _btPrductReturnOrderService: BtProductReturnService) {
     this._activatedRoute.queryParams.subscribe(param => {

@@ -3,7 +3,7 @@ import { ProductReturnService } from '../../services/productreturnservice';
 import { LpReturnLineItemResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-product-return-line-item-detail',
@@ -14,7 +14,7 @@ export class ProductReturnLineItemDetailComponent implements OnInit {
   lineItemId:any
   lpReturnLineItemResponse:LpReturnLineItemResponse=new LpReturnLineItemResponse();
  
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
  
  ngClassDetails:string='active';
   ngClassReleated:string='';

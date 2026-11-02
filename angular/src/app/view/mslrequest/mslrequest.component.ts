@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { LegalEntityResponse, Login, Page, MSLRequestStatus, MSLRequestResponse, MSLRequest, MSLItemRequestRequest, MSLItemRequestResponse } from '../../services/model';
 import { mslRequestService } from '../../services/mslRequest.services';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,7 +15,7 @@ import { GlobalserviceService } from '../../globalservice.service';
 })
 export class MslrequestComponent implements OnInit {
 
-  @ViewChild('createRequestModel', { static: false }) createRequestModel: ModalDirective;
+  @ViewChild('createRequestModel') createRequestModel: ModalDirective;
 
   message: string = ""
   recentlyView: boolean = false;

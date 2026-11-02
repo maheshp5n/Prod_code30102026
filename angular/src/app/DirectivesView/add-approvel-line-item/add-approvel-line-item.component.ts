@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApprovalService } from '../../services/approval.services';
 import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-add-approvel-line-item',
@@ -12,7 +12,7 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./add-approvel-line-item.component.scss']
 })
 export class AddApprovelLineItemComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel :ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel :ModalDirective;
 itemAddReq:ApprovalStepRequest=new ApprovalStepRequest();
 _isEditMode: boolean;
 popupNgClass:string='alert alert-danger center center-block';

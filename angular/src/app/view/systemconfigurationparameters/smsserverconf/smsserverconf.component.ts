@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sysconfigparamservice } from '../../../services/sysconfig.services';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -12,8 +12,8 @@ import { ModalDirective } from 'ngx-bootstrap';
 export class SmsserverconfComponent implements OnInit {
 
   smsSettings:Array<any>=[];
-  @ViewChild('smsServerSetting',{static:false})smsServerSetting:ModalDirective;
-  @ViewChild('alertModal',{static:false})alertModal:ModalDirective;
+  @ViewChild('smsServerSetting')smsServerSetting:ModalDirective;
+  @ViewChild('alertModal')alertModal:ModalDirective;
 
   nsmsSetting={
     url:'',

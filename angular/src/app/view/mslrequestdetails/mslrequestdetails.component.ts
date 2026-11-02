@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MSLRequestResponse, MSLRequest, MSLItemRequestResponse, LocationResponse, ProductsForList, MSLItemRequestRequest } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
@@ -13,9 +13,9 @@ import { ProductsService } from '../../services/products.services';
   styleUrls: ['./mslrequestdetails.component.scss']
 })
 export class MslrequestdetailsComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('addItemModel', { static: false }) addItemModel: ModalDirective;
-  @ViewChild('submitForApprovalModal', { static: false }) submitForApprovalModal: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('addItemModel') addItemModel: ModalDirective;
+  @ViewChild('submitForApprovalModal') submitForApprovalModal: ModalDirective;
   response: MSLRequestResponse = new MSLRequestResponse()
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';

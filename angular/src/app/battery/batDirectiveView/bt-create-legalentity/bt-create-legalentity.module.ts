@@ -1,7 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { ligalEntityService } from "../../../services/ligalentity.services";
 import { Loginservices } from "../../../services/login.services";

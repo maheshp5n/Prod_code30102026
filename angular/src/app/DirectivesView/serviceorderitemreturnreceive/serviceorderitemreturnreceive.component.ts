@@ -14,7 +14,7 @@ export class ServiceorderitemreturnreceiveComponent implements OnInit {
   pendingdata = [];
   globalCheck = false;
 
-  @ViewChild('pendingitemlist', { static: false }) pendingitemlist: ModalDirective;
+  @ViewChild('pendingitemlist') pendingitemlist: ModalDirective;
 
   constructor(
     private _service: ServiceOrderitemReturnService,

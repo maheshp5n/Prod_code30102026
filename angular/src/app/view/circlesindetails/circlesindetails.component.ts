@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CirclesRequest, CirclesResponse, Zonedetails, SSAResponse, ActionHistoryObjectAndId } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { CirclesService } from '../../services/circles.services';
@@ -13,8 +13,8 @@ import { Loginservices } from '../../services/login.services';
 })
 export class CirclesindetailsComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createCircleModel', { static: false }) createCircleModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createCircleModel') createCircleModel: ModalDirective;
 
   circleName: string;
   circle: CirclesResponse = new CirclesResponse();

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -23,9 +23,9 @@ export class PendinglistComponent implements OnInit {
     refid:''
   };
 
-  @ViewChild('modrateApprovalWindow',{static:false})modrateApprovalWindow:ModalDirective;
+  @ViewChild('modrateApprovalWindow')modrateApprovalWindow:ModalDirective;
 
-  @ViewChild('newpartcodechangeWindow',{static:false})newpartcodechangeWindow:ModalDirective;
+  @ViewChild('newpartcodechangeWindow')newpartcodechangeWindow:ModalDirective;
 
   openWindow={
     modratewindow:false,

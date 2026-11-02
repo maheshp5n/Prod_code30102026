@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductrequestreceiveComponent } from './productrequestreceive.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AccordionModule } from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { GlobalSearchPipeModule } from '../../pipe/global-search-pipe.module';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 

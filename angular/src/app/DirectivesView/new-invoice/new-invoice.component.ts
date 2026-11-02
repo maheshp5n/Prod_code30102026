@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatePipe } from '@angular/common';
 import { VendorInvoiceService } from '../../services/vendorinvoice.services';
@@ -35,7 +35,7 @@ export class NewInvoiceComponent implements OnInit {
   columnSort: Array<boolean> = [false, false, false, false, false, false, false, false, true];
   ASCENDING: string = 'asc';
   DESCENDING: string = 'desc';
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set isEditMode(isEditMode: boolean) {
     this._isEditMode = isEditMode;

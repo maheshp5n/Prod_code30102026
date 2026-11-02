@@ -12,7 +12,7 @@ import { siteService } from '../../services/siteService.services';
 import { ActivatedRoute } from '@angular/router';
 import { TypeaheadConfig, TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { ligalEntityService } from '../../services/ligalentity.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatePipe } from '@angular/common';
 import { ContactsService } from '../../services/contacts.services';
@@ -29,14 +29,14 @@ import { GlobalserviceService } from '../../globalservice.service';
   // providers: [{ provide: TypeaheadConfig }]
 })
 export class CreatecaseComponent implements OnInit {
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
-  @ViewChild('createLegalEntityModel', { static: false }) createLegalEntityModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('createuploadFileModel',{static:false}) createuploadFileModel: ModalDirective;
-  @ViewChild('fileUploadModel',{static:false}) fileUploadModel:ModalDirective;
-  @ViewChild('popupAlertModel',{static:false}) popupAlertModel:ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
+  @ViewChild('createLegalEntityModel') createLegalEntityModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('createuploadFileModel') createuploadFileModel: ModalDirective;
+  @ViewChild('fileUploadModel') fileUploadModel:ModalDirective;
+  @ViewChild('popupAlertModel') popupAlertModel:ModalDirective;
 
   @Output()
   onCaseCreated: EventEmitter<CaseRequest> = new EventEmitter<CaseRequest>();

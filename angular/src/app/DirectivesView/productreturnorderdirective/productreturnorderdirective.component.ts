@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { LocationResponse, LocationForList, LPReturnOrderRequest, LocationFaultyItemResponse, LPReturnOrderLineItemRequest, LPReturnOrderItemRequest } from '../../services/model';
 import { LocationService } from '../../services/location.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 
 @Component({
@@ -21,7 +21,7 @@ export class ProductreturnorderdirectiveComponent implements OnInit {
   dateCustomClasses: DatepickerDateCustomClasses[];
   today = new Date();
 
-  @ViewChild('alertModel', { static: false }) alertModel: ModalDirective;
+  @ViewChild('alertModel') alertModel: ModalDirective;
   @Input()
   public set location(loc: LocationResponse) {
     if (loc) {

@@ -1,7 +1,7 @@
 import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CustomerService } from '../../../services/customers.services';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 import { Loginservices } from '../../../services/login.services';

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { Loginservices } from '../../services/login.services';
@@ -20,10 +20,10 @@ export class WcDetailsComponent implements OnInit {
   vDetails: boolean = true;
   venReq: VendorInvoiceRequest = new VendorInvoiceRequest();
   wccres: WCCResponse = new WCCResponse();
-  @ViewChild('createWCCModel', { static: false }) createWCCModel: ModalDirective;
-  @ViewChild('commercialModel', { static: false }) commercialModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('alertModal', { static: false }) alertModal: ModalDirective;
+  @ViewChild('createWCCModel') createWCCModel: ModalDirective;
+  @ViewChild('commercialModel') commercialModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('alertModal') alertModal: ModalDirective;
   alertmeta = {
     ngClass: 'alert-success',
     message: ''

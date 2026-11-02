@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { AssetsService } from '../../../services/assets.services';
@@ -19,9 +19,9 @@ import { BrcListByAssetId, BTassetResp, BTCaseResponse, BtPreRegCaseResponse } f
   styleUrls: ['./btasset-details.component.css']
 })
 export class BTassetDetailsComponent implements OnInit {
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('createPRCModel',{static:false}) createPRCModel :ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('createPRCModel') createPRCModel :ModalDirective;
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';
   vDetails: boolean = true;

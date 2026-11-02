@@ -15,7 +15,7 @@ import { siteService } from "../../services/siteService.services";
 import { Loginservices } from "../../services/login.services";
 import { CreateSiteModule } from "../../DirectivesView/create-site/create-site.module";
 import { NgxSpinnerService, NgxSpinnerModule } from "ngx-spinner";
-import { PopoverModule } from "ngx-bootstrap";
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { CreatecaseModule } from '../../DirectivesView/createcase/createcase.module';
 import { CreateNewServiceAppointmentsModule } from '../../DirectivesView/create-new-service-appointments/create-new-service-appointments.module';
 import { CreateassetModule } from '../../DirectivesView/createasset/createasset.module';

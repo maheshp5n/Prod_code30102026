@@ -4,7 +4,8 @@ import { ProductrequestdetailsComponent } from './productrequestdetails.componen
 import { FormsModule } from '@angular/forms'
 import { ProductrequestRoutingmodule } from './productrequestdetails.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule, AlertModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProducttransferdirectiveModule } from '../../DirectivesView/producttransferdirective/producttransferdirective.module';
 import { ProductrequestreceiveModule } from '../../DirectivesView/productrequestreceive/productrequestreceive.module';

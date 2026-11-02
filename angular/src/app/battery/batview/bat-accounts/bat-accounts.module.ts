@@ -4,7 +4,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CreateaccountModule } from '../../../DirectivesView/createaccount/createaccount.module';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../services/login.services';
 import { OrderModule } from 'ngx-order-pipe';

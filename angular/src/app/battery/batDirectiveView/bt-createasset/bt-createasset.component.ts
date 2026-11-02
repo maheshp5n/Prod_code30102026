@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -22,9 +22,9 @@ import { BTasseReq, BTassetResp, BtAssetsStatus, BTProductForListResponse, BtPro
   styleUrls: ['./bt-createasset.component.css']
 })
 export class BtCreateassetComponent implements OnInit {
- @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
-  @ViewChild('accountModel', { static: false }) accountModel: ModalDirective;
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
+ @ViewChild('createProductModel') createProductModel: ModalDirective;
+  @ViewChild('accountModel') accountModel: ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
 
   _isEditMode: boolean
   assetRequest: BTasseReq = new BTasseReq();

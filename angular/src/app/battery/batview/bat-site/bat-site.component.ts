@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -25,12 +25,12 @@ export class BatSiteComponent implements OnInit {
    
 
   //////////////////////////////////////////////////////////////////////////////////////
-  @ViewChild('createSiteModel',{static:false}) createSiteModel:ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel:ModalDirective;
 
   // @ViewChild('editSitesModel',{static:false}) editSitesModel:ModalDirective;
   // @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
 
-  @ViewChild('sitebulkupload',{static:false}) sitebulkupload:ElementRef;
+  @ViewChild('sitebulkupload') sitebulkupload:ElementRef;
 
   searchContent={
     // site_id:'',

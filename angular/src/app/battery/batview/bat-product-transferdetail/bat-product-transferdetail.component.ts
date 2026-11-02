@@ -21,10 +21,10 @@ export class BatProductTransferdetailComponent implements OnInit {
   logedInUser;
   btProductTransferDetails: BtProductTransferResponse = new BtProductTransferResponse();
 
-  @ViewChild('transferRecieve', { static: false })
+  @ViewChild('transferRecieve')
   transferRecieve: ModalDirective;
 
-  @ViewChild('ewayBillModal', { static: false })
+  @ViewChild('ewayBillModal')
   ewayBillModal!: ModalDirective;
 
   modalView = false;

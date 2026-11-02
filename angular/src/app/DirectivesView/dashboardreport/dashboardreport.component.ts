@@ -2,7 +2,7 @@ import { ReportwizardService } from '../../services/reportwizard.service';
 import { Input, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalserviceService } from '../../globalservice.service';
 import { Router } from '@angular/router';
 
@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 })
 export class DashboardreportComponent implements OnInit {
 
-  @ViewChild('reportsWindows', { static: false }) reportsWindows: ModalDirective;
-  @ViewChild('reportParam', { static: false }) reportParam: ModalDirective;
+  @ViewChild('reportsWindows') reportsWindows: ModalDirective;
+  @ViewChild('reportParam') reportParam: ModalDirective;
 
   objKeys = [];
   objectValues = [];

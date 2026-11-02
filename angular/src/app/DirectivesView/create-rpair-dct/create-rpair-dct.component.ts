@@ -4,7 +4,7 @@ import { caseService } from '../../services/caseService.service';
 import { AssetsForList, ProductsForList, BillOfMaterialResponse, DCTRepairRequest, DctRepairConsumedItemsRequest, dctRepairItemList, Repaireng, LPRequest, LPItemRequest } from '../../services/model';
 import { AssetsService } from '../../services/assets.services';
 import { BillOfmaterialService } from '../../services/billOfMaterial.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DCTRepairservice } from '../../services/dctRepair.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
@@ -18,7 +18,7 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./create-rpair-dct.component.scss']
 })
 export class CreateRpairDCTComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   assetList: Array<AssetsForList> = [];
   _productList: Array<ProductsForList> = [];
   dctreq = new DCTRepairRequest();

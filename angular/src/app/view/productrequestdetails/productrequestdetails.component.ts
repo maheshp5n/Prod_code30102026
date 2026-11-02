@@ -3,7 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { LocationProductRequestResponse, LocationProductRequestItemResponse, Page, ProductsForList, LPItemRequest, LPTransferRequest, LocationProductTransferItemResponse, ActionHistoryObjectAndId, LPRequest } from '../../services/model';
 import { LocationProductRequestService } from '../../services/locationproductrequest.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProductsService } from '../../services/products.services';
 import { FieldValidation } from '../../services/validation.services';
 import { GlobalserviceService } from '../../globalservice.service';
@@ -40,11 +40,11 @@ export class ProductrequestdetailsComponent implements OnInit {
     ok_quantity: 0,
     quantity_in_on_hand: 0
   };
-  @ViewChild('alertPopupModal', { static: false }) alertPopupModal: ModalDirective;
-  @ViewChild('transferItem', { static: false }) transferItem: ModalDirective;
-  @ViewChild('receiveItem', { static: false }) receiveItem: ModalDirective;
-  @ViewChild('addItemModal',{static:false}) addItemModal :ModalDirective;
-  @ViewChild('sureModel',{static:false})sureModel:ModalDirective
+  @ViewChild('alertPopupModal') alertPopupModal: ModalDirective;
+  @ViewChild('transferItem') transferItem: ModalDirective;
+  @ViewChild('receiveItem') receiveItem: ModalDirective;
+  @ViewChild('addItemModal') addItemModal :ModalDirective;
+  @ViewChild('sureModel')sureModel:ModalDirective
   products: Array<ProductsForList> = [];
   _lpitemRequest: LPItemRequest = new LPItemRequest();
   openModels = { transferItem: false, receiveItem: false };

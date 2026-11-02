@@ -1,6 +1,6 @@
 import { OppertunityForecastCategory, OppertunityRequest, OppertunityResponse, OppertunityStage, Page } from './../../services/model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { OpportunityService } from '../../services/Opportunity.services';
 import { Loginservices } from '../../services/login.services';
@@ -145,9 +145,9 @@ export class OpportunitiesComponent implements OnInit {
     return this.loginService.isUserValidFor(object, right);
   }
 
-  @ViewChild('popupSuccessModel', { static: false })
+  @ViewChild('popupSuccessModel')
   popupSuccessModel: ModalDirective;
-  @ViewChild('createNewOpportunity', { static: false })
+  @ViewChild('createNewOpportunity')
   createNewOpportunity: ModalDirective;
 
   isOpportunityOpen: boolean;

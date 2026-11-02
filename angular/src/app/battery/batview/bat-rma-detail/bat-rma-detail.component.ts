@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { FileDeleteService } from '../../../services/filedeletService.services';
@@ -23,9 +23,9 @@ export class BatRmaDetailComponent implements OnInit {
 
 
   // @ViewChild('fileUploadModel', { static: false }) fileUploadModel: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles: ModalDirective;
-  @ViewChild('rejectcasemodel',{static:false}) rejectcasemodel: ModalDirective;
-  @ViewChild('filePreviewModel', { static: false }) filePreviewModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
+  @ViewChild('rejectcasemodel') rejectcasemodel: ModalDirective;
+  @ViewChild('filePreviewModel') filePreviewModel: ModalDirective;
 
   // @ViewChild('submitForApprovalModal', { static: false }) submitForApprovalModal: ModalDirective;
   // response: MSLRequestResponse = new MSLRequestResponse()

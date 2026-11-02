@@ -5,7 +5,7 @@ import { AccountService } from '../../services/accounts.services';
 import { ContactsService } from '../../services/contacts.services';
 import { CountryDetailsServices } from '../../services/countrydetails.services';
 import { ligalEntityService } from '../../services/ligalentity.services';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopupSuccessComponent } from './popupSuccess.component';
 
 @NgModule({

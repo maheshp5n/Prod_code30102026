@@ -2,7 +2,7 @@ import { Page } from './../../services/model';
 import { ServiceOrderJobCardService } from './../../services/serviceorderjobcardservice';
 import { GlobalserviceService } from './../../globalservice.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { RepairDCTResponse, LocationFaultyLineItemResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +20,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./repair-dct.component.scss']
 })
 export class RepairDCTComponent implements OnInit {
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   
   searchitem: string;
   pagedata: Page<any> = new Page<any>();

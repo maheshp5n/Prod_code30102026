@@ -3,7 +3,7 @@ import { LocationResponse, LocationProductItemForList, LocationForList, Products
 import { LocationService } from '../../services/location.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductsService } from '../../services/products.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 
 @Component({
@@ -36,7 +36,7 @@ export class ProductrequestdirectiveComponent implements OnInit {
   @Output()
   onSave: EventEmitter<LPRequest> = new EventEmitter();
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   public get loc() {
     return this._location;
   }

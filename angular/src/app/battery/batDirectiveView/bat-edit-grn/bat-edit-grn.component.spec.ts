@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatEditGRNComponent } from './bat-edit-grn.component';
 
@@ -6,7 +6,7 @@ describe('BatEditGRNComponent', () => {
   let component: BatEditGRNComponent;
   let fixture: ComponentFixture<BatEditGRNComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatEditGRNComponent ]
     })

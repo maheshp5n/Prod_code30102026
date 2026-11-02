@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FieldValidation } from '../../services/validation.services';
 import { deliverychallandetailsRequest, LegalEntityResponse } from '../../services/model';
@@ -46,7 +46,7 @@ export class CreateNewdeliverychallanComponent implements OnInit {
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   constructor(private _legalEntityService: ligalEntityService, private spinner: NgxSpinnerService, private _deliverychallanService: deliverychallanService) { }
 

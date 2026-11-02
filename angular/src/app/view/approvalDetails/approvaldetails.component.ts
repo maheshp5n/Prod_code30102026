@@ -5,7 +5,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { ServiceResourseResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ApprovalService } from '../../services/approval.services';
 import { Loginservices } from '../../services/login.services';
 
@@ -16,11 +16,11 @@ import { Loginservices } from '../../services/login.services';
 })
 
 export class ApprovaldetailsComponent implements OnInit {
-  @ViewChild('createApprovalModel', { static: false }) createApprovalModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createApprovalLineItemModel', { static: false }) createApprovalLineItemModel: ModalDirective;
-  @ViewChild('confirmationPopup', { static: false }) confirmationPopup: ModalDirective;
-  @ViewChild('createaddProductModel',{static:false}) createaddProductModel:ModalDirective;
+  @ViewChild('createApprovalModel') createApprovalModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createApprovalLineItemModel') createApprovalLineItemModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup: ModalDirective;
+  @ViewChild('createaddProductModel') createaddProductModel:ModalDirective;
   @Output()
   onAccountCreated: EventEmitter<ServiceResourseResponse> = new EventEmitter<ServiceResourseResponse>();
   @Output()

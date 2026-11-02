@@ -4,11 +4,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {BtRejectCaseComponent} from './bt-reject-case.component';
-import {
-  AccordionModule,
-  AlertModule,
-  ModalModule,
-} from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { caseService } from '../../../services/caseService.service';
 @NgModule({

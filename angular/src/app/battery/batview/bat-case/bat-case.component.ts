@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -23,11 +23,11 @@ import { FieldValidation } from '../../../services/validation.services';
 })
 export class BatCaseComponent implements OnInit {
 
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
-  @ViewChild('chooscaseFiles',{static:false}) chooscaseFiles :ModalDirective;
-  @ViewChild('caseforpodupdate',{static:false}) caseforpodupdate:ModalDirective;
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
+  @ViewChild('chooscaseFiles') chooscaseFiles :ModalDirective;
+  @ViewChild('caseforpodupdate') caseforpodupdate:ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
   // res: CaseResponse = new CaseResponse();
   // req: CaseRequest = new CaseRequest();
   AllCase: Page<BTCaseResponse> = new Page<BTCaseResponse>();

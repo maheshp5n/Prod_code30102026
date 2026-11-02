@@ -5,7 +5,7 @@ import { cityDetailsReq, BusinessDomain } from '../../../services/model';
 import { OtherChargesService } from '../../../services/otherCharges.service';
 import { OtherChargesExpenseRequest, OtherChargesExpenseResponse, ModeOfTravel, OwnConveyance } from '../../../services/model';
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../services/login.services';
 
@@ -77,7 +77,7 @@ get BodamntToDisbursed():number{
 
   // Tour ends
 
-  @ViewChild('popupSuccessModel', { static: false })
+  @ViewChild('popupSuccessModel')
   popupSuccessModel: ModalDirective;
 
   public _isEditMode: boolean = false;

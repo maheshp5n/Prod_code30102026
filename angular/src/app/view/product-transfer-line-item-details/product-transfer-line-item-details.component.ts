@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { LocationProductTransferLineItemResponse } from '../../services/model';
 import { ProductTransferServices } from '../../services/producttransfer.service';
 
@@ -12,7 +12,7 @@ import { ProductTransferServices } from '../../services/producttransfer.service'
 })
 export class ProductTransferLineItemDetailsComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
  
   productTransferItemId;
   locationProductRequestResponse:LocationProductTransferLineItemResponse=new LocationProductTransferLineItemResponse();

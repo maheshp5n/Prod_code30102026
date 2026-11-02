@@ -3,7 +3,7 @@ import { ActionHistoryObjectAndId, TourExpenseRequest, TourExpenseResponse } fro
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../../services/login.services';
 import { DatePipe } from '@angular/common';
 
@@ -48,8 +48,8 @@ export class TourdetailsComponent implements OnInit {
     open: true
   };
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createTourExpenseModel', { static: false }) createTourExpenseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createTourExpenseModel') createTourExpenseModel: ModalDirective;
 
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   constructor(private spinner: NgxSpinnerService,private datePipe: DatePipe, private _activatedRoute: ActivatedRoute,

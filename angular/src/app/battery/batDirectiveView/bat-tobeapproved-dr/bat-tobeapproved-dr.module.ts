@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BatTobeapprovedDrComponent } from './bat-tobeapproved-dr.component';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 

@@ -3,7 +3,7 @@ import { LocationForList, Page, ProductsForList } from '../../../services/model'
 import { LocationService } from '../../../services/location.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProductsService } from '../../../services/products.services';
 
 @Component({
@@ -42,8 +42,8 @@ export class HresholdComponent implements OnInit {
     message:''
   }
   indiname:string='';
-  @ViewChild('alertWindows',{static:false})alertWindows:ModalDirective;
-  @ViewChild('resetwindows',{static:false})resetwindows:ModalDirective;
+  @ViewChild('alertWindows')alertWindows:ModalDirective;
+  @ViewChild('resetwindows')resetwindows:ModalDirective;
   constructor(private _locationservice:LocationService,private _ngxservice:NgxSpinnerService,private _activatedRoute:ActivatedRoute,private _productservice:ProductsService) {
     this._activatedRoute.params.subscribe(pram=>{
       this.locationId=pram['id'];

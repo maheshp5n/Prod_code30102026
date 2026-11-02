@@ -1,5 +1,5 @@
 import { SapDocServices } from '../../services/sapdocservices';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SapdocdisplayComponent implements OnInit {
 
-  @ViewChild('objectPdfView', { static: false }) objectPdfView: ModalDirective;
+  @ViewChild('objectPdfView') objectPdfView: ModalDirective;
 
   @Input() set crmDocNumber(doc) {
     if (doc) {

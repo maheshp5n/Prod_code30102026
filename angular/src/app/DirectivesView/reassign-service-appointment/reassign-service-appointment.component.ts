@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ServiceAppointmentReAssignRequest, ServiceCenterForList, ServiceResourseForList } from '../../services/model';
 import { ServiceResourceService } from '../../services/serviceresource.services';
@@ -13,7 +13,7 @@ import { siteService } from '../../services/siteService.services';
   styleUrls: ['./reassign-service-appointment.component.scss']
 })
 export class ReassignServiceAppointmentComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onReassignAppointmentCreated: EventEmitter<any> = new EventEmitter<any>();

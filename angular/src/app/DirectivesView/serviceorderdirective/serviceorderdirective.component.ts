@@ -4,7 +4,7 @@ import { GlobalserviceService } from './../../globalservice.service';
 import { ServiceOrderService } from './../../services/serviceorder.servvices';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { create } from 'domain';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-serviceorderdirective',
@@ -23,7 +23,7 @@ export class ServiceorderdirectiveComponent implements OnInit {
   globalcheck: boolean = false;
   @Output() created: EventEmitter<any> = new EventEmitter();
   @Output() cancled: EventEmitter<any> = new EventEmitter();
-  @ViewChild('viewTotalCountModel', { static: false }) viewTotalCountModel: ModalDirective;
+  @ViewChild('viewTotalCountModel') viewTotalCountModel: ModalDirective;
   requestTableHeaders = [
     {
       id: 1,

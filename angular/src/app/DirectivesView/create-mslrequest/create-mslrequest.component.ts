@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { MSLRequestStatus,  MSLRequest,MSLRequestResponse, ProductsForList,MSLItemRequestRequest,LocationResponse} from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -14,8 +14,8 @@ import { ServiceResourceService } from '../../services/serviceresource.services'
 })
 export class CreateMslrequestComponent implements OnInit {
   
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('MSLItemModel', { static: false }) MSLItemModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('MSLItemModel') MSLItemModel: ModalDirective;
   loc:LocationResponse=new LocationResponse();
   isEditMode:boolean=false;
   @Input()

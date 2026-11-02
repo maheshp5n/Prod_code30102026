@@ -1,5 +1,5 @@
 import { GlobalserviceService } from './../../globalservice.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Page } from './../../services/model';
 import { ServiceOrderService } from './../../services/serviceorder.servvices';
@@ -107,8 +107,8 @@ export class ServiceorderComponent implements OnInit {
     receive: false
   };
 
-  @ViewChild('serviceOrderModal', { static: false }) serviceOrderModal: ModalDirective;
-  @ViewChild('receiveModal', { static: false }) receiveModal: ModalDirective;
+  @ViewChild('serviceOrderModal') serviceOrderModal: ModalDirective;
+  @ViewChild('receiveModal') receiveModal: ModalDirective;
 _cFlag:string;
   constructor(private serviceOrderService: ServiceOrderService,
     private _ngxspinner: NgxSpinnerService,

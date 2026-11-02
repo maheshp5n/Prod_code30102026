@@ -5,7 +5,7 @@ import { LocationService } from '../../services/location.service';
 import { siteService } from '../../services/siteService.services';
 import { TypeaheadConfig, TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-create-location',
@@ -13,8 +13,8 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./create-location.component.scss']
 })
 export class CreateLocationComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createLegalENtityModel', { static: false }) createLegalENtityModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createLegalENtityModel') createLegalENtityModel: ModalDirective;
   public _isEditMode: boolean;
   istrue: boolean;
   loginData: any;

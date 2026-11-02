@@ -1,5 +1,5 @@
 import { GlobalserviceService } from './../../../globalservice.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Page } from './../../../services/model';
 import { Loginservices } from '../../../services/login.services';
@@ -104,10 +104,10 @@ export class BatServiceorderComponent implements OnInit {
     returnso:false
   };
 
-  @ViewChild('serviceOrderModal', { static: false }) serviceOrderModal: ModalDirective;
-  @ViewChild('receiveModal', { static: false }) receiveModal: ModalDirective;
-  @ViewChild('assignModel',{static:false}) assignModel:ModalDirective;
-  @ViewChild('soReturn',{static:false})soReturn:ModalDirective;
+  @ViewChild('serviceOrderModal') serviceOrderModal: ModalDirective;
+  @ViewChild('receiveModal') receiveModal: ModalDirective;
+  @ViewChild('assignModel') assignModel:ModalDirective;
+  @ViewChild('soReturn')soReturn:ModalDirective;
 
   _cFlag: string;
   constructor(

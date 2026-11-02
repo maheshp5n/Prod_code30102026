@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CaseResponse, CaseRequest } from '../../services/model';
 import { caseService } from '../../services/caseService.service';
 import { OrderPipe } from 'ngx-order-pipe';
@@ -13,8 +13,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./bulkupload.component.scss']
 })
 export class BulkuploadComponent implements OnInit {
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
    res: CaseResponse = new CaseResponse();
    req: CaseRequest = new CaseRequest();
    AllCase: Array<CaseResponse> = [];

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -115,8 +115,8 @@ export class BatServiceOrderReturnComponent implements OnInit {
 
   soReturnOrder: Page<any> = new Page<any>();
 
-  @ViewChild('soReturn', { static: false }) soReturn: ModalDirective;
-  @ViewChild('soReturnReceive', { static: false }) soReturnReceive: ModalDirective;
+  @ViewChild('soReturn') soReturn: ModalDirective;
+  @ViewChild('soReturnReceive') soReturnReceive: ModalDirective;
 
   constructor(private _btsoreturnService: BtServiceOrderReturnService,
     private _global: GlobalserviceService,

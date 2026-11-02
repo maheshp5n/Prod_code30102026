@@ -1,7 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule, ModalModule, TimepickerModule, TypeaheadModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { BtCreateLegalEntityModule } from '../bt-create-legalentity/bt-create-legalentity.module';
 import { BtCreateAssetModule } from '../bt-createasset/bt-createasset.module';
 import { BtCreatecontactsModule } from '../bt-createcontacts/bt-createcontacts.module';

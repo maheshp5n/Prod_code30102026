@@ -1,7 +1,7 @@
 import { QuoteService } from './../../services/Quote.services';
 import { Page, QueteStatus, QuoteRequest, QuoteResponse } from './../../services/model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
@@ -175,8 +175,8 @@ dateCustomClasses: DatepickerDateCustomClasses[];
   recentlyView: boolean;
   _cFlag: string;
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createNewQuote', { static: false }) createNewQuote: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createNewQuote') createNewQuote: ModalDirective;
 
   dropdownHeading: string = 'All';
   ngClassAll: string = 'dropdown-item';

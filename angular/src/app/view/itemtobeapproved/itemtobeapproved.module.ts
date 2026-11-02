@@ -3,7 +3,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ItemtobeApprovedRouting } from './itemtobeapproved.routing';
 import { ItemtobeapprovedComponent } from './itemtobeapproved.component';
-import { BsDropdownModule, AlertModule, ModalModule, PaginationModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 import { NgSelectModule } from '@ng-select/ng-select';
 

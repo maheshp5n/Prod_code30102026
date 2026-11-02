@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -19,8 +19,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./commercial-page.component.scss']
 })
 export class CommercialPageComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
   AllCase: Page<CaseResponse> = new Page<CaseResponse>()
   searchitem: string = '';
   datainput: boolean = false

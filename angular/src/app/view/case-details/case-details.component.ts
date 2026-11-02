@@ -22,7 +22,7 @@ import {
   FileUploadResponseCase
 } from '../../services/model';
 import { Loginservices } from '../../services/login.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { caseService } from '../../services/caseService.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
@@ -42,10 +42,10 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./case-details.component.scss']
 })
 export class CaseDetailsComponent implements OnInit {
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
   res: CaseResponse = new CaseResponse();
   req: CaseRequest = new CaseRequest();
   caseres: CaseResponse = new CaseResponse()
@@ -118,11 +118,11 @@ export class CaseDetailsComponent implements OnInit {
   RejectLogList:Array<caseLogReject>=[];
   caseRejectreq:RejectCaseRequest=new RejectCaseRequest();
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('createNewOpportunity', { static: false }) createNewOpportunity: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
-  @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('rejectcasemodel',{static:false}) rejectcasemodel: ModalDirective;
-  @ViewChild('changeCaseTypemodel',{static:false}) changeCaseTypemodel :ModalDirective;
+  @ViewChild('createNewOpportunity') createNewOpportunity: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow:ModalDirective;
+  @ViewChild('rejectcasemodel') rejectcasemodel: ModalDirective;
+  @ViewChild('changeCaseTypemodel') changeCaseTypemodel :ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

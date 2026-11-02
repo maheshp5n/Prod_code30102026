@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountsForList, CirclesResponse, CirclesRequest, Page, Zonedetails } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CirclesService } from '../../services/circles.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ligalEntityService } from '../../services/ligalentity.services';
@@ -123,10 +123,10 @@ export class CirclesComponent implements OnInit {
 
   //done
 
-  @ViewChild('createZoneModel', { static: false }) createZoneModel: ModalDirective;
-  @ViewChild('GradeModel', { static: false }) GradeModel: ModalDirective;
-  @ViewChild('createCircleModel', { static: false }) createCircleModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createZoneModel') createZoneModel: ModalDirective;
+  @ViewChild('GradeModel') GradeModel: ModalDirective;
+  @ViewChild('createCircleModel') createCircleModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   constructor(private pagefilterservice:PagefilterService,private spinner: NgxSpinnerService, private circlesService: CirclesService,
     private zoneservice:ZoneService,

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective, TypeaheadMatch } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { TypeaheadConfig } from 'ngx-bootstrap/typeahead';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -18,7 +19,7 @@ import { BtwarehouseService } from '../../bat_services/btwarehouse.service';
 export class BtCreatewarehouseComponent implements OnInit {
 
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createLegalENtityModel', { static: false }) createLegalENtityModel: ModalDirective;
+  @ViewChild('createLegalENtityModel') createLegalENtityModel: ModalDirective;
   public _isEditMode: boolean;
   istrue: boolean;
   loginData: any;

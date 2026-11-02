@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild,EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationProductRequestService } from '../../../services/locationproductrequest.service';
 import { LocationProductRequestItemResponse } from '../../../services/model';

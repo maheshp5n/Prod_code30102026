@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RequisitionindetailsRouting } from './requisitionindetails.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateRequisitionModule } from '../../DirectivesView/create-requisition/create-requisition.module';
 import { RequisitionindetailsComponent } from './requisitionindetails.component';
 import { RequisitionService } from '../../services/requisition.services';

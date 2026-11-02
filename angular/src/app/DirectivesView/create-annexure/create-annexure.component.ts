@@ -1,7 +1,7 @@
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { ContactsService } from './../../services/contacts.services';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import {
   ResourceType,
   LocationForList,
@@ -21,7 +21,7 @@ import { FieldValidation } from '../../services/validation.services';
   styleUrls: ['./create-annexure.component.scss']
 })
 export class CreateAnnexureComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   _isEditMode: boolean;
   annexureRequest: AnnexureRequest = new AnnexureRequest();

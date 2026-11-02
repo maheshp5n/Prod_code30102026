@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HelpServiceService } from '../../services/help-service.service';
@@ -17,7 +17,7 @@ export class HelpguideComponent implements OnInit {
   message:string;
   helplist:Page<HelpTutorial>=new Page<HelpTutorial>();
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   ngOnInit() {
     this.getTutorialsList();

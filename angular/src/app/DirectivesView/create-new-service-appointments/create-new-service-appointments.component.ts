@@ -8,7 +8,7 @@ import {
   ProductsForList,
   AssetsForList
 } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
@@ -22,12 +22,12 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./create-new-service-appointments.component.css']
 })
 export class CreateNewServiceAppointmentsComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('accountModel', { static: false }) accountModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('createServieResourceModel', { static: false }) createServieResourceModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('accountModel') accountModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('createServieResourceModel') createServieResourceModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
 
   @Output()
   onServiceAppointmentCreated: EventEmitter<ServiceAppointmentRequest> = new EventEmitter<ServiceAppointmentRequest>();

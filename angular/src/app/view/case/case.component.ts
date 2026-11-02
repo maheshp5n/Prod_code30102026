@@ -4,7 +4,7 @@ import { caseService } from '../../services/caseService.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { OrderPipe } from 'ngx-order-pipe';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as fileSaver from 'file-saver';
@@ -21,10 +21,10 @@ import { Pm_asset_site_service } from '../../services/pm_asset_site.service';
   styleUrls: ['./case.component.scss']
 })
 export class CaseComponent implements OnInit {
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
-  @ViewChild('chooscaseFiles',{static:false}) chooscaseFiles:ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
+  @ViewChild('chooscaseFiles') chooscaseFiles:ModalDirective;
   res: CaseResponse = new CaseResponse();
   req: CaseRequest = new CaseRequest();
   AllCase: Page<CaseResponse> = new Page<CaseResponse>();

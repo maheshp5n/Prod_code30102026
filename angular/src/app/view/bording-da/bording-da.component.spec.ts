@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BordingDaComponent } from './bording-da.component';
 
@@ -6,7 +6,7 @@ describe('BordingDaComponent', () => {
   let component: BordingDaComponent;
   let fixture: ComponentFixture<BordingDaComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BordingDaComponent ]
     })

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { FileDeleteService } from '../../../services/filedeletService.services';
@@ -27,18 +27,18 @@ import { BtTobeApprovedService } from '../../bat_services/bat-to-beapprovedservi
 })
 export class BatServiceappointmentdetailsComponent implements OnInit {
 
-  @ViewChild('createfsrserviceModel', { static: false }) createfsrserviceModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) public createServiceAppointmentModel: ModalDirective;
-  @ViewChild('productConsumedModel', { static: false }) public productConsumedModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceResourceModel', { static: false }) createServiceResourceModel: ModalDirective;
-  @ViewChild('createBFSRModel', { static: false }) createBFSRModel: ModalDirective;
-  @ViewChild('reAssingServiceAppointmentModel', { static: false }) reAssingServiceAppointmentModel: ModalDirective;
-  @ViewChild('popupRequestforSA', { static: false }) popupRequestforSA: ModalDirective;
-  @ViewChild('fileUploadModel', { static: false }) fileUploadModel: ModalDirective;
-  @ViewChild('filePreviewModel', { static: false }) filePreviewModel: ModalDirective;
-  @ViewChild('confirmationPopup', { static: false }) confirmationPopup: ModalDirective;
-  @ViewChild('approvalModule',{static:false})approvalModule:ModalDirective;
+  @ViewChild('createfsrserviceModel') createfsrserviceModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') public createServiceAppointmentModel: ModalDirective;
+  @ViewChild('productConsumedModel') public productConsumedModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceResourceModel') createServiceResourceModel: ModalDirective;
+  @ViewChild('createBFSRModel') createBFSRModel: ModalDirective;
+  @ViewChild('reAssingServiceAppointmentModel') reAssingServiceAppointmentModel: ModalDirective;
+  @ViewChild('popupRequestforSA') popupRequestforSA: ModalDirective;
+  @ViewChild('fileUploadModel') fileUploadModel: ModalDirective;
+  @ViewChild('filePreviewModel') filePreviewModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup: ModalDirective;
+  @ViewChild('approvalModule')approvalModule:ModalDirective;
 
   // @ViewChild('imgeid',{static:false}) imgeid;
   public message: string = '';

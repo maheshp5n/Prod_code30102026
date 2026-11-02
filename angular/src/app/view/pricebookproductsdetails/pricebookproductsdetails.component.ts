@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { PriceBookService } from '../../services/pricebook.service';
 import { ProductsService } from '../../services/products.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-pricebookproductsdetails',
@@ -13,10 +13,10 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./pricebookproductsdetails.component.scss']
 })
 export class PricebookproductsdetailsComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createpriceBookModel',{static:false}) createpriceBookModel: ModalDirective;
-  @ViewChild('productListModel',{static:false}) productListModel:ModalDirective;
-  @ViewChild('selectedItemModel',{static:false}) selectedItemModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createpriceBookModel') createpriceBookModel: ModalDirective;
+  @ViewChild('productListModel') productListModel:ModalDirective;
+  @ViewChild('selectedItemModel') selectedItemModel:ModalDirective;
   id:number;
   partCode:string
   ngClassDetails:string='active';

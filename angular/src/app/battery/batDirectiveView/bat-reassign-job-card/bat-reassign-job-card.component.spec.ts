@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatReassignJobCardComponent } from './bat-reassign-job-card.component';
 
@@ -6,7 +6,7 @@ describe('BatReassignJobCardComponent', () => {
   let component: BatReassignJobCardComponent;
   let fixture: ComponentFixture<BatReassignJobCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatReassignJobCardComponent ]
     })

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, ViewChild,EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { caseService } from '../../../services/caseService.service';
@@ -13,8 +13,8 @@ import { BtCaseserviceService } from '../../bat_services/bt-caseservice.service'
   styleUrls: ['./bt-reject-case.component.css']
 })
 export class BtRejectCaseComponent implements OnInit {
-@ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
-@ViewChild('choosenFiles',{static:false}) choosenFiles: ModalDirective
+@ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
+@ViewChild('choosenFiles') choosenFiles: ModalDirective
 constructor(private _btcaseservice:BtCaseserviceService,private spinner:NgxSpinnerService,private formBuilder: FormBuilder,
   private _global : GlobalserviceService) { }
 rejectcase:RejectCaseRequest=new RejectCaseRequest();

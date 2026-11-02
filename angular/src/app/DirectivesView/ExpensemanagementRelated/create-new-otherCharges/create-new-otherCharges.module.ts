@@ -2,7 +2,9 @@ import { CreateNewOtherChargesComponent } from './create-new-otherCharges.compon
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule, BsDatepickerModule, TimepickerModule, DatepickerModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
 import { Loginservices } from '../../../services/login.services';

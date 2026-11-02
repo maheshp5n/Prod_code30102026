@@ -4,7 +4,7 @@ import { ObjectServices } from '../../services/objecct.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from 'ng2-charts';
 import { UserprofileService } from '../../services/userprofil.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { UserService } from '../../services/user.services';
 
 
@@ -20,8 +20,8 @@ export class UserprofileComponent implements OnInit {
     type:'danger',
     message:''
   };
-  @ViewChild('alertModal',{static:false})alertModal:ModalDirective;
-  @ViewChild('createprofile',{static:false})createprofile:ModalDirective;
+  @ViewChild('alertModal')alertModal:ModalDirective;
+  @ViewChild('createprofile')createprofile:ModalDirective;
   operationMode:boolean=false;
   openModalDetails={profile:false}
 

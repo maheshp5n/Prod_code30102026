@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { OrderPipe } from 'ngx-order-pipe';
 import { VendorInvoiceService } from '../../services/vendorinvoice.services';
@@ -20,9 +20,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class InvoiceComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createInvoiceModel', { static: false }) createInvoiceModel: ModalDirective
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createInvoiceModel') createInvoiceModel: ModalDirective
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   message: string = '';
   // @ViewChild('agGrid') agGrid: AgGridAngular;
   popupNgClass: string = 'alert alert-danger center center-block';

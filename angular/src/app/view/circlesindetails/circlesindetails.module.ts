@@ -2,7 +2,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CirclesindetailsComponent } from './circlesindetails.component';
 import { CirclesindetailsRouting } from './circlesindetails.routing';
 import { CirclesService } from '../../services/circles.services';

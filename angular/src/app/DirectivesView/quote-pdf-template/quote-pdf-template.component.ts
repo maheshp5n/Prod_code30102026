@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CountryDetailsServices } from '../../services/countrydetails.services';
 import { StateProvinceDetails, QuotePdfHeaderAndFooterResponse, QuotePdfHeaderAndFooterRequest, AccountsForList, SiteDetailsResponse, CountryDetails, BusinessDomain, StateWithQuotePdf } from '../../services/model';
@@ -15,8 +15,8 @@ import { siteService } from '../../services/siteService.services';
   styleUrls: ['./quote-pdf-template.component.scss']
 })
 export class QuotePdfTemplateComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('fileUploadPopUpModel', { static: false }) fileUploadPopUpModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('fileUploadPopUpModel') fileUploadPopUpModel: ModalDirective;
 
   @Output()
   onQuotePDFTemplateCreated: EventEmitter<QuotePdfHeaderAndFooterResponse> = new EventEmitter<QuotePdfHeaderAndFooterResponse>();

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { SitesForList, Login, AccountCreate, LegalEntityResponse, Page, LegaLEntityType } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ligalEntityService } from '../../services/ligalentity.services';
 import { Loginservices } from '../../services/login.services';
 
@@ -16,10 +16,10 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./ligalentity.component.css']
 })
 export class LigalentityComponent implements OnInit {
-  @ViewChild('createAcountModel',{static:false}) createAcountModel: ModalDirective;
-  @ViewChild('createLegalENtityModel',{static:false}) createLegalENtityModel: ModalDirective;
-  @ViewChild('changeLegalENtityModel',{static:false}) changeLegalENtityModel: ModalDirective;
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('createLegalENtityModel') createLegalENtityModel: ModalDirective;
+  @ViewChild('changeLegalENtityModel') changeLegalENtityModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
 
   recentlyView: boolean = false;
   isSelected = false;

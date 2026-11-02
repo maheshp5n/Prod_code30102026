@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsResponse, BatteryFSRResponse, FileUploadResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -16,11 +16,11 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./battery-fsrcbmsli-lonbatterydetails.component.scss']
 })
 export class BatteryFSRCBMSLiLonbatterydetailsComponent implements OnInit {
-  @ViewChild('createBFSRModel', { static: false }) createBFSRModel: ModalDirective;
-  @ViewChild('createBatteryInventoryConsumption', { static: false }) createBatteryInventoryConsumption: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
-  @ViewChild('choosenFilesShow', { static: false }) choosenFilesShow: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createBFSRModel') createBFSRModel: ModalDirective;
+  @ViewChild('createBatteryInventoryConsumption') createBatteryInventoryConsumption: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<AssetsResponse> = new EventEmitter<AssetsResponse>();

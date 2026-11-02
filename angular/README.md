@@ -77,20 +77,14 @@ CoreUI is built on top of Bootstrap 4 and supports popular frameworks.
 Before you begin, make sure your development environment includes `Node.js®` and an `npm` package manager.
 
 ###### Node.js
-Angular requires `Node.js` version 8.x or 10.x
+This project uses Node.js 22.x and npm 10 or later. Install and select a current Node.js 22.x release with nvm:
 
-- To check your version, run `node -v` in a terminal/console window.
-- To get `Node.js`, go to [nodejs.org](https://nodejs.org/).
-
-###### Angular CLI
-Install the Angular CLI globally using a terminal/console window.
 ```bash
-npm install -g @angular/cli
+nvm install 22.23.4
+nvm use 22.23.4
 ```
 
-##### Update to Angular 8
-Angular 8 requires `Node.js` version 12.x   
-Update guide - see: [https://update.angular.io](https://update.angular.io)
+The Angular framework is pinned to 12.2.17 and the Angular CLI to 12.2.18. Angular 12 is an older, unsupported major release; verify the application and its third-party libraries on Node.js 22 before using this combination in production.
 
 ## Installation
 

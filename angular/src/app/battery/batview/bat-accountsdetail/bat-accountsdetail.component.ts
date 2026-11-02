@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { caseService } from '../../../services/caseService.service';
@@ -17,11 +17,11 @@ import { BtcontactsService } from '../../bat_services/btcontacts.service';
   styleUrls: ['./bat-accountsdetail.component.css']
 })
 export class BatAccountsdetailComponent implements OnInit {
-  @ViewChild('createContactModel', { static: false }) public createContactModel: ModalDirective;
-  @ViewChild('createSitesModel', { static: false }) public createSitesModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
+  @ViewChild('createContactModel') public createContactModel: ModalDirective;
+  @ViewChild('createSitesModel') public createSitesModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
 
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';

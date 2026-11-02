@@ -7,7 +7,7 @@ import { ContactDetailsRouting } from './contactdetails.routing';
 import { ContactsService } from '../../services/contacts.services';
 import { AccountService } from '../../services/accounts.services';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CountryDetailsServices } from '../../services/countrydetails.services';
 import { FormsModule } from '@angular/forms';
 import { Loginservices } from '../../services/login.services';

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angu
 import { SecondServiceAppointmentRequest, ServiceResourseForList } from '../../services/model';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
 import { ServiceResourceService } from '../../services/serviceresource.services';
 
@@ -12,7 +12,7 @@ import { ServiceResourceService } from '../../services/serviceresource.services'
   styleUrls: ['./create-service-appoinment-bycase.component.scss']
 })
 export class CreateServiceAppoinmentBycaseComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onSecondServiceAppointmentCreated: EventEmitter<any> = new EventEmitter<any>();

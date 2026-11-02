@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Loginservices } from '../../../services/login.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { userRole, AccountsForList, ContactForList, CreateLoginRequest, DisplayDropdownList, DisplayTableHeaders, Page, UserResponse, LocationForList, UserProfile, UserForList, LocationRequest, ObjectAccessResponse, ResetpasswordRequest, ResourceType } from '../../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
 import { PagefilterService } from '../../../services/pagefilterservice';
 import { BatuserregistrationService } from '../../bat_services/batuserregistration.service';
@@ -123,11 +123,11 @@ export class BatUserregistrationComponent implements OnInit {
   objectAccess: Array<ObjectAccessResponse> = [];
   resetPassword: ResetpasswordRequest = new ResetpasswordRequest();
 
-  @ViewChild('createUserModal', { static: false }) createUserModal: ModalDirective;
-  @ViewChild('accountdisablemodel', { static: false }) accountdisablemodel: ModalDirective;
-  @ViewChild('alertModal', { static: false }) alertModal: ModalDirective;
-  @ViewChild('createlocationModal', { static: false }) createlocationModal: ModalDirective;
-  @ViewChild('userResetPassword', { static: false }) userResetPassword: ModalDirective;
+  @ViewChild('createUserModal') createUserModal: ModalDirective;
+  @ViewChild('accountdisablemodel') accountdisablemodel: ModalDirective;
+  @ViewChild('alertModal') alertModal: ModalDirective;
+  @ViewChild('createlocationModal') createlocationModal: ModalDirective;
+  @ViewChild('userResetPassword') userResetPassword: ModalDirective;
   _cFlag: string;
   constructor(private spinner: NgxSpinnerService,
     private _loginService: Loginservices,

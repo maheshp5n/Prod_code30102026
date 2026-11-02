@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import {
   PackingCondition, FaultObserved, BRCRepiarStatus, CaseResponse, CaseForList, SiteDetailsResponse,
   LegalEntityResponse, AssetsForList, ContactForList, ProductsForList, AssetsResponse, Contacts, Product,
@@ -21,13 +21,13 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./create-manageinventory.component.scss']
 })
 export class CreateManageinventoryComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
-  @ViewChild('createLegalENtityModel', { static: false }) createLegalENtityModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
+  @ViewChild('createLegalENtityModel') createLegalENtityModel: ModalDirective;
 
   _isEditMode: boolean
   message: string;

@@ -4,7 +4,7 @@ import { LocationProductRequestService } from '../../services/locationproductreq
 import { ProductsService } from '../../services/products.services';
 import { ActivatedRoute } from '@angular/router';
 import { LocationProductRequestResponse, LocationProductRequestItemResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-product-request-line-items-detail',
@@ -12,7 +12,7 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./product-request-line-items-detail.component.scss']
 })
 export class ProductRequestLineItemsDetailComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
  
   productRequestId;
   locationProductRequestResponse:LocationProductRequestItemResponse=new LocationProductRequestItemResponse();

@@ -1,7 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule, TypeaheadModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { siteService } from '../../../services/siteService.services';
 import { Loginservices } from '../../../services/login.services';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';

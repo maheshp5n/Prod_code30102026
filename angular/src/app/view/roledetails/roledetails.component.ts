@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserrolesServices } from '../../services/userroles.services';
 import { UserRoleResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalserviceService } from '../../globalservice.service';
 
 @Component({
@@ -25,8 +25,8 @@ export class RoledetailsComponent implements OnInit {
     roleGroup: 0
   }
   rolesGroup = [];
-  @ViewChild('actionWidows', { static: false }) actionWidows: ModalDirective;
-  @ViewChild('alertmodule', { static: false }) alertmodule: ModalDirective;
+  @ViewChild('actionWidows') actionWidows: ModalDirective;
+  @ViewChild('alertmodule') alertmodule: ModalDirective;
   alertDetails = {
     type: 'danger',
     message: ''

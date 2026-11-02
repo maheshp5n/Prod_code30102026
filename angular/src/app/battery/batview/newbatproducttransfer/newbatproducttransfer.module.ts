@@ -4,7 +4,8 @@ import { NewbatproducttransferComponent } from './newbatproducttransfer.componen
 import { NewBatProductTransferRouting } from './newbatproducttransfer.routing';
 import { BtProducttransferModule } from '../../batDirectiveView/bt-producttransfer/bt-producttransfer.module';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule, TooltipModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 

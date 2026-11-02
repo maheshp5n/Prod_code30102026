@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalserviceService } from './../../globalservice.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ServiceOrderService } from './../../services/serviceorder.servvices';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PdfServiceService } from '../../services/pdf-service.service';
 
@@ -32,8 +32,8 @@ export class ServiceorderdetailsComponent implements OnInit {
     receive: false
   };
 
-  @ViewChild('receiveModal', { static: false }) receiveModal: ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective;
+  @ViewChild('receiveModal') receiveModal: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective;
 
   constructor(
     private _serviceOrderService: ServiceOrderService,

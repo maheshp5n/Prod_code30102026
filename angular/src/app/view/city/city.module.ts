@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { cityRouting } from "./city.routing";
-import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from "@angular/forms";
 import { CityComponent } from "./city.component";
 import { cityService } from "../../services/cityService.service";

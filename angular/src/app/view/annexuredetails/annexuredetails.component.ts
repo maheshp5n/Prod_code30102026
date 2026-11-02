@@ -7,7 +7,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { ServiceResourseResponse, ToBeApprovedHistoryResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AnnexureService } from '../../services/annexure.services';
 import { Loginservices } from '../../services/login.services';
 import { ApprovalHistoryService } from '../../services/approvalHistory.service';
@@ -20,10 +20,10 @@ import { PdfServiceService } from '../../services/pdf-service.service';
 })
 
 export class AnnexuredetailsComponent implements OnInit {
-  @ViewChild('createAnnexureModel', { static: false }) createAnnexureModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAnnexureLineItemModel', { static: false }) createAnnexureLineItemModel: ModalDirective;
-  @ViewChild('confirmationPopup', { static: false }) confirmationPopup: ModalDirective;
+  @ViewChild('createAnnexureModel') createAnnexureModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAnnexureLineItemModel') createAnnexureLineItemModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<ServiceResourseResponse> = new EventEmitter<ServiceResourseResponse>();

@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { ApprovalHistoryService } from '../../../services/approvalHistory.service';
@@ -208,23 +208,23 @@ export class BatExpensesmanagementDetailComponent implements OnInit {
     open: true
   };
 
-  @ViewChild('createTourExpenseModel', { static: false }) createTourExpenseModel: ModalDirective;
-  @ViewChild('createLodgingModel', { static: false }) createLodgingModel: ModalDirective;
-  @ViewChild('createBoardingModel', { static: false }) createBoardingModel: ModalDirective;
-  @ViewChild('createLocalConveyanceModel', { static: false }) createLocalConveyanceModel: ModalDirective;
-  @ViewChild('createOtherChargesModel', { static: false }) createOtherChargesModel: ModalDirective;
-  @ViewChild('createExpSAModel', { static: false }) createExpSAModel: ModalDirective;
-  @ViewChild('createexpensesmanagementModel', { static: false }) createexpensesmanagementModel: ModalDirective;
+  @ViewChild('createTourExpenseModel') createTourExpenseModel: ModalDirective;
+  @ViewChild('createLodgingModel') createLodgingModel: ModalDirective;
+  @ViewChild('createBoardingModel') createBoardingModel: ModalDirective;
+  @ViewChild('createLocalConveyanceModel') createLocalConveyanceModel: ModalDirective;
+  @ViewChild('createOtherChargesModel') createOtherChargesModel: ModalDirective;
+  @ViewChild('createExpSAModel') createExpSAModel: ModalDirective;
+  @ViewChild('createexpensesmanagementModel') createexpensesmanagementModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createexpensesMangementRelatedModel', { static: false }) createexpensesMangementRelatedModel: ModalDirective;
-  @ViewChild('searchResult', { static: false }) searchResult: ModalDirective;
-  @ViewChild('showPreviewModel', { static: false }) showPreviewModel: ModalDirective;
-  @ViewChild('confirmationPopup', { static: false }) confirmationPopup: ModalDirective;
-  @ViewChild('borloddtailModel',{static:false}) borloddtailModel: ModalDirective;
-  @ViewChild('onlyAccountModel',{static:false}) onlyAccountModel : ModalDirective;
-  @ViewChild('deleteExpModel', { static: false }) deleteExpModel: ModalDirective;
-  @ViewChild('submitapprovalmodel',{static:false}) submitapprovalmodel:ModalDirective;
-  @ViewChild('approvalModule',{static:false})approvalModule:ModalDirective;
+  @ViewChild('createexpensesMangementRelatedModel') createexpensesMangementRelatedModel: ModalDirective;
+  @ViewChild('searchResult') searchResult: ModalDirective;
+  @ViewChild('showPreviewModel') showPreviewModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup: ModalDirective;
+  @ViewChild('borloddtailModel') borloddtailModel: ModalDirective;
+  @ViewChild('onlyAccountModel') onlyAccountModel : ModalDirective;
+  @ViewChild('deleteExpModel') deleteExpModel: ModalDirective;
+  @ViewChild('submitapprovalmodel') submitapprovalmodel:ModalDirective;
+  @ViewChild('approvalModule')approvalModule:ModalDirective;
   uploadForm: FormGroup;
 
   public uploader: FileUploader = new FileUploader({

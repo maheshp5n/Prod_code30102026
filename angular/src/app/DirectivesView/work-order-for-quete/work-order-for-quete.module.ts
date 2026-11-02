@@ -1,7 +1,9 @@
 import { CommonModule, DatePipe } from "@angular/common";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { ModalModule, BsDatepickerModule, TimepickerModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { Loginservices } from "../../services/login.services";
 import { FieldValidation } from "../../services/validation.services";

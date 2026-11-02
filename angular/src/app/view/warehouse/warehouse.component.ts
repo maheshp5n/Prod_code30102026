@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { WarehouseService } from '../../services/warehouse.service';
 import { WarehousedetailsRequest, WarehousedetailsResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -42,8 +42,8 @@ export class WarehouseComponent implements OnInit {
   i: number;
   popupNgClass: string = "alert alert-danger center center-block";
 
-  @ViewChild('createWarehouseModel', { static: false }) createWarehouseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createWarehouseModel') createWarehouseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   constructor(private _warehouseService: WarehouseService, private spinner: NgxSpinnerService) {
   }

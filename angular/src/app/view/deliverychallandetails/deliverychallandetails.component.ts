@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { deliverychallan } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -10,9 +10,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./deliverychallandetails.component.css']
 })
 export class deliverychallandetailsComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createNewdeliverychallan', { static: false }) createNewdeliverychallan: ModalDirective;
-  @ViewChild('changeStatus', { static: false }) changeStatus: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createNewdeliverychallan') createNewdeliverychallan: ModalDirective;
+  @ViewChild('changeStatus') changeStatus: ModalDirective;
 
   classFlagindex: number;
   classFlags: string[];

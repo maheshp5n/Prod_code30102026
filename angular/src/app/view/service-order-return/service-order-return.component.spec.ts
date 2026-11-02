@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ServiceOrderReturnComponent } from './service-order-return.component';
 
@@ -6,7 +6,7 @@ describe('ServiceOrderReturnComponent', () => {
   let component: ServiceOrderReturnComponent;
   let fixture: ComponentFixture<ServiceOrderReturnComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ServiceOrderReturnComponent ]
     })

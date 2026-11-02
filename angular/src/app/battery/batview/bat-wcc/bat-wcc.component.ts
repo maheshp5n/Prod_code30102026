@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -16,10 +16,10 @@ import { BtWccServiceService } from '../../bat_services/bt-wcc-service.service';
   styleUrls: ['./bat-wcc.component.scss']
 })
 export class BatWccComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createWCCModel', { static: false }) createWCCModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createWCCModel') createWCCModel: ModalDirective;
 
-  @ViewChild('alertModal', { static: false }) alertModal: ModalDirective;
+  @ViewChild('alertModal') alertModal: ModalDirective;
   alertmeta = {
     ngClass: 'alert-success',
     message: ''

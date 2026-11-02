@@ -5,7 +5,7 @@ import {
 } from './../../services/model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { OpportunityService } from '../../services/Opportunity.services';
 import { Loginservices } from '../../services/login.services';
@@ -17,14 +17,14 @@ import { AccountService } from '../../services/accounts.services';
   styleUrls: ['./opportunitiesdetails.component.css']
 })
 export class OpportunitiesdetailsComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createNewOpportunity', { static: false }) createNewOpportunity: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createNewOpportunity') createNewOpportunity: ModalDirective;
   // @ViewChild('changeStatus', { static: false }) changeStatus: ModalDirective;
-  @ViewChild('OpportunityProductModel', { static: false }) OpportunityProductModel: ModalDirective;
-  @ViewChild('createaddProductModel', { static: false }) createaddProductModel: ModalDirective;
-  @ViewChild('editOppoLineItemModel', { static: false }) editOppoLineItemModel: ModalDirective;
-  @ViewChild('quoteApprovedModel', { static: false }) quoteApprovedModel: ModalDirective;
-  @ViewChild('createNewQuote', { static: false }) createNewQuote: ModalDirective;
+  @ViewChild('OpportunityProductModel') OpportunityProductModel: ModalDirective;
+  @ViewChild('createaddProductModel') createaddProductModel: ModalDirective;
+  @ViewChild('editOppoLineItemModel') editOppoLineItemModel: ModalDirective;
+  @ViewChild('quoteApprovedModel') quoteApprovedModel: ModalDirective;
+  @ViewChild('createNewQuote') createNewQuote: ModalDirective;
 
   isOpportunityOpen: boolean;
   // proposedClass = '';

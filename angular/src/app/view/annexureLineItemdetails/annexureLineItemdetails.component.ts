@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { ServiceResourseResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AnnexureLineItemService } from '../../services/annexureLineItem.services';
 
 @Component({
@@ -20,8 +20,8 @@ export class AnnexureLineItemdetailsComponent implements OnInit {
     });
   }
 
-  @ViewChild('createAnnexureLineItemModel', { static: false }) createAnnexureLineItemModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createAnnexureLineItemModel') createAnnexureLineItemModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<ServiceResourseResponse> = new EventEmitter<ServiceResourseResponse>();

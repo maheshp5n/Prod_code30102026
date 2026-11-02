@@ -7,7 +7,7 @@ import { LocalConveyanceExpenseService } from '../../../services/localConveyance
 import { LocalConveyanceExpenseRequest, LocalConveyanceExpenseResponse, ModeOfTravel, OwnConveyance } from '../../../services/model';
 
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TourExpenseService } from '../../../services/tourExpense.service';
 import { BoardingLoadingService } from '../../../services/boarding-loading.service';
@@ -97,13 +97,13 @@ get BodamntToDisbursed():number{
   onExpensesAdded: EventEmitter<string> = new EventEmitter<string>();
 
   // Tour ends
-  @ViewChild('popupSuccessModel', { static: false })
+  @ViewChild('popupSuccessModel')
   popupSuccessModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false })
+  @ViewChild('createContactModel')
   createContactModel: ModalDirective;
-  @ViewChild('timedisplay', { static: false })
+  @ViewChild('timedisplay')
   timedisplay: ModalDirective;
-  @ViewChild('borloddtailModel',{static:false})
+  @ViewChild('borloddtailModel')
   borloddtailModel:ModalDirective;
 
   public _isEditMode: boolean = false;

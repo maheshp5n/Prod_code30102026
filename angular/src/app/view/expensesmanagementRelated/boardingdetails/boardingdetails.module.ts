@@ -5,7 +5,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { BoardingDetailsRouting } from './boardingdetails.routing';
 import { BoardingdetailsComponent } from './boardingdetails.component';
 import { CreateNewBoardingModule } from '../../../DirectivesView/ExpensemanagementRelated/create-new-boarding/create-new-boarding.module';

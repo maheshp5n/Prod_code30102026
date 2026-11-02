@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ManagecomponentindetailsRouting } from './managecomponentindetails.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ManagecomponentindetailsComponent } from './managecomponentindetails.component';
 import { AssetsService } from '../../services/assets.services';
 import { CreateManagecomponentModule } from '../../DirectivesView/create-managecomponent/create-managecomponent.module';

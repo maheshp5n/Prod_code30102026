@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sysconfigparamservice } from '../../../services/sysconfig.services';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-mailserverconf',
@@ -11,7 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 export class MailserverconfComponent implements OnInit {
 
   allMailServers:Array<any>=[];
-  @ViewChild('newmailServerModal',{static:false})newmailServerModal:ModalDirective;
+  @ViewChild('newmailServerModal')newmailServerModal:ModalDirective;
   nServerDetails={
     id:0,
     smtp:'',

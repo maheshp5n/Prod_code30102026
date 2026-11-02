@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { ObjectDefinition, ObjectAccessResponse, ProfileRequest, ProfileObjectAccessRequest, UserProfile, UINavigationModuleResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ObjectServices } from '../../services/objecct.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserprofileService } from '../../services/userprofil.service';
@@ -31,7 +31,7 @@ export class UserprofiledirectiveComponent implements OnInit {
     message:''
   };
   searchKey:string;
-  @ViewChild('alertModal',{static:false})alertModal:ModalDirective;
+  @ViewChild('alertModal')alertModal:ModalDirective;
   @Output() onProfileCreated:EventEmitter<ProfileRequest>=new EventEmitter<ProfileRequest>();
   @Output() onCanled:EventEmitter<string>=new EventEmitter<string>();
   @Input() set profileDetails(prop:UserProfile){

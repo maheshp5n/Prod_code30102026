@@ -3,7 +3,7 @@
 // import { BatMslrequestComponent } from './bat-mslrequest.component';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { BatMslrequestRouting } from './bat-mslrequest.routing';
-// import { ModalModule } from 'ngx-bootstrap';
+// import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -20,7 +20,7 @@
 
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ModalModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from "@angular/forms";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ligalEntityService } from "../../../services/ligalentity.services";

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { ServiceAppointmentResponse, ServiceAppointmentProductConsumedRequest, ServiceResourseResponse, ServiceResourseRequest, BatteryFSRResponse, BatteryFSRRequest, ProblemReported, ServiceAppointmentProductConsumedResponse, ServiceAppointmentReAssignRequest, ToBeApproved, EmployeeDetails, ToBeApprovedHistoryResponse, FileUploadResponse, ActionHistoryObjectAndId, ServiceResourseVendor } from '../../services/model';
@@ -22,17 +22,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class VendorServiceAppointmentDetailComponent implements OnInit {
 
  
-  @ViewChild('createServiceAppointmentModel', { static: false }) public createServiceAppointmentModel: ModalDirective;
-  @ViewChild('productConsumedModel', { static: false }) public productConsumedModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceResourceModel', { static: false }) createServiceResourceModel: ModalDirective;
-  @ViewChild('createBFSRModel', { static: false }) createBFSRModel: ModalDirective;
-  @ViewChild('reAssingServiceAppointmentModel', { static: false }) reAssingServiceAppointmentModel: ModalDirective;
-  @ViewChild('assingToServiceAppointmentModel', { static: false }) assingToServiceAppointmentModel: ModalDirective;
-  @ViewChild('popupRequestforSA', { static: false }) popupRequestforSA: ModalDirective;
-  @ViewChild('fileUploadModel', { static: false }) fileUploadModel: ModalDirective;
-  @ViewChild('filePreviewModel', { static: false }) filePreviewModel: ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective;
+  @ViewChild('createServiceAppointmentModel') public createServiceAppointmentModel: ModalDirective;
+  @ViewChild('productConsumedModel') public productConsumedModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceResourceModel') createServiceResourceModel: ModalDirective;
+  @ViewChild('createBFSRModel') createBFSRModel: ModalDirective;
+  @ViewChild('reAssingServiceAppointmentModel') reAssingServiceAppointmentModel: ModalDirective;
+  @ViewChild('assingToServiceAppointmentModel') assingToServiceAppointmentModel: ModalDirective;
+  @ViewChild('popupRequestforSA') popupRequestforSA: ModalDirective;
+  @ViewChild('fileUploadModel') fileUploadModel: ModalDirective;
+  @ViewChild('filePreviewModel') filePreviewModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective;
   // @ViewChild('imgeid',{static:false}) imgeid;
   public message: string = '';
   ngClassDetails: string = 'active';

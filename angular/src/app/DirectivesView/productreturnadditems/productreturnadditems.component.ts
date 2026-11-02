@@ -30,7 +30,7 @@ export class ProductreturnadditemsComponent implements OnInit {
   @Output()
   ItemAdded: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('addItem', { static: false }) addItem: ModalDirective;
+  @ViewChild('addItem') addItem: ModalDirective;
 
   constructor(
     private _location: LocationService,

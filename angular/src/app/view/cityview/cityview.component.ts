@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { cityDetailsResponse, cityDetailsReq, ActionHistoryObjectAndId } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { cityService } from '../../services/cityService.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -19,9 +19,9 @@ export class CityviewComponent implements OnInit {
   res: cityDetailsResponse = new cityDetailsResponse()
   cityres: cityDetailsResponse = new cityDetailsResponse()
   cityList: Array<cityDetailsResponse> = [];
-  @ViewChild('createCityyModel',{static:false}) createCityyModel: ModalDirective
-  @ViewChild('deleteLegalENtityModel',{static:false}) deleteLegalENtityModel: ModalDirective
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('createCityyModel') createCityyModel: ModalDirective
+  @ViewChild('deleteLegalENtityModel') deleteLegalENtityModel: ModalDirective
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   private cityName: string
   sapId: string = '';
   message: string;

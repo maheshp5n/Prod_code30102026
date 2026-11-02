@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AssetsService } from '../../../services/assets.services';
 import { Loginservices } from '../../../services/login.services';
@@ -15,8 +15,8 @@ import { BtItemRequest, BTMslCreateRequest, BtProductList } from '../../bt_model
   styleUrls: ['./bt-create-mslrequest.component.css']
 })
 export class BtCreateMslrequestComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('MSLItemModel', { static: false }) MSLItemModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('MSLItemModel') MSLItemModel: ModalDirective;
   loc: LocationResponse = new LocationResponse();
   isEditMode: boolean = false;
   @Input()

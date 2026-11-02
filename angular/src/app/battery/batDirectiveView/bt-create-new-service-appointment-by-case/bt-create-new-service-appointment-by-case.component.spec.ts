@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtCreateNewServiceAppointmentByCaseComponent } from './bt-create-new-service-appointment-by-case.component';
 
@@ -6,7 +6,7 @@ describe('BtCreateNewServiceAppointmentByCaseComponent', () => {
   let component: BtCreateNewServiceAppointmentByCaseComponent;
   let fixture: ComponentFixture<BtCreateNewServiceAppointmentByCaseComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtCreateNewServiceAppointmentByCaseComponent ]
     })

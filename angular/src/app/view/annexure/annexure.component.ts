@@ -1,6 +1,6 @@
 import { AnnexureRequest, Page } from './../../services/model';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AnnexureResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AnnexureService } from '../../services/annexure.services';
@@ -15,8 +15,8 @@ import { PagefilterService } from '../../services/pagefilterservice';
 })
 export class AnnexureComponent implements OnInit {
   public message: string = '';
-  @ViewChild('createAnnexureModel', { static: false }) createAnnexureModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createAnnexureModel') createAnnexureModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();

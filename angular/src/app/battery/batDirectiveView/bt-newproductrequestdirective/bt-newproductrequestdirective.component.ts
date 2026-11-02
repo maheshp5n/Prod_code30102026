@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, ViewChild,EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationForList, LocationResponse, ProductsForList } from '../../../services/model';
@@ -46,7 +46,7 @@ export class BtNewproductrequestdirectiveComponent implements OnInit {
 
   alertMessage = { alertClass: 'alert alert-success center center-block', alertMessage: '' };
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   constructor(
     private _btWareHouseservice: BtwarehouseService,
     private _spinnerService: NgxSpinnerService,

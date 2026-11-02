@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BtCreateExpenseserviceappointmentComponent } from './bt-create-expenseserviceappointment.component';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule, DatepickerModule, ModalModule, TimepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { BoardingLoading, BoardingLoadingDetailsRequest, BoardingLoadingDetailsResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { BoardingLoadingService } from '../../services/boarding-loading.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -13,7 +13,7 @@ import { FieldValidation } from '../../services/validation.services';
   styleUrls: ['./createboarding.component.scss']
 })
 export class CreateboardingComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   res: BoardingLoadingDetailsResponse = new BoardingLoadingDetailsResponse();
   req: BoardingLoadingDetailsRequest = new BoardingLoadingDetailsRequest();
   loginData: any;

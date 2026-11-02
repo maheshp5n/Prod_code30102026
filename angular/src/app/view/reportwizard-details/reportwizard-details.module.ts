@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReportwizardDetailsRouting } from './reportwizard-details.routing';
 import { ReportwizardDetailsComponent } from './reportwizard-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';

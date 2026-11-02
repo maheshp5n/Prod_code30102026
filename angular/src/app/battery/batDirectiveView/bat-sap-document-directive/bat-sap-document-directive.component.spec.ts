@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatSapDocumentDirectiveComponent } from './bat-sap-document-directive.component';
 
@@ -6,7 +6,7 @@ describe('BatSapDocumentDirectiveComponent', () => {
   let component: BatSapDocumentDirectiveComponent;
   let fixture: ComponentFixture<BatSapDocumentDirectiveComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatSapDocumentDirectiveComponent ]
     })

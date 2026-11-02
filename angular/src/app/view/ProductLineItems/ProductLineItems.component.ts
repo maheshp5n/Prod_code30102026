@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountsForList, ProductLineItemsResponse, ProductLineItemsRequest } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductLineItemsService } from '../../services/product-line-items.service';
 // This Module Not in use=====shagufta
@@ -45,8 +45,8 @@ export class ProductLineItemsComponent implements OnInit {
   i: number;
   popupNgClass: string = "alert alert-danger center center-block";
 
-  @ViewChild('createProductLineItemsModel', { static: false }) createProductLineItemsModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createProductLineItemsModel') createProductLineItemsModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   constructor(private spinner: NgxSpinnerService, private productLineItemsService: ProductLineItemsService) {
   }

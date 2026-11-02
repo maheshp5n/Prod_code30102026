@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BsDropdownModule, PopoverModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { createSSAModule } from '../../DirectivesView/create-ssa/create-ssa-module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';

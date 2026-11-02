@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { ApprovalHistoryService } from '../../../services/approvalHistory.service';
@@ -24,12 +24,12 @@ export class BatInvoiceDetailComponent implements OnInit {
   ngClassReleated: string = '';
   vDetails: boolean = true;
   isSapEditMode:boolean= false;
-  @ViewChild('createInvoiceModel', { static: false }) createInvoiceModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('commercialModel', { static: false }) commercialModel: ModalDirective;
-  @ViewChild('SAPUpdateModel', { static: false }) SAPUpdateModel: ModalDirective;
-  @ViewChild('choosenFilesShow', { static: false }) choosenFilesShow: ModalDirective;
-  @ViewChild('approvalModule',{static:false})approvalModule:ModalDirective;
+  @ViewChild('createInvoiceModel') createInvoiceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('commercialModel') commercialModel: ModalDirective;
+  @ViewChild('SAPUpdateModel') SAPUpdateModel: ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow: ModalDirective;
+  @ViewChild('approvalModule')approvalModule:ModalDirective;
   modelOpen = {
     invoiceModal: false,
     grnModal: false,

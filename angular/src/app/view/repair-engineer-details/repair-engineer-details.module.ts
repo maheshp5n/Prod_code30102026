@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RepairEngineerdetailsRouting } from './repair-engineer-details.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateManageinventoryModule } from '../../DirectivesView/create-manageinventory/create-manageinventory.module';
 import { AssignToEngModule } from '../../DirectivesView/assign-to-eng/assign-to-eng.module';
 import { ReceiveFromEngModule } from '../../DirectivesView/receive-from-eng/receive-from-eng.module';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../../globalservice.service';
 import { Loginservices } from '../../../../services/login.services';
@@ -40,7 +40,7 @@ export class BatOtherChargesdetailsComponent implements OnInit {
   otherChargesExpenseResponse: BtOtherChargesExpenseResponse = new BtOtherChargesExpenseResponse();
   _cFlag: string;
 
-  @ViewChild('createOtherChargesModel', { static: false }) createOtherChargesModel: ModalDirective;
+  @ViewChild('createOtherChargesModel') createOtherChargesModel: ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

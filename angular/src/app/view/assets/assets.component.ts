@@ -16,9 +16,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   
 })
 export class AssetsComponent implements OnInit {
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   assetRequest: AssetsRequest = new AssetsRequest();
   assetResponse: AssetsResponse = new AssetsResponse();
   assetList: Page<AssetsResponse> = new Page<AssetsResponse>();

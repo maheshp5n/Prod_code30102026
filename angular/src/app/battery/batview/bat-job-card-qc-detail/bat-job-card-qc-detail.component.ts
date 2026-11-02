@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { BatJObCardQcService } from '../../bat_services/bat-job-card-qc.service';
@@ -35,8 +35,8 @@ export class BatJobCardQcDetailComponent implements OnInit {
   fileResponse;
   fileFound : boolean = false;
   isQcDone : boolean = true;
-  @ViewChild('editJobCardQCModel', { static: false }) editJobCardQCModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('editJobCardQCModel') editJobCardQCModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   displayButtons = { info: { visibal: true, icon: 'fa fa-angle-down' }, sysInfo: { visibal: true, icon: 'fa fa-angle-down' },qcEditDetails:{visibal: true, icon: 'fa fa-angle-down'} };
   constructor(private _btJobCardQcSerice: BatJObCardQcService, private _spiner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,
     private _global: GlobalserviceService, private _sanitizer: DomSanitizer) {

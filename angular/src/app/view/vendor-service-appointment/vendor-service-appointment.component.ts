@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CaseReasonForList, CaseTypeForList, ClaimStatus, Page, SAAdvanceSearchData, SAStatus, ServiceAppointmentResponse } from '../../services/model';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
@@ -18,8 +18,8 @@ import { caseService } from '../../services/caseService.service';
 })
 export class VendorServiceAppointmentComponent implements OnInit {
 
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   advanceSearchResult:SAAdvanceSearchData=new SAAdvanceSearchData();
   today = new Date();
   dateCustomClasses: DatepickerDateCustomClasses[];

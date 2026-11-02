@@ -5,7 +5,8 @@ import { OppertunityType, OppertunityStage, OppertunityForecastCategory } from '
 import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter
 } from '@angular/core';
-import { ModalDirective, TypeaheadMatch } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import {
   OppertunityRequest, OppertunityResponse, AccountsForList, AccountCreate, CaseForList, CaseResponse
 } from '../../services/model';
@@ -57,8 +58,8 @@ export class CreateNewOpportunityComponent implements OnInit {
   get editOpportunityData(): OppertunityRequest {
     return this.newOpportunity;
   }
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
 
   isAccountOpen: boolean;
   isCaseOpen: boolean;
@@ -92,7 +93,7 @@ export class CreateNewOpportunityComponent implements OnInit {
   tempOppoName: number;
   today = new Date();
 
-  @ViewChild('createAcountModel', { static: false })
+  @ViewChild('createAcountModel')
   createAcountModel: ModalDirective;
 
   // tslint:disable-next-line: no-output-on-prefix

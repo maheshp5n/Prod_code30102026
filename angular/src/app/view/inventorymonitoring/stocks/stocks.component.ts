@@ -3,7 +3,7 @@ import { LocationForList, LocationProductItemResponse, Page } from '../../../ser
 import { LocationService } from '../../../services/location.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { config } from 'rxjs';
 
 @Component({
@@ -31,8 +31,8 @@ export class StocksComponent implements OnInit {
     message: ''
   }
   indiname: string = '';
-  @ViewChild('alertWindow', { static: false }) alertWindow: ModalDirective;
-  @ViewChild('reorderModal', { static: false }) reorderModal: ModalDirective;
+  @ViewChild('alertWindow') alertWindow: ModalDirective;
+  @ViewChild('reorderModal') reorderModal: ModalDirective;
   constructor(private _locationService: LocationService, private _ngxSpinner: NgxSpinnerService, private _activatedroute: ActivatedRoute, private _router: Router) { }
 
   ngOnInit() {

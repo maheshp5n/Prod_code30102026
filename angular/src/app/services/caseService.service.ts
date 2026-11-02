@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { CaseRequest, CaseResponse, Page, CaseTypeForList, CaseTypeRecord, CaseStatus, CaseStageDetails, CaseOriginDetails, CasePriority, CaseReasonForList, SiteDetailsForList, AssetsResponse, AssetsForList, ProblemReported, PendingResponsibility, CaseForList, ServiceAppointmentResponse, ServiceAppointmentProductConsumedResponse, opportunitycaseResponse, OppertunityResponse, BatteryFSRResponse, CaseProofOfDeliveryRequest, RejectCaseRequest, caseLogReject, ChangecaseTypeRequest } from './model';
 import { Observable } from 'rxjs';
-import { Response, ResponseContentType } from '@angular/http';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()

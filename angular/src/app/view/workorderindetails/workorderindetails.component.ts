@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AccountCreate } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { AccountService } from '../../services/accounts.services';
   styleUrls: ['./workorderindetails.component.scss']
 })
 export class WorkorderindetailsComponent implements OnInit {
-  @ViewChild('createWorkOrderModel', { static: false }) public createWorkOrderModel: ModalDirective;
+  @ViewChild('createWorkOrderModel') public createWorkOrderModel: ModalDirective;
   
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();

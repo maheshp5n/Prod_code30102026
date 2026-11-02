@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -29,12 +29,12 @@ import { AssetForList, AssetTypeChoice, BTassetResp, BTAssetsForList, BTCaseReas
 })
 export class BTCreatecaseComponent implements OnInit {
 
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
-  @ViewChild('createLegalEntityModel', { static: false }) createLegalEntityModel: ModalDirective;
- @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('chooscaseFiles',{static:false}) chooscaseFiles : ModalDirective;
-  @ViewChild('choosenFiless',{static:false}) choosenFiless: ModalDirective
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
+  @ViewChild('createLegalEntityModel') createLegalEntityModel: ModalDirective;
+ @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('chooscaseFiles') chooscaseFiles : ModalDirective;
+  @ViewChild('choosenFiless') choosenFiless: ModalDirective
   @Output()
   onCaseCreated: EventEmitter<BTCaseResponse> = new EventEmitter<BTCaseResponse>();
   @Output()

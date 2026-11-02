@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CreateNewCircleComponent } from './create-new-circle.component';
 
 
@@ -7,7 +7,7 @@ describe('CreateNewCircleComponent', () => {
   let fixture: ComponentFixture<CreateNewCircleComponent>;
   
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateNewCircleComponent ]
     })

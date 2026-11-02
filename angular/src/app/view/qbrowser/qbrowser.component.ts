@@ -30,7 +30,7 @@ export class QbrowserComponent implements OnInit {
   lastQuery = '';
   usr;
   error = '';
-  @ViewChild('reportTable', { static: false }) reportTable: ElementRef;
+  @ViewChild('reportTable') reportTable: ElementRef;
 
   constructor(private http: HttpClient, private login: Loginservices) {
     this.geturrentUser();

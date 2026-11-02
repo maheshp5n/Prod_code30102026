@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, Output, ViewChild,EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { getMinutes } from 'ngx-bootstrap/chronos/utils/date-getters';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -22,12 +22,12 @@ import { BTAssetForLIst, BtPendingReasonValue, BtResolutionMethod, BtSAServicePa
 })
 export class BtCreateNewServiceAppointmentComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('accountModel', { static: false }) accountModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('createServieResourceModel', { static: false }) createServieResourceModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('accountModel') accountModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('createServieResourceModel') createServieResourceModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
 
   @Output()
   onServiceAppointmentCreated: EventEmitter<BTServiceAppointmentResponse> = new EventEmitter<BTServiceAppointmentResponse>();

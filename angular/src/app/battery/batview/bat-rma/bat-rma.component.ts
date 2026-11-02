@@ -10,7 +10,7 @@ import { ssaService } from '../../../services/ssa.services';
 import { BtRmaService } from '../../bat_services/bt-rma.service';
 import { RMAResponse } from '../../bt_model';
 import * as fileSaver from 'file-saver';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 
@@ -22,7 +22,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class BatRmaComponent implements OnInit {
 
 
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
 
   recentlyView: boolean = true;
   searchitem: string = '';

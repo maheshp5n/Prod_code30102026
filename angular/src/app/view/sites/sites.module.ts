@@ -14,7 +14,7 @@ import { NgxSpinnerService ,NgxSpinnerModule} from "ngx-spinner";
 import { SearchfiltPipe } from "./searchfilt.pipe";
 import { CreateSiteModule } from "../../DirectivesView/create-site/create-site.module";
 import { OrderModule } from "ngx-order-pipe";
-import { PopoverModule } from "ngx-bootstrap";
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 //import { AgGridModule } from 'ag-grid-angular';
 

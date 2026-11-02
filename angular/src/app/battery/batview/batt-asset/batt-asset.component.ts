@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../services/login.services';
 import {Page } from '../../../services/model';
@@ -18,8 +18,8 @@ import { FieldValidation } from '../../../services/validation.services';
 })
 
 export class BattAssetComponent implements OnInit{
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   assetRequest: BTasseReq = new BTasseReq();
   assetResponse: BTassetResp = new BTassetResp();
   assetList: Page<BTassetResp> = new Page<BTassetResp>();

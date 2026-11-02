@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BRCInventoryReceiveResponse, BRCRepairInventoryReceiveItemRequest, BRCRepairInventoryDispatchRequest, BRCRepairInventoryReceiveRequest, BRCRepariInventoryProductConsumedRequest, BRCRepariInventoryProductConsumedResponse, BRCRepiarResolutionMethodChoosen } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -11,12 +11,12 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./repair-engineer-details.component.scss']
 })
 export class RepairEngineerDetailsComponent implements OnInit {
-  @ViewChild('ManageInventoryModel', { static: false }) ManageInventoryModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('AssignToEngModel', { static: false }) AssignToEngModel: ModalDirective;
-  @ViewChild('ReceivFromEngModel', { static: false }) ReceivFromEngModel: ModalDirective;
-  @ViewChild('DispatchCustomerModel', { static: false }) DispatchCustomerModel: ModalDirective;
-  @ViewChild('ProductConsumedModel', { static: false }) ProductConsumedModel: ModalDirective;
+  @ViewChild('ManageInventoryModel') ManageInventoryModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('AssignToEngModel') AssignToEngModel: ModalDirective;
+  @ViewChild('ReceivFromEngModel') ReceivFromEngModel: ModalDirective;
+  @ViewChild('DispatchCustomerModel') DispatchCustomerModel: ModalDirective;
+  @ViewChild('ProductConsumedModel') ProductConsumedModel: ModalDirective;
 
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';

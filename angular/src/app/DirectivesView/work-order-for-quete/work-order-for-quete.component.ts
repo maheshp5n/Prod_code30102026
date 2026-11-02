@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { WorkOrderRequest, QuoteResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 import { workOrderForQuetService } from '../../services/workorderforquote.services';
 import { DatePipe } from '@angular/common';
@@ -12,7 +12,7 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./work-order-for-quete.component.scss']
 })
 export class WorkOrderForQueteComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
   QueteId:number;
   _isEditMode: boolean;
   @Output()

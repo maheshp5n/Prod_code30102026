@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsRequest, BatteryFSRResponse, CaseForList, ProblemReported, BatterySiteType, PendingResponsibility, BatteryComplaintStatus, BatteryFSRRequest } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -16,7 +16,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./createbattery-fsrcbmslilonbattery.component.scss']
 })
 export class CreatebatteryFSRCBMSLilonbatteryComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   _isEditMode: boolean
   BFSRres: BatteryFSRResponse = new BatteryFSRResponse();

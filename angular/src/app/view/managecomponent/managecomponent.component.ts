@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AssetsService } from '../../services/assets.services';
@@ -11,7 +11,7 @@ import { AssetsService } from '../../services/assets.services';
 })
 export class ManagecomponentComponent implements OnInit {
   public message: string = '';
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
 
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();

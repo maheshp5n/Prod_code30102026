@@ -6,7 +6,7 @@ import { AccountService } from '../../services/accounts.services';
 import { WarehouseDetailsRouting } from './warehousedetails.routing';
 import { WarehouseService } from '../../services/warehouse.service';
 import { WarehousedetailsComponent } from './warehousedetails.component';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { ligalEntityService } from '../../services/ligalentity.services';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';

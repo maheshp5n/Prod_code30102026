@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -17,7 +17,7 @@ import { BAT_BoardingLoadingService } from '../../bat_services/bt-boadigLoadging
   styleUrls: ['./bt-boading-loadgin-da.component.scss']
 })
 export class BtBoadingLoadginDaComponent implements OnInit {
-  @ViewChild('createBoardingModel',{static:false}) createBoardingModel: ModalDirective;
+  @ViewChild('createBoardingModel') createBoardingModel: ModalDirective;
 res :BoardingLoadingDetailsResponse= new BoardingLoadingDetailsResponse()
 message:string="";
 pagenumber:any=null;

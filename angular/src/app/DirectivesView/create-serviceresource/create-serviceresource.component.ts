@@ -1,6 +1,6 @@
 import { LocationRequest } from './../../services/model';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import {
   ResourceType, LocationForList, UserForList, ServiceResourseRequest, ServiceResourseResponse, ContactForList,
   Contacts, LocationResponse
@@ -16,9 +16,9 @@ import { FieldValidation } from '../../services/validation.services';
   styleUrls: ['./create-serviceresource.component.scss']
 })
 export class CreateServiceresourceComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('createLocation', { static: false }) createLocation: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('createLocation') createLocation: ModalDirective;
 
   _isEditMode: boolean;
   newServiceResource: ServiceResourseRequest = new ServiceResourseRequest();

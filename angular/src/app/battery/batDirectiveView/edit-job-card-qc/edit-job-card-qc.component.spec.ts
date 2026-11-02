@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EditJobCardQcComponent } from './edit-job-card-qc.component';
 
@@ -6,7 +6,7 @@ describe('EditJobCardQcComponent', () => {
   let component: EditJobCardQcComponent;
   let fixture: ComponentFixture<EditJobCardQcComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ EditJobCardQcComponent ]
     })

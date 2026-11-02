@@ -3,7 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { Loginservices } from '../../services/login.services';
 import { SSARequest, SSAResponse, SiteDetailsResponse, ActionHistoryObjectAndId } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ssaService } from '../../services/ssa.services';
 
 @Component({
@@ -19,8 +19,8 @@ ngClassDetails: string = 'active';
   req: SSARequest = new SSARequest()
   res: SSAResponse = new SSAResponse()
   ssares: SSAResponse = new SSAResponse()
-  @ViewChild('createSSAModel',{static:false}) createSSAModel: ModalDirective
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('createSSAModel') createSSAModel: ModalDirective
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   private cityName: string
   sapId: string = '';
   message: string;

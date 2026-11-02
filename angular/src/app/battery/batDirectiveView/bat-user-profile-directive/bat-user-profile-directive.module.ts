@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BatUserProfileDirectiveComponent } from './bat-user-profile-directive.component';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { AlertModule, ModalModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { GlobalSearchPipeModule } from '../../../pipe/global-search-pipe.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 

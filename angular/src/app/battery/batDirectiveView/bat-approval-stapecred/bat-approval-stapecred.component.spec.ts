@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatApprovalStapecredComponent } from './bat-approval-stapecred.component';
 
@@ -6,7 +6,7 @@ describe('BatApprovalStapecredComponent', () => {
   let component: BatApprovalStapecredComponent;
   let fixture: ComponentFixture<BatApprovalStapecredComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatApprovalStapecredComponent ]
     })

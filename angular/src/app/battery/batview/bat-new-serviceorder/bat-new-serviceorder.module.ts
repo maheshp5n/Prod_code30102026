@@ -4,7 +4,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BatNewServiceorderComponent } from './bat-new-serviceorder.component';
 import { BatNewserviceOrderRouting } from './bat-new-serviceorder.routing';
 import { FormsModule } from '@angular/forms';
-import { AccordionModule } from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [BatNewServiceorderComponent],

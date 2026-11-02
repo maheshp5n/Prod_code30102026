@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { BatCircleDetailRouting } from './bat-circle-detail.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BtCreateCircleModule } from '../../batDirectiveView/bt-create-circle/bt-create-circle.module';

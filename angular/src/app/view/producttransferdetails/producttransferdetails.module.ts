@@ -9,7 +9,7 @@ import { ProducttransferdetailsreletedComponent } from './producttransferdetails
 import { PrudcttransferDataService } from './producttransferdata.service';
 import { ActionhistoryModule } from '../../DirectivesView/action-history/action-history.module';
 import { SapdocdisplayModule } from '../../DirectivesView/sapdocdisplay/sapdocdisplay.module';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 

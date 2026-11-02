@@ -1,4 +1,4 @@
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PriceBookForList, PriceBookEntriesResponse, QuoteLineItemResponse, QuoteLineItemRequest, ApprovalStepRequest } from '../../services/model';
 import { PriceBookService } from '../../services/pricebook.service';
@@ -11,9 +11,9 @@ import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angu
   styleUrls: ['./quote-add-product.component.css']
 })
 export class QuoteAddProductComponent implements OnInit {
-  @ViewChild('addPriceItems', { static: false }) addPriceItems: ModalDirective;
-  @ViewChild('editSelectedProducts', { static: false }) editSelectedProducts: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('addPriceItems') addPriceItems: ModalDirective;
+  @ViewChild('editSelectedProducts') editSelectedProducts: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   // @ViewChild('editAllProducts', { static: false }) editAllProducts: ModalDirective;
 
   constructor(private spinner: NgxSpinnerService, private _priceBookService: PriceBookService

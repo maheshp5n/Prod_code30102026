@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
 import { PrcActionRequest, PreRegCaseResponse } from '../../services/model';
@@ -14,7 +14,7 @@ import { PreRegCaseService } from '../../services/preregcaseservice.services';
 export class PrcactionComponent implements OnInit {
   
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
   prcreq:PrcActionRequest=new PrcActionRequest();
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();

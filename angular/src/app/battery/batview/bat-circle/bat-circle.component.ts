@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -136,9 +136,9 @@ export class BatCircleComponent implements OnInit {
 
   //done
 
-  @ViewChild('createZoneModel', { static: false }) createZoneModel: ModalDirective;
-  @ViewChild('GradeModel', { static: false }) GradeModel: ModalDirective;
-  @ViewChild('createCircleModel', { static: false }) createCircleModel: ModalDirective;
+  @ViewChild('createZoneModel') createZoneModel: ModalDirective;
+  @ViewChild('GradeModel') GradeModel: ModalDirective;
+  @ViewChild('createCircleModel') createCircleModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
 
   constructor(private pagefilterservice:PagefilterService,private spinner: NgxSpinnerService, private circlesService: BtcircleService,

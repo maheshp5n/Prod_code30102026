@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output,EventEmitter, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationProductRequestItemResponse, LPTransferRequest} from '../../../services/model';
@@ -33,7 +33,7 @@ export class BtProducttransferComponent implements OnInit {
   }
   @Output() onTransferDone:EventEmitter<BtProductTransferRequest> =new EventEmitter<BtProductTransferRequest>();
   @Output() onCancel:EventEmitter<string>=new EventEmitter<string>();
-  @ViewChild('alertModal',{static:false})alertModal:ModalDirective;
+  @ViewChild('alertModal')alertModal:ModalDirective;
   constructor(private _ngxSpinner:NgxSpinnerService,private _btPRequestService : BtproductrequestService,private _btTranserService:BatproducttransferService) { 
     this.dateCustomClasses = [
       { date: this.today, classes: ['bg-secondary'] }

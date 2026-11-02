@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BRCRepairInventoryDispatchRequest } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ManageInventoryService } from '../../services/manageinventory.services';
@@ -11,7 +11,7 @@ import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
   styleUrls: ['./dispatch-customer.component.scss']
 })
 export class DispatchCustomerComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onDispatchCustomerCreated: EventEmitter<BRCRepairInventoryDispatchRequest> = new EventEmitter<BRCRepairInventoryDispatchRequest>();

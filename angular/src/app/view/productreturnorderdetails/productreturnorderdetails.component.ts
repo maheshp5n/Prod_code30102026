@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductReturnService } from '../../services/productreturnservice';
 import { ActionHistoryObjectAndId, LpReturnOrderResponse } from '../../services/model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective, ModalModule } from 'ngx-bootstrap';
+import { ModalDirective, ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductreturnorderDetailsDataTransfer } from './productreturnorderdetails.datatransfer';
 import { Loginservices } from '../../services/login.services';
@@ -16,8 +16,8 @@ import { PdfServiceService } from '../../services/pdf-service.service';
 })
 export class ProductreturnorderdetailsComponent implements OnInit {
 
-  @ViewChild('receiveOrder', { static: false }) receiveOrder: ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective
+  @ViewChild('receiveOrder') receiveOrder: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective
   openModels = { receiveOrder: false };
   productReturnOrderResponse: LpReturnOrderResponse = new LpReturnOrderResponse();
   _cFlag: string;

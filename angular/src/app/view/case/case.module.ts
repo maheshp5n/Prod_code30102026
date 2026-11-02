@@ -1,6 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { BsDatepickerModule, BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SearchfiltPipe } from "./searchfilt.pipe";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";

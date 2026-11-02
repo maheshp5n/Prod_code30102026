@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { ToBeApproved, Page, ApprovalRequest } from '../../../services/model';
@@ -77,8 +77,8 @@ export class BatTobeApprovedComponent implements OnInit {
   ];
 
   // multiapproval
-  @ViewChild('MULTIPLEAPPROVAL', { static: false }) MULTIPLEAPPROVAL: ModalDirective;
-  @ViewChild('approvalModule', { static: false }) approvalModule: ModalDirective;
+  @ViewChild('MULTIPLEAPPROVAL') MULTIPLEAPPROVAL: ModalDirective;
+  @ViewChild('approvalModule') approvalModule: ModalDirective;
 
   pendingdata: Page<any> = new Page<any>();
 

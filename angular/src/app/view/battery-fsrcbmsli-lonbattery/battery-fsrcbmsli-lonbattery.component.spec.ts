@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatteryFSRCBMSLiLonbatteryComponent } from './battery-fsrcbmsli-lonbattery.component';
 
@@ -6,7 +6,7 @@ describe('BatteryFSRCBMSLiLonbatteryComponent', () => {
   let component: BatteryFSRCBMSLiLonbatteryComponent;
   let fixture: ComponentFixture<BatteryFSRCBMSLiLonbatteryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatteryFSRCBMSLiLonbatteryComponent ]
     })

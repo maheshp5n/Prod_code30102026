@@ -3,7 +3,7 @@ import { ActionHistoryObjectAndId, LocalConveyanceExpenseRequest, LocalConveyanc
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../../services/login.services';
 
 @Component({
@@ -34,8 +34,8 @@ export class LocalConveyancedetailsComponent implements OnInit {
   isLocalConveyanceOpen: boolean;
   _cFlag: string;
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createLocalConveyanceModel', { static: false }) createLocalConveyanceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createLocalConveyanceModel') createLocalConveyanceModel: ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

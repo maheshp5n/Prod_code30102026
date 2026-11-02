@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -17,10 +17,10 @@ import { BTPrcActionRequest, BtPreRegCaseRequest, BtPreRegCaseResponse, BTServic
 })
 export class BatPreRegistrationCaseDetailComponent implements OnInit {
 
-  @ViewChild('createpreregiCaseModel', { static: false }) createpreregiCaseModel: ModalDirective;
+  @ViewChild('createpreregiCaseModel') createpreregiCaseModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
   res: BtPreRegCaseResponse = new BtPreRegCaseResponse();
   req: BtPreRegCaseRequest = new BtPreRegCaseRequest();
   caseres: BtPreRegCaseResponse = new BtPreRegCaseResponse()
@@ -102,11 +102,11 @@ export class BatPreRegistrationCaseDetailComponent implements OnInit {
   serviceCenterId:number;
   casemanId: string;
   // popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('createNewOpportunity', { static: false }) createNewOpportunity: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
-  @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective;
-  @ViewChild('IgnorModel',{static:false}) IgnorModel :ModalDirective;
+  @ViewChild('createNewOpportunity') createNewOpportunity: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow:ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective;
+  @ViewChild('IgnorModel') IgnorModel :ModalDirective;
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',
     open: true

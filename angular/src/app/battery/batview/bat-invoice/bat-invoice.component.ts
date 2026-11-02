@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -19,8 +19,8 @@ import { BtInvoiceService } from '../../bat_services/bt-invoice.service';
 })
 export class BatInvoiceComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createInvoiceModel', { static: false }) createInvoiceModel: ModalDirective
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createInvoiceModel') createInvoiceModel: ModalDirective
   message: string = '';
   // @ViewChild('agGrid') agGrid: AgGridAngular;
   popupNgClass: string = 'alert alert-danger center center-block';

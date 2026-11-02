@@ -2,7 +2,7 @@ import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { AnnexureGLCode, ServiceAppointmentResponse } from './../../services/model';
 import { ContactsService } from '../../services/contacts.services';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { UserForList, AnnexureLineItemRequest, AnnexureLineItemResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -15,7 +15,7 @@ import { ServiceAppointmentService } from '../../services/serviceappointment.ser
   styleUrls: ['./create-annexureLineItem.component.scss']
 })
 export class CreateAnnexureLineItemComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   _isEditMode: boolean;
   annexureLineItemRequest: AnnexureLineItemRequest = new AnnexureLineItemRequest();

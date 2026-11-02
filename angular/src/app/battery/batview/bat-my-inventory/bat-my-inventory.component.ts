@@ -1,7 +1,7 @@
 import { noUndefined } from '@angular/compiler/src/util';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -21,8 +21,8 @@ export class BatMyInventoryComponent implements OnInit {
     partcodechangeModal: false,
     partstatuschange: false
   };
-  @ViewChild('partcodechangeModal', { static: false }) partcodechangeModal: ModalDirective;
-  @ViewChild('partstatuschange', { static: false }) partstatuschange: ModalDirective;
+  @ViewChild('partcodechangeModal') partcodechangeModal: ModalDirective;
+  @ViewChild('partstatuschange') partstatuschange: ModalDirective;
   tableHeader: Array<TableHeaderDetails> = [{
     id: 1,
     titleName: 'Warehouse',

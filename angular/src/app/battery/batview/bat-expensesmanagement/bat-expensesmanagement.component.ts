@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -80,13 +80,13 @@ export class BatExpensesmanagementComponent implements OnInit {
   status: string;
   _cFlag: string;
 
-  @ViewChild('createexpensesmanagementModel', { static: false })
+  @ViewChild('createexpensesmanagementModel')
   createexpensesmanagementModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false })
   // popupSuccessModel: ModalDirective;
-  @ViewChild('createTourExpenseModel', { static: false })
+  @ViewChild('createTourExpenseModel')
   createTourExpenseModel: ModalDirective;
-  @ViewChild('deleteExpModel', { static: false })
+  @ViewChild('deleteExpModel')
   deleteExpModel: ModalDirective;
   
   //filter

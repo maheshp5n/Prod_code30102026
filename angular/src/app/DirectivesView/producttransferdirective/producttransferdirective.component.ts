@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { LocationProductRequestResponse, LocationProductRequestItemResponse, OkItemResponse, LPTransferRequest, LPTransferItemRequest } from '../../services/model';
 import { LocationProductRequestService } from '../../services/locationproductrequest.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 
 @Component({
@@ -23,7 +23,7 @@ export class ProducttransferdirectiveComponent implements OnInit {
   }
   @Output() onTransferDone:EventEmitter<LPTransferRequest> =new EventEmitter<LPTransferRequest>();
   @Output() onCancel:EventEmitter<string>=new EventEmitter<string>();
-  @ViewChild('alertModal',{static:false})alertModal:ModalDirective;
+  @ViewChild('alertModal')alertModal:ModalDirective;
 
   locationProductRequestItemResponse:Array<LocationProductRequestItemResponse>=[];
   _lpTransferRequest:LPTransferRequest =new LPTransferRequest();

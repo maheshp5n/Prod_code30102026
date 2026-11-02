@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatCircleDetailComponent } from './bat-circle-detail.component';
 
@@ -6,7 +6,7 @@ describe('BatCircleDetailComponent', () => {
   let component: BatCircleDetailComponent;
   let fixture: ComponentFixture<BatCircleDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatCircleDetailComponent ]
     })

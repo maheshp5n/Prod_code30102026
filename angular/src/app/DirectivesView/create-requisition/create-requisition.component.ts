@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective, TypeaheadMatch } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { AssetsResponse, AssetsRequest, RequisitionStatus, RequisitionProductType, RequisitionApprovalStatus, ProductsForList, RequisitionResponse, RequisitionRequest, Product, RequisitionProductDetailsResponse, RequisitionProductDetailsRequest, WarehouseForList, WarehousedetailsResponse, WarehousedetailsRequest } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -13,10 +14,10 @@ import { AssetsService } from '../../services/assets.services';
 })
 export class CreateRequisitionComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('addProductListModel', { static: false }) addProductListModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
-  @ViewChild('createWarehouseModel', { static: false }) createWarehouseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('addProductListModel') addProductListModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
+  @ViewChild('createWarehouseModel') createWarehouseModel: ModalDirective;
 
 
   _isEditMode: boolean

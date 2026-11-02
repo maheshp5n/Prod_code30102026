@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CaseResponse, CaseRequest, ProblemReported, SecondServiceAppointmentRequest, ServiceAppointmentResponse, ServiceAppointmentProductConsumedResponse, BatteryFSRResponse, OppertunityResponse, OppertunityRequest, QuoteResponse, CaseInvoiceRequest, ActionHistoryObjectAndId, caseLogReject, FileUploadResponse } from '../../services/model';
 import { caseService } from '../../services/caseService.service';
 import { Loginservices } from '../../services/login.services';
@@ -15,12 +15,12 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./commercial-page-detail.component.scss']
 })
 export class CommercialPageDetailComponent implements OnInit {
-  @ViewChild('createInvoiceModel', { static: false }) createInvoiceModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('sureModel',{static:false}) sureModel:ModalDirective;
-  @ViewChild('rejectcasemodel',{static:false}) rejectcasemodel:ModalDirective;
-  @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('changeCaseTypemodel',{static:false}) changeCaseTypemodel :ModalDirective;
+  @ViewChild('createInvoiceModel') createInvoiceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('sureModel') sureModel:ModalDirective;
+  @ViewChild('rejectcasemodel') rejectcasemodel:ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow:ModalDirective;
+  @ViewChild('changeCaseTypemodel') changeCaseTypemodel :ModalDirective;
   res: CaseResponse = new CaseResponse();
   req: CaseRequest = new CaseRequest();
   caseres: CaseResponse = new CaseResponse()

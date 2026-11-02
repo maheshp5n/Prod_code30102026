@@ -3,7 +3,8 @@ import { QuoteAddProductModule } from './../../DirectivesView/quote-add-product/
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '../../services/accounts.services';
-import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule } from '@angular/forms';
 import { ContactcreateModule } from '../../DirectivesView/contactcreate/contactcreate.module';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';

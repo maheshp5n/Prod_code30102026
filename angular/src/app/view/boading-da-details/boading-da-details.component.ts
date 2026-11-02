@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActionHistoryObjectAndId, BoardingLoadingDetailsResponse } from '../../services/model';
 import { Loginservices } from '../../services/login.services';
 import { BoardingLoadingService } from '../../services/boarding-loading.service';
@@ -27,8 +27,8 @@ export class BoadingDaDetailsComponent implements OnInit {
   responseEntity:Array<BoardingLoadingDetailsResponse>
   message:string="";
   loginData;
-  @ViewChild('createBoardingModel',{static:false}) createBoardingModel:ModalDirective
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective
+  @ViewChild('createBoardingModel') createBoardingModel:ModalDirective
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective
  
   sapId:string='';
   addressDisplay={

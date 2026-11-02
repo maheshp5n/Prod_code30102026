@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { ContactsService } from '../../services/contacts.services';
 import { CaseResponse, ContactForList, ServiceResourseForList, Contacts, ServiceCenterForList, AssetsForList, AccountsForList, SiteDetailsForList, CaseStageDetails, CasePriority, CaseStatus, PendingResponsibility, CaseOriginDetails, ProblemReported, selected, SiteDetailsResponse, AssetsResponse, CaseReasonForList, CaseTypeRecord, CaseTypeForList, CaseRequest, PreRegCaseResponse, PreRegCaseRequest } from '../../services/model';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { PreRegCaseService } from '../../services/preregcaseservice.services';
 import { AssetsService } from '../../services/assets.services';
 
@@ -20,11 +20,11 @@ import { AssetsService } from '../../services/assets.services';
   styleUrls: ['./case-create-pre-regis.component.scss']
 })
 export class CaseCreatePreRegisComponent implements OnInit {
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
-  @ViewChild('createLegalEntityModel', { static: false }) createLegalEntityModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
+  @ViewChild('createLegalEntityModel') createLegalEntityModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
 
   @Output()
   onCaseCreated: EventEmitter<PreRegCaseRequest> = new EventEmitter<PreRegCaseRequest>();

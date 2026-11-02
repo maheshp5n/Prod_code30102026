@@ -1,7 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AccordionModule, BsDropdownModule, ModalModule, TabsModule} from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Loginservices } from '../../../services/login.services';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ExpenseDeleteModule } from '../../../DirectivesView/expense-confirm-delete/expense-confirm-delete.module';

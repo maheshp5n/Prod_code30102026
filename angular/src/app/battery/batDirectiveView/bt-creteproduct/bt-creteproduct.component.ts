@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Product, ProductSubFamily } from '../../bt_model';
 import { FieldValidation } from '../../../services/validation.services';
@@ -56,8 +56,8 @@ export class BtCreteproductComponent  implements OnInit {
   public _isEditMode: boolean;
   popupNgClass: string = 'alert alert-danger center center-block';
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
 
   @Output()
   onProductCreated: EventEmitter<Product> = new EventEmitter<Product>();

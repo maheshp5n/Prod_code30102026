@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { AccountService } from '../../../services/accounts.services';
@@ -83,10 +83,10 @@ export class BatContactsDetailsComponent implements OnInit {
     open: true
   };
 
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('GradeModel', { static: false }) GradeModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('GradeModel') GradeModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createexpensesmanagementModel', { static: false }) createexpensesmanagementModel: ModalDirective;
+  @ViewChild('createexpensesmanagementModel') createexpensesmanagementModel: ModalDirective;
 
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   constructor(private _global: GlobalserviceService,private _accountService: BoardingLoadingService, private spinner: NgxSpinnerService,

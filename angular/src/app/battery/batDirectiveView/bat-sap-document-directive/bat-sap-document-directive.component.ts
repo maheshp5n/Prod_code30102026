@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SapDocumentService } from '../../bat_services/bat-sap-doc-service';
 import { GlobalserviceService } from '../../../globalservice.service';
 
@@ -10,7 +10,7 @@ import { GlobalserviceService } from '../../../globalservice.service';
 })
 export class BatSapDocumentDirectiveComponent implements OnInit, OnDestroy, OnChanges {
 
-  @ViewChild('objectPdfView', { static: false }) objectPdfView: ModalDirective;
+  @ViewChild('objectPdfView') objectPdfView: ModalDirective;
 
   @Input() set crmDocNumber(doc) {
     if (doc) {

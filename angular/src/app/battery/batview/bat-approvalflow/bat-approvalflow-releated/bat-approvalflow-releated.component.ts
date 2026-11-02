@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BtApprovalService } from '../../../bat_services/btapprovalservice';
 import { BatApprovalDataFlowService } from '../bat-approvalflow-data';
 
@@ -15,7 +15,7 @@ export class BatApprovalflowReleatedComponent implements OnInit {
   initt:any;
   stapesdata=[];
   
-  @ViewChild('stapes',{static:false})stapes:ModalDirective;
+  @ViewChild('stapes')stapes:ModalDirective;
 
   stapedata;
   constructor(private batdtaservice:BatApprovalDataFlowService,private approvalflowservice:BtApprovalService) { }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -36,9 +36,9 @@ export class BatServiceorderdetailsComponent implements OnInit {
     assign:false
   }
 
-  @ViewChild('receiveModal', { static: false }) receiveModal: ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective; 
-  @ViewChild('soReturn',{static:false}) soReturn:ModalDirective;
+  @ViewChild('receiveModal') receiveModal: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective; 
+  @ViewChild('soReturn') soReturn:ModalDirective;
 
   constructor(
     private _serviceOrderService: ServiceOrderService,
