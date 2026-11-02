@@ -11,7 +11,7 @@ import { PagefilterService } from '../../services/pagefilterservice';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import * as fileSaver from 'file-saver';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-invoice',
@@ -74,7 +74,7 @@ export class InvoiceComponent implements OnInit {
   fileList:any=[];
   fileToUpload: File;
   formData = new FormData();
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   //filter
   dropdownsList = [{
     sqId: 1,
@@ -169,7 +169,7 @@ export class InvoiceComponent implements OnInit {
   //done
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private pagefilterservice: PagefilterService, private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private loginservice: Loginservices, private orderPipe: OrderPipe, private vendorinvoiceservice: VendorInvoiceService,
     private _globa: GlobalserviceService,private datepipe:DatePipe) {
 

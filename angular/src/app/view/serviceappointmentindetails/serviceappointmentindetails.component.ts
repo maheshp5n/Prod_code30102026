@@ -7,7 +7,7 @@ import { ServiceAppointmentService } from '../../services/serviceappointment.ser
 import { ServiceResourceService } from '../../services/serviceresource.services';
 import { BatrryFSRService } from '../../services/BattryFSRservice.services';
 import { Loginservices } from '../../services/login.services';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import * as fileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
@@ -94,7 +94,7 @@ export class ServiceappointmentindetailsComponent implements OnInit {
 
   objectName = 'ServiceAppointment';
   fileUploadList: Array<FileUploadResponse> = [];
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   fileList: string[] = [];
   uploadFilesLength: number;
   formData: FormData = new FormData()
@@ -141,7 +141,7 @@ export class ServiceappointmentindetailsComponent implements OnInit {
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   constructor(private datePipe: DatePipe,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private BFSRservice: BatrryFSRService,
     private _serviceAppointmentService: ServiceAppointmentService, private loginService: Loginservices
-    , private formBuilder: FormBuilder, private _http: HttpClient,
+    , private formBuilder: UntypedFormBuilder, private _http: HttpClient,
     private loginservice:Loginservices,private deleteservice:FileDeleteService,
     private _global:GlobalserviceService,private sanitizer: DomSanitizer) {
     this._activatedRoute.params.subscribe(pram => {

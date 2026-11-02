@@ -51,7 +51,7 @@ import { environment } from '../environments/environment';
 import { SwitchComponent } from './switch/switch.component';
 import { AppHttpIntercepter } from './httpinterceptor/httpinterceptor';
 import { ForgetpassComponent } from './forgetpass/forgetpass.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     BrowserModule,
@@ -95,7 +95,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     ChangePasswordService,
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpIntercepter, multi: true },
-    NgxSpinnerService, ReactiveFormsModule, FormBuilder
+    NgxSpinnerService, ReactiveFormsModule, UntypedFormBuilder
   ],
   bootstrap: [AppComponent]
 })

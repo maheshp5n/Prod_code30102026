@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, ViewChild,EventEmitter, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -15,13 +15,13 @@ import { BtCaseserviceService } from '../../bat_services/bt-caseservice.service'
 export class BtRejectCaseComponent implements OnInit {
 @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
 @ViewChild('choosenFiles') choosenFiles: ModalDirective
-constructor(private _btcaseservice:BtCaseserviceService,private spinner:NgxSpinnerService,private formBuilder: FormBuilder,
+constructor(private _btcaseservice:BtCaseserviceService,private spinner:NgxSpinnerService,private formBuilder: UntypedFormBuilder,
   private _global : GlobalserviceService) { }
 rejectcase:RejectCaseRequest=new RejectCaseRequest();
 _isEditMode:boolean;
 fileList:any=[];
 getFile;
-uploadForm: FormGroup;
+uploadForm: UntypedFormGroup;
 formData = new FormData();
 message:string='';
 caseid:number;

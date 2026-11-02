@@ -6,7 +6,7 @@ import { ManageInventoryService } from '../../services/manageinventory.services'
 import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
 import * as fileSaver from 'file-saver';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { caseService } from '../../services/caseService.service';
 @Component({
   selector: 'app-manageinventory',
@@ -82,9 +82,9 @@ export class ManageinventoryComponent implements OnInit {
   isManageInventoryModel: boolean = false;
   _cFlag: string;
   // formgroup by shagufta
-  uploadForm: FormGroup;    
+  uploadForm: UntypedFormGroup;    
    
-  constructor(private case_service:caseService,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private manageInventoryService: ManageInventoryService, private loginService: Loginservices,private formBuilder: FormBuilder) {
+  constructor(private case_service:caseService,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private manageInventoryService: ManageInventoryService, private loginService: Loginservices,private formBuilder: UntypedFormBuilder) {
     this._activatedRoute.queryParams.subscribe(pram => {
       this._cFlag = pram['_c'];
     });

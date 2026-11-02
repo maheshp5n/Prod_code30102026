@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -93,7 +93,7 @@ export class BatCaseDetailComponent implements OnInit {
   historyList:Array<ToBeApprovedHistoryResponse>=[];
   objectname:string;
   CaseDetails;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   fileLists: Array<FileUploadResponse> = [];
   RejectLogList:Array<caseLogReject>=[];
@@ -155,7 +155,7 @@ export class BatCaseDetailComponent implements OnInit {
   
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
 
-  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: FormBuilder,private loginservice: Loginservices, private caseservice: BtCaseserviceService, private _activatedRoute: ActivatedRoute, 
+  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: UntypedFormBuilder,private loginservice: Loginservices, private caseservice: BtCaseserviceService, private _activatedRoute: ActivatedRoute, 
     private spinner: NgxSpinnerService,private datepipe:DatePipe, private oportunityServic: OpportunityService,private globalfilesservice:GlobalFilesService,
     private prcservice:PreRegCaseService,private _global:GlobalserviceService) {
     this._activatedRoute.params.subscribe(pram => {

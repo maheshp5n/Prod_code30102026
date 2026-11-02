@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -76,7 +76,7 @@ export class BatRmaDetailComponent implements OnInit {
   imageUrl: string;
   fileList: string[] = [];
   uploadFilesLength: number;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',
     open: true
@@ -90,7 +90,7 @@ export class BatRmaDetailComponent implements OnInit {
     open: true
   }
 
-  constructor(private _serviceAppointmentService: ServiceAppointmentService, private deleteservice: FileDeleteService,private _http: HttpClient, private _activatedRoute: ActivatedRoute,private formBuilder: FormBuilder,private _global:GlobalserviceService, private spinner: NgxSpinnerService, private loginservice: Loginservices,
+  constructor(private _serviceAppointmentService: ServiceAppointmentService, private deleteservice: FileDeleteService,private _http: HttpClient, private _activatedRoute: ActivatedRoute,private formBuilder: UntypedFormBuilder,private _global:GlobalserviceService, private spinner: NgxSpinnerService, private loginservice: Loginservices,
     private btRmaservice : BtRmaService) {
     this._activatedRoute.params.subscribe(pram => {
       this.Id = pram['id'];

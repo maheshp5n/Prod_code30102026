@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -42,7 +42,7 @@ export class BatExpensesmanagementDetailComponent implements OnInit {
     private lodgingService: BtlodgingExpenseService, private boardingService: BtboardingExpenseService,
     private localConveyanceService: BtlocalConveyanceExpenseService, private otherChargesService: BtotherChargesExpenseService,
     protected _sanitizer: DomSanitizer, private _approvalHistoryService: ApprovalHistoryService,
-    private formBuilder: FormBuilder, private _http: HttpClient,
+    private formBuilder: UntypedFormBuilder, private _http: HttpClient,
     private deleteservice:FileDeleteService,private _global:GlobalserviceService,
     private datePipe: DatePipe,private boadingservice:BtboardingLoadingExpenseService,private expSAservice:BtexpenseServiceappointmentService,
     private _pdfService: PdfServiceService) {
@@ -225,7 +225,7 @@ export class BatExpensesmanagementDetailComponent implements OnInit {
   @ViewChild('deleteExpModel') deleteExpModel: ModalDirective;
   @ViewChild('submitapprovalmodel') submitapprovalmodel:ModalDirective;
   @ViewChild('approvalModule')approvalModule:ModalDirective;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
 
   public uploader: FileUploader = new FileUploader({
     isHTML5: true

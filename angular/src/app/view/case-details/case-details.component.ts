@@ -29,7 +29,7 @@ import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { StringifyOptions } from 'querystring';
 import { OpportunityService } from '../../services/Opportunity.services';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { BatrryFSRService } from '../../services/BattryFSRservice.services';
 import * as fileSaver from 'file-saver';
 import { ApprovalHistoryService } from '../../services/approvalHistory.service';
@@ -112,7 +112,7 @@ export class CaseDetailsComponent implements OnInit {
   historyList:Array<ToBeApprovedHistoryResponse>=[];
   objectname:string;
   CaseDetails;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   fileLists: Array<FileUploadResponseCase> = [];
   RejectLogList:Array<caseLogReject>=[];
@@ -173,7 +173,7 @@ export class CaseDetailsComponent implements OnInit {
   
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
 
-  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: FormBuilder,
+  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: UntypedFormBuilder,
     private loginservice: Loginservices, private caseservice: caseService, private _activatedRoute: ActivatedRoute, 
     private spinner: NgxSpinnerService, private oportunityServic: OpportunityService,
     private _global:GlobalserviceService,

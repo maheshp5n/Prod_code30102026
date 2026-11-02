@@ -13,7 +13,7 @@ import { PagefilterService } from '../../services/pagefilterservice';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import * as fileSaver from 'file-saver';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 @Component({
   selector: 'app-repair-dct',
   templateUrl: './repair-dct.component.html',
@@ -110,7 +110,7 @@ dateCustomClasses: DatepickerDateCustomClasses[];
     private _serviceorderjobcard: ServiceOrderJobCardService,
     private _activatedRoute:ActivatedRoute,
     private pagefilterservice:PagefilterService,private datePipe:DatePipe,
-    private formBuilder:FormBuilder
+    private formBuilder:UntypedFormBuilder
   ) {
     this._activatedRoute.queryParams.subscribe(param => {
       this._cFlag = param['_c'];
@@ -336,7 +336,7 @@ getFile:any;
 fileType:string;
 fileList:any[]=[];
 fileToUpload:File;
-uploadForm:FormGroup;
+uploadForm:UntypedFormGroup;
 onFileSelect(event) {
   // console.log((<HTMLInputElement>document.getElementById('getFile')).value)
   if(event!=null){

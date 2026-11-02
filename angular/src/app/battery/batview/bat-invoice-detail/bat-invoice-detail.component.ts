@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -49,7 +49,7 @@ export class BatInvoiceDetailComponent implements OnInit {
   last: boolean;
   edit: boolean = false;
   isModelOpen: boolean;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   // CREATE_ACCOUNT_HEADING: string = 'Create SSA';
   EDIT_ACCOUNT_HEADING: string = 'Edit Invoice';
   venInvoiceId: number;
@@ -85,7 +85,7 @@ export class BatInvoiceDetailComponent implements OnInit {
   serviceappointmentList: Array<any> = [];
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private tobeapproved:BtTobeApprovedService,
     private spinner: NgxSpinnerService,
     private _activatedRoute: ActivatedRoute,

@@ -7,7 +7,7 @@ import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
 import { PagefilterService } from '../../services/pagefilterservice';
 import * as fileSaver from 'file-saver';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-assets',
@@ -28,7 +28,7 @@ export class AssetsComponent implements OnInit {
   fileList:any=[];
   fileToUpload: File;
   formData = new FormData();
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   related: boolean = false;
   all: boolean = true;
   message: string;
@@ -144,7 +144,7 @@ export class AssetsComponent implements OnInit {
     //done
 
   constructor(private pagefilterservice:PagefilterService,private spinner: NgxSpinnerService,private _activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder, private _assetsService: AssetsService,private loginService: Loginservices) {
+    private formBuilder: UntypedFormBuilder, private _assetsService: AssetsService,private loginService: Loginservices) {
     this._activatedRoute.queryParams.subscribe(param => {
       this._cFlag = param['_c'];
       if (param['sqId'] != undefined && param['sqId'] != null) {

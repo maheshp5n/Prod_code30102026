@@ -4,9 +4,9 @@ import { CaseResponse, AssetsResponse, PreRegCaseResponse, PreRegCaseRequest, Pr
 import { OrderPipe } from 'ngx-order-pipe';
 import { Loginservices } from '../../services/login.services';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { caseService } from '../../services/caseService.service';
 import * as fileSaver from 'file-saver';
 import { PreRegCaseService } from '../../services/preregcaseservice.services';
@@ -72,7 +72,7 @@ export class CasePreRegisComponent implements OnInit {
   isCaseModelOpen: boolean = false;
   casetypRecord: Array<CaseTypeRecord> = [];
   _cFlag: string;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   caseReasonForList: Array<CaseReasonForList> = [];
   // caseTypeList: Array<CaseTypeForList> = [];
   caseStatusForList:Array<CaseStatus>=[];
@@ -229,7 +229,7 @@ export class CasePreRegisComponent implements OnInit {
 
   //done
   constructor(private pagefilterservice:PagefilterService,private case_service: caseService,private preregcaseservice:PreRegCaseService, private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,
-    private orderPipe: OrderPipe, private loginService: Loginservices, private formBuilder: FormBuilder) {
+    private orderPipe: OrderPipe, private loginService: Loginservices, private formBuilder: UntypedFormBuilder) {
     this._activatedRoute.params.subscribe(pram => {
       this.caseId = pram['caseId'];
     });

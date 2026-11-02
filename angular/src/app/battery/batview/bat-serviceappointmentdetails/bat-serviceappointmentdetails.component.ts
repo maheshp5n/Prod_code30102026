@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -108,7 +108,7 @@ export class BatServiceappointmentdetailsComponent implements OnInit {
 
   objectName = 'BtServiceAppointment';
   fileUploadList: Array<FileUploadResponse> = [];
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   fileList: string[] = [];
   uploadFilesLength: number;
   formData: FormData = new FormData()
@@ -168,7 +168,7 @@ export class BatServiceappointmentdetailsComponent implements OnInit {
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   constructor(private tobeapproved:BtTobeApprovedService,private datePipe: DatePipe, private btFsrService:BtFsrService ,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private BFSRservice: BatrryFSRService,
     private _btserviceAppointment: BtServiceappointmentService, private loginService: Loginservices,private approvalHistory: ApprovalHistoryService,
-     private formBuilder: FormBuilder, private _http: HttpClient,
+     private formBuilder: UntypedFormBuilder, private _http: HttpClient,
     private loginservice: Loginservices, private deleteservice: FileDeleteService,
     private _global: GlobalserviceService, private caseService: BtCaseserviceService,
     private sanitizer: DomSanitizer,

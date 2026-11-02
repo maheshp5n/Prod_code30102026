@@ -28,8 +28,8 @@ import { LodgingExpenseService } from '../../services/LodgingExpenseService';
 import { BoardingExpenseService } from '../../services/boardingExpense.service';
 import { Loginservices } from '../../services/login.services';
 import { ApprovalHistoryService } from '../../services/approvalHistory.service';
-import { FormBuilder } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { FileUploader } from 'ng2-file-upload';
 import * as fileSaver from 'file-saver'; // npm i --save file-saver
@@ -55,7 +55,7 @@ export class ExpensesmanagementdetailsComponent implements OnInit {
     private lodgingService: LodgingExpenseService, private boardingService: BoardingExpenseService,
     private localConveyanceService: LocalConveyanceExpenseService, private otherChargesService: OtherChargesService,
     private loginService: Loginservices, protected _sanitizer: DomSanitizer, private _approvalHistoryService: ApprovalHistoryService,
-    private formBuilder: FormBuilder, private _http: HttpClient,
+    private formBuilder: UntypedFormBuilder, private _http: HttpClient,
     private deleteservice:FileDeleteService,private _global:GlobalserviceService,
     private datePipe: DatePipe,private boadingservice:BoardingLoadingService,
     private _pdfService: PdfServiceService) {
@@ -216,7 +216,7 @@ export class ExpensesmanagementdetailsComponent implements OnInit {
   @ViewChild('onlyAccountModel') onlyAccountModel : ModalDirective;
   @ViewChild('deleteExpModel') deleteExpModel:ModalDirective;
   @ViewChild('submitapprovalmodel') submitapprovalmodel:ModalDirective;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
 
   public uploader: FileUploader = new FileUploader({
     isHTML5: true

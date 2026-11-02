@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderPipe } from 'ngx-order-pipe';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import * as fileSaver from 'file-saver';
 import { Event } from 'ngx-bootstrap/utils/facade/browser';
 import { PagefilterService } from '../../services/pagefilterservice';
@@ -78,7 +78,7 @@ export class CaseComponent implements OnInit {
   casetypRecord: Array<CaseTypeRecord> = [];
   pagenumber:any=null;
   _cFlag: string;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   today = new Date();
   dateCustomClasses: DatepickerDateCustomClasses[];
   pmassetsite:any=null;
@@ -238,7 +238,7 @@ export class CaseComponent implements OnInit {
 
   constructor(private pagefilterservice:PagefilterService,private case_service: caseService, private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,
     private _global:GlobalserviceService,private datePipe:DatePipe,private pmsiteassetservice:Pm_asset_site_service,
-    private orderPipe: OrderPipe, private loginService: Loginservices, private formBuilder: FormBuilder) {
+    private orderPipe: OrderPipe, private loginService: Loginservices, private formBuilder: UntypedFormBuilder) {
     this._activatedRoute.params.subscribe(param => {
       this.caseId = param['caseId'];
 

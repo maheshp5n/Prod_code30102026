@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -18,7 +18,7 @@ export class BatJobCardQcDetailComponent implements OnInit {
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';
   vDetails: boolean = true;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   navigationMenue = {
     details: {
       ngclass: '',

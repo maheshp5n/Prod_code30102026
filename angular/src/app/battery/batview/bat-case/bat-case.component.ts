@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
@@ -77,7 +77,7 @@ export class BatCaseComponent implements OnInit {
   newcaseTypeList:Array<BT_CaseTypeForList>=[];
   pagenumber:any=null;
   _cFlag: string;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   today = new Date();
   dateCustomClasses: DatepickerDateCustomClasses[];
   casetypeid:number
@@ -249,7 +249,7 @@ export class BatCaseComponent implements OnInit {
      private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,
     private _global:GlobalserviceService,private datePipe:DatePipe,
     private orderPipe: OrderPipe, private loginService: Loginservices, 
-    private formBuilder: FormBuilder,private btcaseservice:BtCaseserviceService) {
+    private formBuilder: UntypedFormBuilder,private btcaseservice:BtCaseserviceService) {
     this._activatedRoute.params.subscribe(param => {
       this.caseId = param['caseId'];
 

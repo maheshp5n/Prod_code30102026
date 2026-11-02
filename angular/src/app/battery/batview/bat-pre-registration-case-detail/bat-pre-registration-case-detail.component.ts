@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -91,7 +91,7 @@ export class BatPreRegistrationCaseDetailComponent implements OnInit {
   imgsrc: any
   imageToShow: any;
   isImageLoading: any;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   buisnessDomainId: number;
   caseNumber: string;
@@ -155,7 +155,7 @@ export class BatPreRegistrationCaseDetailComponent implements OnInit {
   
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
 
-  constructor( private formBuilder: FormBuilder,private loginservice: Loginservices,  private _activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService, private oportunityServic: OpportunityService
+  constructor( private formBuilder: UntypedFormBuilder,private loginservice: Loginservices,  private _activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService, private oportunityServic: OpportunityService
     ,private preregservice:BtPreRegistrationCaseService,private _global: GlobalserviceService) {
     this._activatedRoute.params.subscribe(pram => {
       this.caseid = pram['id'];

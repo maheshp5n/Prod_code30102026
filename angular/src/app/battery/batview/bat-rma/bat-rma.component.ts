@@ -11,7 +11,7 @@ import { BtRmaService } from '../../bat_services/bt-rma.service';
 import { RMAResponse } from '../../bt_model';
 import * as fileSaver from 'file-saver';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
@@ -70,7 +70,7 @@ export class BatRmaComponent implements OnInit {
   formData = new FormData();
   fileToUpload: File;
   getFile: any;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
 
 
   //filter
@@ -172,7 +172,7 @@ export class BatRmaComponent implements OnInit {
   ];
 
   //done
-  constructor(private pagefilterservice: PagefilterService, private formBuilder: FormBuilder, private _gloabl: GlobalserviceService, private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private rmasservice: BtRmaService, private loginservice: Loginservices, private ssaservice: ssaService) {
+  constructor(private pagefilterservice: PagefilterService, private formBuilder: UntypedFormBuilder, private _gloabl: GlobalserviceService, private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private rmasservice: BtRmaService, private loginservice: Loginservices, private ssaservice: ssaService) {
 
     this._activatedRoute.params.subscribe(pram => {
       this.ssaId = pram['siteId'];

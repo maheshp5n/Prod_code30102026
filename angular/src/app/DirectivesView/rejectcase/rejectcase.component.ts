@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { HtmlAttributesDirective } from '@coreui/angular/lib/shared/layout/layout.directive';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,12 +14,12 @@ import { RejectCaseRequest } from '../../services/model';
 export class RejectcaseComponent implements OnInit {
   @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
   @ViewChild('choosenFiles') choosenFiles: ModalDirective
-  constructor(private caseservice:caseService,private spinner:NgxSpinnerService,private formBuilder: FormBuilder) { }
+  constructor(private caseservice:caseService,private spinner:NgxSpinnerService,private formBuilder: UntypedFormBuilder) { }
   rejectcase:RejectCaseRequest=new RejectCaseRequest();
   _isEditMode:boolean;
   fileList:any=[];
   getFile;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   message:string='';
   caseid:number;
