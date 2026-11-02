@@ -19,8 +19,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "node --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng serve",
-    "build": "node --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
+    "start": "node --openssl-legacy-provider --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng serve",
+    "build": "node --openssl-legacy-provider --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
