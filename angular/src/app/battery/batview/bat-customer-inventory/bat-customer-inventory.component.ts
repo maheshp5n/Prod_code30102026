@@ -8,7 +8,6 @@ import * as fileSaver from 'file-saver';
 import { BtCustomerInventoryService } from '../../bat_services/bt-customer-inventory.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BtCustomerInventoryOutRequest } from '../../bt_model';
-import { ThrowStmt } from '@angular/compiler';
 import { ActivatedRoute } from '@angular/router';
 import { PagefilterService } from '../../../services/pagefilterservice';
 

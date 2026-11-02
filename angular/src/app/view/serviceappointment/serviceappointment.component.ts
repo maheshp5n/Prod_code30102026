@@ -7,7 +7,6 @@ import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
 import { PagefilterService } from '../../services/pagefilterservice';
 import { GlobalserviceService } from '../../globalservice.service';
-import { IfStmt } from '@angular/compiler';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import { caseService } from '../../services/caseService.service';

@@ -807,7 +807,7 @@
                       <td data-line="S.No."class="mhide" style="width:50px;">{{i+1}}.</td>
                       <td  data-line="Case" class="wrappable">{{rej.caseManualId}}
                       </td>
-                      <td data-line="File Name"><a [routerLink]="" (click)="opneImage(rej)"> {{rej.fileName}}</a>
+                      <td data-line="File Name"><a [routerLink]="[]" (click)="opneImage(rej)"> {{rej.fileName}}</a>
                         </td>
                       <td data-line="Rejected by">{{rej.createdByFirstName}}&nbsp;{{rej.createdByMiddleName}}&nbsp;{{rej.createdByLastName}} </td>
                       <td data-line="Remark">{{rej.remark}}</td>

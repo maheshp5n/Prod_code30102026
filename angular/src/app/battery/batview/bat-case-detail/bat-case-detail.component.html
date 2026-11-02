@@ -940,7 +940,7 @@
                         <tbody>
                           <tr *ngFor="let ser of fileLists;let i=index">
                             <td data-line="S.No."class="mhide" style="width:50px;">{{i+1}}.</td>
-                            <td  data-line="FileName" class="wrappable"><a [routerLink]="" (click)="opneImage(ser)"
+                            <td  data-line="FileName" class="wrappable"><a [routerLink]="[]" (click)="opneImage(ser)"
                                 activateRout="active">{{ser.fileName}}</a></td>
                             <td data-line="Case Type">{{(ser.fileSize/1024/1024) | number:'1.0-3'}}MB</td>
                             <!-- <td data-line="Content Type">{{ser.fileContentType}}</td> -->
@@ -997,7 +997,7 @@
                       <td data-line="S.No."class="mhide" style="width:50px;">{{i+1}}.</td>
                       <td  data-line="Case" class="wrappable">{{rej.manualId}}
                       </td>
-                      <td data-line="File Name"><a [routerLink]="" (click)="opneImage(rej)"> {{rej.fileName}}</a>
+                      <td data-line="File Name"><a [routerLink]="[]" (click)="opneImage(rej)"> {{rej.fileName}}</a>
                         </td>
                       <td data-line="Rejected by">{{rej.createdByFirstName}}&nbsp;{{rej.createdByMiddleName}}&nbsp;{{rej.createdByLastName}} </td>
                       <td data-line="Remark">{{rej.remark}}</td>

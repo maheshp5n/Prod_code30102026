@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, Output, ViewChild,EventEmitter, Input } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { getMinutes } from 'ngx-bootstrap/chronos/utils/date-getters';

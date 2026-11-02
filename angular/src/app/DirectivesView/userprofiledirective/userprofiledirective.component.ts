@@ -4,7 +4,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ObjectServices } from '../../services/objecct.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserprofileService } from '../../services/userprofil.service';
-import { ThrowStmt } from '@angular/compiler';
 
 
 
