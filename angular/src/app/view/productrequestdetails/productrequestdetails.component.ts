@@ -531,7 +531,7 @@ this._productRequestService.getItems(this.productRequestId,'page=0'+'&size=5').s
           this._spinnerservice.hide();
           this.pageProductTranferDetails.content = data;
           console.log(this.pageProductTranferDetails.content.length)
-          if(this.pageProductTranferDetails.content==[]){
+          if(this.pageProductTranferDetails.content.length === 0){
             this.productTransferlen=true;
           }
           else{
