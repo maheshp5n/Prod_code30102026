@@ -84,7 +84,7 @@ nvm install 22.23.4
 nvm use 22.23.4
 ```
 
-The Angular framework is pinned to 12.2.17 and the Angular CLI to 12.2.18. Angular 12 is an older, unsupported major release; verify the application and its third-party libraries on Node.js 22 before using this combination in production.
+The Angular framework is being upgraded one major version at a time for Node.js 22 compatibility. Angular 16 is an intermediate migration stage; complete the planned Angular 18 upgrade and verify all third-party libraries before using the result in production.
 
 ## Installation
 
