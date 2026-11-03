@@ -10,7 +10,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
@@ -27,7 +27,6 @@ import { BLDAdetailMoule } from '../../boding-lodging-da-detail/boding-lodging-d
     ContactcreateModule,
     TypeaheadModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
     RouterModule,
     TooltipModule,BLDAdetailMoule
   ],

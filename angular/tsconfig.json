@@ -18,6 +18,15 @@
       "dom"
     ],
     "skipLibCheck": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "baseUrl": "./",
+    "paths": {
+      "ngx-order-pipe": [
+        "src/app/shared/order-pipe/index.ts"
+      ],
+      "@agm/core": [
+        "node_modules/ng-agm-core-lib"
+      ]
+    }
   }
 }

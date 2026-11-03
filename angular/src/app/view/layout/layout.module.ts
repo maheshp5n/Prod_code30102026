@@ -11,9 +11,7 @@ import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChangePasswordService } from '../../services/change-password.service';
-import { AppBreadcrumbModule, AppAsideModule, AppFooterModule, AppHeaderModule, AppSidebarModule } from '@coreui/angular';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { ChartsModule } from 'ng2-charts';
+import { AppBreadcrumbModule, AppAsideModule, AppFooterModule, AppHeaderModule, AppSidebarModule } from '../../coreui-angular';
 import { Loginservices } from '../../services/login.services';
 import { P403Component } from '../../p403/p403.component';
 import { SearchresultdisplayModule } from '../../DirectivesView/searchresultdisplay/searchresultdisplay.module';
@@ -33,10 +31,8 @@ import { UsernoteComponent } from './usernote/usernote.component';
     AppFooterModule,
     AppHeaderModule,
     AppSidebarModule,
-    PerfectScrollbarModule,
     BsDropdownModule,
     TabsModule,
-    ChartsModule,
     SearchresultdisplayModule,
     RecursiveSearchModule
   ],

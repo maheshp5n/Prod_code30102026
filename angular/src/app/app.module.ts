@@ -3,13 +3,7 @@ import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
 
 import { AppComponent } from './app.component';
 
@@ -25,7 +19,7 @@ const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
 
-import { AppAsideModule, AppBreadcrumbModule, AppHeaderModule, AppFooterModule, AppSidebarModule, } from '@coreui/angular';
+import { AppAsideModule, AppBreadcrumbModule, AppHeaderModule, AppFooterModule, AppSidebarModule, } from './coreui-angular';
 
 // Import routing module
 import { AppRoutingModule } from './app.routing';
@@ -33,7 +27,6 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
 import { ChangePasswordService } from './services/change-password.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
@@ -45,7 +38,6 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { LayoutgaurdGuard } from './gaurd/layoutgaurd.guard';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { GoogleChartsModule } from 'angular-google-charts';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SwitchComponent } from './switch/switch.component';
@@ -62,11 +54,9 @@ import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/f
     AppFooterModule,
     AppHeaderModule,
     AppSidebarModule,
-    PerfectScrollbarModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
     NgxSpinnerModule,
@@ -74,7 +64,6 @@ import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/f
     AccordionModule.forRoot(),
     TypeaheadModule.forRoot(),
     TooltipModule.forRoot(),
-    GoogleChartsModule.forRoot(),
     PaginationModule.forRoot(),
     FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

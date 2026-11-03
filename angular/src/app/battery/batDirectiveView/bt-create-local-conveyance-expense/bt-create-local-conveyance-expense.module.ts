@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BtCreateLocalConveyanceExpenseComponent } from './bt-create-local-conveyance-expense.component';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
@@ -30,7 +30,6 @@ import { BtlegalentityService } from '../../bat_services/btlegalentity.service';
     BtCreatecontactsModule,
     TypeaheadModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
     RouterModule,
     TooltipModule,BLDAdetailMoule
   ],

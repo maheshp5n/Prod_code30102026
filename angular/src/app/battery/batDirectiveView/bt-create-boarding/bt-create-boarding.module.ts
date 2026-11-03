@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
@@ -29,7 +29,6 @@ import { BtlegalentityService } from '../../bat_services/btlegalentity.service';
     ContactcreateModule,
     // TypeaheadModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
     // TimepickerModule.forRoot(),
     PopoverModule.forRoot(),
     RouterModule,

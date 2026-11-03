@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { EmbedVideoService } from 'ngx-embed-video';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HelpServiceService } from '../../services/help-service.service';
 import { HelpTutorial, Page } from '../../services/model';

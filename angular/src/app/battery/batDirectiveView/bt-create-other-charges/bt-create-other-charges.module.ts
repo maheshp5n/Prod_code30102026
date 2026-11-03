@@ -4,7 +4,7 @@ import { BtCreateOtherChargesComponent } from './bt-create-other-charges.compone
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../services/login.services';
 import { RouterModule } from '@angular/router';
-import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,6 @@ import { FormsModule } from '@angular/forms';
     ModalModule,
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     RouterModule
   ],

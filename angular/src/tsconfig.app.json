@@ -8,6 +8,12 @@
     "paths": {
       "@angular/*": [
         "../node_modules/@angular/*"
+      ],
+      "ngx-order-pipe": [
+        "app/shared/order-pipe/index.ts"
+      ],
+      "@agm/core": [
+        "../node_modules/ng-agm-core-lib"
       ]
     }
   },

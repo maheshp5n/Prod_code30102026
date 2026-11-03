@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BtCreateLodgingComponent } from './bt-create-lodging.component';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
@@ -32,7 +32,6 @@ import { BtlegalentityService } from '../../bat_services/btlegalentity.service';
     BtCreatecontactsModule,
     TypeaheadModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     PopoverModule.forRoot(),
     RouterModule,

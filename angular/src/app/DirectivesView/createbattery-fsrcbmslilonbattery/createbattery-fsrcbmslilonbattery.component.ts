@@ -7,7 +7,7 @@ import { BatrryFSRService } from '../../services/BattryFSRservice.services';
 import { caseService } from '../../services/caseService.service';
 import { TypeaheadConfig, TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { FieldValidation } from '../../services/validation.services';
-import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/ngx-bootstrap-datepicker';
+import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 
 @Component({

@@ -27,9 +27,13 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private _global: GlobalserviceService,
     private swUpdate:SwUpdate
     ) {
-    this.swUpdate.available.subscribe(data=>{
-      this.swUpdate.activateUpdate().then(()=>document.location.reload());
-    });
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.subscribe(evt => {
+        if (evt.type === 'VERSION_READY') {
+          this.swUpdate.activateUpdate().then(() => document.location.reload());
+        }
+      });
+    }
   }
 
   inter;

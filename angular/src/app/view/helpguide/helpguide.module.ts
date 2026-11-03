@@ -11,7 +11,6 @@ import { Loginservices } from '../../services/login.services';
 import { PagefilterService } from '../../services/pagefilterservice';
 import { HelpguideComponent } from "./helpguide.component";
 import { Helpguiderotuing } from "./helpguide.routing";
-import { EmbedVideo } from "ngx-embed-video";
 
 
 
@@ -24,7 +23,6 @@ import { EmbedVideo } from "ngx-embed-video";
     FormsModule,
     NgxSpinnerModule,
     OrderModule,
-    EmbedVideo.forRoot()
   ],
   declarations: [HelpguideComponent],
   providers: [cityService, NgxSpinnerService, FieldValidation,Loginservices,PagefilterService]
