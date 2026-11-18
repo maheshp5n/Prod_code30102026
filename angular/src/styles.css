@@ -2105,49 +2105,49 @@ body::-webkit-scrollbar:hover {
 }
 /* table header fix in system view */
 .wrap {
-  width: 200%;
-  overflow: hidden;
+  width: 100%;
   overflow-x: auto;
-  /* height: 100vh; */
+  overflow-y: hidden;
 }
 
 .wrap table {
   width: 100%;
-  table-layout: fixed;
-  overflow: hidden;
-  /* background-color: rgb(77, 255, 45); */
+  min-width: 1000px;
+  table-layout: auto;
+  overflow: visible;
 }
 
 .wrap tr td {
-  padding: 0px;
+  padding: 5px 8px;
   border: 2px solid #eee;
-  width: 200px;
-  height: 2px;
-  word-wrap: break-word;
-  /* background-color: blue; */
+  min-width: 120px;
+  height: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .wrap table.head th{
-  padding: 1px;
+  padding: 6px 8px;
   border: 2px solid #eee;
-  width: 100px;
-  word-wrap: break-word;
+  min-width: 120px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 table.head tr td {
   background: #eee;
 }
 
 .inner_table {
-  height: 200vh;
-  width: 500px;
+  width: 100%;
+  min-width: 0;
   overflow-y: auto;
-  overflow-x: hidden;
-
-
+  overflow-x: auto;
 }
 .wrap .inner_table{
   height: 70vh;
-  width: 900px;
+  width: 100%;
 }
 /* System Screen */
 @media screen 
@@ -2156,51 +2156,47 @@ table.head tr td {
   and (-webkit-min-device-pixel-ratio: 1) { 
     .wrap{
       width: 100%;
-      overflow: hidden;
       overflow-x: auto;
-      height: 80vh;
-      /* background-color: red; */
-    
+      overflow-y: hidden;
+      height: auto;
     }
     
     .wrap table {
       width: 100%;
-      table-layout: fixed;
-      overflow: auto;
+      min-width: 1000px;
+      table-layout: auto;
+      overflow: visible;
     }
     
     .wrap tr td {
       padding: 5px;
       border: 2px solid #eee;
-      width: 100px;
+      width: auto;
+      min-width: 120px;
       word-wrap: break-word;
     }
     
     .wrap table.head th{
       padding: 5px;
       border: 2px solid #eee;
-      width: 100px;
+      width: auto;
+      min-width: 120px;
       word-wrap: break-word;
     }
     table.head tr td {
       background: #eee;
     }
     .wrap .inner_table{
-     
-      width: 200%;
-      
+      width: 100%;
     }
     .wrap .head{
-      width: 200%; 
+      width: 100%;
     }
 
     .inner_table {
-      height: 100vh;
-      
+      height: auto;
       overflow-y: auto;
       overflow-x: auto;
-    
-    
     }
     .wrap .inner_table{
       height: 70vh;
@@ -3395,6 +3391,42 @@ table.head tr td {
   /* color: red; */
 }
 
+/* Global list-table layout override: prevent clipped rows/columns from shared fixed-width CSS */
+.wrap {
+  width: 100%;
+  max-width: none;
+  overflow-x: auto;
+  overflow-y: auto;
+  height: auto;
+}
+
+.wrap table {
+  width: 100%;
+  min-width: 1000px;
+  table-layout: auto;
+  overflow: visible;
+}
+
+.wrap tr td,
+.wrap table.head th {
+  width: auto;
+  min-width: 120px;
+  max-width: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.wrap .head,
+.wrap .inner_table,
+.inner_table {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+}
 
 
   

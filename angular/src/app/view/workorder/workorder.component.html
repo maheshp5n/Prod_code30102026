@@ -71,24 +71,14 @@
                 Work Order Number
                 <span [hidden]="!columnVisibility[1]" *ngIf="!columnSort[1]">▼</span>
                 <span [hidden]="!columnVisibility[1]" *ngIf="columnSort[1]">▲</span>
-                <!-- <span [hidden]="reverse">▼</span>
-                         <span [hidden]="!reverse">▲</span> -->
-                <!-- <i *ngIf="sortDisplay" class="fa fa-arrow-down" (click)="sortForALL()"
-                    style="font-size: 10px; padding-left: 10px;"></i> <i class="fa fa-arrow-up" *ngIf="!sortDisplay"
-                    (click)="unsortsortForALL()" style="font-size: 10px; padding-left: 10px;"></i> -->
+              </th>
 
-              <th *ngIf="!related" title=" Subject" class="table-header" title=" Subject"
+              <th *ngIf="!related" title="Subject" class="table-header"
                 (click)="setOrder('sapCustomerNumber',2)" (mouseover)="columnVisibility[2]=true"
                 (mouseout)="columnVisibility[2]=false">
                 Subject
                 <span [hidden]="!columnVisibility[2]" *ngIf="!columnSort[2]">▼</span>
                 <span [hidden]="!columnVisibility[2]" *ngIf="columnSort[2]">▲</span>
-                <!-- <span [hidden]="reverse">▼</span>
-                    <span [hidden]="!reverse">▲</span> -->
-                <!-- <i *ngIf="sortDisplay" class="fa fa-arrow-down" (click)="sortForALLSampAccountNumber()"
-                    style="font-size: 10px; padding-left: 10px;"></i> <i class="fa fa-arrow-up" *ngIf="!sortDisplay"
-                    (click)="unsortsortForALLSampAccountNumber()" style="font-size: 10px; padding-left: 10px;"></i> -->
-
               </th>
 
               <th *ngIf="!related" class="table-header" title="Account"
@@ -97,21 +87,14 @@
                 Account
                 <span [hidden]="!columnVisibility[3]" *ngIf="!columnSort[3]">▼</span>
                 <span [hidden]="!columnVisibility[3]" *ngIf="columnSort[3]">▲</span>
-                <!-- <span [hidden]="reverse">▼</span>
-                        <span [hidden]="!reverse">▲</span> -->
-                <!-- <i *ngIf="sortDisplay" class="fa fa-arrow-down" (click)="sortForALLSampAccountNumber()"
-                    style="font-size: 10px; padding-left: 10px;"></i> <i class="fa fa-arrow-up" *ngIf="!sortDisplay"
-                    (click)="unsortsortForALLSampAccountNumber()" style="font-size: 10px; padding-left: 10px;"></i> -->
-
               </th>
 
-              <th *ngIf="!related" title=" Priority" class="table-header"
+              <th *ngIf="!related" title="Priority" class="table-header"
                 (click)="setOrder('billingInfo.state.stateName',4)" (mouseover)="columnVisibility[4]=true"
                 (mouseout)="columnVisibility[4]=false">
                 Priority
                 <span [hidden]="!columnVisibility[4]" *ngIf="!columnSort[4]">▼</span>
                 <span [hidden]="!columnVisibility[4]" *ngIf="columnSort[4]">▲</span>
-
               </th>
 
               <th *ngIf="!related" title="Status" (click)="setOrder('phoneNumber',5)"
@@ -119,7 +102,6 @@
                 Status
                 <span [hidden]="!columnVisibility[5]" *ngIf="!columnSort[5]">▼</span>
                 <span [hidden]="!columnVisibility[5]" *ngIf="columnSort[5]">▲</span>
-
               </th>
 
               <th *ngIf="related" title="Case" (click)="setOrder('accountOwnerDetails.firstName',6)"
@@ -127,37 +109,30 @@
                 Case
                 <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]">▼</span>
                 <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]">▲</span>
-                <!-- <span [hidden]="reverse">▼</span>
-                       <span [hidden]="!reverse">▲</span> -->
               </th>
+
               <th *ngIf="related" title="Case Reason" (click)="setOrder('accountOwnerDetails.firstName',6)"
                 (mouseover)="columnVisibility[6]=true" (mouseout)="columnVisibility[6]=false">
                 Case Reason
                 <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]">▼</span>
                 <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]">▲</span>
-                <!-- <span [hidden]="reverse">▼</span>
-                       <span [hidden]="!reverse">▲</span> -->
               </th>
+
               <th *ngIf="related" title="Case Type" (click)="setOrder('accountOwnerDetails.firstName',6)"
                 (mouseover)="columnVisibility[6]=true" (mouseout)="columnVisibility[6]=false">
                 Case Type
                 <span [hidden]="!columnVisibility[6]" *ngIf="!columnSort[6]">▼</span>
                 <span [hidden]="!columnVisibility[6]" *ngIf="columnSort[6]">▲</span>
-                <!-- <span [hidden]="reverse">▼</span>
-                       <span [hidden]="!reverse">▲</span> -->
               </th>
 
-              <th title="Created Date " (click)="setOrder('createdDate',7)" (mouseover)="columnVisibility[7]=true"
+              <th title="Created Date" (click)="setOrder('createdDate',7)" (mouseover)="columnVisibility[7]=true"
                 (mouseout)="columnVisibility[7]=false">
                 Created Date
                 <span [hidden]="!columnVisibility[7]" *ngIf="!columnSort[7]">▼</span>
                 <span [hidden]="!columnVisibility[7]" *ngIf="columnSort[7]">▲</span>
-                <!-- <span [hidden]="reverse">▼</span>
-                       <span [hidden]="!reverse">▲</span> -->
               </th>
 
-              <th> Action </th>
-
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
