@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { LocationProductTransferItemResponse, Page } from '../../../services/model';
@@ -19,7 +19,7 @@ import { BtProductTransferResponse } from '../../bt_model';
 export class BatProductTransferComponent implements OnInit {
 
 
-  @ViewChild('transferRecieve', { static: false }) transferRecieve: ModalDirective;
+  @ViewChild('transferRecieve') transferRecieve: ModalDirective;
   searchkey: string;
   today = new Date();
   dropdownsList = [{

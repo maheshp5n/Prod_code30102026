@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatePipe } from '@angular/common';
 import { VendorInvoiceService } from '../../services/vendorinvoice.services';
 import { POType, VendorPOcategory, VendorInvoiceRequest, WCCResponse, WccPendingInvoice, PODetails, vendorInvoiceResponse } from '../../services/model';
 import { GlobalserviceService } from '../../globalservice.service';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { BtInvoiceService } from '../../battery/bat_services/bt-invoice.service';
 
@@ -35,7 +35,7 @@ export class NewInvoiceComponent implements OnInit {
   columnSort: Array<boolean> = [false, false, false, false, false, false, false, false, true];
   ASCENDING: string = 'asc';
   DESCENDING: string = 'desc';
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set isEditMode(isEditMode: boolean) {
     this._isEditMode = isEditMode;
@@ -89,7 +89,7 @@ export class NewInvoiceComponent implements OnInit {
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder,
+  constructor(private http: HttpClient, private formBuilder: UntypedFormBuilder,
     private spinner: NgxSpinnerService,
     private datePipe: DatePipe,
     private _global: GlobalserviceService,
@@ -99,7 +99,7 @@ export class NewInvoiceComponent implements OnInit {
       { date: this.today, classes: ['bg-secondary'] }
     ];
   }
-  uploadForm2: FormGroup;
+  uploadForm2: UntypedFormGroup;
 
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import {
   BRCRepairType, BRCRepiarBalancedAt, BRCRepiarResolutionMethod, BRCRepairBERRemark,
   BRCRepiarResolutionMethodChoosenRequest, ServiceResourseForList, ServiceResourseRequest, BRCInventoryReceiveResponse, BRCRepairInventoryReceiveItemRequest
@@ -15,8 +15,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./receive-from-eng.component.scss']
 })
 export class ReceiveFromEngComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceResourceModel', { static: false }) createServiceResourceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceResourceModel') createServiceResourceModel: ModalDirective;
 
   @Output()
   onReceiveFromEngCreated: EventEmitter<BRCRepairInventoryReceiveItemRequest> = new EventEmitter<BRCRepairInventoryReceiveItemRequest>();

@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
-import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { URLSafeModule } from "../../../pipe/url-safe-pipe.module";
 import { BatSapDocumentDirectiveComponent } from "./bat-sap-document-directive.component";
 

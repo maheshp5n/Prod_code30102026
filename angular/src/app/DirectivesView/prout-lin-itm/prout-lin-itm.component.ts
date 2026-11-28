@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angu
 import { CityCatagory, BillOfMaterialRequest, ProductsForList, combinedList } from '../../services/model';
 import { BillOfmaterialService } from '../../services/billOfMaterial.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsService } from '../../services/assets.services';
 
 @Component({
@@ -11,7 +11,7 @@ import { AssetsService } from '../../services/assets.services';
   styleUrls: ['./prout-lin-itm.component.scss']
 })
 export class ProutLinItmComponent implements OnInit {
-@ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective
+@ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective
   constructor(private _assetService:AssetsService,private bomservice:BillOfmaterialService,private spinner: NgxSpinnerService) { }
   billReq:BillOfMaterialRequest=new BillOfMaterialRequest();
   message:string;

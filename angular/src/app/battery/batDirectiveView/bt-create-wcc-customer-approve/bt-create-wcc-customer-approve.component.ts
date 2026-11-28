@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -37,7 +37,7 @@ export class BtCreateWccCustomerApproveComponent implements OnInit {
   // // caseid: Array<number>;
   // POD_date:any;
   // expectedShippingdate:any;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
 
   actiondata={
     action:'00',
@@ -101,7 +101,7 @@ export class BtCreateWccCustomerApproveComponent implements OnInit {
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private spinner: NgxSpinnerService, private datePipe: DatePipe,private loginservice:Loginservices, private btwccCustomerService:BtWccCustomerService,private tobeapproved:BtTobeApprovedService,
-    private _global:GlobalserviceService,private formBuilder:FormBuilder) {
+    private _global:GlobalserviceService,private formBuilder:UntypedFormBuilder) {
     this.date = this.datePipe.transform(this.date, 'yyyy-MM-dd');
     this.dateCustomClasses = [
       { date: this.today, classes: ['bg-secondary'] }

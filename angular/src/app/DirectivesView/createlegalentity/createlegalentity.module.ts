@@ -2,7 +2,7 @@ import { CreatelegalentityComponent } from "./createlegalentity.component";
 import { CommonModule } from "@angular/common";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { ModalModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { ligalEntityService } from "../../services/ligalentity.services";
 import { Loginservices } from "../../services/login.services";

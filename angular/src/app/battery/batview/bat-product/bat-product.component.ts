@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { PagefilterService } from '../../../services/pagefilterservice';
@@ -131,8 +131,8 @@ export class BatProductComponent implements OnInit {
   pindtselection = false;
   _cFlag: string;
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
 
   constructor(private pagefilterservice: PagefilterService, private spinner: NgxSpinnerService, private productService: ProductsService, private _activatedRoute: ActivatedRoute,
     private loginService: Loginservices, private btproductService: BtproductService, private _global: GlobalserviceService) {

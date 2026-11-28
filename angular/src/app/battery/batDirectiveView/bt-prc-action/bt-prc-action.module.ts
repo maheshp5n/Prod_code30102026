@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BtPreRegistrationCaseService } from '../../bat_services/bt-pre-registration-case.service';
 import { BtPrcActionComponent } from './bt-prc-action.component';

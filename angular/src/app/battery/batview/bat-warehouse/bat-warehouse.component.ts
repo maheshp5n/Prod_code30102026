@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -19,8 +19,8 @@ import { BtwarehouseService } from '../../bat_services/btwarehouse.service';
 })
 export class BatWarehouseComponent implements OnInit {
 
-  @ViewChild('creatLocation', { static: false }) creatLocation: ModalDirective;
-  @ViewChild('changeOwner', { static: false }) changeOwner: ModalDirective;
+  @ViewChild('creatLocation') creatLocation: ModalDirective;
+  @ViewChild('changeOwner') changeOwner: ModalDirective;
   isModelOpen = false;
   lcres: LocationResponse = new LocationResponse();
   lcreq: LocationRequest = new LocationRequest();

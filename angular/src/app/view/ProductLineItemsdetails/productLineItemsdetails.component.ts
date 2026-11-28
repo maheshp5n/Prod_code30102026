@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductLineItemsRequest, ProductLineItemsResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { ProductLineItemsService } from '../../services/product-line-items.service';
@@ -18,8 +18,8 @@ export class ProductLineItemsdetailsComponent implements OnInit {
       this.productlineitemsName = pram['id'];
     });
   }
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductLineItemsModel', { static: false }) createProductLineItemsModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductLineItemsModel') createProductLineItemsModel: ModalDirective;
 
   productlineitemsName: string;
   productlineitems: ProductLineItemsResponse = new ProductLineItemsResponse();

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { workorderindetailsRouting } from './workorderindetails.routing';
 import { CreateNewWorkOrderModule } from '../../DirectivesView/create-new-work-order/create-new-work-order.module';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';

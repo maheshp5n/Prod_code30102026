@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -17,9 +17,9 @@ import { BtProductreturnorderDetailsDataTransfer } from './bat-product-return-de
   styleUrls: ['./bat-product-return-detail.component.scss']
 })
 export class BatProductReturnDetailComponent implements OnInit {
-  @ViewChild('receiveOrder', { static: false }) receiveOrder: ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective;
-  @ViewChild('addReturnItems',{static:false}) addReturnItems:ModalDirective;
+  @ViewChild('receiveOrder') receiveOrder: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective;
+  @ViewChild('addReturnItems') addReturnItems:ModalDirective;
   openModels = { receiveOrder: false };
   openItemReturnModel = {addReturnItems : false};
   productReturnOrderResponse: LpReturnOrderResponse = new LpReturnOrderResponse(); 

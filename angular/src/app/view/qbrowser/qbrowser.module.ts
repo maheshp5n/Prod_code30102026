@@ -4,7 +4,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { QbrowserRouting } from './qbrowser.routing';
 import { QbrowserComponent } from './qbrowser.component';
 import { GlobalSearchPipeModule } from '../../pipe/global-search-pipe.module';
-import { TabsModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Loginservices } from '../../services/login.services';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';

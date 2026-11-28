@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { OrderPipe } from 'ngx-order-pipe';
@@ -15,8 +15,8 @@ import { PagefilterService } from '../../services/pagefilterservice';
 })
 export class PricebookComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createpriceBookModel',{static:false}) createpriceBookModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createpriceBookModel') createpriceBookModel: ModalDirective;
 
   recentlyView: boolean = true;
   searchitem: string = '';

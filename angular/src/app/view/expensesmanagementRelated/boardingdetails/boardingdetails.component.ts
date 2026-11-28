@@ -3,7 +3,7 @@ import { ActionHistoryObjectAndId, BoardingExpenseRequest, BoardingExpenseRespon
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../../services/login.services';
 import { DatePipe } from '@angular/common';
 
@@ -33,8 +33,8 @@ export class BoardingdetailsComponent implements OnInit {
   isBoardingOpen: boolean;
   _cFlag: string;
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createBoardingModel', { static: false }) createBoardingModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createBoardingModel') createBoardingModel: ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

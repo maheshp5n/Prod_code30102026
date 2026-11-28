@@ -1,5 +1,6 @@
 import { SapdocdisplayComponent } from './sapdocdisplay.component';
-import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { URLSafeModule } from '../../pipe/url-safe-pipe.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgModule } from '@angular/core';

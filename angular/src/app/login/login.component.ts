@@ -3,7 +3,7 @@ import { Loginservices } from '../services/login.services';
 import { Login } from '../services/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild('fail', { static: false }) fail: ModalDirective;
+  @ViewChild('fail') fail: ModalDirective;
 
   _login: Login = new Login();
   returnurl='/';

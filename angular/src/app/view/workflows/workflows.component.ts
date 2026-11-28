@@ -3,7 +3,7 @@ import { WorkflowResponse, WorkflowServices, WorkflowRequest } from '../../servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ObjectDefinition } from '../../services/model';
 import { ObjectServices } from '../../services/objecct.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { WabsocketService } from '../../services/wabsocket.service';
 
 
@@ -17,8 +17,8 @@ export class WorkflowsComponent implements OnInit {
   workflows: Array<WorkflowResponse> = [];
   objects: Array<ObjectDefinition> = [];
   workfowReuest: WorkflowRequest = new WorkflowRequest();
-  @ViewChild('newworkflow', { static: false }) newworkflow: ModalDirective;
-  @ViewChild('alertModal', { static: false }) alertModal: ModalDirective;
+  @ViewChild('newworkflow') newworkflow: ModalDirective;
+  @ViewChild('alertModal') alertModal: ModalDirective;
 
   formMode: boolean = false;
   outputdata: string = '';

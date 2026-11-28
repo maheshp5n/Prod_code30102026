@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../../globalservice.service';
 import { Loginservices } from '../../../../services/login.services';
@@ -43,7 +43,7 @@ export class BatServiceorderdetailsRelatedComponent implements OnInit {
 
   }
 
-  @ViewChild('assignToEng', { static: false }) assignToEng: ModalDirective;
+  @ViewChild('assignToEng') assignToEng: ModalDirective;
  objectId:any;
   constructor(private _btserviceOrderService: BtServiceOrderService,
     private _ngx: NgxSpinnerService, private _global: GlobalserviceService,

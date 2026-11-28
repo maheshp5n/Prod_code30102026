@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, Output, ViewChild,EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -15,7 +15,7 @@ import { BTCaseResponse } from '../../bt_model';
   styleUrls: ['./bt-change-case-type-commer.component.css']
 })
 export class BtChangeCaseTypeCommerComponent implements OnInit { 
-@ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+@ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
 
 _isEditMode:boolean;
 loginData:any;

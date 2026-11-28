@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -17,8 +17,8 @@ import { BtserviceresourseService } from '../../bat_services/btserviceresourse.s
 export class BtCreateserviceresourceComponent implements OnInit {
 
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('createLocation', { static: false }) createLocation: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('createLocation') createLocation: ModalDirective;
 
   _isEditMode: boolean;
   newServiceResource: ServiceResourseRequest = new ServiceResourseRequest();

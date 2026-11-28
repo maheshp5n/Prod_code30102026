@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { PrudcttransferDataService } from './producttransferdata.service';
 import { GlobalserviceService } from '../../globalservice.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { PdfServiceService } from '../../services/pdf-service.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { PdfServiceService } from '../../services/pdf-service.service';
   styleUrls: ['./producttransferdetails.component.scss']
 })
 export class ProducttransferdetailsComponent implements OnInit {
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective
   transferIItemId:number;
   productTransferDetails:PTResponse=new PTResponse();
   constructor(private _producttransferService:ProductTransferServices

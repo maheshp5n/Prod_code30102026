@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BatProductTransferLineItemsDetailRouting } from './bat-product-transfer-line-items-detial.routing';
 import { BatProductTransferLineItemsDetailComponent } from './bat-product-transfer-line-items-detail.component';

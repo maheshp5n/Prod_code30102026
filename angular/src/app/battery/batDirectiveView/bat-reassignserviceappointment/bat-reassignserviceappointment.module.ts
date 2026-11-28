@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ServiceResourceService } from '../../../services/serviceresource.services';
 import { ligalEntityService } from '../../../services/ligalentity.services';

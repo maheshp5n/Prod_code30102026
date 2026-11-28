@@ -2,7 +2,7 @@ import { Page } from './../../services/model';
 import { ServiceOrderJobCardService } from './../../services/serviceorderjobcardservice';
 import { GlobalserviceService } from './../../globalservice.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { RepairDCTResponse, LocationFaultyLineItemResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -13,14 +13,14 @@ import { PagefilterService } from '../../services/pagefilterservice';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import * as fileSaver from 'file-saver';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 @Component({
   selector: 'app-repair-dct',
   templateUrl: './repair-dct.component.html',
   styleUrls: ['./repair-dct.component.scss']
 })
 export class RepairDCTComponent implements OnInit {
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   
   searchitem: string;
   pagedata: Page<any> = new Page<any>();
@@ -110,7 +110,7 @@ dateCustomClasses: DatepickerDateCustomClasses[];
     private _serviceorderjobcard: ServiceOrderJobCardService,
     private _activatedRoute:ActivatedRoute,
     private pagefilterservice:PagefilterService,private datePipe:DatePipe,
-    private formBuilder:FormBuilder
+    private formBuilder:UntypedFormBuilder
   ) {
     this._activatedRoute.queryParams.subscribe(param => {
       this._cFlag = param['_c'];
@@ -336,7 +336,7 @@ getFile:any;
 fileType:string;
 fileList:any[]=[];
 fileToUpload:File;
-uploadForm:FormGroup;
+uploadForm:UntypedFormGroup;
 onFileSelect(event) {
   // console.log((<HTMLInputElement>document.getElementById('getFile')).value)
   if(event!=null){

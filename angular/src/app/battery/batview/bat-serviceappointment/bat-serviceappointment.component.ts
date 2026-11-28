@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -20,8 +20,8 @@ import { btServiceAppointmentResponseWithSCH } from '../../bt_model';
 })
 export class BatServiceappointmentComponent implements OnInit {
 
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   //  advanceSearchResult: SAAdvanceSearchData = new SAAdvanceSearchData();
   today = new Date();
   dateCustomClasses: DatepickerDateCustomClasses[];

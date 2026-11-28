@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild, Input } from '@angular/core';
 import { PriceBookService } from '../../services/pricebook.service';
 import { PriceBookEntriesResponse, PriceBookEntriesRequest } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -24,8 +24,8 @@ pricENtriesreq:PriceBookEntriesRequest=new PriceBookEntriesRequest();
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('selectedItemModel', { static: false }) selectedItemModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('selectedItemModel') selectedItemModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set editEntityData(priceEntrieResponsen: PriceBookEntriesResponse) {
     this.priceEntrieResponse = priceEntrieResponsen;

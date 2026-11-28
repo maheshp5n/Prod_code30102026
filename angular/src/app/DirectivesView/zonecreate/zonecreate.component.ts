@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Zonedetails } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FieldValidation } from '../../services/validation.services';
 import { ZoneService } from '../../services/zone.service';
@@ -11,7 +11,7 @@ import { ZoneService } from '../../services/zone.service';
   styleUrls: ['./zonecreate.component.css']
 })
 export class ZonecreateComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   zoneId;
   // flag: boolean;

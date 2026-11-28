@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { ExpenseManagementService } from '../../../services/expenses-management.service';
@@ -123,7 +123,7 @@ export class BatAllViewPageComponent implements OnInit {
   
   brcCaseList: Page<BrcListByAssetId> =new Page<BrcListByAssetId>();
   totalBrcCases : number;
-  @ViewChild('createexpensesmanagementModel', { static: false }) createexpensesmanagementModel: ModalDirective;
+  @ViewChild('createexpensesmanagementModel') createexpensesmanagementModel: ModalDirective;
   constructor( private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,private _user: Loginservices,private _assetsService: BTassetserviceService,private prcservice:BtPreRegistrationCaseService,
     private _global: GlobalserviceService,private btSiteservice:BtsiteserviceService,private _btAccountService :BtaccountService,private _contactService: BtcontactsService,
     private _btProductReqService: BtproductrequestService,

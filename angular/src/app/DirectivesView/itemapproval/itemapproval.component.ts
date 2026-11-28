@@ -1,6 +1,6 @@
 import { ItemsToBeApprovedService } from '../../services/itemstobeapprovedservices';
 import { ToBeApproved, ApprovalRequest } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../globalservice.service';
 import { ViewChild } from '@angular/core';
@@ -20,8 +20,8 @@ export class ItemapprovalComponent implements OnInit {
   toBeApprovedSelected: ToBeApproved = new ToBeApproved();
   approvalRequest: ApprovalRequest = new ApprovalRequest();
 
-  @ViewChild('approvalModule', { static: false }) approvalModule: ModalDirective;
-  @ViewChild('alertModule', { static: false }) alertModule: ModalDirective;
+  @ViewChild('approvalModule') approvalModule: ModalDirective;
+  @ViewChild('alertModule') alertModule: ModalDirective;
   alerttypes = {
     type: 'danger',
     message: ''

@@ -3,7 +3,7 @@ import { LegalEntityResponse, ServiceCenterForList, LegaLEntityType, Login, Cont
 import { Loginservices } from '../../services/login.services';
 import { NgxSpinnerComponent, NgxSpinnerService } from 'ngx-spinner';
 import { ligalEntityService } from '../../services/ligalentity.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FieldValidation } from '../../services/validation.services';
 import { CirclesService } from '../../services/circles.services';
 
@@ -16,7 +16,7 @@ export class CreatelegalentityComponent implements OnInit {
   public _isEditMode: boolean;
   istrue: boolean;
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set isEditMode(isEditMode: boolean) {
     this._isEditMode = isEditMode;

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { AssetsResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { AssetsService } from '../../services/assets.services';
@@ -12,7 +12,7 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./servicereportindetails.component.scss']
 })
 export class ServicereportindetailsComponent implements OnInit {
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
   // @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel : ModalDirective;
   
   @Output()

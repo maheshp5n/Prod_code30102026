@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SSAResponse, SSARequest, SSAForlist, CircleZoneForList, CirclesRequest } from '../../services/model';
 import { siteService } from '../../services/siteService.services';
 import { ssaService } from '../../services/ssa.services';
@@ -28,7 +28,7 @@ heading:string;
  faPlus: string = "btn btn-primary fa fa-plus";
   popupNgClass: string = 'alert alert-danger center center-block';
   // @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createCircleModel', { static: false }) createCircleModel: ModalDirective;
+  @ViewChild('createCircleModel') createCircleModel: ModalDirective;
   @Input()
   set isEditMode(isEditMode: boolean) {
     this._isEditMode = isEditMode;

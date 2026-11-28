@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BRCInventoryReceiveResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ManageInventoryService } from '../../services/manageinventory.services';
@@ -12,8 +12,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./repair-engineer.component.scss']
 })
 export class RepairEngineerComponent implements OnInit {
-  @ViewChild('ManageInventoryModel', { static: false }) ManageInventoryModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('ManageInventoryModel') ManageInventoryModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   message: string = '';
   ngClassManage: string;

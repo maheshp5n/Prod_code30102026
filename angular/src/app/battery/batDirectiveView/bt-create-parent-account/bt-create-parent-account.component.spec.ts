@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtCreateParentAccountComponent } from './bt-create-parent-account.component';
 
@@ -6,7 +6,7 @@ describe('BtCreateParentAccountComponent', () => {
   let component: BtCreateParentAccountComponent;
   let fixture: ComponentFixture<BtCreateParentAccountComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtCreateParentAccountComponent ]
     })

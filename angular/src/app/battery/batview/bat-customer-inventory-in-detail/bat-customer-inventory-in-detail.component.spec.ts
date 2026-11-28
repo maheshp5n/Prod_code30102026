@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatCustomerInventoryInDetailComponent } from './bat-customer-inventory-in-detail.component';
 
@@ -6,7 +6,7 @@ describe('BatCustomerInventoryInDetailComponent', () => {
   let component: BatCustomerInventoryInDetailComponent;
   let fixture: ComponentFixture<BatCustomerInventoryInDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatCustomerInventoryInDetailComponent ]
     })

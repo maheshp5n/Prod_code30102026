@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { LocationResponse, LocationProductItemResponse, LocationProductRequestResponse, Page, LocationPartCodeSerialNumber, ActionHistoryObjectAndId, LocationType, ProductType } from '../../services/model';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,11 +17,11 @@ import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 })
 export class LocationdetailsComponent implements OnInit {
   //@ViewChild('creatLocation', { static: false }) creatLocation: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('mslRequest', { static: false }) mslRequest: ModalDirective;
-  @ViewChild('productRequestModal', { static: false }) productRequestModal: ModalDirective;
-  @ViewChild('returnOrderModal', { static: false }) returnOrderModal: ModalDirective;
-  @ViewChild('editLocation', { static: false }) editLocation: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('mslRequest') mslRequest: ModalDirective;
+  @ViewChild('productRequestModal') productRequestModal: ModalDirective;
+  @ViewChild('returnOrderModal') returnOrderModal: ModalDirective;
+  @ViewChild('editLocation') editLocation: ModalDirective;
 
   response: LocationResponse = new LocationResponse()
   ngClassDetails: string = 'active';

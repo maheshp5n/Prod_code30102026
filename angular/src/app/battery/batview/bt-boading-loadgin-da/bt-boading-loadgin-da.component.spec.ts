@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtBoadingLoadginDaComponent } from './bt-boading-loadgin-da.component';
 
@@ -6,7 +6,7 @@ describe('BtBoadingLoadginDaComponent', () => {
   let component: BtBoadingLoadginDaComponent;
   let fixture: ComponentFixture<BtBoadingLoadginDaComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtBoadingLoadginDaComponent ]
     })

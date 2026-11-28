@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -22,8 +22,8 @@ import { BTCaseResponse } from '../../bt_model';
 })
 export class BatCommercialComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   AllCase: Page<BTCaseResponse> = new Page<BTCaseResponse>()
   searchitem: string = '';
   datainput: boolean = false
@@ -69,7 +69,7 @@ export class BatCommercialComponent implements OnInit {
   popupNgClass: string = 'alert alert-danger center center-block';
   caseId: any;
   pindtselection = false;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   fileList: any[] = [];
   getFile
   filyType: string;
@@ -232,7 +232,7 @@ export class BatCommercialComponent implements OnInit {
   };
   //done
   _cFlag: string;
-  constructor(private pagefilterservice: PagefilterService, private formBuilder: FormBuilder,
+  constructor(private pagefilterservice: PagefilterService, private formBuilder: UntypedFormBuilder,
     private _global: GlobalserviceService, private datePipe: DatePipe,
     private orderPipe: OrderPipe, private _btcaseService: BtCaseserviceService, private loginservice: Loginservices, private spinner: NgxSpinnerService,
     private _activatedRoute: ActivatedRoute, private _btComercialService: BtCommercialService

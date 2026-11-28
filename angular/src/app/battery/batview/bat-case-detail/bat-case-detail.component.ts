@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApprovalHistoryService } from '../../../services/approvalHistory.service';
 import { FileDeleteService } from '../../../services/filedeletService.services';
@@ -22,9 +22,9 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./bat-case-detail.component.css']
 })
 export class BatCaseDetailComponent implements OnInit {
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
   res: BTCaseResponse = new BTCaseResponse();
   req: BTCaseRequest = new BTCaseRequest();
   caseres: BTCaseResponse = new BTCaseResponse();
@@ -93,17 +93,17 @@ export class BatCaseDetailComponent implements OnInit {
   historyList:Array<ToBeApprovedHistoryResponse>=[];
   objectname:string;
   CaseDetails;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   fileLists: Array<FileUploadResponse> = [];
   RejectLogList:Array<caseLogReject>=[];
   caseRejectreq:RejectCaseRequest=new RejectCaseRequest();
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('createNewOpportunity', { static: false }) createNewOpportunity: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
-  @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('rejectcasemodel',{static:false}) rejectcasemodel: ModalDirective;
-  @ViewChild('changeCaseTypemodel',{static:false}) changeCaseTypemodel :ModalDirective;
+  @ViewChild('createNewOpportunity') createNewOpportunity: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow:ModalDirective;
+  @ViewChild('rejectcasemodel') rejectcasemodel: ModalDirective;
+  @ViewChild('changeCaseTypemodel') changeCaseTypemodel :ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',
@@ -155,7 +155,7 @@ export class BatCaseDetailComponent implements OnInit {
   
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
 
-  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: FormBuilder,private loginservice: Loginservices, private caseservice: BtCaseserviceService, private _activatedRoute: ActivatedRoute, 
+  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: UntypedFormBuilder,private loginservice: Loginservices, private caseservice: BtCaseserviceService, private _activatedRoute: ActivatedRoute, 
     private spinner: NgxSpinnerService,private datepipe:DatePipe, private oportunityServic: OpportunityService,private globalfilesservice:GlobalFilesService,
     private prcservice:PreRegCaseService,private _global:GlobalserviceService) {
     this._activatedRoute.params.subscribe(pram => {

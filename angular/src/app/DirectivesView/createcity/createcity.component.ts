@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { cityDetailsReq, cityDetailsResponse, CityCatagory } from '../../services/model';
 import { cityService } from '../../services/cityService.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FieldValidation } from '../../services/validation.services';
 
@@ -23,7 +23,7 @@ export class CreatecityComponent implements OnInit {
   tabledata: Array<CityCatagory> = [];
   cityNameTamp:string;
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set isEditMode(isEditMode: boolean) {
     this._isEditMode = isEditMode;

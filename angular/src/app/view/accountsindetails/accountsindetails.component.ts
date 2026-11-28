@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/cor
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/accounts.services';
 import { AccountCreate, Contacts, Page, AccountsForList, SiteDetailsResponse, CaseResponse, CustomerForList, ActionHistoryObjectAndId } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ContactsService } from '../../services/contacts.services';
 import { Loginservices } from '../../services/login.services';
@@ -15,11 +15,11 @@ import { caseService } from '../../services/caseService.service';
   styleUrls: ['./accountsindetails.component.css']
 })
 export class AccountsindetailsComponent implements OnInit {
-  @ViewChild('createContactModel', { static: false }) public createContactModel: ModalDirective;
-  @ViewChild('createSitesModel', { static: false }) public createSitesModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
+  @ViewChild('createContactModel') public createContactModel: ModalDirective;
+  @ViewChild('createSitesModel') public createSitesModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
 
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';

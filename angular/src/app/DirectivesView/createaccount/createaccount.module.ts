@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AccountsTypeService } from '../../services/accountstype.services';
 import { AccountsCatagoryServices } from '../../services/catagory.services';
 import { AccountService } from '../../services/accounts.services';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CountryDetailsServices } from '../../services/countrydetails.services';
 import { CustomerService } from '../../services/customers.services';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';

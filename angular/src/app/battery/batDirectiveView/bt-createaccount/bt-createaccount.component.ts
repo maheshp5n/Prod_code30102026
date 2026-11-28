@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { AccountsTypeService } from '../../../services/accountstype.services';
@@ -19,8 +19,8 @@ import { BtaccountService } from '../../bat_services/btaccount.service';
 export class BtCreateaccountComponent implements OnInit {
 
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createCustomerModel', { static: false }) createCustomerModel: ModalDirective;
-  @ViewChild('createParentAccountModel', { static: false }) createParentAccountModel: ModalDirective;
+  @ViewChild('createCustomerModel') createCustomerModel: ModalDirective;
+  @ViewChild('createParentAccountModel') createParentAccountModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<AccountCreate> = new EventEmitter<AccountCreate>();

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatSiteComponent } from './bat-site.component';
 
@@ -6,7 +6,7 @@ describe('BatSiteComponent', () => {
   let component: BatSiteComponent;
   let fixture: ComponentFixture<BatSiteComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatSiteComponent ]
     })

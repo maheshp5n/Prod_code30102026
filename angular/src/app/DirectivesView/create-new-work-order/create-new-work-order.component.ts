@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AccountCreate, AccountsForList, AssetsForList } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -12,7 +12,7 @@ import { TypeaheadConfig, TypeaheadMatch } from 'ngx-bootstrap/typeahead';
   styleUrls: ['./create-new-work-order.component.css']
 })
 export class CreateNewWorkOrderComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<AccountCreate> = new EventEmitter<AccountCreate>();

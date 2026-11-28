@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AccountService } from '../../../services/accounts.services';
 import { Loginservices } from '../../../services/login.services';
@@ -19,9 +19,9 @@ import { angularEditorConfig } from '@kolkov/angular-editor/lib/config';
   styleUrls: ['./bat-accounts.component.css']
 })
 export class BatAccountsComponent implements OnInit {
-  @ViewChild('datatable', { static: false }) datatable: ElementRef;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('datatable') datatable: ElementRef;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   pagenumber: any = null;
   //filter
   dropdownsList = [{

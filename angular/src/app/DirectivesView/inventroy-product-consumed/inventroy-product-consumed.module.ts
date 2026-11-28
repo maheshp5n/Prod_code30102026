@@ -1,7 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule, BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { CreateNewProductModule } from '../create-new-product/create-new-product.module';
 import { InventroyProductConsumedComponent } from './inventroy-product-consumed.component';

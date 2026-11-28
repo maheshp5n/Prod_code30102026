@@ -5,7 +5,7 @@ import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 import { DatePipe } from '@angular/common';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-create-account-only',
@@ -29,7 +29,7 @@ export class CreateAccountOnlyComponent implements OnInit {
   get editAccountsOnlyData():ExpenseAccountsOnlyRequest{
     return this.accountOnlyReq;
   }
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel : ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel : ModalDirective;
   alertmeta = {
     ngClass: 'alert-success',
     message: ''

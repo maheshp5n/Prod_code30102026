@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductreturnOrderRouting } from './productreturnorder.routing';
-import { AlertModule, ModalModule, BsDropdownModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule } from '@angular/forms';
 import { ProductreturnorderComponent } from './productreturnorder.component';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';

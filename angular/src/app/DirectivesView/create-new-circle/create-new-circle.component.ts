@@ -7,7 +7,8 @@ import {
   EventEmitter,
   Input
 } from '@angular/core';
-import { ModalDirective, TypeaheadMatch } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import {
   CirclesRequest,
   CountryDetails,
@@ -65,7 +66,7 @@ export class CreateNewCircleComponent implements OnInit {
   get editCircleData(): CirclesRequest {
     return this.newcircles;
   }
-  @ViewChild('popupSuccessModel', { static: false })
+  @ViewChild('popupSuccessModel')
   popupSuccessModel: ModalDirective;
 
   newcircles: CirclesRequest = new CirclesRequest();

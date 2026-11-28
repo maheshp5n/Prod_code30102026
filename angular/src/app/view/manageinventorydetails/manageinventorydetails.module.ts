@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ManageinventorydetailsRouting } from './manageinventorydetails.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateManageinventoryModule } from '../../DirectivesView/create-manageinventory/create-manageinventory.module';
 import { ManageinventorydetailsComponent } from './manageinventorydetails.component';
 import { AssetsService } from '../../services/assets.services';

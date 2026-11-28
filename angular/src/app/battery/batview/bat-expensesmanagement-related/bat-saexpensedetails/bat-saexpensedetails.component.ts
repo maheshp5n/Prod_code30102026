@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../../services/login.services';
 import { ActionHistoryObjectAndId } from '../../../../services/model';
@@ -35,7 +35,7 @@ export class BatSAExpensedetailsComponent implements OnInit {
   _cFlag: string;
 
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createExpSAModel', { static: false }) createExpSAModel: ModalDirective;
+  @ViewChild('createExpSAModel') createExpSAModel: ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

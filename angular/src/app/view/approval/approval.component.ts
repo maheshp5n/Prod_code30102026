@@ -1,6 +1,6 @@
 import { ApprovalRequest, Page } from './../../services/model';
 import { OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ApprovalResponse, ApprovalWorkflowRequest } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApprovalService } from '../../services/approval.services';
@@ -16,8 +16,8 @@ import { PagefilterService } from '../../services/pagefilterservice';
 })
 export class ApprovalComponent implements OnInit {
   public message: string = '';
-  @ViewChild('createApprovalModel', { static: false }) createApprovalModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createApprovalModel') createApprovalModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();

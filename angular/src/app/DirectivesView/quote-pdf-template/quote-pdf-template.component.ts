@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CountryDetailsServices } from '../../services/countrydetails.services';
 import { StateProvinceDetails, QuotePdfHeaderAndFooterResponse, QuotePdfHeaderAndFooterRequest, AccountsForList, SiteDetailsResponse, CountryDetails, BusinessDomain, StateWithQuotePdf } from '../../services/model';
 import { FieldValidation } from '../../services/validation.services';
 import { QuotePDFTemplateServices } from '../../services/quotepdftemplate.services';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { siteService } from '../../services/siteService.services';
 
@@ -15,8 +15,8 @@ import { siteService } from '../../services/siteService.services';
   styleUrls: ['./quote-pdf-template.component.scss']
 })
 export class QuotePdfTemplateComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('fileUploadPopUpModel', { static: false }) fileUploadPopUpModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('fileUploadPopUpModel') fileUploadPopUpModel: ModalDirective;
 
   @Output()
   onQuotePDFTemplateCreated: EventEmitter<QuotePdfHeaderAndFooterResponse> = new EventEmitter<QuotePdfHeaderAndFooterResponse>();
@@ -84,7 +84,7 @@ export class QuotePdfTemplateComponent implements OnInit {
 
   siteres: SiteDetailsResponse = new SiteDetailsResponse();
   constructor(private spinner: NgxSpinnerService,private siteservice:siteService, private countryService: CountryDetailsServices,
-    private _quotePDFTemplateServices: QuotePDFTemplateServices, private formBuilder: FormBuilder,
+    private _quotePDFTemplateServices: QuotePDFTemplateServices, private formBuilder: UntypedFormBuilder,
     private _http: HttpClient) { }
 
   ngOnInit() {
@@ -103,14 +103,14 @@ export class QuotePdfTemplateComponent implements OnInit {
 
     });
   }
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   uploadFilesLength: number;
   fileList: string[] = [];
   formData: FormData = new FormData()
   fileName: string;
   imageUrl: string;
 
-  uploadForm1: FormGroup;
+  uploadForm1: UntypedFormGroup;
   uploadFilesLength1: number;
   fileList1: string[] = [];
   formData1: FormData = new FormData()

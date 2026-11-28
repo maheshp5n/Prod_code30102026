@@ -5,7 +5,7 @@ import { Page } from '../../services/model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 @Component({
   selector: 'app-myinventorydetail',
@@ -14,9 +14,9 @@ import { Loginservices } from '../../services/login.services';
 })
 export class MyinventorydetailComponent implements OnInit {
 
-  @ViewChild('datatable',{static:false})datatable:ElementRef;
+  @ViewChild('datatable')datatable:ElementRef;
 
-  @ViewChild('newpartcodechangeWindow',{static:false})newpartcodechangeWindow:ModalDirective;
+  @ViewChild('newpartcodechangeWindow')newpartcodechangeWindow:ModalDirective;
 
   search = {
     partCode: '',

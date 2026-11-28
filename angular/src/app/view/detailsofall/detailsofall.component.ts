@@ -1,6 +1,6 @@
 import { Component, OnInit, Testability, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../globalservice.service';
 import { LocationProductRequestService } from '../../services/locationproductrequest.service';
@@ -111,7 +111,7 @@ export class DetailsofallComponent implements OnInit {
    PTItemAdv:boolean=false;
    PTItem:string;
    tbalehead:Array<TableHeader>=new Array<TableHeader>()
-  @ViewChild('selectedItemModel',{static:false}) selectedItemModel:ModalDirective;
+  @ViewChild('selectedItemModel') selectedItemModel:ModalDirective;
   constructor( private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,private siteservice:siteService,
     private _productRequestService: LocationProductRequestService,private _user: Loginservices,
     private _productService: ProductsService,private _serviceOrderService: ServiceOrderService,private pricebooservice:PriceBookService,
@@ -1059,7 +1059,7 @@ getProductReturnItems(column?,order?) {
       forPR:string;
       shortcloseHeading:string='';
       messageShort:string='';
-      @ViewChild('sureModel',{static:false})sureModel:ModalDirective
+      @ViewChild('sureModel')sureModel:ModalDirective
 
       onshortCloseItem( id?:any){
         console.log(id);

@@ -10,7 +10,8 @@ import { CreateassetModule } from '../../DirectivesView/createasset/createasset.
 import { AssetsService } from '../../services/assets.services';
 import { SearchfiltPipe } from '../assets/searchfilt.pipe';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { OrderModule } from 'ngx-order-pipe';
 import { PagefilterService } from '../../services/pagefilterservice';
 

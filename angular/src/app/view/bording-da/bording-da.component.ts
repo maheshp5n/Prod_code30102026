@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BoardingLoading, Page, Login, BoardingLoadingDetailsResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { OrderPipe } from 'ngx-order-pipe';
 import { BoardingLoadingService } from '../../services/boarding-loading.service';
@@ -14,8 +14,8 @@ import { PagefilterService } from '../../services/pagefilterservice';
   styleUrls: ['./bording-da.component.scss']
 })
 export class BordingDaComponent implements OnInit {
-  @ViewChild('createBoardingModel',{static:false}) createBoardingModel: ModalDirective;
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('createBoardingModel') createBoardingModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
 res :BoardingLoadingDetailsResponse= new BoardingLoadingDetailsResponse()
 message:string="";
 pagenumber:any=null;

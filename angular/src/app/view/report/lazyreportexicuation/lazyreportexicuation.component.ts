@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { ReportwizardService } from '../../../services/reportwizard.service';
@@ -18,9 +18,9 @@ export class LazyreportexicuationComponent implements OnInit {
 
   }
 
-  @ViewChild('reportsWindows', { static: false }) reportsWindows: ModalDirective;
-  @ViewChild('reportTable', { static: false }) reportTable: ElementRef;
-  @ViewChild('reportParam', { static: false }) reportParam: ModalDirective;
+  @ViewChild('reportsWindows') reportsWindows: ModalDirective;
+  @ViewChild('reportTable') reportTable: ElementRef;
+  @ViewChild('reportParam') reportParam: ModalDirective;
 
   reports = [];
   params = [];

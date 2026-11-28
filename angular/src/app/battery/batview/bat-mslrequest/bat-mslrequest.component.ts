@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OrderPipe } from 'ngx-order-pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -15,7 +15,7 @@ import { BtMslrequestService } from '../../bat_services/bt-mslrequest.service';
 })
 export class BatMslrequestComponent implements OnInit {
 
-  @ViewChild('createRequestModel', { static: false }) createRequestModel: ModalDirective;
+  @ViewChild('createRequestModel') createRequestModel: ModalDirective;
 
   message: string = ""
   recentlyView: boolean = false;

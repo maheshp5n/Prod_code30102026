@@ -161,8 +161,8 @@ export class CustomerinventoryComponent implements OnInit {
     }
   ];
 
-  @ViewChild('inputfile',{static:false})inputfile:ElementRef;
-  @ViewChild('outputFile',{static:false})outputfile:ElementRef;
+  @ViewChild('inputfile')inputfile:ElementRef;
+  @ViewChild('outputFile')outputfile:ElementRef;
 
   pagedata: Page<any> = new Page<any>();
 

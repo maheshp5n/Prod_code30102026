@@ -3,7 +3,7 @@ import { VendorInvoiceService } from '../../services/vendorinvoice.services';
 import { VendorCommRequest, vendorInvoiceResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalserviceService } from '../../globalservice.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./commercial-vendor-invoice.component.scss']
 })
 export class CommercialVendorInvoiceComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   comreq: VendorCommRequest = new VendorCommRequest();
   id: number;

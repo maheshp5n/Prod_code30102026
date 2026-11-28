@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BRCInventoryReceiveResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ManageInventoryService } from '../../services/manageinventory.services';
 import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
 import * as fileSaver from 'file-saver';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { caseService } from '../../services/caseService.service';
 @Component({
   selector: 'app-manageinventory',
@@ -14,9 +14,9 @@ import { caseService } from '../../services/caseService.service';
   styleUrls: ['./manageinventory.component.scss']
 })
 export class ManageinventoryComponent implements OnInit {
-  @ViewChild('ManageInventoryModel', { static: false }) ManageInventoryModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
+  @ViewChild('ManageInventoryModel') ManageInventoryModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
   message: string = '';
   ngClassManage: string;
   i: number;
@@ -82,9 +82,9 @@ export class ManageinventoryComponent implements OnInit {
   isManageInventoryModel: boolean = false;
   _cFlag: string;
   // formgroup by shagufta
-  uploadForm: FormGroup;    
+  uploadForm: UntypedFormGroup;    
    
-  constructor(private case_service:caseService,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private manageInventoryService: ManageInventoryService, private loginService: Loginservices,private formBuilder: FormBuilder) {
+  constructor(private case_service:caseService,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private manageInventoryService: ManageInventoryService, private loginService: Loginservices,private formBuilder: UntypedFormBuilder) {
     this._activatedRoute.queryParams.subscribe(pram => {
       this._cFlag = pram['_c'];
     });

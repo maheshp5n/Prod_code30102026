@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -13,7 +13,7 @@ import { BtCaseRejectModule } from '../bat-reject-case/bat-reject-case.module';
   styleUrls: ['./casetype-caseresn-popup.component.scss']
 })
 export class CasetypeCaseresnPopupComponent implements OnInit {
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
   caseReasonId: any;
   caseTypeId: string="";
   casetypeid:number

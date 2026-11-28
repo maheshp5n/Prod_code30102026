@@ -5,7 +5,8 @@ import { BatUserroleRouting } from './bat-userrole.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { NgxOrgChartModule } from '../../../role-chart/public-api';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AlertModule, ModalModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 
 

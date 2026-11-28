@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +8,7 @@ import { caseService } from '../../services/caseService.service';
 import { OrderPipe } from 'ngx-order-pipe';
 import * as fileSaver from 'file-saver';
 import { CommercialService } from '../../services/commercial.services';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { PagefilterService } from '../../services/pagefilterservice';
 import { GlobalserviceService } from '../../globalservice.service';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
@@ -19,8 +19,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./commercial-page.component.scss']
 })
 export class CommercialPageComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
   AllCase: Page<CaseResponse> = new Page<CaseResponse>()
   searchitem: string = '';
   datainput: boolean = false
@@ -66,7 +66,7 @@ export class CommercialPageComponent implements OnInit {
   popupNgClass: string = 'alert alert-danger center center-block';
   caseId:any;
   pindtselection = false;
-  uploadForm:FormGroup;
+  uploadForm:UntypedFormGroup;
   fileList: any[] = [];
   getFile
   filyType: string;
@@ -231,7 +231,7 @@ export class CommercialPageComponent implements OnInit {
   
     //done
     _cFlag:string;
-  constructor(private pagefilterservice:PagefilterService,private formBuilder: FormBuilder,
+  constructor(private pagefilterservice:PagefilterService,private formBuilder: UntypedFormBuilder,
     private _global:GlobalserviceService,private commercialService:CommercialService, private datePipe:DatePipe,
     private orderPipe: OrderPipe,private case_service: caseService,private loginservice:Loginservices,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute
    ) { 

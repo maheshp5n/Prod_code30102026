@@ -3,7 +3,7 @@ import { PriceBookService } from '../../services/pricebook.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PriceBookResponse, PriceBookEntriesResponse, ProductsResponse, PriceBookEntriesRequest, Product, ActionHistoryObjectAndId } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProductsService } from '../../services/products.services';
 import { Loginservices } from '../../services/login.services';
 
@@ -13,10 +13,10 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./pricebookdetails.component.scss']
 })
 export class PricebookdetailsComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createpriceBookModel',{static:false}) createpriceBookModel: ModalDirective;
-  @ViewChild('productListModel',{static:false}) productListModel:ModalDirective;
-  @ViewChild('selectedItemModel',{static:false}) selectedItemModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createpriceBookModel') createpriceBookModel: ModalDirective;
+  @ViewChild('productListModel') productListModel:ModalDirective;
+  @ViewChild('selectedItemModel') selectedItemModel:ModalDirective;
 id:number;
 ngClassDetails:string='active';
 ngClassReleated:string='';

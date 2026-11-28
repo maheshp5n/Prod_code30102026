@@ -1,6 +1,6 @@
 import { GlobalserviceService } from './../../globalservice.service';
 import { selected } from './../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ServiceOrderitemReturnService } from './../../services/serviceorderitemreturn.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -21,8 +21,8 @@ export class PendingserviceorderreturnComponent implements OnInit {
     trackingNumber: '',
     items: []
   };
-  @ViewChild('pendingToreturn', { static: false }) pendingToreturn: ModalDirective;
-  @ViewChild('serviceorderdetailstable',{static:false}) serviceorderdetailstable:ElementRef;
+  @ViewChild('pendingToreturn') pendingToreturn: ModalDirective;
+  @ViewChild('serviceorderdetailstable') serviceorderdetailstable:ElementRef;
   constructor(
     private _returnservice: ServiceOrderitemReturnService,
     private _global: GlobalserviceService,

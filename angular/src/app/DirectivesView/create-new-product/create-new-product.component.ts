@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProductsService } from '../../services/products.services';
 import { Product, ProductSubFamily } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -55,8 +55,8 @@ export class CreateNewProductComponent implements OnInit {
   public _isEditMode: boolean;
   popupNgClass: string = 'alert alert-danger center center-block';
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
 
   @Output()
   onProductCreated: EventEmitter<Product> = new EventEmitter<Product>();

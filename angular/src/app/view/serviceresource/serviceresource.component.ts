@@ -1,6 +1,6 @@
 import { Page, ResourceType, ServiceResourseRequest } from './../../services/model';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ServiceResourseResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ServiceResourceService } from '../../services/serviceresource.services';
@@ -17,8 +17,8 @@ import { GlobalserviceService } from '../../globalservice.service';
 
 export class ServiceresourceComponent implements OnInit {
 
-  @ViewChild('createServiceResourceModel', { static: false }) createServiceResourceModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceResourceModel') createServiceResourceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   // tslint:disable-next-line: no-output-on-prefix
   @Output()

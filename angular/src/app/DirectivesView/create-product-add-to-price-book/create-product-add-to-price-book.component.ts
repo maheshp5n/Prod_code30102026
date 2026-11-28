@@ -3,7 +3,7 @@ import { PriceBookEntriesRequestInProducts, PriceBookEntriesResponse } from './.
 import { PriceBookForList, PriceBookRequest } from '../../services/model';
 import { PriceBookService } from '../../services/pricebook.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
 import { Output } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -66,9 +66,9 @@ export class CreateProductAddToPriceBookComponent implements OnInit {
   message: string;
   popupNgClass: string = 'alert alert-danger center center-block';
 
-  @ViewChild('addPriceItems', { static: false }) addPriceItems: ModalDirective;
-  @ViewChild('createaddProductModel', { static: false }) createaddProductModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('addPriceItems') addPriceItems: ModalDirective;
+  @ViewChild('createaddProductModel') createaddProductModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   _onAddProCancle: EventEmitter<string> = new EventEmitter<string>();

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -17,9 +17,9 @@ import { btServiceAppointmentResponseWithSCH } from '../../bt_model';
 })
 export class BatServiceresourceDetailsComponent implements OnInit {
 
-  @ViewChild('createServiceResourceModel', { static: false }) createServiceResourceModel: ModalDirective;
+  @ViewChild('createServiceResourceModel') createServiceResourceModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createserviceAppointmentModel', { static: false }) createserviceAppointmentModel: ModalDirective;
+  @ViewChild('createserviceAppointmentModel') createserviceAppointmentModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<ServiceResourseResponse> = new EventEmitter<ServiceResourseResponse>();

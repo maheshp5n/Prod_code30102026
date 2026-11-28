@@ -15,9 +15,9 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  @ViewChild('datatable',{static:false})datatable:ElementRef;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('datatable')datatable:ElementRef;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   pagenumber:any=null;
   //filter
   dropdownsList = [{

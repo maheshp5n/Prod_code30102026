@@ -5,7 +5,7 @@ import { ContactsService } from './../../services/contacts.services';
 import { CirclesService } from './../../services/circles.services';
 import { ExpenseManagementBusinessArea, ExpenseManagementBusinessPlace, ExpenseManagementCostCenter, Contacts } from './../../services/model';
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {
   ExpenseManagementRequest, ExpenseManagementExpensePurpose, ExpenseManagementExpenseType, ExpenseManagementStatus, ContactForList
@@ -102,9 +102,9 @@ export class CreateNewexpensesmanagementComponent implements OnInit {
   // @Output()
   // onNext: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('timepop', { static: false }) timepop: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('timepop') timepop: ModalDirective;
 
   ngOnInit() {
     this.getTimeList();

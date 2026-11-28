@@ -747,8 +747,8 @@ class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
                                     <tbody>
                                         <tr *ngFor="let ob of fileUploadList;let i=index">
                                             <td data-line="S.No" class="mhide">{{i+1}}.</td>
-                                            <td data-line="File Name" class="wrappable"><a [routerLink]=""
-                                                    (click)="filePreview(ob.fileDownloadUri,ob.fileName)"
+                                            <td data-line="File Name" class="wrappable"><a [routerLink]="[]"
+                                                    (click)="filePreview(ob.fileName)"
                                                     activateRout="active">{{ob.fileName}}</a>
                                             </td>
                                             <td *ngIf="(ob.fileSize/1024)/1024 < 1" data-line="File Size" scope="col"
@@ -948,19 +948,19 @@ class="btn btn-sm btn-default btn-block text-left"><i style="font-size: 18px;"
             <div class="modal-header">
                 <!-- <h4>{{uploadFilesLength}} Files selected for Upload</h4> -->
                 <h4>{{fileName}}</h4>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="filePreviewModel.hide()">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="closeFilePreview()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" style="max-height: 70vh;overflow: auto;">
-                <img src="{{imageUrl}}" alt="" style="height: auto;width: 100%;">
-                <pdf-viewer [src]="imageUrl" [render-text]="true" style="height: auto;width: 100%;">
-                </pdf-viewer>
+                <img *ngIf="!isPdfPreview" [src]="imageUrl" alt="" style="height: auto;width: 100%;">
+                <iframe *ngIf="isPdfPreview && safePreviewUrl" [src]="safePreviewUrl" [title]="fileName"
+                    style="display: block;border: 0;height: 65vh;width: 100%;"></iframe>
             </div>
             <div class="modal-footer text-right">
-                <button class="btn btn-sm btn-default" (click)="filePreviewModel.hide()"><i class="fa fa-remove"></i>
+                <button class="btn btn-sm btn-default" (click)="closeFilePreview()"><i class="fa fa-remove"></i>
                     Close</button>
-                <button class="btn btn-sm btn-primary" (click)="saveFile()"><i class="fa fa-download"></i>
+                <button class="btn btn-sm btn-primary" [disabled]="!previewBlob" (click)="saveFile()"><i class="fa fa-download"></i>
                     Download</button>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AssetsService } from '../../services/assets.services';

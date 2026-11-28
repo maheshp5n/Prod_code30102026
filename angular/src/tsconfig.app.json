@@ -3,21 +3,25 @@
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
-    "module": "esnext",
-    "target": "es5",
     "skipLibCheck": true,
     "types": [],
     "paths": {
       "@angular/*": [
         "../node_modules/@angular/*"
+      ],
+      "ngx-order-pipe": [
+        "app/shared/order-pipe/index.ts"
+      ],
+      "@agm/core": [
+        "../node_modules/ng-agm-core-lib"
       ]
     }
   },
-  "angularCompilerOptions": {
-    "enableIvy": false
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "**/*.d.ts"
   ]
 }

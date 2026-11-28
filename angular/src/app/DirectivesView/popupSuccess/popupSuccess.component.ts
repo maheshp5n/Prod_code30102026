@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-popupSuccess',
@@ -7,7 +7,7 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./popupSuccess.component.css']
 })
 export class PopupSuccessComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   _message: string;
 
 

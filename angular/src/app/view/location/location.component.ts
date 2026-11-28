@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Loginservices } from '../../services/login.services';
 import { OrderPipe } from 'ngx-order-pipe';
 import { LocationService } from '../../services/location.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { UserforlistService } from '../../services/userforlist.service';
 import { Router } from '@angular/router';
 import { PagefilterService } from '../../services/pagefilterservice';
@@ -17,8 +17,8 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./location.component.scss']
 })
 export class LocationComponent implements OnInit {
-  @ViewChild('creatLocation', { static: false }) creatLocation: ModalDirective;
-  @ViewChild('changeOwner', { static: false }) changeOwner: ModalDirective;
+  @ViewChild('creatLocation') creatLocation: ModalDirective;
+  @ViewChild('changeOwner') changeOwner: ModalDirective;
   isModelOpen = false;
   lcres: LocationResponse = new LocationResponse();
   lcreq: LocationRequest = new LocationRequest();

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateRpairDCTComponent } from './create-rpair-dct.component';
 
@@ -6,7 +6,7 @@ describe('CreateRpairDCTComponent', () => {
   let component: CreateRpairDCTComponent;
   let fixture: ComponentFixture<CreateRpairDCTComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateRpairDCTComponent ]
     })

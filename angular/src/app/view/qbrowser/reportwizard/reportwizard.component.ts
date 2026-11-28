@@ -42,7 +42,7 @@ export class ReportwizardComponent implements OnInit {
   execList = [];
   id = 0;
 
-  @ViewChild('reportWizard', { static: false }) reportWizard: ModalDirective;
+  @ViewChild('reportWizard') reportWizard: ModalDirective;
 
   constructor(private _report: ReportwizardService, private _ngx: NgxSpinnerService, private _global: GlobalserviceService) { }
 

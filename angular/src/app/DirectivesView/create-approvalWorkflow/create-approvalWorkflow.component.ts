@@ -1,6 +1,6 @@
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import {
   ResourceType,
   LocationForList,
@@ -67,7 +67,7 @@ export class CreateApprovalComponent implements OnInit {
       { date: this.today, classes: ['bg-secondary'] }
     ];
   }
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   userselect:boolean=false;
   _isEditMode: boolean;
   approvalRequest: ApprovalWorkflowRequest = new ApprovalWorkflowRequest();

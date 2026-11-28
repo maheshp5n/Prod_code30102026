@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsResponse, BatteryFSRResponse, Page } from '../../services/model';
 import { AssetsService } from '../../services/assets.services';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,8 +16,8 @@ import { PagefilterService } from '../../services/pagefilterservice';
 export class BatteryFSRCBMSLiLonbatteryComponent implements OnInit {
 
   public message: string = '';
-  @ViewChild('createBFSRModel', { static: false }) createBFSRModel: ModalDirective;
- @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('createBFSRModel') createBFSRModel: ModalDirective;
+ @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 

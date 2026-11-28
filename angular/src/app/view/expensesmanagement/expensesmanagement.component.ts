@@ -6,7 +6,7 @@ import {
 import { Loginservices } from './../../services/login.services';
 import { ExpenseManagementService } from './../../services/expenses-management.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import {
   ExpenseManagementRequest,
   ExpenseManagementResponse
@@ -83,13 +83,13 @@ export class ExpensesmanagementComponent implements OnInit {
   status: string;
   _cFlag: string;
 
-  @ViewChild('createexpensesmanagementModel', { static: false })
+  @ViewChild('createexpensesmanagementModel')
   createexpensesmanagementModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false })
+  @ViewChild('popupSuccessModel')
   popupSuccessModel: ModalDirective;
-  @ViewChild('createTourExpenseModel', { static: false })
+  @ViewChild('createTourExpenseModel')
   createTourExpenseModel: ModalDirective;
-  @ViewChild('deleteExpModel', { static: false })
+  @ViewChild('deleteExpModel')
   deleteExpModel: ModalDirective;
   
   //filter

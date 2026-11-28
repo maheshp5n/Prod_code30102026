@@ -3,11 +3,12 @@ import { RouterModule } from '@angular/router';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule, DatePipe } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { ModalModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { Loginservices } from "../../services/login.services";
 import { caseService } from '../../services/caseService.service';
-import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ChangeCasetypeCommerComponent } from './change-casetype-commer.component';
 @NgModule({

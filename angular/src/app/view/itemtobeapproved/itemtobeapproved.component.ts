@@ -5,7 +5,7 @@ import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToBeApproved, Page, EmployeeDetails, UserForList, ApprovalRequest } from '../../services/model';
 import { ServiceResourceService } from '../../services/serviceresource.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalserviceService } from '../../globalservice.service';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
@@ -26,9 +26,9 @@ export class ItemtobeapprovedComponent implements OnInit {
   }
 
   pageItemsToBeApproved: Page<ToBeApproved> = new Page<ToBeApproved>();
-  @ViewChild('approvalModule', { static: false }) approvalModule: ModalDirective;
-  @ViewChild('MULTIPLEAPPROVAL', { static: false }) MULTIPLEAPPROVAL: ModalDirective;
-  @ViewChild('alertModule', { static: false }) alertModule: ModalDirective;
+  @ViewChild('approvalModule') approvalModule: ModalDirective;
+  @ViewChild('MULTIPLEAPPROVAL') MULTIPLEAPPROVAL: ModalDirective;
+  @ViewChild('alertModule') alertModule: ModalDirective;
   alerttypes = {
     type: 'danger',
     message: ''

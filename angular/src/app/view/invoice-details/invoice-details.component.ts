@@ -4,13 +4,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { Loginservices } from '../../services/login.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { VendorInvoiceService } from '../../services/vendorinvoice.services';
 import { vendorInvoiceResponse, VendorCommRequest, ToBeApprovedHistoryResponse, FileUploadResponse, ActionHistoryObjectAndId } from '../../services/model';
 import { ApprovalHistoryService } from '../../services/approvalHistory.service';
 import * as fileSaver from 'file-saver';
 import { WCCService } from '../../services/wcc.services';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-invoice-details',
@@ -22,11 +22,11 @@ export class InvoiceDetailsComponent implements OnInit {
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';
   vDetails: boolean = true;
-  @ViewChild('createInvoiceModel', { static: false }) createInvoiceModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('commercialModel', { static: false }) commercialModel: ModalDirective;
-  @ViewChild('SAPUpdateModel', { static: false }) SAPUpdateModel: ModalDirective;
-  @ViewChild('choosenFilesShow', { static: false }) choosenFilesShow: ModalDirective;
+  @ViewChild('createInvoiceModel') createInvoiceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('commercialModel') commercialModel: ModalDirective;
+  @ViewChild('SAPUpdateModel') SAPUpdateModel: ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow: ModalDirective;
   modelOpen = {
     invoiceModal: false,
     grnModal: false,
@@ -46,7 +46,7 @@ export class InvoiceDetailsComponent implements OnInit {
   last: boolean;
   edit: boolean = false;
   isModelOpen: boolean;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   // CREATE_ACCOUNT_HEADING: string = 'Create SSA';
   EDIT_ACCOUNT_HEADING: string = 'Edit Invoice';
   venInvoiceId: number;
@@ -81,7 +81,7 @@ export class InvoiceDetailsComponent implements OnInit {
   serviceappointmentList: Array<any> = [];
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private spinner: NgxSpinnerService,
     private _activatedRoute: ActivatedRoute,
     private loginservice: Loginservices,

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { caseService } from '../../services/caseService.service';
@@ -13,7 +13,7 @@ import {  CaseResponse, ChangecaseTypeRequest, ChangeCase_caseTypeList } from '.
   styleUrls: ['./change-casetype-commer.component.css']
 })
 export class ChangeCasetypeCommerComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
 
   _isEditMode:boolean;
   loginData:any;

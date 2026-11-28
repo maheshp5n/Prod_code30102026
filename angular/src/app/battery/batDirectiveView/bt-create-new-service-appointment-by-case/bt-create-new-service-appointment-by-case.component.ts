@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, ViewChild,EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SecondServiceAppointmentRequest, ServiceResourseForList } from '../../../services/model';
@@ -12,7 +12,7 @@ import { BtserviceresourseService } from '../../bat_services/btserviceresourse.s
   styleUrls: ['./bt-create-new-service-appointment-by-case.component.scss']
 })
 export class BtCreateNewServiceAppointmentByCaseComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onSecondServiceAppointmentCreated: EventEmitter<any> = new EventEmitter<any>();

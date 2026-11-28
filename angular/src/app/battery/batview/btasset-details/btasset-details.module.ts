@@ -2,7 +2,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { BTassetDetailsComponent } from './btasset-details.component';
 import { BtAssetDetailsRouting } from './btasset-details.routing';
 import { RouterModule } from '@angular/router';

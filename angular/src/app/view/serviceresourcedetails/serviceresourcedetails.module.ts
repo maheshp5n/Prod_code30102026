@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServiceresourcedetailsRouting } from './serviceresourcedetails.routing';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateServiceresourceModule } from '../../DirectivesView/create-serviceresource/create-serviceresource.module';
 import { ServiceresourcedetailsComponent } from './serviceresourcedetails.component';
 import { AssetsService } from '../../services/assets.services';

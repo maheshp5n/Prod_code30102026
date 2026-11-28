@@ -2,7 +2,7 @@ import { QuoteService } from './../../services/Quote.services';
 import { QuoteResponse, QuoteRequest, QuoteLineItemRequest, QuoteLineItemResponse, WorkOrderRequest, MailResponse, ActionHistoryObjectAndId } from './../../services/model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
 import {
@@ -22,17 +22,17 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrls: ['./quotedetails.component.css']
 })
 export class QuotedetailsComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createNewQuote', { static: false }) createNewQuote: ModalDirective;
-  @ViewChild('changeStatus', { static: false }) changeStatus: ModalDirective;
-  @ViewChild('createaddProductModel', { static: false }) createaddProductModel: ModalDirective;
-  @ViewChild('editQuoteLineItemModel', { static: false }) editQuoteLineItemModel: ModalDirective;
-  @ViewChild('confirmationPopup', { static: false }) confirmationPopup: ModalDirective;
-  @ViewChild('showPreviewModel', { static: false }) showPreviewModel: ModalDirective;
-  @ViewChild('sendMail', { static: false }) sendMail: ModalDirective;
-  @ViewChild('searchResult', { static: false }) searchResult: ModalDirective;
-  @ViewChild('submitApprovelModel',{static:false}) submitApprovelModel:ModalDirective
-  @ViewChild('workOrderForQuoteModel',{static:false}) workOrderForQuoteModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createNewQuote') createNewQuote: ModalDirective;
+  @ViewChild('changeStatus') changeStatus: ModalDirective;
+  @ViewChild('createaddProductModel') createaddProductModel: ModalDirective;
+  @ViewChild('editQuoteLineItemModel') editQuoteLineItemModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup: ModalDirective;
+  @ViewChild('showPreviewModel') showPreviewModel: ModalDirective;
+  @ViewChild('sendMail') sendMail: ModalDirective;
+  @ViewChild('searchResult') searchResult: ModalDirective;
+  @ViewChild('submitApprovelModel') submitApprovelModel:ModalDirective
+  @ViewChild('workOrderForQuoteModel') workOrderForQuoteModel:ModalDirective;
   
   fileList: string[] = [];
   formData = new FormData();

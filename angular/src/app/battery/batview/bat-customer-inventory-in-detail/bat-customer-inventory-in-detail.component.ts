@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -35,9 +35,9 @@ export class BatCustomerInventoryInDetailComponent implements OnInit {
   openGRN = { editGRN: false }
   displayButtons = { info: { visibal: true, icon: 'fa fa-angle-down' }, sysInfo: { visibal: true, icon: 'fa fa-angle-down' } };
 
-  @ViewChild('editCustomerInventoryIn', { static: false }) editCustomerInventoryIn: ModalDirective;
-  @ViewChild('confirmationPopup', { static: false }) confirmationPopup: ModalDirective;
-  @ViewChild('editGRN', { static: false }) editGRN: ModalDirective;
+  @ViewChild('editCustomerInventoryIn') editCustomerInventoryIn: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup: ModalDirective;
+  @ViewChild('editGRN') editGRN: ModalDirective;
   grnDetail;
   constructor(private _spiner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private _btCustomerInventoryService: BtCustomerInventoryService, private _global: GlobalserviceService,
     private loginservice: Loginservices) {

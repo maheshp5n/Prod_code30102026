@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { LocationProductRequestService } from '../../../services/locationproductrequest.service';
@@ -47,10 +47,10 @@ export class BatProductrequestdetailComponent implements OnInit {
     exicomTotalOkQuantity: 0,
     quantity_in_on_hand: 0
   };
-  @ViewChild('transferItem', { static: false }) transferItem: ModalDirective;
-  @ViewChild('receiveItem', { static: false }) receiveItem: ModalDirective;
-  @ViewChild('addItemModal', { static: false }) addItemModal: ModalDirective;
-  @ViewChild('editProductRequestModel', { static: false }) editProductRequestModel: ModalDirective;
+  @ViewChild('transferItem') transferItem: ModalDirective;
+  @ViewChild('receiveItem') receiveItem: ModalDirective;
+  @ViewChild('addItemModal') addItemModal: ModalDirective;
+  @ViewChild('editProductRequestModel') editProductRequestModel: ModalDirective;
 
 
   products: Array<ProductsForList> = [];

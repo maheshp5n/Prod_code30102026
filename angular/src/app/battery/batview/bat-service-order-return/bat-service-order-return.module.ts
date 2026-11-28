@@ -4,7 +4,8 @@ import { BatServiceOrderReturnRouting } from './bat-service-order-return.routing
 import { BatServiceOrderReturnComponent } from './bat-service-order-return.component';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { BsDropdownModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { BtCreateServiceOrderReturnModule } from '../../batDirectiveView/bt-create-service-order-return/bt-create-service-order-return.module';
 import { BatReturnOrderReceiveDirModule } from '../../batDirectiveView/bat-return-order-receive-dir/bat-return-order-receive-dir.module';
 

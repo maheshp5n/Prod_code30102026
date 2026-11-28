@@ -1,7 +1,9 @@
 import { NgModule, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserDetailsRouting } from './userprofile-details.routing';
-import { BsDropdownModule, ModalModule, PopoverModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';

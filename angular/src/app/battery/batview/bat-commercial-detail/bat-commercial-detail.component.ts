@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommercialService } from '../../../services/commercial.services';
 import { Loginservices } from '../../../services/login.services';
@@ -16,12 +16,12 @@ import { BTCaseResponse } from '../../bt_model';
   styleUrls: ['./bat-commercial-detail.component.scss']
 })
 export class BatCommercialDetailComponent implements OnInit {
-  @ViewChild('createInvoiceModel', { static: false }) createInvoiceModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('sureModel',{static:false}) sureModel:ModalDirective;
-  @ViewChild('rejectcasemodel',{static:false}) rejectcasemodel:ModalDirective;
-  @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('changeCaseTypemodel',{static:false}) changeCaseTypemodel :ModalDirective;
+  @ViewChild('createInvoiceModel') createInvoiceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('sureModel') sureModel:ModalDirective;
+  @ViewChild('rejectcasemodel') rejectcasemodel:ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow:ModalDirective;
+  @ViewChild('changeCaseTypemodel') changeCaseTypemodel :ModalDirective;
   res: CaseResponse = new CaseResponse();
   req: CaseRequest = new CaseRequest();
   caseres: BTCaseResponse = new BTCaseResponse()

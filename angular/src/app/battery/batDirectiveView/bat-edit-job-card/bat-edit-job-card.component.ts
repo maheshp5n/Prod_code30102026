@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { LocationForList } from '../../../services/model';
@@ -106,7 +106,7 @@ export class BatEditJobCardComponent implements OnInit {
   cancled: EventEmitter<string> = new EventEmitter<string>();
   @Output()
   editJobCard: EventEmitter<BtJobCardResponse> = new EventEmitter<BtJobCardResponse>();
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   btProductList: Array<BtProductList> = [];
   constructor(
     private _btProdReqService: BtproductrequestService, private _global: GlobalserviceService, private _jobCardService: BtJobCardServiceService,

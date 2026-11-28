@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountCreate, SiteDetailsResponse, CaseResponse, ServiceAppointmentResponse, AssetsResponse, SiteDetailsReq, Page, ActionHistoryObjectAndId, PreRegCaseResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
 import { siteService } from '../../services/siteService.services';
 import { Loginservices } from '../../services/login.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AssetsService } from '../../services/assets.services';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { PreRegCaseService } from '../../services/preregcaseservice.services';
 import { HttpParams } from '@angular/common/http';
 import { GlobalserviceService } from '../../globalservice.service';
@@ -31,13 +30,13 @@ export class SitedetailsComponent implements OnInit {
   vDetails: boolean = true;
   msg: string
   isSiteModelShow: boolean;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('editSiteModel', { static: false }) editSiteModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createPRCModel',{static:false}) createPRCModel :ModalDirective
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('editSiteModel') editSiteModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createPRCModel') createPRCModel :ModalDirective
   isDCTCaseModelShow: boolean = false;
   account: AccountCreate = new AccountCreate();
   sapId: string = '';

@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -102,11 +102,11 @@ get BodamntToDisbursed():number{
   // Tour ends
   // @ViewChild('popupSuccessModel', { static: false })
   // popupSuccessModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false })
+  @ViewChild('createContactModel')
   createContactModel: ModalDirective;
-  @ViewChild('timedisplay', { static: false })
+  @ViewChild('timedisplay')
   timedisplay: ModalDirective;
-  @ViewChild('borloddtailModel',{static:false})
+  @ViewChild('borloddtailModel')
   borloddtailModel:ModalDirective;
 
   public _isEditMode: boolean = false;

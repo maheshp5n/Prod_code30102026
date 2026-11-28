@@ -1,7 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { AlertModule, ModalModule } from "ngx-bootstrap";
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { ProductreturnadditemsModule } from "../../../DirectivesView/productreturnadditems/productreturnadditems.module";
 import { SapdocdisplayModule } from "../../../DirectivesView/sapdocdisplay/sapdocdisplay.module";

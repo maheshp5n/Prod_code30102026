@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsResponse, BatteryFSRResponse, FileUploadResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -7,7 +7,7 @@ import { AssetsService } from '../../services/assets.services';
 import { BatrryFSRService } from '../../services/BattryFSRservice.services';
 import { Loginservices } from '../../services/login.services';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import * as fileSaver from 'file-saver';
 
 @Component({
@@ -16,11 +16,11 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./battery-fsrcbmsli-lonbatterydetails.component.scss']
 })
 export class BatteryFSRCBMSLiLonbatterydetailsComponent implements OnInit {
-  @ViewChild('createBFSRModel', { static: false }) createBFSRModel: ModalDirective;
-  @ViewChild('createBatteryInventoryConsumption', { static: false }) createBatteryInventoryConsumption: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
-  @ViewChild('choosenFilesShow', { static: false }) choosenFilesShow: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createBFSRModel') createBFSRModel: ModalDirective;
+  @ViewChild('createBatteryInventoryConsumption') createBatteryInventoryConsumption: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<AssetsResponse> = new EventEmitter<AssetsResponse>();
@@ -49,11 +49,11 @@ export class BatteryFSRCBMSLiLonbatterydetailsComponent implements OnInit {
   imgsrc: any
   imageToShow: any;
   isImageLoading: any;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   _cFlag:string;
   popupNgClass: string = 'alert alert-danger center center-block';
-  constructor(private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
+  constructor(private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private formBuilder: UntypedFormBuilder,
     private _http: HttpClient, private BFSservice: BatrryFSRService, private loginservice: Loginservices) {
     this._activatedRoute.params.subscribe(pram => {
       this.id = pram['id'];

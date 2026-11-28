@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -39,8 +39,8 @@ export class BatJobCardDetailComponent implements OnInit {
   reAssignJobCard: BtJobCardResponse = new BtJobCardResponse();
   reAssingJobCardModelShow: boolean = false;
   loginData;
-  @ViewChild('editJobCardModel', { static: false }) editJobCardModel: ModalDirective;
-  @ViewChild('reAssingJobCardModel', { static: false }) reAssingJobCardModel: ModalDirective;
+  @ViewChild('editJobCardModel') editJobCardModel: ModalDirective;
+  @ViewChild('reAssingJobCardModel') reAssingJobCardModel: ModalDirective;
   displayButtons = { info: { visibal: true, icon: 'fa fa-angle-down' }, engRemarks: { visibal: true, icon: 'fa fa-angle-down' }, sysInfo: { visibal: true, icon: 'fa fa-angle-down' } };
   constructor(private _activatedRoute: ActivatedRoute, private _spinner: NgxSpinnerService, private _btJobCardService: BtJobCardServiceService,
     private _global: GlobalserviceService,private _loginService: Loginservices) {

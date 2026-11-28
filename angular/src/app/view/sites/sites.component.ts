@@ -18,12 +18,12 @@ import { GlobalserviceService } from '../../globalservice.service';
 
 export class SitesComponent implements OnInit {
   // @ViewChild(MatSort) sort:MatSort;
-  @ViewChild('createSiteModel',{static:false}) createSiteModel:ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel:ModalDirective;
 
-  @ViewChild('editSitesModel',{static:false}) editSitesModel:ModalDirective;
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel:ModalDirective;
+  @ViewChild('editSitesModel') editSitesModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel:ModalDirective;
 
-  @ViewChild('sitebulkupload',{static:false}) sitebulkupload:ElementRef;
+  @ViewChild('sitebulkupload') sitebulkupload:ElementRef;
 
   searchContent={
     site_id:'',

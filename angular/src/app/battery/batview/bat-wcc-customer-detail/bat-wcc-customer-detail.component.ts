@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommercialService } from '../../../services/commercial.services';
 import { Loginservices } from '../../../services/login.services';
@@ -28,12 +28,12 @@ export class BatWccCustomerDetailComponent implements OnInit {
   // @ViewChild('sureModel',{static:false}) sureModel:ModalDirective;
   // @ViewChild('rejectcasemodel',{static:false}) rejectcasemodel:ModalDirective;
   // @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('createWccCustomermodel',{static:false}) createWccCustomermodel :ModalDirective;
-  @ViewChild('rejectWccCustomermodel',{static:false}) rejectWccCustomermodel :ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('filePreviewModel', { static: false }) filePreviewModel: ModalDirective;
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
-  @ViewChild('approvalModule',{static:false})approvalModule:ModalDirective;
+  @ViewChild('createWccCustomermodel') createWccCustomermodel :ModalDirective;
+  @ViewChild('rejectWccCustomermodel') rejectWccCustomermodel :ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('filePreviewModel') filePreviewModel: ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
+  @ViewChild('approvalModule')approvalModule:ModalDirective;
 
  
   isEditMode: boolean = false;

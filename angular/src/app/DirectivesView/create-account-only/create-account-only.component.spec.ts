@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateAccountOnlyComponent } from './create-account-only.component';
 
@@ -6,7 +6,7 @@ describe('CreateAccountOnlyComponent', () => {
   let component: CreateAccountOnlyComponent;
   let fixture: ComponentFixture<CreateAccountOnlyComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateAccountOnlyComponent ]
     })

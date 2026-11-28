@@ -6,7 +6,7 @@ import {
   ProductsResponse
 } from '../../services/model';
 import { WarehouseService } from '../../services/warehouse.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ligalEntityService } from '../../services/ligalentity.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -39,8 +39,8 @@ export class WarehousedetailsComponent implements OnInit {
   i: number;
   message: string;
 
-  @ViewChild('createWarehouseModel', { static: false }) createWarehouseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createWarehouseModel') createWarehouseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   constructor(private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private _warehouseervice: WarehouseService, private ligalentitservice: ligalEntityService) {
     this._activatedRoute.params.subscribe(pram => {

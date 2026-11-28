@@ -1,7 +1,6 @@
-import { NullAstVisitor } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -32,7 +31,7 @@ export class NewProductrequestComponent implements OnInit {
   parentLocationRes: LocationResponse = new LocationResponse();
   btProductId : number;
   alertMessage = { alertClass: 'alert alert-success center center-block', alertMessage: '' };
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   avilableStockAtSource: any = {
     exicomTotalOkQuantity: 0,
     quantity_in_on_hand: 0

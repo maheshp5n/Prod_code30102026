@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { BsDropdownModule } from "ngx-bootstrap";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { BatJobCardComponent } from "./bat-job-card.component";
 import { BtJobCardRouting } from "./bat-job-card.routing";

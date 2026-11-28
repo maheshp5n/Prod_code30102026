@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 // import { CreateApprovalModule } from '../../DirectivesView/create-approval/create-approval.module';
 import { AssetsService } from '../../services/assets.services';
 import { ApprovaldetailsRouting } from './approvaldetails.routing';

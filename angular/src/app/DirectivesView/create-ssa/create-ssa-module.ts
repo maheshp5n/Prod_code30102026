@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { siteService } from '../../services/siteService.services';
 import { Loginservices } from '../../services/login.services';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { TypeaheadConfig, TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { CreateaccountModule } from '../createaccount/createaccount.module';

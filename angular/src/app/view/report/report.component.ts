@@ -1,6 +1,6 @@
 //import { ReportwizardService } from './../../services/reportwizard.service';
 import { Component, OnInit } from '@angular/core';
-// import { ModalDirective } from 'ngx-bootstrap';
+// import { ModalDirective } from 'ngx-bootstrap/modal';
 // import { NgxSpinnerService } from 'ngx-spinner';
 // import { ExpenseManagementStatus, ObjectDefinition } from '../../services/model';
 // import { ExpenseManagementService } from '../../services/expenses-management.service';

@@ -1,7 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalModule, BsDatepickerModule, DatepickerModule, PopoverModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { AssetsService } from '../../../services/assets.services';
@@ -25,7 +27,6 @@ import { caseService } from '../../../services/caseService.service';
     ModalModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
     //DatetimePopupModule.forRoot(),
     TimepickerModule.forRoot(),
     PopoverModule.forRoot(),

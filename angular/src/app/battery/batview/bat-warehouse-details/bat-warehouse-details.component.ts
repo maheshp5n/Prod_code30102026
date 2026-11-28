@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -22,10 +22,10 @@ export class BatWarehouseDetailsComponent implements OnInit {
 
  //@ViewChild('creatLocation', { static: false }) creatLocation: ModalDirective;
 //  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
- @ViewChild('mslRequest', { static: false }) mslRequest: ModalDirective;
+ @ViewChild('mslRequest') mslRequest: ModalDirective;
 //  @ViewChild('productRequestModal', { static: false }) productRequestModal: ModalDirective;
- @ViewChild('btProductReturn', { static: false }) btProductReturn: ModalDirective;
- @ViewChild('editLocation', { static: false }) editLocation: ModalDirective;
+ @ViewChild('btProductReturn') btProductReturn: ModalDirective;
+ @ViewChild('editLocation') editLocation: ModalDirective;
 
  response: LocationResponse = new LocationResponse()
  ngClassDetails: string = 'active';

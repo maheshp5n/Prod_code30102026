@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { ServiceAppointmentResponse, ServiceAppointmentProductConsumedRequest, ServiceResourseResponse, ServiceResourseRequest, BatteryFSRResponse, BatteryFSRRequest, ProblemReported, ServiceAppointmentProductConsumedResponse, ServiceAppointmentReAssignRequest, ToBeApproved, EmployeeDetails, ToBeApprovedHistoryResponse, FileUploadResponse, ActionHistoryObjectAndId, ServiceAppointmentUnAssignToRequest } from '../../services/model';
@@ -7,31 +7,31 @@ import { ServiceAppointmentService } from '../../services/serviceappointment.ser
 import { ServiceResourceService } from '../../services/serviceresource.services';
 import { BatrryFSRService } from '../../services/BattryFSRservice.services';
 import { Loginservices } from '../../services/login.services';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import * as fileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { FileDeleteService } from '../../services/filedeletService.services';
 import { GlobalserviceService } from '../../globalservice.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-serviceappointmentindetails',
   templateUrl: './serviceappointmentindetails.component.html',
   styleUrls: ['./serviceappointmentindetails.component.scss']
 })
-export class ServiceappointmentindetailsComponent implements OnInit {
+export class ServiceappointmentindetailsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('createServiceAppointmentModel', { static: false }) public createServiceAppointmentModel: ModalDirective;
-  @ViewChild('productConsumedModel', { static: false }) public productConsumedModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceResourceModel', { static: false }) createServiceResourceModel: ModalDirective;
-  @ViewChild('createBFSRModel', { static: false }) createBFSRModel: ModalDirective;
-  @ViewChild('reAssingServiceAppointmentModel', { static: false }) reAssingServiceAppointmentModel: ModalDirective;
-  @ViewChild('popupRequestforSA', { static: false }) popupRequestforSA: ModalDirective;
-  @ViewChild('fileUploadModel', { static: false }) fileUploadModel: ModalDirective;
-  @ViewChild('filePreviewModel', { static: false }) filePreviewModel: ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective;
+  @ViewChild('createServiceAppointmentModel') public createServiceAppointmentModel: ModalDirective;
+  @ViewChild('productConsumedModel') public productConsumedModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceResourceModel') createServiceResourceModel: ModalDirective;
+  @ViewChild('createBFSRModel') createBFSRModel: ModalDirective;
+  @ViewChild('reAssingServiceAppointmentModel') reAssingServiceAppointmentModel: ModalDirective;
+  @ViewChild('popupRequestforSA') popupRequestforSA: ModalDirective;
+  @ViewChild('fileUploadModel') fileUploadModel: ModalDirective;
+  @ViewChild('filePreviewModel') filePreviewModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective;
   // @ViewChild('imgeid',{static:false}) imgeid;
   public message: string = '';
   ngClassDetails: string = 'active';
@@ -94,12 +94,16 @@ export class ServiceappointmentindetailsComponent implements OnInit {
 
   objectName = 'ServiceAppointment';
   fileUploadList: Array<FileUploadResponse> = [];
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   fileList: string[] = [];
   uploadFilesLength: number;
   formData: FormData = new FormData()
   fileName: string;
   imageUrl: string;
+  safePreviewUrl: SafeResourceUrl | null = null;
+  previewBlob: Blob | null = null;
+  private previewObjectUrl: string | null = null;
+  isPdfPreview = false;
   LogedEmailId:string;
 
   addressDisplay = {
@@ -141,7 +145,7 @@ export class ServiceappointmentindetailsComponent implements OnInit {
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
   constructor(private datePipe: DatePipe,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute, private BFSRservice: BatrryFSRService,
     private _serviceAppointmentService: ServiceAppointmentService, private loginService: Loginservices
-    , private formBuilder: FormBuilder, private _http: HttpClient,
+    , private formBuilder: UntypedFormBuilder, private _http: HttpClient,
     private loginservice:Loginservices,private deleteservice:FileDeleteService,
     private _global:GlobalserviceService,private sanitizer: DomSanitizer) {
     this._activatedRoute.params.subscribe(pram => {
@@ -169,6 +173,11 @@ export class ServiceappointmentindetailsComponent implements OnInit {
     });
     
   }
+
+  ngOnDestroy(): void {
+    this.releasePreviewObjectUrl();
+  }
+
   canMapview:boolean=false;
   getServiceAppointmentById(sapId: number) {
     this.spinner.show();
@@ -727,11 +736,18 @@ export class ServiceappointmentindetailsComponent implements OnInit {
   }
 
   // show preview file and save file
-  filePreview(url, fileName) {
+  filePreview(fileName: string) {
+    this.releasePreviewObjectUrl();
     this.fileName = fileName;
-    this.imageUrl = url;
+    this.isPdfPreview = fileName.toLowerCase().endsWith('.pdf');
     this.spinner.show();
     this._serviceAppointmentService.getDownloadFile(fileName).subscribe(data => {
+      this.previewBlob = data;
+      this.previewObjectUrl = URL.createObjectURL(data);
+      this.imageUrl = this.previewObjectUrl;
+      if (this.isPdfPreview) {
+        this.safePreviewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.previewObjectUrl);
+      }
       this.spinner.hide();
       this.filePreviewModel.show();
     }, err => {
@@ -741,10 +757,28 @@ export class ServiceappointmentindetailsComponent implements OnInit {
       this.popupSuccessModel.show();
     });
   }
-  saveFile() {
-    fileSaver.saveAs(this.imageUrl, this.fileName);
-    this.spinner.hide();
+
+  closeFilePreview() {
     this.filePreviewModel.hide();
+    this.releasePreviewObjectUrl();
+  }
+
+  private releasePreviewObjectUrl() {
+    if (this.previewObjectUrl) {
+      URL.revokeObjectURL(this.previewObjectUrl);
+      this.previewObjectUrl = null;
+    }
+    this.previewBlob = null;
+    this.imageUrl = '';
+    this.safePreviewUrl = null;
+  }
+
+  saveFile() {
+    if (this.previewBlob) {
+      fileSaver.saveAs(this.previewBlob, this.fileName);
+      this.spinner.hide();
+      this.closeFilePreview();
+    }
   }
   // close file
 // delete product consumed by shagufta

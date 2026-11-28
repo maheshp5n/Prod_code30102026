@@ -3,7 +3,7 @@ import { ActionHistoryObjectAndId, UserResponse } from '../../../services/model'
 import { UserService } from '../../../services/user.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../services/login.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
 import { BatuserregistrationService } from '../../bat_services/batuserregistration.service';
 import { GlobalserviceService } from '../../../globalservice.service';
@@ -15,7 +15,7 @@ import { GlobalserviceService } from '../../../globalservice.service';
 })
 export class BatUserregistrationdetailsComponent implements OnInit {
   users = new UserResponse();
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';
   vDetails: boolean = true;

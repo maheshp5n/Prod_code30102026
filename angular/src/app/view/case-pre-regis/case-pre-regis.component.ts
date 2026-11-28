@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CaseResponse, AssetsResponse, PreRegCaseResponse, PreRegCaseRequest, ProblemReported, CaseReasonForList, CaseTypeForList, CaseTypeRecord, Page, CaseStatus, CaseStageDetails, LastActionForList } from '../../services/model';
 import { OrderPipe } from 'ngx-order-pipe';
 import { Loginservices } from '../../services/login.services';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { caseService } from '../../services/caseService.service';
 import * as fileSaver from 'file-saver';
 import { PreRegCaseService } from '../../services/preregcaseservice.services';
@@ -18,9 +18,9 @@ import { PagefilterService } from '../../services/pagefilterservice';
   styleUrls: ['./case-pre-regis.component.scss']
 })
 export class CasePreRegisComponent implements OnInit {
-  @ViewChild('createPreRegisCaseModel', { static: false }) createPreRegisCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('createPreRegisCaseModel') createPreRegisCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   res: PreRegCaseResponse = new PreRegCaseResponse();
   req: PreRegCaseRequest = new PreRegCaseRequest();
   AllCase: Page<PreRegCaseResponse>  = new Page<PreRegCaseResponse>()
@@ -72,7 +72,7 @@ export class CasePreRegisComponent implements OnInit {
   isCaseModelOpen: boolean = false;
   casetypRecord: Array<CaseTypeRecord> = [];
   _cFlag: string;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   caseReasonForList: Array<CaseReasonForList> = [];
   // caseTypeList: Array<CaseTypeForList> = [];
   caseStatusForList:Array<CaseStatus>=[];
@@ -229,7 +229,7 @@ export class CasePreRegisComponent implements OnInit {
 
   //done
   constructor(private pagefilterservice:PagefilterService,private case_service: caseService,private preregcaseservice:PreRegCaseService, private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,
-    private orderPipe: OrderPipe, private loginService: Loginservices, private formBuilder: FormBuilder) {
+    private orderPipe: OrderPipe, private loginService: Loginservices, private formBuilder: UntypedFormBuilder) {
     this._activatedRoute.params.subscribe(pram => {
       this.caseId = pram['caseId'];
     });

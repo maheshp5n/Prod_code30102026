@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, ViewChild,EventEmitter,Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { CommercialService } from '../../../services/commercial.services';
@@ -15,7 +15,7 @@ export class BtAreYouSureComponent implements OnInit {
   popupNgClass: string = 'alert alert-danger center center-block';
   message:string;
   caseid:number;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   alertmeta = {
     ngClass: 'alert-success',
     message: ''

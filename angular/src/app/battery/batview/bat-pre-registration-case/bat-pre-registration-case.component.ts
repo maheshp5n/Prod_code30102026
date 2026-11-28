@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../services/login.services';
 import { LastActionForList, PreRegCaseRequest, PreRegCaseResponse, ProblemReported } from '../../../services/model';
@@ -19,9 +19,9 @@ import { GlobalserviceService } from '../../../globalservice.service';
 })
 export class BatPreRegistrationCaseComponent implements OnInit {
 
-  @ViewChild('createPreRegisCaseModel', { static: false }) createPreRegisCaseModel: ModalDirective;
+  @ViewChild('createPreRegisCaseModel') createPreRegisCaseModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('choosenFiles', { static: false }) choosenFiles: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles: ModalDirective;
   res: BtPreRegCaseResponse = new BtPreRegCaseResponse();
   req: BtPreRegCaseRequest = new BtPreRegCaseRequest();
   AllCase: Page<BtPreRegCaseResponse>  = new Page<BtPreRegCaseResponse>()
@@ -73,7 +73,7 @@ export class BatPreRegistrationCaseComponent implements OnInit {
   isCaseModelOpen: boolean = false;
   casetypRecord: Array<BT_CaseTypeRecord> = [];
   _cFlag: string;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   caseReasonForList: Array<BTCaseReasonForList> = [];
   // caseTypeList: Array<CaseTypeForList> = [];
   caseStatusForList:Array<BT_CaseStatus>=[];
@@ -232,7 +232,7 @@ export class BatPreRegistrationCaseComponent implements OnInit {
 
   //done
   constructor(private pagefilterservice:PagefilterService,private case_service: BtCaseserviceService,private preregcaseservice:BtPreRegistrationCaseService, private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,
-     private loginService: Loginservices, private formBuilder: FormBuilder,private _global: GlobalserviceService) {
+     private loginService: Loginservices, private formBuilder: UntypedFormBuilder,private _global: GlobalserviceService) {
     this._activatedRoute.params.subscribe(pram => {
       this.caseId = pram['id'];
     });

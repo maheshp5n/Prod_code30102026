@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ProductsForList, BRCRepariInventoryProductConsumedRequest,  Product, BRCRepariInventoryProductConsumedResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AssetsService } from '../../services/assets.services';
@@ -13,9 +13,9 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./inventroy-product-consumed.component.scss']
 })
 export class InventroyProductConsumedComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
-  @ViewChild('ManageInventoryModel', { static: false }) ManageInventoryModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
+  @ViewChild('ManageInventoryModel') ManageInventoryModel: ModalDirective;
 
   @Output()
   onProductConsumedCreated: EventEmitter<BRCRepariInventoryProductConsumedRequest> = new EventEmitter<BRCRepariInventoryProductConsumedRequest>();

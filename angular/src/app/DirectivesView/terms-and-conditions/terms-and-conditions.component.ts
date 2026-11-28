@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -8,7 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./terms-and-conditions.component.scss']
 })
 export class TermsAndConditionsComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   // @Output()
   // onTermAndCondintionCreated: EventEmitter<any> = new EventEmitter<any>();

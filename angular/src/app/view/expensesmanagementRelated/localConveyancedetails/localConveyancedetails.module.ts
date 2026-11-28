@@ -7,7 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import {
   CreateNewLocalConveyanceExpenseModule
 } from '../../../DirectivesView/ExpensemanagementRelated/create-new-localConveyanceExpense/create-new-localConveyanceExpense.module';

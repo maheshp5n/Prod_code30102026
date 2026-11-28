@@ -1,9 +1,9 @@
 import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, CanActivateChild, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
-export class LayoutgaurdGuard implements CanActivate, CanActivateChild {
+export class LayoutgaurdGuard  {
   nav = [];
   constructor(private _router: Router) { }
   canActivate() {

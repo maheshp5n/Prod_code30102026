@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SiteDetailsResponse, SiteDetailsReq, CirclesForList, Zonedetails, ServiceResourseForList, ServiceCenterForList, AccountsForList, AccountCreate, LegalEntityResponse, CirclesRequest, CirclesResponse, ServiceResourseResponse, CircleZoneForList, SSAForlist, SSAResponse, CustomerForList } from '../../services/model';
 import { siteService } from '../../services/siteService.services';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,12 +16,12 @@ import { CustomerService } from '../../services/customers.services';
   styleUrls: ['./create-site.component.css']
 })
 export class CreateSiteComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('createServiceCenterModel', { static: false }) createServiceCenterModel: ModalDirective;
-  @ViewChild('createCircleModel', { static: false }) createCircleModel: ModalDirective;
-  @ViewChild('createSSAModel',{static:false}) createSSAModel: ModalDirective;
-  @ViewChild('createCustomerModel', { static: false }) createCustomerModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('createServiceCenterModel') createServiceCenterModel: ModalDirective;
+  @ViewChild('createCircleModel') createCircleModel: ModalDirective;
+  @ViewChild('createSSAModel') createSSAModel: ModalDirective;
+  @ViewChild('createCustomerModel') createCustomerModel: ModalDirective;
 
   isVisible: boolean = false;
   _isEditMode: boolean;

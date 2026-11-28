@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule, AlertModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProducttransferdirectiveModule } from '../../../DirectivesView/producttransferdirective/producttransferdirective.module';
 import { ProductrequestreceiveModule } from '../../../DirectivesView/productrequestreceive/productrequestreceive.module';

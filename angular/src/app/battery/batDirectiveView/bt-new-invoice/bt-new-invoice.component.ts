@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, Output, ViewChild,EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ModalDirective } from 'ngx-bootstrap';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { type } from 'os';
@@ -36,7 +36,7 @@ export class BtNewInvoiceComponent implements OnInit {
  columnSort: Array<boolean> = [false, false, false, false, false, false, false, false, true];
  ASCENDING: string = 'asc';
  DESCENDING: string = 'desc';
- @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+ @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
  @Input()
  set isEditMode(isEditMode: boolean) {
    this._isEditMode = isEditMode;
@@ -76,7 +76,7 @@ export class BtNewInvoiceComponent implements OnInit {
  onCancle: EventEmitter<string> = new EventEmitter<string>();
 
 
- constructor(private http: HttpClient, private formBuilder: FormBuilder,
+ constructor(private http: HttpClient, private formBuilder: UntypedFormBuilder,
    private spinner: NgxSpinnerService,
    private datePipe: DatePipe,
    private _global: GlobalserviceService,
@@ -86,7 +86,7 @@ export class BtNewInvoiceComponent implements OnInit {
      { date: this.today, classes: ['bg-secondary'] }
    ];
  }
- uploadForm2: FormGroup;
+ uploadForm2: UntypedFormGroup;
 
 
  ngOnInit() {

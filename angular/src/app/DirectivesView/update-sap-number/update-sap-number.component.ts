@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 import { DatePipe } from '@angular/common';
 import { VendorInvSAPreq, vendorInvoiceResponse } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { VendorInvoiceService } from '../../services/vendorinvoice.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -14,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class UpdateSapNumberComponent implements OnInit {
   _isEditMode: boolean;
   invoiceId: number;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set isEditMode(isEditMode: boolean) {
     this._isEditMode = isEditMode;

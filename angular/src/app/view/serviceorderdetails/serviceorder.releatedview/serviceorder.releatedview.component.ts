@@ -1,7 +1,7 @@
 import { Loginservices } from './../../../services/login.services';
 import { ServiceOrderService } from '../../../services/serviceorder.servvices';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { ServiceOrderJobCardService } from '../../../services/serviceorderjobcardservice';
 import { ViewChild, Component, OnInit, Input } from '@angular/core';
@@ -42,7 +42,7 @@ export class ServiceorderReleatedviewComponent implements OnInit {
 
   }
 
-  @ViewChild('assignToEng', { static: false }) assignToEng: ModalDirective;
+  @ViewChild('assignToEng') assignToEng: ModalDirective;
  objectId:any;
   constructor(private _serviceOrderService: ServiceOrderService,
     private _ngx: NgxSpinnerService, private _global: GlobalserviceService,

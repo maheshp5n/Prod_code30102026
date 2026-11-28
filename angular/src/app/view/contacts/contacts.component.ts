@@ -1,6 +1,6 @@
 import { Loginservices } from './../../services/login.services';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ContactsService } from '../../services/contacts.services';
 import { Contacts, AccountsForList, BoardingLoading, Page } from '../../services/model';
@@ -188,9 +188,9 @@ export class ContactsComponent implements OnInit {
 
     //done
   
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('GradeModel', { static: false }) GradeModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('GradeModel') GradeModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   constructor(private pagefilterservice:PagefilterService,private spinner: NgxSpinnerService, private _activatedRoute: ActivatedRoute,
     private _contactsService: ContactsService, private _accountService: AccountService, private loginService: Loginservices) {

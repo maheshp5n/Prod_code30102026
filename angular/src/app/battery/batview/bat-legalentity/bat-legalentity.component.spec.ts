@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BatLegalentityComponent } from './bat-legalentity.component';
 
@@ -6,7 +6,7 @@ describe('BatLegalentityComponent', () => {
   let component: BatLegalentityComponent;
   let fixture: ComponentFixture<BatLegalentityComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BatLegalentityComponent ]
     })

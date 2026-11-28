@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtServiceOrderReceiveComponent } from './bt-service-order-receive.component';
 
@@ -6,7 +6,7 @@ describe('BtServiceOrderReceiveComponent', () => {
   let component: BtServiceOrderReceiveComponent;
   let fixture: ComponentFixture<BtServiceOrderReceiveComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtServiceOrderReceiveComponent ]
     })

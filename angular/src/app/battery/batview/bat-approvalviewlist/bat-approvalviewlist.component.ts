@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Page } from '../../../services/model';
@@ -15,7 +15,7 @@ import { BtApprovalService } from '../../bat_services/btapprovalservice';
 })
 export class BatApprovalviewlistComponent implements OnInit {
 
-  @ViewChild('#newapprovalflow', { static: false }) newapprovalflow: ModalDirective;
+  @ViewChild('#newapprovalflow') newapprovalflow: ModalDirective;
 
   openWindow = {
     newapprovalflow: false

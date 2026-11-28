@@ -5,7 +5,7 @@ import { LoginComponent } from './login.component';
 import { Loginservices } from '../services/login.services';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [

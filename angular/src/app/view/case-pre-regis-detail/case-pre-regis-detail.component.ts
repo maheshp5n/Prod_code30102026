@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApprovalHistoryService } from '../../services/approvalHistory.service';
 import { caseService } from '../../services/caseService.service';
@@ -16,10 +16,10 @@ import { PreRegCaseService } from '../../services/preregcaseservice.services';
   styleUrls: ['./case-pre-regis-detail.component.scss']
 })
 export class CasePreRegisDetailComponent implements OnInit {
-  @ViewChild('createpreregiCaseModel', { static: false }) createpreregiCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
+  @ViewChild('createpreregiCaseModel') createpreregiCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
   res: PreRegCaseResponse = new PreRegCaseResponse();
   req: PreRegCaseRequest = new PreRegCaseRequest();
   caseres: PreRegCaseResponse = new PreRegCaseResponse()
@@ -90,7 +90,7 @@ export class CasePreRegisDetailComponent implements OnInit {
   imgsrc: any
   imageToShow: any;
   isImageLoading: any;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   buisnessDomainId: number;
   caseNumber: string;
@@ -101,11 +101,11 @@ export class CasePreRegisDetailComponent implements OnInit {
   serviceCenterId:number;
   casemanId: string;
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('createNewOpportunity', { static: false }) createNewOpportunity: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
-  @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('confirmationPopup',{static:false}) confirmationPopup:ModalDirective;
-  @ViewChild('IgnorModel',{static:false}) IgnorModel :ModalDirective;
+  @ViewChild('createNewOpportunity') createNewOpportunity: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow:ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup:ModalDirective;
+  @ViewChild('IgnorModel') IgnorModel :ModalDirective;
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',
     open: true
@@ -154,7 +154,7 @@ export class CasePreRegisDetailComponent implements OnInit {
   
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
 
-  constructor( private approvalHistoryService:ApprovalHistoryService,private formBuilder: FormBuilder,private loginservice: Loginservices, private caseservice: caseService, private _activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService, private oportunityServic: OpportunityService
+  constructor( private approvalHistoryService:ApprovalHistoryService,private formBuilder: UntypedFormBuilder,private loginservice: Loginservices, private caseservice: caseService, private _activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService, private oportunityServic: OpportunityService
     ,private preregservice:PreRegCaseService) {
     this._activatedRoute.params.subscribe(pram => {
       this.caseid = pram['id'];

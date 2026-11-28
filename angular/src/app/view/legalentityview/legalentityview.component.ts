@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { LegalEntityResponse, LocationResponse, Contacts, ActionHistoryObjectAndId } from '../../services/model';
 import { ligalEntityService } from '../../services/ligalentity.services';
 import { ActivatedRoute } from '@angular/router';
@@ -47,11 +47,11 @@ export class LegalentityviewComponent implements OnInit {
   enginr:Array<Contacts>=[];
   totalEng:any;
   localres: LocationResponse = new LocationResponse()
-  @ViewChild('createLegalENtityModel',{static:false}) createLegalENtityModel:ModalDirective
-  @ViewChild('deleteLegalENtityModel',{static:false}) deleteLegalENtityModel:ModalDirective
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective
-  @ViewChild('createContactModel',{static:false}) createContactModel:ModalDirective;
-  @ViewChild('creatLocation',{static:false}) creatLocation:ModalDirective;
+  @ViewChild('createLegalENtityModel') createLegalENtityModel:ModalDirective
+  @ViewChild('deleteLegalENtityModel') deleteLegalENtityModel:ModalDirective
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective
+  @ViewChild('createContactModel') createContactModel:ModalDirective;
+  @ViewChild('creatLocation') creatLocation:ModalDirective;
   sapId:string='';
   addressDisplay={
     angleIcon:'fa fa-angle-down',

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ssaService } from '../../services/ssa.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -15,8 +15,8 @@ import { PagefilterService } from '../../services/pagefilterservice';
   styleUrls: ['./ssa.component.scss']
 })
 export class SsaComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createSSAModel',{static:false}) createSSAModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createSSAModel') createSSAModel: ModalDirective;
 
   recentlyView: boolean = true;
   searchitem: string = '';

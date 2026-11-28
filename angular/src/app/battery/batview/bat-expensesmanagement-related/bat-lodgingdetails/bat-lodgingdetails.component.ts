@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LodgingExpenseService } from '../../../../services/LodgingExpenseService';
 import { Loginservices } from '../../../../services/login.services';
@@ -37,7 +37,7 @@ export class BatLodgingdetailsComponent implements OnInit {
   _cFlag: string;
 
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createLodgingModel', { static: false }) createLodgingModel: ModalDirective;
+  @ViewChild('createLodgingModel') createLodgingModel: ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

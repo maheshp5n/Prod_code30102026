@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { RequisitionResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { RequisitionService } from '../../services/requisition.services';
@@ -11,8 +11,8 @@ import { RequisitionService } from '../../services/requisition.services';
 })
 export class RequisitionComponent implements OnInit {
   public message: string = '';
-  @ViewChild('createRequisitionModel', { static: false }) createRequisitionModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createRequisitionModel') createRequisitionModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   requisitionResponse: RequisitionResponse = new RequisitionResponse
   requisitionList: Array<RequisitionResponse> = [];

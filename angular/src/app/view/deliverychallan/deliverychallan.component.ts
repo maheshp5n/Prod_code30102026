@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { deliverychallan } from '../../services/model';
 
@@ -40,8 +40,8 @@ export class deliverychallanComponent implements OnInit {
   newdeliverychallan: deliverychallan = new deliverychallan();
   i: number;
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createNewdeliverychallan', { static: false }) createNewdeliverychallan: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createNewdeliverychallan') createNewdeliverychallan: ModalDirective;
 
   ngOnInit() {
     // this.setOrder("createddate", 6);

@@ -1,7 +1,8 @@
 
 import { NgModule } from "@angular/core";
 import { CommonModule, DatePipe } from "@angular/common";
-import { ModalModule, BsDropdownModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule } from "@angular/forms";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { Loginservices } from "../../../services/login.services";

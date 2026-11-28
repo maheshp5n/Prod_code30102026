@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BRCRepariInventoryProductConsumedResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ManageInventoryService } from '../../services/manageinventory.services';
@@ -10,8 +10,8 @@ import { ManageInventoryService } from '../../services/manageinventory.services'
   styleUrls: ['./batteryinventoryconsumption.component.scss']
 })
 export class BatteryinventoryconsumptionComponent implements OnInit {
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   searchitem: string = '';
   recentlyView: boolean = false;

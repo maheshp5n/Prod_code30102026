@@ -12,7 +12,7 @@ import {
 } from '../../services/model';
 import { AccountService } from '../../services/accounts.services';
 import { CountryDetailsServices } from '../../services/countrydetails.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../services/login.services';
 import { BoardingLoadingService } from '../../services/boarding-loading.service';
 
@@ -138,7 +138,6 @@ export class ContactcreateComponent implements OnInit {
   req: LegalEntityResponse = new LegalEntityResponse();
   heading: string;
   CREATE_LegalEntity_HEADING: string = 'New Legal Entity';
-  createContactModel: ModalDirective;
   createAccount: AccountCreate = new AccountCreate();
   CREATE_ACCOUNT_HEADING: string = 'New Account';
   popupNgClass: string = 'alert alert-danger center center-block';
@@ -153,11 +152,11 @@ export class ContactcreateComponent implements OnInit {
   isEditModeLegaEntity: boolean;
   isEditModeAcount: boolean;
 
-  @ViewChild('createContactModel', { static: false })
-  @ViewChild('createLegalEntityModel', { static: false }) createLegalEntityModel: ModalDirective;
-  @ViewChild('GradeModel', { static: false }) GradeModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('createLegalEntityModel') createLegalEntityModel: ModalDirective;
+  @ViewChild('GradeModel') GradeModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
 
   accountCreate = new AccountCreate();
   countryReq:string='col-md-6 col-sm-6 form-group';

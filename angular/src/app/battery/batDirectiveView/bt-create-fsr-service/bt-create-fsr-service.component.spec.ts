@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtCreateFsrServiceComponent } from './bt-create-fsr-service.component';
 
@@ -6,7 +6,7 @@ describe('BtCreateFsrServiceComponent', () => {
   let component: BtCreateFsrServiceComponent;
   let fixture: ComponentFixture<BtCreateFsrServiceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtCreateFsrServiceComponent ]
     })

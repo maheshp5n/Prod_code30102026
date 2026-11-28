@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { ModalModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { Loginservices } from "../../services/login.services";
 import { FieldValidation } from "../../services/validation.services";

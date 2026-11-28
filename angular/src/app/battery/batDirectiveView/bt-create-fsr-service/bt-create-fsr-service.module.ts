@@ -2,7 +2,10 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BtCreateFsrServiceComponent } from './bt-create-fsr-service.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BsDatepickerModule, BsDropdownModule, DatepickerModule, ModalModule, TypeaheadModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
@@ -22,10 +25,8 @@ import { RouterModule } from '@angular/router';
     TypeaheadModule.forRoot(),
     // PopupSuccessModule,
     RouterModule,
-    BsDropdownModule,
-    DatepickerModule.forRoot(),
-    BsDatepickerModule.forRoot(),
-
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ], providers: [DatePipe, NgxSpinnerService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

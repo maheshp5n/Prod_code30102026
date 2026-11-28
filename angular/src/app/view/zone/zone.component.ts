@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Page, Zonedetails } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ZoneService } from '../../services/zone.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -13,8 +13,8 @@ import { PagefilterService } from '../../services/pagefilterservice';
   styleUrls: ['./zone.component.css']
 })
 export class ZoneComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createZoneModel', { static: false }) createZoneModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createZoneModel') createZoneModel: ModalDirective;
 
   isEditMode: boolean = false;
   heading: string;

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { AccountService } from '../../../services/accounts.services';
@@ -211,11 +211,11 @@ export class BtCreatecontactsComponent implements OnInit {
 
  
 
-  @ViewChild('createContactModel', { static: false })
-  @ViewChild('createLegalEntityModel', { static: false }) createLegalEntityModel: ModalDirective;
-  @ViewChild('GradeModel', { static: false }) GradeModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('createLegalEntityModel') createLegalEntityModel: ModalDirective;
+  @ViewChild('GradeModel') GradeModel: ModalDirective;
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
 
   accountCreate = new AccountCreate();
   countryReq:string='col-md-6 col-sm-6 form-group';

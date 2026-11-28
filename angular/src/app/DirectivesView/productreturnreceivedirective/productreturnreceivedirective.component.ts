@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angu
 import { LpReturnOrderResponse, LpReturnOrderItemResponse, LpReturnOrderReceiveRequest, LpReturnOrderReceiveItem } from '../../services/model';
 import { ProductReturnService } from '../../services/productreturnservice';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { throttle } from 'rxjs/operators';
 
 @Component({
@@ -11,7 +11,7 @@ import { throttle } from 'rxjs/operators';
   styleUrls: ['./productreturnreceivedirective.component.scss']
 })
 export class ProductreturnreceivedirectiveComponent implements OnInit {
-  @ViewChild('alertModal', { static: false }) alertModal: ModalDirective;
+  @ViewChild('alertModal') alertModal: ModalDirective;
   returnOrderResponse: LpReturnOrderResponse = new LpReturnOrderResponse();
   returnOrderItem: Array<LpReturnOrderItemResponse> = [];
 

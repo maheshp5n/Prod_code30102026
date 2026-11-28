@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "esnext",
-    "target": "es5",
+    "module": "es2020",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -17,6 +17,16 @@
       "esnext",
       "dom"
     ],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "useDefineForClassFields": false,
+    "baseUrl": "./",
+    "paths": {
+      "ngx-order-pipe": [
+        "src/app/shared/order-pipe/index.ts"
+      ],
+      "@agm/core": [
+        "node_modules/ng-agm-core-lib"
+      ]
+    }
   }
 }

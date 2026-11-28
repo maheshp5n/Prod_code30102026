@@ -781,7 +781,7 @@ tabindex="-1" role="dialog" aria-labelledby="create-account">
           <tbody>
               <tr *ngFor="let ob of PODfileUploadList;let i=index">
                   <td data-line="S.No" class="mhide">{{i+1}}.</td>
-                  <td data-line="File Name" class="wrappable"><a [routerLink]=""
+                  <td data-line="File Name" class="wrappable"><a [routerLink]="[]"
                           (click)="filePreview(ob.fileDownloadUri,ob.fileName)"
                           activateRout="active">{{ob.fileName}}</a>
                   </td>
@@ -847,7 +847,7 @@ tabindex="-1" role="dialog" aria-labelledby="create-account">
               <tbody>
                   <tr *ngFor="let ob of fileUploadList;let i=index">
                       <td data-line="S.No" class="mhide">{{i+1}}.</td>
-                      <td data-line="File Name" class="wrappable"><a [routerLink]=""
+                      <td data-line="File Name" class="wrappable"><a [routerLink]="[]"
                               (click)="filePreview(ob.fileDownloadUri,ob.fileName)"
                               activateRout="active">{{ob.fileName}}</a>
                       </td>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AssetsService } from '../../services/assets.services';
@@ -12,8 +12,8 @@ import { GlobalserviceService } from '../../globalservice.service';
 })
 export class SubproductinventoryComponent implements OnInit {
   public message: string = '';
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel : ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel : ModalDirective;
 
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();

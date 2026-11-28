@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from "@angular/forms";
 import { cityService } from "../../services/cityService.service";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
@@ -10,7 +11,6 @@ import { Loginservices } from '../../services/login.services';
 import { PagefilterService } from '../../services/pagefilterservice';
 import { HelpguideComponent } from "./helpguide.component";
 import { Helpguiderotuing } from "./helpguide.routing";
-import { EmbedVideo } from "ngx-embed-video";
 
 
 
@@ -23,7 +23,6 @@ import { EmbedVideo } from "ngx-embed-video";
     FormsModule,
     NgxSpinnerModule,
     OrderModule,
-    EmbedVideo.forRoot()
   ],
   declarations: [HelpguideComponent],
   providers: [cityService, NgxSpinnerService, FieldValidation,Loginservices,PagefilterService]

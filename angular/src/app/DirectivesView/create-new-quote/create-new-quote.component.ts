@@ -3,7 +3,7 @@ import { FieldValidation } from './../../services/validation.services';
 import { CountryDetailsServices } from './../../services/countrydetails.services';
 import { CountryDetails, StateProvinceDetails, QuoteStatus } from './../../services/model';
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { QuoteRequest, QuoteResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { QuoteService } from '../../services/Quote.services';
@@ -112,7 +112,7 @@ get BillingcountryID():string{
   @Output()
   onCancle: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   quoteRequest: QuoteRequest = new QuoteRequest();
   quoteResponse: QuoteResponse = new QuoteResponse();

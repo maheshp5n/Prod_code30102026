@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { QueteTemplateTandCDetailsComponent } from './quete-template-tand-cdetails.component';
 
@@ -6,7 +6,7 @@ describe('QueteTemplateTandCDetailsComponent', () => {
   let component: QueteTemplateTandCDetailsComponent;
   let fixture: ComponentFixture<QueteTemplateTandCDetailsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ QueteTemplateTandCDetailsComponent ]
     })

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../globalservice.service';
 import { ReportLink, ReportWizard } from '../../services/model';
@@ -14,7 +14,7 @@ import { ReportwizardService } from '../../services/reportwizard.service';
 })
 export class ReportwizardDetailsComponent implements OnInit {
   
-  @ViewChild('reportWizard', { static: false }) reportWizard: ModalDirective;
+  @ViewChild('reportWizard') reportWizard: ModalDirective;
    wizards:any;
   execList=[];
   reportid:any;

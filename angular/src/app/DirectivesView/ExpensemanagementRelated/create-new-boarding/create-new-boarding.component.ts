@@ -7,7 +7,8 @@ import { FieldValidation } from '../../../services/validation.services';
 import { BoardingExpenseRequest, BoardingExpenseResponse, ModeOfTravel, OwnConveyance } from '../../../services/model';
 
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { ModalDirective, TypeaheadMatch } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BoardingExpenseService } from '../../../services/boardingExpense.service';
 import { ServiceAppointmentService } from '../../../services/serviceappointment.services';
@@ -97,15 +98,15 @@ get BordingName(): string {
   @Output()
   onExpensesAdded: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('popupSuccessModel', { static: false })
+  @ViewChild('popupSuccessModel')
   popupSuccessModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false })
+  @ViewChild('createContactModel')
   createContactModel: ModalDirective;
-  @ViewChild('timedisplay', { static: false })
+  @ViewChild('timedisplay')
   timedisplay: ModalDirective;
-  @ViewChild('createCityModel', { static: false })
+  @ViewChild('createCityModel')
   createCityModel: ModalDirective;
-  @ViewChild('borloddtailModel',{static:false})
+  @ViewChild('borloddtailModel')
   borloddtailModel:ModalDirective;
   public _isEditMode: boolean = false;
   public _isEditModeBoarding: boolean;

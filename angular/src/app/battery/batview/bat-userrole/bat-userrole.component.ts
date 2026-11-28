@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { UserRoleResponse } from '../../../services/model';
@@ -26,8 +26,8 @@ export class BatUserroleComponent implements OnInit {
     roleGroup: 0
   }
   rolesGroup = [];
-  @ViewChild('actionWidows', { static: false }) actionWidows: ModalDirective;
-  @ViewChild('alertmodule', { static: false }) alertmodule: ModalDirective;
+  @ViewChild('actionWidows') actionWidows: ModalDirective;
+  @ViewChild('alertmodule') alertmodule: ModalDirective;
   alertDetails = {
     type: 'danger',
     message: ''

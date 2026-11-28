@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { CirclesService } from '../../../services/circles.services';
@@ -24,11 +24,11 @@ export class BtCreatesiteComponent implements OnInit {
 
   ////////////////////////////////////////////////
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('createServiceCenterModel', { static: false }) createServiceCenterModel: ModalDirective;
-  @ViewChild('createCircleModel', { static: false }) createCircleModel: ModalDirective;
-  @ViewChild('createSSAModel',{static:false}) createSSAModel: ModalDirective;
-  @ViewChild('createCustomerModel', { static: false }) createCustomerModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('createServiceCenterModel') createServiceCenterModel: ModalDirective;
+  @ViewChild('createCircleModel') createCircleModel: ModalDirective;
+  @ViewChild('createSSAModel') createSSAModel: ModalDirective;
+  @ViewChild('createCustomerModel') createCustomerModel: ModalDirective;
 
   isVisible: boolean = false;
   _isEditMode: boolean;

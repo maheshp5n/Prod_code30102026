@@ -3,7 +3,7 @@ import { ActionHistoryObjectAndId, LodgingExpenseRequest, LodgingExpenseResponse
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../../services/login.services';
 import { DatePipe } from '@angular/common';
 
@@ -34,8 +34,8 @@ export class LodgingdetailsComponent implements OnInit {
   isLodgingOpen: boolean;
   _cFlag: string;
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createLodgingModel', { static: false }) createLodgingModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createLodgingModel') createLodgingModel: ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

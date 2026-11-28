@@ -4,7 +4,7 @@ import {
 } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ServiceResourceService } from '../../services/serviceresource.services';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
 import { Loginservices } from '../../services/login.services';
@@ -17,9 +17,9 @@ import { Loginservices } from '../../services/login.services';
 
 export class ServiceresourcedetailsComponent implements OnInit {
 
-  @ViewChild('createServiceResourceModel', { static: false }) createServiceResourceModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createserviceAppointmentModel', { static: false }) createserviceAppointmentModel: ModalDirective;
+  @ViewChild('createServiceResourceModel') createServiceResourceModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createserviceAppointmentModel') createserviceAppointmentModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<ServiceResourseResponse> = new EventEmitter<ServiceResourseResponse>();

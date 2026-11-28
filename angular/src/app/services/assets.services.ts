@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Page,AssetsResponse, AssetsRequest, SiteDetailsForList, CaseResponse, AssetsForList, ProductsForList, AssetsStatus } from './model'
-import { URLSearchParams } from "@angular/http";
 import { catchError } from 'rxjs/operators';
 
 @Injectable()

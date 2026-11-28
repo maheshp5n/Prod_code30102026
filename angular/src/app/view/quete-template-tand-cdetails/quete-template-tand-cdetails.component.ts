@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { QuotePdfHeaderAndFooterResponse, QuoteTermsAndConditions, WorkOrderRequest, StateWithQuotePdf, ActionHistoryObjectAndId } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -12,10 +12,10 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./quete-template-tand-cdetails.component.scss']
 })
 export class QueteTemplateTandCDetailsComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('quotePDFTemplateModel', { static: false }) quotePDFTemplateModel: ModalDirective;
-  @ViewChild('submitApprovelModel',{static:false}) submitApprovelModel:ModalDirective
- @ViewChild('workOrderForQuoteModel',{static:false}) workOrderForQuoteModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('quotePDFTemplateModel') quotePDFTemplateModel: ModalDirective;
+  @ViewChild('submitApprovelModel') submitApprovelModel:ModalDirective
+ @ViewChild('workOrderForQuoteModel') workOrderForQuoteModel:ModalDirective;
   public message: string = '';
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { AssetsResponse, AssetsRequest, ServiceReportStatus } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
 import { ServiceReportService } from '../../services/servicereport.services';
@@ -11,7 +11,7 @@ import { ServiceReportService } from '../../services/servicereport.services';
   styleUrls: ['./create-service-report.component.scss']
 })
 export class CreateServiceReportComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   _isEditMode: boolean
   assetResponse: AssetsResponse = new AssetsResponse();

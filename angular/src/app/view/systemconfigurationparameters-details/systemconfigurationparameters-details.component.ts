@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AssetsResponse } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { AssetsService } from '../../services/assets.services';
   styleUrls: ['./systemconfigurationparameters-details.component.scss']
 })
 export class SystemconfigurationparametersDetailsComponent implements OnInit {
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
   
   @Output()
   onAccountCreated: EventEmitter<AssetsResponse> = new EventEmitter<AssetsResponse>();

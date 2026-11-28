@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { Loginservices } from '../../../services/login.services';
@@ -17,7 +17,7 @@ export class BatCircleDetailComponent implements OnInit {
 
  
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createCircleModel', { static: false }) createCircleModel: ModalDirective;
+  @ViewChild('createCircleModel') createCircleModel: ModalDirective;
 
   circleName: string;
   circle: BtCirclesResponse = new BtCirclesResponse();

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtCreateInvoiceComponent } from './bt-create-invoice.component';
 
@@ -6,7 +6,7 @@ describe('BtCreateInvoiceComponent', () => {
   let component: BtCreateInvoiceComponent;
   let fixture: ComponentFixture<BtCreateInvoiceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtCreateInvoiceComponent ]
     })

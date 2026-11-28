@@ -1,4 +1,4 @@
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { OpportunityPriceBook, OppertunityLineItemRequest, OppertunityLineItemResponse } from '../../services/model';
 import { OpportunityService } from '../../services/Opportunity.services';
@@ -10,9 +10,9 @@ import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angu
   styleUrls: ['./opportunity-edit-product.component.css']
 })
 export class OpportunityEditProductComponent implements OnInit {
-  @ViewChild('editSelectedProducts', { static: false }) editSelectedProducts: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('editAllProducts', { static: false }) editAllProducts: ModalDirective;
+  @ViewChild('editSelectedProducts') editSelectedProducts: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('editAllProducts') editAllProducts: ModalDirective;
 
   constructor(private spinner: NgxSpinnerService
     , private _opportunityService: OpportunityService) {

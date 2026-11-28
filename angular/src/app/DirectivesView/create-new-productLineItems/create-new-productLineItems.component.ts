@@ -6,7 +6,8 @@ import {
   EventEmitter,
   Input
 } from "@angular/core";
-import { ModalDirective, TypeaheadMatch } from "ngx-bootstrap";
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import {
   ProductLineItemsRequest,
   ProductsResponse,
@@ -24,7 +25,7 @@ import { ProductsService } from "../../services/products.services";
   styleUrls: ["./create-new-productLineItems.component.css"]
 })
 export class CreateNewProductLineItemsComponent implements OnInit {
-  @ViewChild("popupSuccessModel", { static: false })
+  @ViewChild("popupSuccessModel")
   popupSuccessModel: ModalDirective;
 
   constructor(

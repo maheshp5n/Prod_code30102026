@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ModalModule, BsDropdownModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FormsModule } from "@angular/forms";
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 import { MslRequestDetailsRouting } from './mslrequestdetails.routing';

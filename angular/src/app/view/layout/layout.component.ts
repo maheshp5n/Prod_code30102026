@@ -5,7 +5,7 @@ import { WabsocketService } from '../../services/wabsocket.service';
 import { LayoutService } from '../../services/layout.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Notifications, Login, ChangePassword, Page } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ChangePasswordService } from '../../services/change-password.service';
 import { exicomNavItems } from '../../_nav';
 import { SearchService, GlobalSearchIndex } from '../../services/search.service';
@@ -22,13 +22,13 @@ export class LayoutComponent implements OnInit, OnDestroy {
   public navItems = [];//exicomNavItems;
   public sidebarMinimized = true;
 
-  @ViewChild('searchResult', { static: false }) searchResult: ModalDirective;
+  @ViewChild('searchResult') searchResult: ModalDirective;
   searchKyeString: string;
-  @ViewChild('menu', { static: false }) menu: ModalDirective;
-  @ViewChild('changePass', { static: false }) changePass: ModalDirective;
-  @ViewChild('passChanged', { static: false }) passChanged: ModalDirective;
-  @ViewChild('customerInventoryBulk', { static: false }) customerInventoryBulk: ModalDirective;
-  @ViewChild('adsearchResult', { static: false }) adsearchResult: ModalDirective
+  @ViewChild('menu') menu: ModalDirective;
+  @ViewChild('changePass') changePass: ModalDirective;
+  @ViewChild('passChanged') passChanged: ModalDirective;
+  @ViewChild('customerInventoryBulk') customerInventoryBulk: ModalDirective;
+  @ViewChild('adsearchResult') adsearchResult: ModalDirective
   numberOfNotification: number = 0;
   loginData: any;
   interval;

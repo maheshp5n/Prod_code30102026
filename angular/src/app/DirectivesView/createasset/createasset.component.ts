@@ -4,7 +4,7 @@ import { AssetsService } from '../../services/assets.services';
 import { AccountService } from '../../services/accounts.services';
 import { PlantService } from '../../services/plants.services';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DatePipe } from '@angular/common';
 import { FieldValidation } from '../../services/validation.services';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
@@ -16,10 +16,10 @@ import { Loginservices } from '../../services/login.services';
   styleUrls: ['./createasset.component.css']
 })
 export class CreateassetComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
-  @ViewChild('accountModel', { static: false }) accountModel: ModalDirective;
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
+  @ViewChild('accountModel') accountModel: ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
 
   _isEditMode: boolean
   assetRequest: AssetsRequest = new AssetsRequest();

@@ -1,5 +1,5 @@
 import { Component, OnInit,Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { BtTobeApprovedService } from '../../bat_services/bat-to-beapprovedservice';
@@ -13,7 +13,7 @@ import { BTApprovalRequest, BTToBeApproved } from '../../bt_model';
 export class BatTobeapprovedDrComponent implements OnInit {
 
  
-  @ViewChild('approvalModule', { static: false }) approvalModule: ModalDirective;
+  @ViewChild('approvalModule') approvalModule: ModalDirective;
 
   _aprdata;
   btnshow:boolean=false;

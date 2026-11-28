@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Login, AccountCreate, LegalEntityResponse, Page, LegaLEntityType } from '../../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ligalEntityService } from '../../../services/ligalentity.services';
 import { Loginservices } from '../../../services/login.services';
 
@@ -18,9 +18,9 @@ import { FieldValidation } from '../../../services/validation.services';
   styleUrls: ['./bat-legalentity.component.css']
 })
 export class BatLegalentityComponent implements OnInit {
-  @ViewChild('createAcountModel', { static: false }) createAcountModel: ModalDirective;
-  @ViewChild('createLegalENtityModel', { static: false }) createLegalENtityModel: ModalDirective;
-  @ViewChild('changeLegalENtityModel', { static: false }) changeLegalENtityModel: ModalDirective;
+  @ViewChild('createAcountModel') createAcountModel: ModalDirective;
+  @ViewChild('createLegalENtityModel') createLegalENtityModel: ModalDirective;
+  @ViewChild('changeLegalENtityModel') changeLegalENtityModel: ModalDirective;
  // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
 
   recentlyView: boolean = false;

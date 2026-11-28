@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtActionHistoryComponent } from './bt-action-history.component';
 
@@ -6,7 +6,7 @@ describe('BtActionHistoryComponent', () => {
   let component: BtActionHistoryComponent;
   let fixture: ComponentFixture<BtActionHistoryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtActionHistoryComponent ]
     })

@@ -3,7 +3,7 @@ import { ActionHistoryObjectAndId, AssetsResponse, CaseResponse, Page, PreRegCas
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { AssetsService } from '../../services/assets.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { caseService } from '../../services/caseService.service';
 import { Loginservices } from '../../services/login.services';
 import { PreRegCaseService } from '../../services/preregcaseservice.services';
@@ -15,10 +15,10 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./assetsdetails.component.css']
 })
 export class AssetsdetailsComponent implements OnInit {
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('createPRCModel',{static:false}) createPRCModel :ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('createPRCModel') createPRCModel :ModalDirective;
   ngClassDetails: string = 'active';
   ngClassReleated: string = '';
   vDetails: boolean = true;

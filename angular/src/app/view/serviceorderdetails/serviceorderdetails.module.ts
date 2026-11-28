@@ -4,7 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ServiceorderDetailsviewComponent } from './serviceorder.detailsview/serviceorder.detailsview.component';
 import { ServiceorderReleatedviewComponent } from './serviceorder.releatedview/serviceorder.releatedview.component';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import {
   ServiceorderreceivedirecModule
 } from '../../DirectivesView/serviceorderreceivedirec/serviceorderreceivedirec.module';

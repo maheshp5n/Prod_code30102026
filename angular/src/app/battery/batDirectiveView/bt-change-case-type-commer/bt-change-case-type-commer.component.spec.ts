@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BtChangeCaseTypeCommerComponent } from './bt-change-case-type-commer.component';
 
@@ -6,7 +6,7 @@ describe('BtChangeCaseTypeCommerComponent', () => {
   let component: BtChangeCaseTypeCommerComponent;
   let fixture: ComponentFixture<BtChangeCaseTypeCommerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BtChangeCaseTypeCommerComponent ]
     })

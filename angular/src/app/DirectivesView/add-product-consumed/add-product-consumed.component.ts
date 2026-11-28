@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter} from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AccountCreate } from '../../services/model';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -9,7 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./add-product-consumed.component.scss']
 })
 export class AddProductConsumedComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<AccountCreate> = new EventEmitter<AccountCreate>();

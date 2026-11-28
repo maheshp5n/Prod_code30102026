@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule, BsDropdownModule, ModalModule} from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { Loginservices } from '../../../services/login.services';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BatExpensesmanagementRouting } from './bat-expensesmanagement.routing';

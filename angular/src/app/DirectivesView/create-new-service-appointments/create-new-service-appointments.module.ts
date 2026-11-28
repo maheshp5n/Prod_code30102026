@@ -2,7 +2,9 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateNewServiceAppointmentsComponent } from './create-new-service-appointments.component';
-import { ModalModule, BsDatepickerModule, DatepickerModule, PopoverModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
@@ -25,7 +27,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ModalModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
     //DatetimePopupModule.forRoot(),
     TimepickerModule.forRoot(),
     PopoverModule.forRoot(),

@@ -20,7 +20,7 @@ import {
   ToBeApprovedHistoryResponse,
   FileUploadResponse
 } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ligalEntityService } from '../../services/ligalentity.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ExpenseManagementService } from '../../services/expenses-management.service';
@@ -28,8 +28,8 @@ import { LodgingExpenseService } from '../../services/LodgingExpenseService';
 import { BoardingExpenseService } from '../../services/boardingExpense.service';
 import { Loginservices } from '../../services/login.services';
 import { ApprovalHistoryService } from '../../services/approvalHistory.service';
-import { FormBuilder } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { FileUploader } from 'ng2-file-upload';
 import * as fileSaver from 'file-saver'; // npm i --save file-saver
@@ -55,7 +55,7 @@ export class ExpensesmanagementdetailsComponent implements OnInit {
     private lodgingService: LodgingExpenseService, private boardingService: BoardingExpenseService,
     private localConveyanceService: LocalConveyanceExpenseService, private otherChargesService: OtherChargesService,
     private loginService: Loginservices, protected _sanitizer: DomSanitizer, private _approvalHistoryService: ApprovalHistoryService,
-    private formBuilder: FormBuilder, private _http: HttpClient,
+    private formBuilder: UntypedFormBuilder, private _http: HttpClient,
     private deleteservice:FileDeleteService,private _global:GlobalserviceService,
     private datePipe: DatePipe,private boadingservice:BoardingLoadingService,
     private _pdfService: PdfServiceService) {
@@ -201,22 +201,22 @@ export class ExpensesmanagementdetailsComponent implements OnInit {
     open: true
   };
 
-  @ViewChild('createTourExpenseModel', { static: false }) createTourExpenseModel: ModalDirective;
-  @ViewChild('createLodgingModel', { static: false }) createLodgingModel: ModalDirective;
-  @ViewChild('createBoardingModel', { static: false }) createBoardingModel: ModalDirective;
-  @ViewChild('createLocalConveyanceModel', { static: false }) createLocalConveyanceModel: ModalDirective;
-  @ViewChild('createOtherChargesModel', { static: false }) createOtherChargesModel: ModalDirective;
-  @ViewChild('createexpensesmanagementModel', { static: false }) createexpensesmanagementModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createexpensesMangementRelatedModel', { static: false }) createexpensesMangementRelatedModel: ModalDirective;
-  @ViewChild('searchResult', { static: false }) searchResult: ModalDirective;
-  @ViewChild('showPreviewModel', { static: false }) showPreviewModel: ModalDirective;
-  @ViewChild('confirmationPopup', { static: false }) confirmationPopup: ModalDirective;
-  @ViewChild('borloddtailModel',{static:false}) borloddtailModel: ModalDirective;
-  @ViewChild('onlyAccountModel',{static:false}) onlyAccountModel : ModalDirective;
-  @ViewChild('deleteExpModel', { static: false }) deleteExpModel:ModalDirective;
-  @ViewChild('submitapprovalmodel',{static:false}) submitapprovalmodel:ModalDirective;
-  uploadForm: FormGroup;
+  @ViewChild('createTourExpenseModel') createTourExpenseModel: ModalDirective;
+  @ViewChild('createLodgingModel') createLodgingModel: ModalDirective;
+  @ViewChild('createBoardingModel') createBoardingModel: ModalDirective;
+  @ViewChild('createLocalConveyanceModel') createLocalConveyanceModel: ModalDirective;
+  @ViewChild('createOtherChargesModel') createOtherChargesModel: ModalDirective;
+  @ViewChild('createexpensesmanagementModel') createexpensesmanagementModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createexpensesMangementRelatedModel') createexpensesMangementRelatedModel: ModalDirective;
+  @ViewChild('searchResult') searchResult: ModalDirective;
+  @ViewChild('showPreviewModel') showPreviewModel: ModalDirective;
+  @ViewChild('confirmationPopup') confirmationPopup: ModalDirective;
+  @ViewChild('borloddtailModel') borloddtailModel: ModalDirective;
+  @ViewChild('onlyAccountModel') onlyAccountModel : ModalDirective;
+  @ViewChild('deleteExpModel') deleteExpModel:ModalDirective;
+  @ViewChild('submitapprovalmodel') submitapprovalmodel:ModalDirective;
+  uploadForm: UntypedFormGroup;
 
   public uploader: FileUploader = new FileUploader({
     isHTML5: true

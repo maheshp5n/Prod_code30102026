@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateAnnexureModule } from '../../DirectivesView/create-annexure/create-annexure.module';
 import { AssetsService } from '../../services/assets.services';
 import { AnnexuredetailsRouting } from './annexuredetails.routing';

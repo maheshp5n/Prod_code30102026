@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../../../services/login.services';
 import { ActionHistoryObjectAndId } from '../../../../services/model';
@@ -34,7 +34,7 @@ export class BatLocalConveyancedetailsComponent implements OnInit {
   _cFlag: string;
 
   // @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createLocalConveyanceModel', { static: false }) createLocalConveyanceModel: ModalDirective;
+  @ViewChild('createLocalConveyanceModel') createLocalConveyanceModel: ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',

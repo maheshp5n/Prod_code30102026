@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sysconfigparamservice } from '../../../services/sysconfig.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { error } from 'protractor';
 
@@ -17,7 +17,7 @@ export class TemplateconfComponent implements OnInit {
     templateType:'MAIL',
     body:''
   };
-  @ViewChild('newtemplatewindow',{static:false})newtemplatewindow:ModalDirective;
+  @ViewChild('newtemplatewindow')newtemplatewindow:ModalDirective;
   constructor(private _sysservice:Sysconfigparamservice,private _ngx:NgxSpinnerService) { }
 
   ngOnInit() {

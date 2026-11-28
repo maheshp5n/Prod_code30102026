@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { cityService } from '../../services/cityService.service';
 import { ActivatedRoute } from '@angular/router';
 import { cityDetailsReq, cityDetailsResponse, CityCatagory, Page} from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { OrderPipe } from 'ngx-order-pipe';
 import { Loginservices } from '../../services/login.services';
@@ -15,8 +15,8 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./city.component.css']
 })
 export class CityComponent implements OnInit {
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
-  @ViewChild('createCityModel',{static:false}) createCityModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createCityModel') createCityModel: ModalDirective;
 
   recentlyView: boolean = false;
   searchitem: string = '';

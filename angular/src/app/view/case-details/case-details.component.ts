@@ -22,14 +22,14 @@ import {
   FileUploadResponseCase
 } from '../../services/model';
 import { Loginservices } from '../../services/login.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { caseService } from '../../services/caseService.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { StringifyOptions } from 'querystring';
 import { OpportunityService } from '../../services/Opportunity.services';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { BatrryFSRService } from '../../services/BattryFSRservice.services';
 import * as fileSaver from 'file-saver';
 import { ApprovalHistoryService } from '../../services/approvalHistory.service';
@@ -42,10 +42,10 @@ import { GlobalserviceService } from '../../globalservice.service';
   styleUrls: ['./case-details.component.scss']
 })
 export class CaseDetailsComponent implements OnInit {
-  @ViewChild('createCaseModel', { static: false }) createCaseModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('createPD',{static:false}) createPD:ModalDirective;
+  @ViewChild('createCaseModel') createCaseModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('createPD') createPD:ModalDirective;
   res: CaseResponse = new CaseResponse();
   req: CaseRequest = new CaseRequest();
   caseres: CaseResponse = new CaseResponse()
@@ -112,17 +112,17 @@ export class CaseDetailsComponent implements OnInit {
   historyList:Array<ToBeApprovedHistoryResponse>=[];
   objectname:string;
   CaseDetails;
-  uploadForm: FormGroup;
+  uploadForm: UntypedFormGroup;
   formData = new FormData();
   fileLists: Array<FileUploadResponseCase> = [];
   RejectLogList:Array<caseLogReject>=[];
   caseRejectreq:RejectCaseRequest=new RejectCaseRequest();
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('createNewOpportunity', { static: false }) createNewOpportunity: ModalDirective;
-  @ViewChild('choosenFiles',{static:false}) choosenFiles:ModalDirective;
-  @ViewChild('choosenFilesShow',{static:false}) choosenFilesShow:ModalDirective;
-  @ViewChild('rejectcasemodel',{static:false}) rejectcasemodel: ModalDirective;
-  @ViewChild('changeCaseTypemodel',{static:false}) changeCaseTypemodel :ModalDirective;
+  @ViewChild('createNewOpportunity') createNewOpportunity: ModalDirective;
+  @ViewChild('choosenFiles') choosenFiles:ModalDirective;
+  @ViewChild('choosenFilesShow') choosenFilesShow:ModalDirective;
+  @ViewChild('rejectcasemodel') rejectcasemodel: ModalDirective;
+  @ViewChild('changeCaseTypemodel') changeCaseTypemodel :ModalDirective;
 
   addressDisplay = {
     angleIcon: 'fa fa-angle-down',
@@ -173,7 +173,7 @@ export class CaseDetailsComponent implements OnInit {
   
   actionHistoryObjectAndId: ActionHistoryObjectAndId = new ActionHistoryObjectAndId();
 
-  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: FormBuilder,
+  constructor( private deleteservice:FileDeleteService,private approvalHistoryService:ApprovalHistoryService,private formBuilder: UntypedFormBuilder,
     private loginservice: Loginservices, private caseservice: caseService, private _activatedRoute: ActivatedRoute, 
     private spinner: NgxSpinnerService, private oportunityServic: OpportunityService,
     private _global:GlobalserviceService,

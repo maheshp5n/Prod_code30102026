@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { ModalModule } from "ngx-bootstrap";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BatEditJobCardModule } from "../../batDirectiveView/bat-edit-job-card/bat-edit-job-card-module";
 import { BatJobCardReAssignModule } from "../../batDirectiveView/bat-reassign-job-card/bat-reassign-job-card.module";

@@ -4,7 +4,7 @@ import { AccountsCatagoryServices } from '../../services/catagory.services';
 import { BusinessDomain, AccountsType, AccountCreate, CountryDetails, StateProvinceDetails, AccountsForList, CustomerForList } from '../../services/model';
 import { AccountService } from '../../services/accounts.services';
 import { CountryDetailsServices } from '../../services/countrydetails.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { CustomerService } from '../../services/customers.services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
@@ -15,8 +15,8 @@ import { FieldValidation } from '../../services/validation.services';
   styleUrls: ['./createparent-account.component.scss']
 })
 export class CreateparentAccountComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createCustomerModel', { static: false }) createCustomerModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createCustomerModel') createCustomerModel: ModalDirective;
 
   @Output()
   onAccountCreated: EventEmitter<AccountCreate> = new EventEmitter<AccountCreate>();

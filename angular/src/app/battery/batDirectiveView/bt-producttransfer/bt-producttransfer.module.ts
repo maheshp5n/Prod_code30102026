@@ -3,13 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import {
-  AccordionModule,
-  AlertModule,
-  ModalModule,
-  BsDatepickerModule,
-  TooltipModule
-} from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { GlobalSearchPipeModule } from '../../../pipe/global-search-pipe.module';
 import { BtProducttransferComponent } from './bt-producttransfer.component';

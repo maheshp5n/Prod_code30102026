@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { PriceBookResponse, PriceBookRequest } from '../../services/model';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { PriceBookService } from '../../services/pricebook.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -19,7 +19,7 @@ export class CreatepricebookComponent implements OnInit {
   nameTamp:string;
   IdTamp:number;
   popupNgClass: string = 'alert alert-danger center center-block';
-  @ViewChild('popupSuccessModel',{static:false}) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   @Input()
   set isEditMode(isEditMode: boolean) {
     this._isEditMode = isEditMode;

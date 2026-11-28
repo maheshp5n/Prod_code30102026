@@ -12,7 +12,7 @@ import { siteService } from '../../services/siteService.services';
 import { ActivatedRoute } from '@angular/router';
 import { TypeaheadConfig, TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { ligalEntityService } from '../../services/ligalentity.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatePipe } from '@angular/common';
 import { ContactsService } from '../../services/contacts.services';
@@ -29,14 +29,14 @@ import { GlobalserviceService } from '../../globalservice.service';
   // providers: [{ provide: TypeaheadConfig }]
 })
 export class CreatecaseComponent implements OnInit {
-  @ViewChild('createSiteModel', { static: false }) createSiteModel: ModalDirective;
-  @ViewChild('createLegalEntityModel', { static: false }) createLegalEntityModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createAssetModel', { static: false }) createAssetModel: ModalDirective;
-  @ViewChild('createContactModel', { static: false }) createContactModel: ModalDirective;
-  @ViewChild('createuploadFileModel',{static:false}) createuploadFileModel: ModalDirective;
-  @ViewChild('fileUploadModel',{static:false}) fileUploadModel:ModalDirective;
-  @ViewChild('popupAlertModel',{static:false}) popupAlertModel:ModalDirective;
+  @ViewChild('createSiteModel') createSiteModel: ModalDirective;
+  @ViewChild('createLegalEntityModel') createLegalEntityModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createAssetModel') createAssetModel: ModalDirective;
+  @ViewChild('createContactModel') createContactModel: ModalDirective;
+  @ViewChild('createuploadFileModel') createuploadFileModel: ModalDirective;
+  @ViewChild('fileUploadModel') fileUploadModel:ModalDirective;
+  @ViewChild('popupAlertModel') popupAlertModel:ModalDirective;
 
   @Output()
   onCaseCreated: EventEmitter<CaseRequest> = new EventEmitter<CaseRequest>();
@@ -206,10 +206,49 @@ export class CreatecaseComponent implements OnInit {
   @Input()
   set assetWarretyCheck(assetWarrety:string){
     this.assetWarenty=assetWarrety;
-
+    this.applyAssetWarrantyCaseType(assetWarrety);
   }
   get assetWarretyCheck():string{
      return this.assetWarenty;
+  }
+
+  applyAssetWarrantyCaseType(warranty:string){
+    if (warranty == null) {
+      return;
+    }
+
+    const warrantyStatus = warranty.trim();
+
+    if (warrantyStatus === "Under Warranty") {
+      if (this.domainId === 1) {
+        this.res.caseTypeId = 2;
+      } else {
+        this.res.caseTypeId = 7;
+      }
+      this.getCaseReason(this.res.caseTypeId);
+      return;
+    }
+
+    if (warrantyStatus === "Under AMC") {
+      if (this.domainId === 1) {
+        this.res.caseTypeId = 10;
+        this.ngClassMissingAsset = 'form-group required';
+      } else {
+        this.res.caseTypeId = 9;
+        this.ngClassMissingAsset = 'form-group required';
+      }
+      this.getCaseReason(this.res.caseTypeId);
+      return;
+    }
+
+    if (warrantyStatus === "Without Warranty" || warrantyStatus === "Without Warranty/AMC") {
+      if (this.domainId === 1) {
+        this.res.caseTypeId = 4;
+      } else {
+        this.res.caseTypeId = 8;
+      }
+      this.getCaseReason(this.res.caseTypeId);
+    }
   }
   @Input()
   set AssetSerial(caseRes:CaseResponse){
@@ -244,64 +283,8 @@ export class CreatecaseComponent implements OnInit {
 
     //shagg
 
-    if(this.assetWarenty==null){
-      if(this.domainId==1){
-        this.res.caseTypeId=4;
-        this.getCaseReason(this.res.caseTypeId);
-        this.res.caseReasonId=5;
-        }
-        else{
-          this.res.caseTypeId=8;
-          this.getCaseReason(this.res.caseTypeId);
-          this.res.caseReasonId=17;
-          
-        }
+    this.applyAssetWarrantyCaseType(this.assetWarenty);
 
-    }
-   else if(this.assetWarenty=="Without Warranty/AMC"){
-     if(this.domainId==1){
-     this.res.caseTypeId=4;
-     this.getCaseReason(this.res.caseTypeId);
-     this.res.caseReasonId=5;
-     }
-     else{
-       this.res.caseTypeId=8;
-       this.getCaseReason(this.res.caseTypeId);
-       this.res.caseReasonId=17;
-       
-     }
-   }
-   else if(this.assetWarenty=="Under AMC"){
-    if(this.domainId==1){
-      this.res.caseTypeId = 10;
-        this.getCaseReason(this.res.caseTypeId);
-        this.res.caseReasonId = 8;
-        this.ngClassMissingAsset = 'form-group required';
-     }
-     else{
-      this.res.caseTypeId = 9;
-      this.getCaseReason(this.res.caseTypeId);
-      this.res.caseReasonId = 11;
-      this.ngClassMissingAsset = 'form-group required';
-  
-     }
-     
-   }
-   else{
-    if(this.domainId==1){
-      this.res.caseTypeId = 2;
-        this.getCaseReason(this.res.caseTypeId);
-        this.res.caseReasonId = 8;
-        this.ngClassMissingAsset = 'form-group required';
-     }
-     else{
-      this.res.caseTypeId = 7;
-      this.getCaseReason(this.res.caseTypeId);
-      this.res.caseReasonId = 11;
-      this.ngClassMissingAsset = 'form-group required';
-  
-     }
-   }
     //ending
    
     //asstwarrenty
@@ -1186,8 +1169,8 @@ get SiteSeviceResourceID():number{
     this.res.contactPersonId = $event.contactid;
     // this.isEditMode=true;
   }
-  onEntityCreated($event) {
-    this.legalEntityList.legalEntityName = $event.legalEntityName;
+  onEntityCreated($event: Contacts) {
+    this.legalEntityList.legalEntityName = $event.leagalEntityName;
     this.leaglEntityList.unshift(this.legalEntityList);
   }
 

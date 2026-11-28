@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { BtApprovalService } from '../../bat_services/btapprovalservice';
 import { BatApprovalDataFlowService } from './bat-approvalflow-data';
@@ -19,8 +19,8 @@ export class BatApprovalflowComponent implements OnInit {
     editapprovalstapes:false
   }
 
-  @ViewChild('editapprovalflow',{static:false})editapprovalflow:ModalDirective;
-  @ViewChild('stapes',{static:false})stapes:ModalDirective;
+  @ViewChild('editapprovalflow')editapprovalflow:ModalDirective;
+  @ViewChild('stapes')stapes:ModalDirective;
 
   constructor(private approval:BtApprovalService,private activatedRoute:ActivatedRoute,private global:GlobalserviceService,private _router:Router,private dataservice:BatApprovalDataFlowService) { 
     

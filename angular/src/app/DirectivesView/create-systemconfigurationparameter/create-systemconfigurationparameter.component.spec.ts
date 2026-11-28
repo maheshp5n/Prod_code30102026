@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateSystemconfigurationparameterComponent } from './create-systemconfigurationparameter.component';
 
@@ -6,7 +6,7 @@ describe('CreateSystemconfigurationparameterComponent', () => {
   let component: CreateSystemconfigurationparameterComponent;
   let fixture: ComponentFixture<CreateSystemconfigurationparameterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateSystemconfigurationparameterComponent ]
     })

@@ -1,4 +1,4 @@
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalserviceService } from './globalservice.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
@@ -23,13 +23,17 @@ export class AppComponent implements OnInit, OnDestroy {
     show:false,
   }
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   constructor(private router: Router, private _global: GlobalserviceService,
     private swUpdate:SwUpdate
     ) {
-    this.swUpdate.available.subscribe(data=>{
-      this.swUpdate.activateUpdate().then(()=>document.location.reload());
-    });
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.subscribe(evt => {
+        if (evt.type === 'VERSION_READY') {
+          this.swUpdate.activateUpdate().then(() => document.location.reload());
+        }
+      });
+    }
   }
 
   inter;

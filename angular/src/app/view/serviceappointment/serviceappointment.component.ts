@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CaseReasonForList, CaseTypeForList, ClaimStatus, Page, SAAdvanceSearchData, SAStatus, ServiceAppointmentResponse } from '../../services/model';
 import { ServiceAppointmentService } from '../../services/serviceappointment.services';
@@ -7,7 +7,6 @@ import { Loginservices } from '../../services/login.services';
 import { ActivatedRoute } from '@angular/router';
 import { PagefilterService } from '../../services/pagefilterservice';
 import { GlobalserviceService } from '../../globalservice.service';
-import { IfStmt } from '@angular/compiler';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import { caseService } from '../../services/caseService.service';
@@ -19,8 +18,8 @@ import { caseService } from '../../services/caseService.service';
 })
 export class ServiceappointmentComponent implements OnInit {
 
-  @ViewChild('createServiceAppointmentModel', { static: false }) createServiceAppointmentModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createServiceAppointmentModel') createServiceAppointmentModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   advanceSearchResult:SAAdvanceSearchData=new SAAdvanceSearchData();
   today = new Date();
   dateCustomClasses: DatepickerDateCustomClasses[];

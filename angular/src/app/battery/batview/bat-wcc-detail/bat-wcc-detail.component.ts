@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalserviceService } from '../../../globalservice.service';
 import { ApprovalHistoryService } from '../../../services/approvalHistory.service';
@@ -21,11 +21,11 @@ export class BatWccDetailComponent implements OnInit {
   vDetails: boolean = true;
   venReq: VendorInvoiceRequest = new VendorInvoiceRequest();
   wccres: WCCResponse = new WCCResponse();
-  @ViewChild('createWCCModel', { static: false }) createWCCModel: ModalDirective;
-  @ViewChild('commercialModel', { static: false }) commercialModel: ModalDirective;
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('alertModal', { static: false }) alertModal: ModalDirective;
-  @ViewChild('approvalModule',{static:false})approvalModule:ModalDirective;
+  @ViewChild('createWCCModel') createWCCModel: ModalDirective;
+  @ViewChild('commercialModel') commercialModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('alertModal') alertModal: ModalDirective;
+  @ViewChild('approvalModule')approvalModule:ModalDirective;
 
   alertmeta = {
     ngClass: 'alert-success',

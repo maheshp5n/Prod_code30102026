@@ -9,7 +9,6 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
-  useJit: true,
   preserveWhitespaces: true
 }).then(() => {
   if ('serviceWorker' in navigator && environment.production) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Loginservices } from '../../services/login.services';
 import { QuotePdfHeaderAndFooterResponse, QuotePdfHeaderAndFooterRequest, QuoteTemplateEnableAndDisableRequest, Page } from '../../services/model';
@@ -12,8 +12,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./quete-template-tand-c.component.scss']
 })
 export class QueteTemplateTandCComponent implements OnInit {
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('quotePDFTemplateModel', { static: false }) quotePDFTemplateModel: ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('quotePDFTemplateModel') quotePDFTemplateModel: ModalDirective;
 
   quoteTemplateList: Page<QuotePdfHeaderAndFooterResponse> = new Page<QuotePdfHeaderAndFooterResponse>();
   quotePdfHeaderAndFooterResponse: QuotePdfHeaderAndFooterResponse = new QuotePdfHeaderAndFooterResponse();

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, ViewChild,EventEmitter } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CirclesService } from '../../../services/circles.services';
 import { CountryDetailsServices } from '../../../services/countrydetails.services';
@@ -45,7 +45,7 @@ export class BatCreateCircleComponent implements OnInit {
   get editCircleData(): CirclesRequest {
     return this.newcircles;
   }
-  @ViewChild('popupSuccessModel', { static: false })
+  @ViewChild('popupSuccessModel')
   popupSuccessModel: ModalDirective;
 
   newcircles: CirclesRequest = new CirclesRequest();

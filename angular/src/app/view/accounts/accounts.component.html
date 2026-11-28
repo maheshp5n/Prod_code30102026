@@ -103,17 +103,19 @@
   <!--  -->
   <div class="card-body" style="padding: 0px;background-color: white;">
     <div class="wrap">
-      <table #datatable class="head">
+      <table #datatable class="head" style="min-width: 1000px;">
         <thead style="background-color:rgb(248, 245, 245)">
-          <th  title="S.No">S.No</th>
-          <th scope="col" *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
-          title="{{tb.name}}">
-          <div class="row">
-            <div class="col-10">{{tb.name}}</div>
-            <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
-           </div>
-         </th>
-          <th>Action</th>
+          <tr>
+            <th title="S.No">S.No</th>
+            <th scope="col" *ngFor="let tb of requestTableHeaders" (click)="getSortOrder(tb.id)"
+            title="{{tb.name}}">
+            <div class="row">
+              <div class="col-10">{{tb.name}}</div>
+              <div class="col sm-2"><i [ngClass]="tb.icon"></i></div>
+            </div>
+            </th>
+            <th>Action</th>
+          </tr>
         </thead>
       </table>
       <div class="inner_table" *ngIf="accountList.content.length>0">

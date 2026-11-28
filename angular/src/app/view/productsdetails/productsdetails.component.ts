@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, ProductSubFamily, ProductsResponse, PriceBookResponse } from '../../services/model';
 import { ProductsService } from '../../services/products.services';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PriceBookService } from '../../services/pricebook.service';
 import { Loginservices } from '../../services/login.services';
@@ -17,12 +17,12 @@ import { BillOfmaterialService } from '../../services/billOfMaterial.service';
 
 export class ProductsdetailsComponent implements OnInit {
 
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
-  @ViewChild('createProductModel', { static: false }) createProductModel: ModalDirective;
-  @ViewChild('createpriceBookModel', { static: false }) createpriceBookModel: ModalDirective;
-  @ViewChild('createaddProductModel', { static: false }) createaddProductModel: ModalDirective;
-  @ViewChild('createeditProductModel', { static: false }) createeditProductModel: ModalDirective;
-  @ViewChild('creatitmModel',{static:false}) creatitmModel:ModalDirective;
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
+  @ViewChild('createProductModel') createProductModel: ModalDirective;
+  @ViewChild('createpriceBookModel') createpriceBookModel: ModalDirective;
+  @ViewChild('createaddProductModel') createaddProductModel: ModalDirective;
+  @ViewChild('createeditProductModel') createeditProductModel: ModalDirective;
+  @ViewChild('creatitmModel') creatitmModel:ModalDirective;
   iseditProductOpen: boolean;
   isProductOpen: boolean;
   productid: string;

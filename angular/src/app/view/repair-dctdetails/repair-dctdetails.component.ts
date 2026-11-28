@@ -1,7 +1,7 @@
 import { GlobalserviceService } from './../../globalservice.service';
 import { ServiceOrderJobCardService } from './../../services/serviceorderjobcardservice';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { Loginservices } from '../../services/login.services';
@@ -22,8 +22,8 @@ export class RepairDCTDetailsComponent implements OnInit {
   // req: SSARequest = new SSARequest()
   // res: SSAResponse = new SSAResponse()
   // ssares: SSAResponse = new SSAResponse()
-  @ViewChild('createRpairModel', { static: false }) createRpairModel: ModalDirective
-  @ViewChild('popupSuccessModel', { static: false }) popupSuccessModel: ModalDirective;
+  @ViewChild('createRpairModel') createRpairModel: ModalDirective
+  @ViewChild('popupSuccessModel') popupSuccessModel: ModalDirective;
   sapId: string = '';
   message: string;
   tabledata: any

@@ -3,7 +3,6 @@ import { LocationForList, LocationProductItemResponse, Page } from '../../servic
 import { LocationService } from '../../services/location.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-inventorymonitoring',
