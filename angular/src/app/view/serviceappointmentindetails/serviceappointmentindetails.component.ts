@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -13,14 +13,14 @@ import * as fileSaver from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { FileDeleteService } from '../../services/filedeletService.services';
 import { GlobalserviceService } from '../../globalservice.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-serviceappointmentindetails',
   templateUrl: './serviceappointmentindetails.component.html',
   styleUrls: ['./serviceappointmentindetails.component.scss']
 })
-export class ServiceappointmentindetailsComponent implements OnInit {
+export class ServiceappointmentindetailsComponent implements OnInit, OnDestroy {
 
   @ViewChild('createServiceAppointmentModel') public createServiceAppointmentModel: ModalDirective;
   @ViewChild('productConsumedModel') public productConsumedModel: ModalDirective;
@@ -100,6 +100,10 @@ export class ServiceappointmentindetailsComponent implements OnInit {
   formData: FormData = new FormData()
   fileName: string;
   imageUrl: string;
+  safePreviewUrl: SafeResourceUrl | null = null;
+  previewBlob: Blob | null = null;
+  private previewObjectUrl: string | null = null;
+  isPdfPreview = false;
   LogedEmailId:string;
 
   addressDisplay = {
@@ -169,6 +173,11 @@ export class ServiceappointmentindetailsComponent implements OnInit {
     });
     
   }
+
+  ngOnDestroy(): void {
+    this.releasePreviewObjectUrl();
+  }
+
   canMapview:boolean=false;
   getServiceAppointmentById(sapId: number) {
     this.spinner.show();
@@ -727,11 +736,18 @@ export class ServiceappointmentindetailsComponent implements OnInit {
   }
 
   // show preview file and save file
-  filePreview(url, fileName) {
+  filePreview(fileName: string) {
+    this.releasePreviewObjectUrl();
     this.fileName = fileName;
-    this.imageUrl = url;
+    this.isPdfPreview = fileName.toLowerCase().endsWith('.pdf');
     this.spinner.show();
     this._serviceAppointmentService.getDownloadFile(fileName).subscribe(data => {
+      this.previewBlob = data;
+      this.previewObjectUrl = URL.createObjectURL(data);
+      this.imageUrl = this.previewObjectUrl;
+      if (this.isPdfPreview) {
+        this.safePreviewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.previewObjectUrl);
+      }
       this.spinner.hide();
       this.filePreviewModel.show();
     }, err => {
@@ -741,10 +757,28 @@ export class ServiceappointmentindetailsComponent implements OnInit {
       this.popupSuccessModel.show();
     });
   }
-  saveFile() {
-    fileSaver.saveAs(this.imageUrl, this.fileName);
-    this.spinner.hide();
+
+  closeFilePreview() {
     this.filePreviewModel.hide();
+    this.releasePreviewObjectUrl();
+  }
+
+  private releasePreviewObjectUrl() {
+    if (this.previewObjectUrl) {
+      URL.revokeObjectURL(this.previewObjectUrl);
+      this.previewObjectUrl = null;
+    }
+    this.previewBlob = null;
+    this.imageUrl = '';
+    this.safePreviewUrl = null;
+  }
+
+  saveFile() {
+    if (this.previewBlob) {
+      fileSaver.saveAs(this.previewBlob, this.fileName);
+      this.spinner.hide();
+      this.closeFilePreview();
+    }
   }
   // close file
 // delete product consumed by shagufta

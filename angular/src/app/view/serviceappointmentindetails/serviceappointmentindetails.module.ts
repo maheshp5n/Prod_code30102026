@@ -13,7 +13,6 @@ import { ServiceappointmentProductconsumedModule } from '../../DirectivesView/se
 import { CreateServiceresourceModule } from '../../DirectivesView/create-serviceresource/create-serviceresource.module';
 import { CreatebatteryFSRCBMSLilonbatteryModule } from '../../DirectivesView/createbattery-fsrcbmslilonbattery/createbattery-fsrcbmslilonbattery.module';
 import { ReassignServiceAppointmentModule } from '../../DirectivesView/reassign-service-appointment/reassign-service-appointment.module';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ItemapprovalModule } from '../../DirectivesView/itemapproval/itemapproval.module';
 import { ActionhistoryModule } from '../../DirectivesView/action-history/action-history.module';
 import { AgmCoreModule } from '@agm/core';
@@ -33,7 +32,6 @@ import { platformBrowser } from '@angular/platform-browser';
     CreatebatteryFSRCBMSLilonbatteryModule,
     ReassignServiceAppointmentModule,
     ReactiveFormsModule,
-    PdfViewerModule,
     ItemapprovalModule,
     ActionhistoryModule, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDt8jbYUC6XPSh-avvQhs7vU8Iuw9E2vfE'
